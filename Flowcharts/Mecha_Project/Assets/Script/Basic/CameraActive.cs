@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CameraMovement : MonoBehaviour
+public class CameraActive : MonoBehaviour
 {
     PlayerInput gameInput;
     InputAction lookAction;

@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerActive : MonoBehaviour
 {
     PlayerInput gameInput;
 
@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject PauseMenu;
     public bool isPaused;
+    public MechaPlayer Player;
 
     [Header("Player Status")]
     public float speed;
@@ -61,13 +62,12 @@ public class PlayerMovement : MonoBehaviour
         PlayerJump();
         DashPlayer();
         BlockPlayer();
-        FlyUpPlayer();
-        FlyDownPlayer();
         UltimatePlayer();
         ScopeMode();
         Shooting();
-        Skill1();
-        Skill2();
+        Skill();
+        Hovering();
+        Death();
     }
 
     void MovePlayer()
@@ -88,6 +88,18 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    void Hovering()
+    {
+        if (flyUp.IsPressed())
+        {
+            Debug.Log("FlyUp");
+        }
+
+        if (flyDown.IsPressed())
+        {
+            Debug.Log("FlyDown");
+        }
+    }
     void PlayerJump()
     {
         if (jumpAction.triggered && isGrounded)
@@ -158,22 +170,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void FlyUpPlayer()
-    {
-        if (flyUp.triggered)
-        {
-            Debug.Log("FlyUp");
-        }
-    }
-
-    void FlyDownPlayer()
-    {
-        if (flyDown.triggered)
-        {
-            Debug.Log("FlyDown");
-        }
-    }
-
     void UltimatePlayer()
     {
         if (ultimateAction.triggered)
@@ -206,19 +202,21 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Skill1()
+    void Skill()
     {
         if (skill1Action.triggered)
         {
             Debug.Log("Skill 1 Activated");
         }
-    }
 
-    void Skill2()
-    {
         if (skill2Action.triggered)
         {
             Debug.Log("Skill 2 Activated");
         }
+    }
+
+    void Death()
+    {
+        
     }
 }
