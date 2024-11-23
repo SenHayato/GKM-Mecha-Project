@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class MechaPlayer : MonoBehaviour
 {
@@ -26,10 +27,18 @@ public class MechaPlayer : MonoBehaviour
 
     [Header("Defence")]
     public int Defence;
-    public bool Guard;
 
-    public void Death()
-    {
-        SceneManager.LoadScene("");
-    }
+    [Header("Status")]
+    public bool isDeath;
+    public bool isGuard;
+    public bool isHovering;
+    public bool isAiming;
+    public bool isShooting;
+    public bool isDashing;
+
+    [Header("Skill Condition")]
+    public bool isSkill1;
+    public bool isSkill2;
+    
 }
+

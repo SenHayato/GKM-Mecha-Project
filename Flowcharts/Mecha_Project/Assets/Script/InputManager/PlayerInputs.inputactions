@@ -25,7 +25,7 @@
                 },
                 {
                     "name": "Look",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "d5a6d97e-099b-4173-9bbb-44c757bfeace",
                     "expectedControlType": "Vector2",
                     "processors": "",
@@ -307,6 +307,17 @@
                 },
                 {
                     "name": "",
+                    "id": "71fc6916-1086-448d-9b4d-8b1f56b5e0b0",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse;PC",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "6389a90d-2fa8-4e7e-8b92-91fa6a458285",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -407,7 +418,7 @@
                 {
                     "name": "",
                     "id": "e33d5e36-7601-4461-9871-386b07193c71",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Mouse>/forwardButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse;PC",
@@ -473,7 +484,7 @@
                 {
                     "name": "",
                     "id": "2736e2bb-f5dc-44de-87e3-82988318dad8",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse;PC",
@@ -495,7 +506,7 @@
                 {
                     "name": "",
                     "id": "6b523e85-f227-4276-ba7e-5af0a84c79a4",
-                    "path": "<Mouse>/forwardButton",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse;PC",

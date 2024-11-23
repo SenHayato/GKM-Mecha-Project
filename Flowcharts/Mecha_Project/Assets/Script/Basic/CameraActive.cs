@@ -1,44 +1,120 @@
-using System.Collections;
-using System.Collections.Generic;
+using Microsoft.Win32.SafeHandles;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class CameraActive : MonoBehaviour
 {
-    PlayerInput gameInput;
+    public GameObject Player;
+    public GameObject Camera;
+
+    public Transform cameraPivot;
+    public Transform cameraAimPost;
+    public Transform cameraMainPost;
+    public PlayerInput cameraControl;
+    public PlayerActive PlayerAct;
+    private Camera MainCamera;
+    private MechaPlayer Mecha;
     InputAction lookAction;
 
-    public Transform playerBody;
-    public float camSpeed = 100f;
-    public float xRotation = 0f; // Menyimpan rotasi sumbu X untuk mencegah kamera terbalik
+    [Header("ScopeCamera")]
+    public float defaultFOV;
+    public float scopeFOV;
 
-    void Start()
+    public float rotationSpeed;
+    Vector2 lookInput;
+
+    private void Start()
     {
-        gameInput = GetComponent<PlayerInput>();
-        lookAction = gameInput.actions.FindAction("Look");
-        //Cursor.lockState = CursorLockMode.Locked; // Mengunci kursor ke tengah layar
-        //Cursor.visible = false; // Menyembunyikan kursor
+        Player = GameObject.FindGameObjectWithTag("Player");
+        Camera = GameObject.FindGameObjectWithTag("MainCamera");
+        Mecha = FindAnyObjectByType<MechaPlayer>();
+
+        MainCamera = Camera.GetComponent<Camera>();
+        cameraControl = Player.GetComponent<PlayerInput>();
+        cameraPivot = GetComponent<Transform>();
+        lookAction = cameraControl.actions.FindAction("Look");
+        PlayerAct = Player.GetComponent<PlayerActive>();
+
+        cameraControl.enabled = true;
+
+        //Default camera rotation
+        cameraPivot.transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    void Update()
+    public void ScopeCamera()
     {
-        LookAround();
+        if (Mecha.isAiming)
+        {
+            MainCamera.fieldOfView = scopeFOV;
+            MainCamera.transform.position = cameraAimPost.transform.position;
+            SameRotation();
+        }
+        else
+        {
+            MainCamera.fieldOfView = defaultFOV;
+            MainCamera.transform.position = cameraMainPost.transform.position;
+            Vector3 adjustedRotation = Player.transform.eulerAngles;
+            adjustedRotation.x = 0;
+            Player.transform.eulerAngles = adjustedRotation; 
+        }
     }
 
-    void LookAround()
+    public void ShootingCamera()
     {
-        Vector2 lookInput = lookAction.ReadValue<Vector2>(); // Membaca input dari arrow keys atau mouse
-        float horizontalInput = lookInput.x; // Input horizontal (left/right) dari arrow keys
-        float verticalInput = lookInput.y; // Input vertikal (up/down) dari arrow keys
+        if (Mecha.isShooting && !Mecha.isAiming)
+        {
+            SameRotation();
+            Vector3 adjustedRotation = Player.transform.eulerAngles;
+            adjustedRotation.x = Mathf.Clamp(0f, -19f, 2.5f);
+            Player.transform.eulerAngles = adjustedRotation;
 
-        // Jika input berasal dari arrow keys, sesuaikan kecepatan rotasi
-        float mouseX = horizontalInput * camSpeed * Time.deltaTime;
-        float mouseY = verticalInput * camSpeed * Time.deltaTime;
+        }
+        else
+        {
+            Vector3 adjustedRotation = Player.transform.eulerAngles;
+            adjustedRotation.x = 0;
+            Player.transform.eulerAngles = adjustedRotation;
+        }
+    }
 
-        xRotation -= mouseY; // Update rotasi sumbu X
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Mencegah rotasi kamera terbalik
+    public void SamePosition()
+    {
+        if (Player != null)
+        {
+            transform.position = Player.transform.position;
+        }
+    }
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); // Rotasi kamera sumbu X
-        playerBody.Rotate(Vector3.up * mouseX); // Rotasi tubuh player sumbu Y
+    public void SameRotation()
+    {
+        Player.transform.rotation = Camera.transform.rotation;
+        
+        // Mengatur ulang rotasi X ke 0 menggunakan Euler angles
+        Vector3 adjustedRotation = Player.transform.eulerAngles;
+        //adjustedRotation.x = 0;
+        Player.transform.eulerAngles = adjustedRotation;
+    }
+
+    public void CameraRotation()
+    {
+        lookInput = lookAction.ReadValue<Vector2>();
+        cameraPivot.transform.Rotate(Vector3.up, lookInput.x * rotationSpeed * Time.deltaTime);
+        Vector3 currentRotation = cameraPivot.transform.localEulerAngles;
+        float desiredXRotation = currentRotation.x - lookInput.y * rotationSpeed * Time.deltaTime;
+        currentRotation.x = ClampAngle(desiredXRotation, -30f, 50f);
+        currentRotation.z = 0;
+        cameraPivot.transform.localEulerAngles = currentRotation;
+        static float ClampAngle(float angle, float min, float max)
+        {
+            if (angle > 180f) angle -= 360f;
+            return Mathf.Clamp(angle, min, max);
+        }
+
+    }
+
+    private void Update()
+    {
+        SamePosition();
+        CameraRotation();
     }
 }

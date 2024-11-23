@@ -1,6 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,12 +8,14 @@ public class PlayerActive : MonoBehaviour
     PlayerInput gameInput;
 
     // Input
-    InputAction moveAction, jumpAction, startButton, flyUp, shootAction, scopeAction, skill1Action, skill2Action,
+    public InputAction moveAction, jumpAction, flyUp, shootAction, scopeAction, skill1Action, skill2Action,
         flyDown, blockAction, dashAction, selectButton, ultimateAction;
 
-    public GameObject PauseMenu;
-    public bool isPaused;
-    public MechaPlayer Player;
+    public MechaPlayer Mecha;
+    public GameMaster GameMaster;
+    public CameraActive CameraAct;
+    public Transform cameraPivot;
+    public GameObject skillHitBox;
 
     [Header("Player Status")]
     public float speed;
@@ -23,17 +24,29 @@ public class PlayerActive : MonoBehaviour
     public bool isGrounded;
     public float verticalVelocity;
     public float fallMultiplier;
+    public float rotationSpeed;
+    private bool wasAiming;
 
-    private CharacterController controller;
-    private Animator anim;
+    public CharacterController controller;
+    public Animator anim;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
+        GameMaster = FindAnyObjectByType<GameMaster>();
+        CameraAct = FindAnyObjectByType<CameraActive>();
+        rotationSpeed = CameraAct.rotationSpeed;
+        cameraPivot = CameraAct.cameraPivot;
+        skillHitBox = GameObject.Find("SkillHitBox");
+        skillHitBox.SetActive(false);
+
+        Mecha = GetComponent<MechaPlayer>();
         gameInput = GetComponent<PlayerInput>();
+        controller = GetComponent<CharacterController>();
+        anim = GetComponent<Animator>();
+
         moveAction = gameInput.actions.FindAction("Movement");
         jumpAction = gameInput.actions.FindAction("Jump");
-        startButton = gameInput.actions.FindAction("Pause");
         blockAction = gameInput.actions.FindAction("Block");
         dashAction = gameInput.actions.FindAction("Dash");
         selectButton = gameInput.actions.FindAction("Select");
@@ -45,8 +58,7 @@ public class PlayerActive : MonoBehaviour
         shootAction = gameInput.actions.FindAction("Shoot");
         scopeAction = gameInput.actions.FindAction("Scope");
 
-        controller = GetComponent<CharacterController>();
-        anim = GetComponent<Animator>();
+        wasAiming = false;
     }
 
     // Update is called once per frame
@@ -54,41 +66,89 @@ public class PlayerActive : MonoBehaviour
     {
         //Hukum Fisika COY
         ApplyGravity();
-        OpenPause();
         SelectButtonPress();
 
         //Class untuk player
-        MovePlayer();
         PlayerJump();
         DashPlayer();
         BlockPlayer();
         UltimatePlayer();
         ScopeMode();
         Shooting();
-        Skill();
         Hovering();
         Death();
+        RelativeMovement();
+        StartCoroutine(Skill());
     }
 
-    void MovePlayer()
+    public void DashPlayer()
     {
-        if (moveAction.IsPressed())
-        {
-            //Debug.Log(moveAction.ReadValue<Vector2>());
-            Vector2 direction = moveAction.ReadValue<Vector2>();
-            Vector3 move = new Vector3(direction.x, 0, direction.y) * speed;
-            controller.Move(move * Time.deltaTime);
-            anim.SetFloat("Move", 1f);
-            anim.SetBool("IsMove", true);
-        }
-        else
-        {
+       if (dashAction.IsPressed() && !Mecha.isDashing)
+       {
+            Mecha.isDashing = true;
+            speed *= 3f;
+            Debug.Log("Dash");
+       }
+
+       if (!dashAction.IsPressed() && Mecha.isDashing)
+       {
+            Mecha.isDashing = false;
             anim.SetFloat("Move", 0f);
-            anim.SetBool("IsMove", false);
+            speed /= 3f;
+       }
+    }
+
+    public void RelativeMovement()
+    {
+        Vector2 moveInput = moveAction.ReadValue<Vector2>();
+
+        if (!Mecha.isDeath)
+        {
+            if (moveInput != Vector2.zero)
+            {
+                // Arah relatif dari kamera
+                Vector3 forward = cameraPivot.transform.forward;
+                Vector3 right = cameraPivot.transform.right;
+
+                // Memberikan nilai 0 pada nilai Y agar tetap Horizontal
+                forward.y = 0f;
+                right.y = 0f;
+
+                // Normalisasi vektor
+                forward.Normalize();
+                right.Normalize();
+
+                // Hitung arah pergerakan relatif terhadap kamera
+                Vector3 moveDirection = (forward * moveInput.y + right * moveInput.x).normalized;
+
+                if (!Mecha.isAiming)
+                {
+                    // Rotasi player menghadap arah pergerakan
+                    Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+                }
+                // Gerakkan player relatif terhadap kamera
+                controller.Move(speed * Time.deltaTime * moveDirection);
+
+                // Atur animasi pergerakan player
+                anim.SetFloat("Move", 1f);
+                anim.SetBool("IsMove", true);
+
+                if (Mecha.isDashing)
+                {
+                    anim.SetFloat("Move", 2f);
+                }
+            }
+            else
+            {
+                anim.SetFloat("Move", 0f);
+                anim.SetBool("IsMove", false);
+            }
         }
     }
 
-    void Hovering()
+    public void Hovering()
     {
         if (flyUp.IsPressed())
         {
@@ -100,23 +160,25 @@ public class PlayerActive : MonoBehaviour
             Debug.Log("FlyDown");
         }
     }
-    void PlayerJump()
+    public void PlayerJump()
     {
         if (jumpAction.triggered && isGrounded)
         {
             Debug.Log("Jump");
             verticalVelocity = jumpForce;
             isGrounded = false;
-            anim.SetBool("IsJump", true);
+            if (anim.GetBool("IsJump") != true)
+            {
+                anim.SetBool("IsJump", true);
+            }
         }
-        else
+        if (isGrounded)
         {
             anim.SetBool("IsJump", false);
-
         }
     }
 
-    void ApplyGravity()
+    public void ApplyGravity()
     {
         if (!isGrounded)
         {
@@ -136,33 +198,7 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
-    void OpenPause()
-    {
-        if (startButton.triggered)
-        {
-            if (isPaused == false)
-            {
-                PauseMenu.SetActive(true);
-                isPaused = true;
-                Time.timeScale = 0f;
-            } else if (isPaused == true)
-            {
-                isPaused = false;
-                PauseMenu.SetActive(false);
-                Time.timeScale = 1f;
-            }
-        }
-    }
-
-    void DashPlayer()
-    {
-        if (dashAction.triggered)
-        {
-            Debug.Log("Dash");
-        }
-    }
-
-    void BlockPlayer()
+    public void BlockPlayer()
     {
         if (blockAction.triggered)
         {
@@ -170,7 +206,7 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
-    void UltimatePlayer()
+    public void UltimatePlayer()
     {
         if (ultimateAction.triggered)
         {
@@ -178,7 +214,7 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
-    void SelectButtonPress()
+    public void SelectButtonPress()
     {
         if (selectButton.triggered)
         {
@@ -186,37 +222,123 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
-    void ScopeMode()
+    public void ScopeMode()
     {
         if (scopeAction.IsPressed())
         {
-            Debug.Log("Scope ON");
+            Mecha.isAiming = true;
         }
+        else
+        {
+            Mecha.isAiming = false;
+        }
+         //ScopeCondition
+        if (Mecha.isAiming)
+        {
+            Debug.Log("Scope On");
+            anim.SetBool("IsAiming", true);
+            CameraAct.ScopeCamera();
+        }
+        else
+        {
+            anim.SetBool("IsAiming", false);
+            CameraAct.ScopeCamera();
+        }
+
+        if (Mecha.isAiming != wasAiming)
+        {
+            if (Mecha.isAiming)
+            {
+                CameraAct.rotationSpeed /= 4f;
+                speed /= 2f;
+            }
+            else
+            {
+                CameraAct.rotationSpeed *= 4f;
+                speed *= 2f;
+            }
+        }
+        wasAiming = Mecha.isAiming;
     }
 
-    void Shooting()
+    public void Shooting()
     {
         if (shootAction.IsPressed())
         {
-            Debug.Log("Shoot ON");
+            Mecha.isShooting = true;
         }
+        else
+        {
+            Mecha.isShooting = false;
+        }
+
+        if (Mecha.isShooting)
+        {
+            if (Mecha.isAiming)
+            {
+                CameraAct.ScopeCamera();
+            }
+            else
+            {
+                CameraAct.ShootingCamera();
+            }
+            Debug.Log("Shoot ON");
+            anim.SetBool("IsShooting", true);
+        }
+        else
+        {
+            anim.SetBool("IsShooting", false);
+        }
+        
     }
 
-    void Skill()
+    public IEnumerator Skill()
     {
         if (skill1Action.triggered)
         {
-            Debug.Log("Skill 1 Activated");
+            Debug.Log("Skill 1 Aktif Korotine");
+            Mecha.isSkill1 = true;
+            skillHitBox.SetActive(true);
+            anim.SetTrigger("IsSkill1");
+            yield return new WaitForSeconds(2.20f);
+            Mecha.isSkill1 = false;
+            skillHitBox.SetActive(false);
         }
 
         if (skill2Action.triggered)
         {
-            Debug.Log("Skill 2 Activated");
+            Debug.Log("Skill 1 Aktif Korotine");
+            Mecha.isSkill1 = true;
+            skillHitBox.SetActive(true);
+            anim.SetTrigger("IsSkill1");
+            yield return new WaitForSeconds(2.20f);
+            Mecha.isSkill1 = false;
+            skillHitBox.SetActive(false);
         }
     }
 
-    void Death()
+    public void Death()
     {
-        
+        if (Mecha.Health <= Mecha.MinHealth)
+        {
+            Mecha.Health = Mecha.MinHealth;
+            Mecha.isDeath = true;
+
+            if (Mecha.isDeath)
+            {
+                speed = 0f;
+                anim.SetBool("IsDeath", true);
+                Invoke(nameof(ToLoseCG), 5f);
+            }
+            else
+            {
+                anim.SetBool("IsDeath", false);
+            }
+        }
+    }
+
+    public void ToLoseCG()
+    {
+        GameMaster.LosingScreen();
     }
 }
