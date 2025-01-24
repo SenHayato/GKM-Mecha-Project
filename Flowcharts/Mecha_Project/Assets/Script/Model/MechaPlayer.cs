@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class MechaPlayer : MonoBehaviour
 {
@@ -39,6 +35,8 @@ public class MechaPlayer : MonoBehaviour
     [Header("Skill Condition")]
     public bool isSkill1;
     public bool isSkill2;
-    
+
+    [Header("Player Position")]
+    public Transform PlayerPosition;
 }
 

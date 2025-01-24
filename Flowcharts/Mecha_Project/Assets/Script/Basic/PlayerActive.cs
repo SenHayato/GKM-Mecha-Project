@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,13 +10,14 @@ public class PlayerActive : MonoBehaviour
 
     // Input
     public InputAction moveAction, jumpAction, flyUp, shootAction, scopeAction, skill1Action, skill2Action,
-        flyDown, blockAction, dashAction, selectButton, ultimateAction;
+        flyDown, blockAction, dashAction, selectButton, ultimateAction, interaction;
 
     public MechaPlayer Mecha;
     public GameMaster GameMaster;
     public CameraActive CameraAct;
     public Transform cameraPivot;
     public GameObject skillHitBox;
+    public Transform playerPosition;
 
     [Header("Player Status")]
     public float speed;
@@ -37,6 +39,7 @@ public class PlayerActive : MonoBehaviour
         CameraAct = FindAnyObjectByType<CameraActive>();
         rotationSpeed = CameraAct.rotationSpeed;
         cameraPivot = CameraAct.cameraPivot;
+        playerPosition = GetComponent<Transform>();
         skillHitBox = GameObject.Find("SkillHitBox");
         skillHitBox.SetActive(false);
 
@@ -57,6 +60,7 @@ public class PlayerActive : MonoBehaviour
         skill2Action = gameInput.actions.FindAction("Skill 2");
         shootAction = gameInput.actions.FindAction("Shoot");
         scopeAction = gameInput.actions.FindAction("Scope");
+        interaction = gameInput.actions.FindAction("Interaction");
 
         wasAiming = false;
     }
@@ -79,23 +83,27 @@ public class PlayerActive : MonoBehaviour
         Death();
         RelativeMovement();
         StartCoroutine(Skill());
+        UpdatePosition();
     }
 
     public void DashPlayer()
     {
-       if (dashAction.IsPressed() && !Mecha.isDashing)
-       {
-            Mecha.isDashing = true;
-            speed *= 3f;
-            Debug.Log("Dash");
-       }
+        if (!Mecha.isAiming)
+        {
+           if (dashAction.IsPressed() && !Mecha.isDashing)
+           {
+                Mecha.isDashing = true;
+                speed *= 3f;
+                Debug.Log("Dash");
+           }
 
-       if (!dashAction.IsPressed() && Mecha.isDashing)
-       {
-            Mecha.isDashing = false;
-            anim.SetFloat("Move", 0f);
-            speed /= 3f;
-       }
+           if (!dashAction.IsPressed() && Mecha.isDashing)
+           {
+                Mecha.isDashing = false;
+                anim.SetFloat("Move", 0f);
+                speed /= 3f;
+           }
+        }
     }
 
     public void RelativeMovement()
@@ -250,12 +258,12 @@ public class PlayerActive : MonoBehaviour
             if (Mecha.isAiming)
             {
                 CameraAct.rotationSpeed /= 4f;
-                speed /= 2f;
+                //speed /= 2f;
             }
             else
             {
                 CameraAct.rotationSpeed *= 4f;
-                speed *= 2f;
+                //speed *= 2f;
             }
         }
         wasAiming = Mecha.isAiming;
@@ -335,6 +343,11 @@ public class PlayerActive : MonoBehaviour
                 anim.SetBool("IsDeath", false);
             }
         }
+    }
+
+    public void UpdatePosition()
+    {
+        Mecha.PlayerPosition = playerPosition;
     }
 
     public void ToLoseCG()

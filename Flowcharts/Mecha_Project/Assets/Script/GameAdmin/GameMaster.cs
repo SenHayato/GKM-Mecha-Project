@@ -26,22 +26,48 @@ public class GameMaster : MonoBehaviour
     Vector3 screenCenter;
     //acceptAction, navigateAction, backAction, startAction;
 
+    [Header ("PlayerData")]
+    public MechaPlayer MechaData;
+    public int PlayerHealth;
+    public string LastScene;
+
     private void Start()
     {
         isPaused = false;
         Player = GameObject.FindGameObjectWithTag("Player");
         input = Player.GetComponent<PlayerInput>();
         pauseAction = input.actions.FindAction("Pause");
+        MechaData = Player.GetComponent<MechaPlayer>();
+        PlayerHealth = MechaData.Health;
 
         /*acceptAction = input.actions.FindAction("Accept");
         navigateAction = input.actions.FindAction("Back");
         backAction = input.actions.FindAction("Navigate");
         startAction = input.actions.FindAction("Start");*/
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-        Cursor.SetCursor(null, screenCenter, CursorMode.ForceSoftware);
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        //Cursor.SetCursor(null, screenCenter, CursorMode.ForceSoftware);
+    }
+    public void SaveManager()
+    {
+        SaveSystem.SavePlayer(MechaData);
+        Debug.Log("SaveData");
+    }
+
+    public void LoadManager()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+        PlayerHealth = data.health;
+        LastScene = data.sceneName;
+
+        Vector3 position;
+        position.x = data.position[0];
+        position.y = data.position[1];
+        position.z = data.position[2];
+        transform.position = Player.transform.position;
+        Debug.Log("LoadData");
     }
 
     public void LosingScreen()
@@ -106,6 +132,6 @@ public class GameMaster : MonoBehaviour
     public void Update()
     {
         PauseButton();
-        HideCursor();
+        //HideCursor();
     }
 }
