@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,17 +8,21 @@ public class PlayerActive : MonoBehaviour
 
     // Input
     public InputAction moveAction, jumpAction, flyUp, shootAction, scopeAction, skill1Action, skill2Action,
-        flyDown, blockAction, dashAction, selectButton, ultimateAction, interaction;
+        flyDown, blockAction, dashAction, selectButton, ultimateAction, interaction, reloadAction, boostAction;
 
     public MechaPlayer Mecha;
     public GameMaster GameMaster;
     public CameraActive CameraAct;
     public Transform cameraPivot;
-    public GameObject skillHitBox;
+    public GameObject skill1HitBox;
+    public GameObject skill2HitBox;
     public Transform playerPosition;
+    //public WeaponScript weapon;
+    public WeaponRaycast Weapon;
 
     [Header("Player Status")]
     public float speed;
+    private float defaultSpeed;
     public float jumpForce;
     public float gravity;
     public bool isGrounded;
@@ -28,25 +30,42 @@ public class PlayerActive : MonoBehaviour
     public float fallMultiplier;
     public float rotationSpeed;
     private bool wasAiming;
+    public float boostDuration;
+    public float boostSpeedMultiplier;
+    [SerializeField] bool skillBusy;
 
     public CharacterController controller;
     public Animator anim;
 
-    // Start is called before the first frame update
-    public void Start()
+    public void Awake()
     {
+        gameInput = FindAnyObjectByType<PlayerInput>();
         GameMaster = FindAnyObjectByType<GameMaster>();
         CameraAct = FindAnyObjectByType<CameraActive>();
         rotationSpeed = CameraAct.rotationSpeed;
-        cameraPivot = CameraAct.cameraPivot;
         playerPosition = GetComponent<Transform>();
-        skillHitBox = GameObject.Find("SkillHitBox");
-        skillHitBox.SetActive(false);
-
+        //skill1HitBox = GameObject.Find("Skill1HitBox");
+        //skill1HitBox = GameObject.Find("Skill2HitBox");
+        Weapon = GetComponentInChildren<WeaponRaycast>();
         Mecha = GetComponent<MechaPlayer>();
-        gameInput = GetComponent<PlayerInput>();
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+    }
+    private void Start()
+    {
+        skill1HitBox.SetActive(false);
+        skill2HitBox.SetActive(false);
+        cameraPivot = CameraAct.cameraPivot;
+        wasAiming = false;
+        defaultSpeed = speed;
+        //Mecha Skill dan Ultimate Condition
+        Mecha.skill1Time = Mecha.cooldownSkill1;
+        Mecha.skill2Time = Mecha.cooldownSkill2;
+        Mecha.Ultimate = Mecha.MinUltimate;
+        //Mecha.Energy = Mecha.MaxEnergy;
+        Mecha.UltimateRegen = false;
+        Mecha.EnergyRegen = false;
+        skillBusy = false;
 
         moveAction = gameInput.actions.FindAction("Movement");
         jumpAction = gameInput.actions.FindAction("Jump");
@@ -61,11 +80,9 @@ public class PlayerActive : MonoBehaviour
         shootAction = gameInput.actions.FindAction("Shoot");
         scopeAction = gameInput.actions.FindAction("Scope");
         interaction = gameInput.actions.FindAction("Interaction");
-
-        wasAiming = false;
+        reloadAction = gameInput.actions.FindAction("Reload");
+        boostAction = gameInput.actions.FindAction("Boost");
     }
-
-    // Update is called once per frame
     void Update()
     {
         //Hukum Fisika COY
@@ -74,38 +91,168 @@ public class PlayerActive : MonoBehaviour
 
         //Class untuk player
         PlayerJump();
+        Reloading();
         DashPlayer();
         BlockPlayer();
-        UltimatePlayer();
         ScopeMode();
         Shooting();
-        Hovering();
+        //Hovering();
         Death();
         RelativeMovement();
-        StartCoroutine(Skill());
+        StartCoroutine(Skill1());
+        StartCoroutine(Skill2());
         UpdatePosition();
+        SKillCooldown();
+        StartCoroutine(UseUltimate());
+        //StartCoroutine(BoostOn());
+        //Ultimate Energy Regen
+        if (!Mecha.UltimateRegen && Mecha.Ultimate < Mecha.MaxUltimate) _= StartCoroutine(UltimateRegen());
+        if (!Mecha.EnergyRegen && Mecha.Energy < Mecha.MaxEnergy) _= StartCoroutine(EnergyRegen());
+        SkillBusy();
     }
-
     public void DashPlayer()
     {
-        if (!Mecha.isAiming)
+        if (dashAction.IsPressed() && !Mecha.isDashing && !Mecha.isBoosting)
         {
-           if (dashAction.IsPressed() && !Mecha.isDashing)
-           {
-                Mecha.isDashing = true;
-                speed *= 3f;
-                Debug.Log("Dash");
-           }
+            reloadAction.Disable();
+            boostAction.Disable();
+            Mecha.isDashing = true;
+            speed *= 2f;
+            Debug.Log("Dash");
+        }
 
-           if (!dashAction.IsPressed() && Mecha.isDashing)
-           {
-                Mecha.isDashing = false;
-                anim.SetFloat("Move", 0f);
-                speed /= 3f;
-           }
+        if (!dashAction.IsPressed() && Mecha.isDashing)
+        {
+            reloadAction.Enable();
+            boostAction.Enable();
+            Mecha.isDashing = false;
+            anim.SetFloat("Move", 0f);
+            speed /= 2f;
         }
     }
+    public IEnumerator BoostOn()
+    {
+        if (Mecha.isBoosting)
+        {
+            dashAction.Disable();
+            shootAction.Disable();
+            scopeAction.Disable();
+            if (Mecha.Energy >= Mecha.EnergyCost)
+            {
+                speed += boostSpeedMultiplier;
+                Mecha.Energy -= Mecha.EnergyCost;
+                Debug.Log("BoostOn");
+            }
+            yield return new WaitForSeconds(1f);
+            dashAction.Enable();
+            shootAction.Enable();
+            scopeAction.Enable();
+            speed = defaultSpeed;
+            Mecha.isBoosting = false;
+        }
+    }
+    public void Reloading()
+    {
+        if (reloadAction.triggered || Weapon.ammo <= 0)
+        {
+            Mecha.isReloading = true;
+        }
+        else
+        {
+            Mecha.isReloading = false;
+        }
 
+        if (Mecha.isReloading)
+        {
+            anim.SetBool("IsReloading", true);
+            scopeAction.Disable();
+            shootAction.Disable();
+            StartCoroutine(Weapon.ReloadAmmo());
+            StopCoroutine(Weapon.FireShoot());
+            dashAction.Disable();
+            blockAction.Disable();
+        }
+        else
+        {
+            anim.SetBool("IsReloading", false);
+            scopeAction.Enable();
+            shootAction.Enable();
+            StopCoroutine(Weapon.ReloadAmmo());
+            dashAction.Enable();
+            reloadAction.Enable();
+            blockAction.Enable();
+        }
+    }
+    public void ScopeMode()
+    {
+        if (scopeAction.IsPressed() && Weapon.ammo >= 0)
+        {
+            Mecha.isAiming = true;
+        }
+        else
+        {
+            Mecha.isAiming = false;
+        }
+        //ScopeCondition
+        if (Mecha.isAiming)
+        {
+            dashAction.Disable();
+            anim.SetBool("IsAiming", true);
+            CameraAct.ScopeCamera();
+            Debug.Log("Scope On");
+        }
+        else
+        {
+            dashAction.Enable();
+            anim.SetBool("IsAiming", false);
+            CameraAct.ScopeCamera();
+        }
+
+        if (Mecha.isAiming != wasAiming)
+        {
+            if (Mecha.isAiming)
+            {
+                CameraAct.rotationSpeed /= 4f;
+            }
+            else
+            {
+                CameraAct.rotationSpeed *= 4f;
+            }
+        }
+        wasAiming = Mecha.isAiming;
+    }
+    public void Shooting()
+    {
+        if (shootAction.IsPressed() && Weapon.ammo >= 0)
+        {
+            Mecha.isShooting = true;
+        }
+        else
+        {
+            Mecha.isShooting = false;
+        }
+
+        if (Mecha.isShooting)
+        {
+            Debug.Log("Shoot ON");
+            anim.SetBool("IsShooting", true);
+            StartCoroutine(Weapon.FireShoot());
+            //CameraAct.ApplyRecoil();
+            if (Mecha.isAiming)
+            {
+                CameraAct.ScopeCamera();
+            }
+            else
+            {
+                CameraAct.ShootingCamera();
+            }
+        }
+        else
+        {
+            anim.SetBool("IsShooting", false);
+            //CameraAct.MainCamera.transform.localRotation = Quaternion.Slerp(Quaternion.identity, CameraAct.defaultCamRot, 1f);
+        }
+    }
     public void RelativeMovement()
     {
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
@@ -114,38 +261,33 @@ public class PlayerActive : MonoBehaviour
         {
             if (moveInput != Vector2.zero)
             {
-                // Arah relatif dari kamera
-                Vector3 forward = cameraPivot.transform.forward;
+                Vector3 forward = cameraPivot.transform.forward;  // Arah kamera
                 Vector3 right = cameraPivot.transform.right;
-
-                // Memberikan nilai 0 pada nilai Y agar tetap Horizontal
-                forward.y = 0f;
+                forward.y = 0f; // Tetap Horizontal
                 right.y = 0f;
-
-                // Normalisasi vektor
                 forward.Normalize();
                 right.Normalize();
-
-                // Hitung arah pergerakan relatif terhadap kamera
-                Vector3 moveDirection = (forward * moveInput.y + right * moveInput.x).normalized;
+                Vector3 moveDirection = (forward * moveInput.y + right * moveInput.x).normalized; // Hitung arah pergerakan relatif terhadap kamera
 
                 if (!Mecha.isAiming)
                 {
                     // Rotasi player menghadap arah pergerakan
                     Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
                 }
-                // Gerakkan player relatif terhadap kamera
-                controller.Move(speed * Time.deltaTime * moveDirection);
-
-                // Atur animasi pergerakan player
+                controller.Move(speed * Time.deltaTime * moveDirection); // Gerakkan player relatif terhadap kamera
                 anim.SetFloat("Move", 1f);
                 anim.SetBool("IsMove", true);
 
                 if (Mecha.isDashing)
                 {
                     anim.SetFloat("Move", 2f);
+                }
+
+                if (boostAction.triggered)
+                {
+                    Mecha.isBoosting = true;
+                    StartCoroutine(BoostOn());
                 }
             }
             else
@@ -155,7 +297,6 @@ public class PlayerActive : MonoBehaviour
             }
         }
     }
-
     public void Hovering()
     {
         if (flyUp.IsPressed())
@@ -185,7 +326,6 @@ public class PlayerActive : MonoBehaviour
             anim.SetBool("IsJump", false);
         }
     }
-
     public void ApplyGravity()
     {
         if (!isGrounded)
@@ -205,23 +345,39 @@ public class PlayerActive : MonoBehaviour
             isGrounded = true;
         }
     }
-
     public void BlockPlayer()
     {
-        if (blockAction.triggered)
+        if (blockAction.IsPressed() && !Mecha.isBlocking)
         {
+            Mecha.isBlocking = true;
+            anim.SetBool("IsBlocking", true);
+            speed /= 2;
             Debug.Log("Block");
         }
-    }
 
-    public void UltimatePlayer()
-    {
-        if (ultimateAction.triggered)
+        if (!blockAction.IsPressed() && Mecha.isBlocking)
         {
-            Debug.Log("Ultimate");
+            Mecha.isBlocking = false;
+            anim.SetBool("IsBlocking", false);
+            speed = defaultSpeed;
+        }
+
+        //input control
+        if (blockAction.IsPressed())
+        {
+            dashAction.Disable();
+            scopeAction.Disable();
+            shootAction.Disable();
+            reloadAction.Disable();
+        }
+        else
+        {
+            dashAction.Enable();
+            shootAction.Enable();
+            scopeAction.Enable();
+            reloadAction.Enable();
         }
     }
-
     public void SelectButtonPress()
     {
         if (selectButton.triggered)
@@ -230,98 +386,53 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
-    public void ScopeMode()
+    public IEnumerator Skill1()
     {
-        if (scopeAction.IsPressed())
-        {
-            Mecha.isAiming = true;
-        }
-        else
-        {
-            Mecha.isAiming = false;
-        }
-         //ScopeCondition
-        if (Mecha.isAiming)
-        {
-            Debug.Log("Scope On");
-            anim.SetBool("IsAiming", true);
-            CameraAct.ScopeCamera();
-        }
-        else
-        {
-            anim.SetBool("IsAiming", false);
-            CameraAct.ScopeCamera();
-        }
-
-        if (Mecha.isAiming != wasAiming)
-        {
-            if (Mecha.isAiming)
-            {
-                CameraAct.rotationSpeed /= 4f;
-                //speed /= 2f;
-            }
-            else
-            {
-                CameraAct.rotationSpeed *= 4f;
-                //speed *= 2f;
-            }
-        }
-        wasAiming = Mecha.isAiming;
-    }
-
-    public void Shooting()
-    {
-        if (shootAction.IsPressed())
-        {
-            Mecha.isShooting = true;
-        }
-        else
-        {
-            Mecha.isShooting = false;
-        }
-
-        if (Mecha.isShooting)
-        {
-            if (Mecha.isAiming)
-            {
-                CameraAct.ScopeCamera();
-            }
-            else
-            {
-                CameraAct.ShootingCamera();
-            }
-            Debug.Log("Shoot ON");
-            anim.SetBool("IsShooting", true);
-        }
-        else
-        {
-            anim.SetBool("IsShooting", false);
-        }
-        
-    }
-
-    public IEnumerator Skill()
-    {
-        if (skill1Action.triggered)
+        if (skill1Action.triggered && Mecha.readySkill1)
         {
             Debug.Log("Skill 1 Aktif Korotine");
-            Mecha.isSkill1 = true;
-            skillHitBox.SetActive(true);
+            skillBusy = true;
+            Mecha.skill1Time = Mecha.cooldownSkill1;
+            skill2Action.Disable();
+            Mecha.readySkill1 = false;
             anim.SetTrigger("IsSkill1");
-            yield return new WaitForSeconds(2.20f);
-            Mecha.isSkill1 = false;
-            skillHitBox.SetActive(false);
-        }
 
-        if (skill2Action.triggered)
+            yield return new WaitForSeconds(1.1f);
+            skill1HitBox.SetActive(true);
+
+            yield return new WaitForSeconds(2.20f); //lama skill
+            skillBusy = false;
+            skill2Action.Enable();
+            skill1HitBox.SetActive(false);
+        }
+        else
         {
-            Debug.Log("Skill 1 Aktif Korotine");
-            Mecha.isSkill1 = true;
-            skillHitBox.SetActive(true);
-            anim.SetTrigger("IsSkill1");
-            yield return new WaitForSeconds(2.20f);
-            Mecha.isSkill1 = false;
-            skillHitBox.SetActive(false);
+            yield break;
+        }
+    }
+
+    public IEnumerator Skill2()
+    {
+        if (skill2Action.triggered && Mecha.readySkill2)
+        {
+            Debug.Log("Skill 2 Aktif Korotine");
+            skillBusy = true;
+            Mecha.skill2Time = Mecha.cooldownSkill2;
+            skill1Action.Disable();
+            Mecha.readySkill2 = false;
+            anim.SetTrigger("IsSkill2");
+
+            yield return new WaitForSeconds(2f);
+            skill2HitBox.SetActive(true);
+
+            yield return new WaitForSeconds(4.11f); //lama skill
+            skill1Action.Enable();
+            skillBusy = false;
+            skill2HitBox.SetActive(false);
+        }
+        else
+        {
+            yield break;
         }
     }
 
@@ -344,12 +455,87 @@ public class PlayerActive : MonoBehaviour
             }
         }
     }
+    public void SKillCooldown()
+    {
+        Mecha.skill1Time -= (1 * Time.deltaTime);
+        Mecha.skill2Time -= (1 * Time.deltaTime);
+        if (Mecha.skill1Time <= 0)
+        {
+            Mecha.skill1Time = 0;
+            Mecha.readySkill1 = true;
+        }
 
+        if (Mecha.skill2Time <= 0)
+        {
+            Mecha.skill2Time = 0;
+            Mecha.readySkill2 = true;
+        }
+    }
+    //Ultimate
+    public IEnumerator UseUltimate()
+    {
+        if (ultimateAction.triggered && Mecha.Ultimate == Mecha.MaxUltimate)
+        {
+            Debug.Log("Ultimate jalan");
+            Mecha.Ultimate = Mecha.MinUltimate;
+            yield return new WaitForSeconds(5f); //lama ultimate
+            Mecha.UltimateRegen = false;
+            Debug.Log("Ultimate berenti");
+        }
+    }
+    public IEnumerator UltimateRegen()
+    {
+        Mecha.UltimateRegen = true;
+        while (Mecha.Ultimate <= Mecha.MaxUltimate)
+        {
+            yield return new WaitForSeconds(1f);
+            Mecha.Ultimate += Mecha.UltRegenValue;
+            Mecha.Ultimate = Mathf.Clamp(Mecha.Ultimate, Mecha.MinUltimate, Mecha.MaxUltimate);
+        }
+    }
+    //Energy
+    public IEnumerator EnergyRegen()
+    {
+        Mecha.EnergyRegen = true;
+        while (Mecha.Energy <= Mecha.MaxEnergy)
+        {
+            yield return new WaitForSeconds(1f);
+            Mecha.Energy += Mecha.EngRegenValue;
+            Mecha.Energy = Mathf.Clamp(Mecha.Energy, Mecha.MinEnergy, Mecha.MaxEnergy);
+        }
+    }
+
+    public void SkillBusy()
+    {
+        if (skillBusy)
+        {
+            reloadAction.Disable();
+            shootAction.Disable();
+            scopeAction.Disable();
+            dashAction.Disable();
+            boostAction.Disable();
+        }
+        else
+        {
+            reloadAction.Enable();
+            shootAction.Enable();
+            scopeAction.Enable(); 
+            dashAction.Enable(); 
+            boostAction.Enable();
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (!Mecha.isBlocking)
+        {
+            Mecha.Health -= (damage - Mecha.Defence);
+        }
+    }
     public void UpdatePosition()
     {
         Mecha.PlayerPosition = playerPosition;
     }
-
     public void ToLoseCG()
     {
         GameMaster.LosingScreen();

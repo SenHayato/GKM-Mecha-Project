@@ -9,7 +9,7 @@ public class PowerUpItem : MonoBehaviour
     [Header("PowerUP Value")]
     public int AtkPowerUp;
     public int DefPowerUp;
-    public int HvrRegenUp;
+    public int EngRegenUp;
     public int HPRegenUp;
     public int UltRegenUp;
 
@@ -63,7 +63,7 @@ public class PowerUpItem : MonoBehaviour
                     break;
                 case TypePower.UltimateRegen:
                     break;
-                case TypePower.HoverRegen:
+                case TypePower.EnergyRegen:
                     break;
                 case TypePower.HeatlhRegen:
                     break;
@@ -87,7 +87,7 @@ public class PowerUpItem : MonoBehaviour
                  break;
             case TypePower.UltimateRegen:
                  break;
-            case TypePower.HoverRegen:
+            case TypePower.EnergyRegen:
                  break;
             case TypePower.HeatlhRegen:
                  break;
@@ -99,5 +99,5 @@ public class PowerUpItem : MonoBehaviour
 
 public enum TypePower
 {
-    HeatlhRegen, AttackUp, DefenceUp, UltimateRegen, HoverRegen
+    HeatlhRegen, AttackUp, DefenceUp, UltimateRegen, EnergyRegen
 }

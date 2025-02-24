@@ -150,9 +150,63 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Boost",
+                    "type": "Button",
+                    "id": "42519ef8-c44b-4fe8-99b8-fd437bcc1a1c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Interaction",
                     "type": "Button",
                     "id": "2782fa43-2511-42fb-a63e-3a4121316135",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Reload",
+                    "type": "Button",
+                    "id": "1fcd39ca-4f9b-4656-ad2b-27d82e22b411",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TestAja",
+                    "type": "Button",
+                    "id": "ccf8dfc4-2479-4fb5-b007-304fec634828",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TestKill",
+                    "type": "Button",
+                    "id": "82fb3bac-95b9-4195-86e6-5f37fd616608",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TestKillEnemy",
+                    "type": "Button",
+                    "id": "60ddc550-a2bc-4817-9a8a-9099a8ca5844",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "TestSpawn",
+                    "type": "Button",
+                    "id": "6f0cf9da-36ad-4e03-9866-e43aec46dab2",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -630,6 +684,94 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Interaction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "891364c8-f66a-45c1-88f1-16ecc8b9e14c",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse;PC",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b2ff81bf-0716-4987-97fb-6f4a2b54850a",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bb4cdaef-6821-4b12-b725-165ec3cfe4b5",
+                    "path": "<Keyboard>/numpad1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestAja",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2edb9794-dd6c-4e26-b215-859711445f0a",
+                    "path": "<Keyboard>/numpad2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestKill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e00c1f8a-840d-4fed-a537-569b13ba1713",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC;Mouse",
+                    "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db09c5d2-600b-4c95-9b05-5d2a49023308",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3a5f5a6-9f7c-47ee-a146-1d402bb1e58b",
+                    "path": "<Keyboard>/numpad3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestKillEnemy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2b09dd5-62dc-4a59-9b73-fab5bab037e2",
+                    "path": "<Keyboard>/numpad4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TestSpawn",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

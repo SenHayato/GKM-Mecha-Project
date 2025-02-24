@@ -13,28 +13,44 @@ public class MechaPlayer : MonoBehaviour
 
     [Header("Ultimate Bar")]
     public int Ultimate;
-    public int MaxUltimate;
-    public int MinUltimate;
+    public int MaxUltimate; //100
+    public int MinUltimate; //0
+    public int UltRegenValue;
+    public bool UltimateRegen;
+    public int UltDamage;
 
-    [Header("Hover Bar")]
-    public int Hover;
-    public int MaxHover;
-    public int MinHover;
+    [Header("Energy")]
+    public int Energy;
+    public int MaxEnergy; //100
+    public int MinEnergy; //0
+    public int EngRegenValue;
+    public int EnergyCost; //50
+    public bool EnergyRegen;
+
+    [Header("Skill Condition")]
+    //skill1
+    public bool readySkill1;
+    public float skill1Time;
+    public float cooldownSkill1;
+    public int skill1Damage;
+    //skill2
+    public bool readySkill2;
+    public float skill2Time;
+    public float cooldownSkill2;
+    public int skill2Damage;
 
     [Header("Defence")]
     public int Defence;
 
     [Header("Status")]
     public bool isDeath;
-    public bool isGuard;
+    public bool isBlocking;
     public bool isHovering;
     public bool isAiming;
     public bool isShooting;
     public bool isDashing;
-
-    [Header("Skill Condition")]
-    public bool isSkill1;
-    public bool isSkill2;
+    public bool isReloading;
+    public bool isBoosting;
 
     [Header("Player Position")]
     public Transform PlayerPosition;
