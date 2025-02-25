@@ -41,8 +41,8 @@ public class HUDGameManager : MonoBehaviour
         mechaScript = playerObj.GetComponent<MechaPlayer>();
         weaponScript = playerObj.GetComponentInChildren<WeaponRaycast>();
         mapCamera = GameObject.FindGameObjectWithTag("MapCamera");
-        playerIcon = GameObject.Find("PlayerIconObj");
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        playerIcon = GameObject.Find("PlayerIconMap");
     }
 
     private void Start()
@@ -69,7 +69,7 @@ public class HUDGameManager : MonoBehaviour
         //HealthBar
         healthBar.value = mechaScript.Health;
         healthPoint.text = healthBar.value.ToString();
-        if (healthBar.value <= 15000)
+        if (healthBar.value <= 25000)
         {
             healthImage.color = Color.red;
         }
@@ -123,10 +123,12 @@ public class HUDGameManager : MonoBehaviour
     public void MiniMap()
     {
         //float time = 0.5f;
-        mapCamera.transform.position = playerObj.transform.position;
-        playerIcon.transform.position = playerObj.transform.position;
-        mapCamera.transform.rotation = Quaternion.Euler(0f, mainCamera.transform.eulerAngles.y, 0f);
-        playerIcon.transform.rotation = Quaternion.Euler(0f, playerObj.transform.eulerAngles.y, 0f);
+        //playerIcon.transform.position = playerObj.transform.position;
+        //playerIcon.transform.rotation = Quaternion.Euler(0f, playerObj.transform.eulerAngles.y, 0f);
+        mapCamera.transform.SetPositionAndRotation(playerObj.transform.position, Quaternion.Euler(0f, mainCamera.transform.eulerAngles.y, 0f));
+        Vector3 fixedRotation = playerIcon.transform.eulerAngles;
+        fixedRotation.x = 90f;
+        playerIcon.transform.eulerAngles = fixedRotation;
     }
 
     //test

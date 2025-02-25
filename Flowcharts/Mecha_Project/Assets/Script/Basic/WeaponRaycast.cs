@@ -14,7 +14,8 @@ public class WeaponRaycast : MonoBehaviour
     public CameraActive cameraAct;
 
     [Header("Weapon Atribut")]
-    [Range(0f, 10f)] public float recoilValue;
+    [Range(0f, 10f)] public float recoilValueX;
+    [Range(0f, 10f)] public float recoilValueY;
     [Range(0f, 10f)] public float recoilSpeed;
     public float fireRate;
     public float reloadSpeed;
@@ -24,7 +25,11 @@ public class WeaponRaycast : MonoBehaviour
     public bool readytoShoot = true;
     public int ammo;
     public int maxAmmo;
+
+    //flag
     private bool isReloading = false;
+    private float defaultValueX; //default recoil x
+    private float defaultValueY; //default recoil y
 
     private void Awake()
     {
@@ -37,6 +42,8 @@ public class WeaponRaycast : MonoBehaviour
         cameraAct = mainCamera.GetComponentInParent<CameraActive>();
         ammo = maxAmmo;
         lineRenderer.enabled = false;
+        defaultValueX = recoilValueX;
+        defaultValueY = recoilValueY;
     }
     public IEnumerator FireShoot()
     {
@@ -100,5 +107,24 @@ public class WeaponRaycast : MonoBehaviour
         isReloading = false;
         player.isReloading = isReloading;
         readytoShoot = true;
+    }
+
+    public void RecoilAdjust()
+    {
+        if (player.isAiming)
+        {
+            recoilValueX = 0.5f;
+            recoilValueY = 0.15f;
+        }
+        else
+        {
+            recoilValueX = defaultValueX;
+            recoilValueY = defaultValueY;
+        }
+    }
+
+    private void Update()
+    {
+        RecoilAdjust();
     }
 }

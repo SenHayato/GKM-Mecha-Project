@@ -16,8 +16,10 @@ public class MechaPlayer : MonoBehaviour
     public int MaxUltimate; //100
     public int MinUltimate; //0
     public int UltRegenValue;
-    public bool UltimateRegen;
     public int UltDamage;
+    public bool UltimateRegen;
+    public bool UltimateReady;
+    public bool UsingUltimate;
 
     [Header("Energy")]
     public int Energy;

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -132,24 +133,17 @@ public class PlayerActive : MonoBehaviour
     }
     public IEnumerator BoostOn()
     {
-        if (Mecha.isBoosting)
+        if (Mecha.isBoosting && Mecha.Energy >= Mecha.EnergyCost)
         {
-            dashAction.Disable();
-            shootAction.Disable();
-            scopeAction.Disable();
-            if (Mecha.Energy >= Mecha.EnergyCost)
-            {
-                speed += boostSpeedMultiplier;
-                Mecha.Energy -= Mecha.EnergyCost;
-                Debug.Log("BoostOn");
-            }
-            yield return new WaitForSeconds(1f);
-            dashAction.Enable();
-            shootAction.Enable();
-            scopeAction.Enable();
-            speed = defaultSpeed;
-            Mecha.isBoosting = false;
+            skillBusy = true;
+            speed += boostSpeedMultiplier;
+            Mecha.Energy -= Mecha.EnergyCost;
+            Debug.Log("BoostOn");
         }
+        yield return new WaitForSeconds(2f);
+        skillBusy = false;
+        speed = defaultSpeed;
+        Mecha.isBoosting = false;
     }
     public void Reloading()
     {
@@ -185,6 +179,7 @@ public class PlayerActive : MonoBehaviour
     }
     public void ScopeMode()
     {
+        CameraAct.ScopeCamera();
         if (scopeAction.IsPressed() && Weapon.ammo >= 0)
         {
             Mecha.isAiming = true;
@@ -198,14 +193,14 @@ public class PlayerActive : MonoBehaviour
         {
             dashAction.Disable();
             anim.SetBool("IsAiming", true);
-            CameraAct.ScopeCamera();
+            //CameraAct.ScopeCamera();
             Debug.Log("Scope On");
         }
         else
         {
             dashAction.Enable();
             anim.SetBool("IsAiming", false);
-            CameraAct.ScopeCamera();
+            //CameraAct.ScopeCamera();
         }
 
         if (Mecha.isAiming != wasAiming)
@@ -213,6 +208,7 @@ public class PlayerActive : MonoBehaviour
             if (Mecha.isAiming)
             {
                 CameraAct.rotationSpeed /= 4f;
+                CameraAct.SameRotation();
             }
             else
             {
@@ -237,12 +233,7 @@ public class PlayerActive : MonoBehaviour
             Debug.Log("Shoot ON");
             anim.SetBool("IsShooting", true);
             StartCoroutine(Weapon.FireShoot());
-            //CameraAct.ApplyRecoil();
-            if (Mecha.isAiming)
-            {
-                CameraAct.ScopeCamera();
-            }
-            else
+            if (!Mecha.isAiming)
             {
                 CameraAct.ShootingCamera();
             }
@@ -250,7 +241,6 @@ public class PlayerActive : MonoBehaviour
         else
         {
             anim.SetBool("IsShooting", false);
-            //CameraAct.MainCamera.transform.localRotation = Quaternion.Slerp(Quaternion.identity, CameraAct.defaultCamRot, 1f);
         }
     }
     public void RelativeMovement()
@@ -275,6 +265,13 @@ public class PlayerActive : MonoBehaviour
                     Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 }
+                if (Mecha.isShooting && !Mecha.isAiming) //temp
+                {
+                    CameraAct.SameRotation();
+                    Vector3 fixedRotation = transform.localEulerAngles;
+                    fixedRotation.x = 0f;
+                    transform.localEulerAngles = fixedRotation;
+                }
                 controller.Move(speed * Time.deltaTime * moveDirection); // Gerakkan player relatif terhadap kamera
                 anim.SetFloat("Move", 1f);
                 anim.SetBool("IsMove", true);
@@ -284,7 +281,7 @@ public class PlayerActive : MonoBehaviour
                     anim.SetFloat("Move", 2f);
                 }
 
-                if (boostAction.triggered)
+                if (boostAction.triggered && Mecha.Energy >= Mecha.EnergyCost && !Mecha.isBoosting)
                 {
                     Mecha.isBoosting = true;
                     StartCoroutine(BoostOn());
@@ -514,6 +511,7 @@ public class PlayerActive : MonoBehaviour
             scopeAction.Disable();
             dashAction.Disable();
             boostAction.Disable();
+            ultimateAction.Disable();
         }
         else
         {
@@ -522,6 +520,7 @@ public class PlayerActive : MonoBehaviour
             scopeAction.Enable(); 
             dashAction.Enable(); 
             boostAction.Enable();
+            ultimateAction.Enable();
         }
     }
 
