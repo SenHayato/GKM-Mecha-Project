@@ -14,7 +14,6 @@ public class CameraActive : MonoBehaviour
     public Transform cameraPivot;
     public Transform cameraAimPost;
     public Transform cameraMainPost;
-    public Transform cameraBoostPost;
 
     [Header("Reference")]
     public PlayerInput cameraControl;

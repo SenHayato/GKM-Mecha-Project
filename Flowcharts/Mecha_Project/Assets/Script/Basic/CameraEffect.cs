@@ -82,7 +82,7 @@ public class CameraEffect : MonoBehaviour
             lensDistortion.intensity.overrideState = true;
             while (mechaPlayer.isBoosting)
             {
-                lensDistortion.intensity.value = Mathf.Lerp(0, -0.5f, 1f);
+                lensDistortion.intensity.value = Mathf.Lerp(0, -0.25f, 1f);
                 yield return null;
             }
             lensDistortion.intensity.value = 0f;

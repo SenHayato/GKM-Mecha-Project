@@ -1393,7 +1393,6 @@ MonoBehaviour:
   cameraPivot: {fileID: 382303084}
   cameraAimPost: {fileID: 1564065490}
   cameraMainPost: {fileID: 1768970037}
-  cameraBoostPost: {fileID: 1547841302}
   cameraControl: {fileID: 0}
   PlayerAct: {fileID: 0}
   MainCameraOBJ: {fileID: 1183995289}
@@ -2492,7 +2491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &678722263
 Transform:
   m_ObjectHideFlags: 0
@@ -2593,7 +2592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsGlobal: 0
   priority: 0
-  blendDistance: 1.5
+  blendDistance: 3
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 2b6bd4ed4a1e6004ca6df8c1e5c4e52c, type: 2}
 --- !u!1 &687048700
