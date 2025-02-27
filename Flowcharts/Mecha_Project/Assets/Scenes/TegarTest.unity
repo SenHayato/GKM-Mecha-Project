@@ -1353,6 +1353,7 @@ GameObject:
   - component: {fileID: 382303084}
   - component: {fileID: 382303085}
   - component: {fileID: 382303086}
+  - component: {fileID: 382303087}
   m_Layer: 0
   m_Name: CameraObj
   m_TagString: Untagged
@@ -1417,8 +1418,28 @@ MonoBehaviour:
   ultimateEffect: {fileID: 574204858}
   criticalEffect: {fileID: 501867702}
   criticalVolume: {fileID: 0}
-  boostVolume: {fileID: 0}
   mechaPlayer: {fileID: 0}
+--- !u!95 &382303087
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382303083}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a73aeaac8b68e034bb1bd10211ba8856, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &467621840
 GameObject:
   m_ObjectHideFlags: 0
@@ -2501,7 +2522,7 @@ Transform:
   m_GameObject: {fileID: 678722262}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2592,7 +2613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsGlobal: 0
   priority: 0
-  blendDistance: 3
+  blendDistance: 1
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 2b6bd4ed4a1e6004ca6df8c1e5c4e52c, type: 2}
 --- !u!1 &687048700
@@ -12219,7 +12240,7 @@ MonoBehaviour:
   Energy: 0
   MaxEnergy: 10
   MinEnergy: 0
-  EngRegenValue: 1
+  EngRegenValue: 3
   EnergyCost: 5
   EnergyRegen: 1
   readySkill1: 0
