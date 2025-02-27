@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class AIController : MonoBehaviour
 {
     public NavMeshAgent agent;
-    public Transform player;
+    public GameObject PlayerOBJ;
+    private Transform player;
     public float startWaitTime = 4;
     public float timeToRotate = 2;
     public float speedWalk = 6;
@@ -33,8 +34,15 @@ public class AIController : MonoBehaviour
     bool m_IsPatrol;
     bool m_CaughtPlayer;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        PlayerOBJ = GameObject.FindGameObjectWithTag("Player");
+    }
     void Start()
     {
+        player = PlayerOBJ.GetComponent<Transform>();
+
         m_PlayerPosition = Vector3.zero;
         m_IsPatrol = true;
         m_CaughtPlayer = false;

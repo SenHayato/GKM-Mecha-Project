@@ -6889,6 +6889,8 @@ MonoBehaviour:
   skill1Bar: {fileID: 752955846}
   skill2Bar: {fileID: 1678109018}
   timerText: {fileID: 1071611073}
+  recoilCrossHair: {fileID: 1301441100}
+  hitCrossHair: {fileID: 1251856682}
   mapCamera: {fileID: 0}
   playerIcon: {fileID: 0}
   mainCamera: {fileID: 0}
@@ -9759,6 +9761,7 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   lineRenderer: {fileID: 505289642}
   cameraAct: {fileID: 0}
+  HUDManager: {fileID: 0}
   recoilValueX: 1
   recoilValueY: 0.5
   recoilSpeed: 1
@@ -13243,7 +13246,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 6428909555125359493}
-  player: {fileID: 0}
+  player: {fileID: 4620144013182552013}
   startWaitTime: 4
   timeToRotate: 2
   speedWalk: 6
