@@ -139,8 +139,10 @@ public class PlayerActive : MonoBehaviour
             speed += boostSpeedMultiplier;
             Mecha.Energy -= Mecha.EnergyCost;
             Debug.Log("BoostOn");
+            anim.SetBool("IsBoosting", true);
         }
         yield return new WaitForSeconds(2f);
+        anim.SetBool("IsBoosting", false);
         skillBusy = false;
         speed = defaultSpeed;
         Mecha.isBoosting = false;
