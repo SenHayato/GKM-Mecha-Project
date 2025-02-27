@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,16 +14,16 @@ public class CameraEffect : MonoBehaviour
 
     [Header("EffectVolume")]
     [SerializeField] private Volume criticalVolume;
-    [SerializeField] private Volume boostVolume;
 
     [Header("Reference")]
     [SerializeField] private MechaPlayer mechaPlayer;
+    [SerializeField] private Animator anim;
 
     private void Awake()
     {
         mechaPlayer = FindFirstObjectByType<MechaPlayer>();
         criticalVolume = criticalEffect.GetComponent<Volume>();
-        boostVolume = boostEffect.GetComponent<Volume>();
+        anim = GetComponent<Animator>();
     }
 
     private void Start()
@@ -66,26 +67,11 @@ public class CameraEffect : MonoBehaviour
         if (mechaPlayer.isBoosting)
         {
             boostEffect.SetActive(true);
-            StartCoroutine(SmoothBoost());
+            anim.Play("BlurEffect");
         }
         else
         {
-            StopCoroutine(SmoothBoost());
             boostEffect.SetActive(false);
-        }
-    }
-
-    public IEnumerator SmoothBoost()
-    {
-        if (boostVolume.profile.TryGet<UnityEngine.Rendering.Universal.LensDistortion>(out var lensDistortion))
-        {
-            lensDistortion.intensity.overrideState = true;
-            while (mechaPlayer.isBoosting)
-            {
-                lensDistortion.intensity.value = Mathf.Lerp(0, -0.25f, 1f);
-                yield return null;
-            }
-            lensDistortion.intensity.value = 0f;
         }
     }
 
