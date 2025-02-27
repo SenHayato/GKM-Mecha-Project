@@ -23,6 +23,10 @@ public class HUDGameManager : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Slider skill2Bar;
     public TextMeshProUGUI timerText;
 
+    [Header("CrossHair")]
+    public RectTransform recoilCrossHair;
+    public GameObject hitCrossHair;
+
     [Header("MiniMAP")]
     [SerializeField] private GameObject mapCamera;
     [SerializeField] private GameObject playerIcon;
@@ -54,6 +58,8 @@ public class HUDGameManager : MonoBehaviour
         skill2Bar.maxValue = mechaScript.cooldownSkill2;
         easeHealthBar.maxValue = healthBar.maxValue;
         easeHealthBar.value = easeHealthBar.maxValue;
+
+        hitCrossHair.SetActive(false);
     }
 
     public void AmmoMonitor()
@@ -131,6 +137,24 @@ public class HUDGameManager : MonoBehaviour
         playerIcon.transform.eulerAngles = fixedRotation;
     }
 
+    public void RecoilCrossHair()
+    {
+        if (mechaScript.isShooting)
+        {
+            if (!mechaScript.isAiming)
+            {
+                recoilCrossHair.sizeDelta = new Vector2(60f, 60f);
+            }
+            else
+            {
+                recoilCrossHair.sizeDelta = new Vector2(35f, 35f);
+            }
+        } else
+        {
+            recoilCrossHair.sizeDelta = new Vector2(20f, 20f);
+        }
+    }
+
     //test
     public void TakeDamage()
     {
@@ -162,6 +186,7 @@ public class HUDGameManager : MonoBehaviour
         MiniMap();
         QuestMonitor();
         TimerSetUp();
+        RecoilCrossHair();
 
         TakeDamage();
     }
