@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4384669, g: 0.48655242, b: 0.56682485, a: 1}
+  m_IndirectSpecularColor: {r: 0.43846726, g: 0.48655307, b: 0.5668256, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1417,8 +1417,8 @@ MonoBehaviour:
   ultimateEffect: {fileID: 574204858}
   criticalEffect: {fileID: 501867702}
   criticalVolume: {fileID: 0}
-  boostVolume: {fileID: 0}
   mechaPlayer: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!1 &467621840
 GameObject:
   m_ObjectHideFlags: 0
@@ -13091,7 +13091,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 6428909555125359493}
-  player: {fileID: 4620144013182552013}
+  player: {fileID: 0}
   startWaitTime: 4
   timeToRotate: 2
   speedWalk: 6
