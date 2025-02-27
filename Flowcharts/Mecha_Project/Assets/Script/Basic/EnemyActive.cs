@@ -48,22 +48,22 @@ public class EnemyActive : MonoBehaviour
         }
     }
 
-    public void EnemyFollow()
-    {
-        float distance = Vector3.Distance(transform.position, Player.position); // Periksa jarak
+    //public void EnemyFollow()
+    //{
+    //    float distance = Vector3.Distance(transform.position, Player.position); // Periksa jarak
 
-        if (distance > stoppingDistance)
-        {
-            Vector3 direction = (Player.position - transform.position).normalized; // Hitung arah menuju player
-            transform.position += speed * Time.deltaTime * direction;
-            transform.LookAt(Player); //Mengatur rotasi musuh untuk menghadap ke arah player
-            anim.SetFloat("Move", 1f);
-        }
-        else
-        {
-            anim.SetFloat("Move", 0f);
-        }
-    }
+    //    if (distance > stoppingDistance)
+    //    {
+    //        Vector3 direction = (Player.position - transform.position).normalized; // Hitung arah menuju player
+    //        transform.position += speed * Time.deltaTime * direction;
+    //        transform.LookAt(Player); //Mengatur rotasi musuh untuk menghadap ke arah player
+    //        anim.SetFloat("Move", 1f);
+    //    }
+    //    else
+    //    {
+    //        anim.SetFloat("Move", 0f);
+    //    }
+    //}
 
     public void TakeDamage(int damage) //test
     {
