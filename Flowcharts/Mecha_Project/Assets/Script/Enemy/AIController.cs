@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class AIController : MonoBehaviour
 {
     public NavMeshAgent agent;
+    public Transform player;
     public float startWaitTime = 4;
     public float timeToRotate = 2;
     public float speedWalk = 6;
@@ -201,7 +202,7 @@ public class AIController : MonoBehaviour
         }
         if (m_PlayerInRange)
         {
-            //m_PlayerPosition = player.transform.position;
+            m_PlayerPosition = player.transform.position;
         }
     }
 }
