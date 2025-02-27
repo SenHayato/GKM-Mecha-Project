@@ -12,6 +12,7 @@ public class WeaponRaycast : MonoBehaviour
     public Camera mainCamera;
     public LineRenderer lineRenderer;
     public CameraActive cameraAct;
+    public HUDGameManager HudManager;
 
     [Header("Weapon Atribut")]
     [Range(0f, 10f)] public float recoilValueX;
@@ -36,6 +37,7 @@ public class WeaponRaycast : MonoBehaviour
         player = GetComponentInParent<MechaPlayer>();
         playerSkrip = GetComponentInParent<PlayerActive>();
         mainCamera = Camera.main;
+        HudManager = FindAnyObjectByType<HUDGameManager>();
     }
     void Start()
     {
@@ -65,17 +67,20 @@ public class WeaponRaycast : MonoBehaviour
                 if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
                 {
                     enemy.TakeDamage(player.AttackPow);
+                    HudManager.hitCrossHair.SetActive(true);
                 }
             }
 
             if (hitEffect != null)
             {
                 Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                HudManager.hitCrossHair.SetActive(false);
                 Debug.Log("Tembakan kena target!");
             }
         }
         else
         {
+            HudManager.hitCrossHair.SetActive(false);
             targetPoint = ray.GetPoint(range);
         }
 
