@@ -17,6 +17,8 @@ public class MechaPlayer : MonoBehaviour
     public int MinUltimate; //0
     public int UltRegenValue;
     public int UltDamage;
+    public float UltInterval;
+    public float UltDuration;
     public bool UltimateRegen;
     public bool UltimateReady;
     public bool UsingUltimate;
