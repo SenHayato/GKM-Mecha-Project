@@ -15,11 +15,14 @@ public class PlayerActive : MonoBehaviour
     public GameMaster GameMaster;
     public CameraActive CameraAct;
     public Transform cameraPivot;
-    public GameObject skill1HitBox;
-    public GameObject skill2HitBox;
     public Transform playerPosition;
     //public WeaponScript weapon;
     public WeaponRaycast Weapon;
+
+    [Header("HitBox")]
+    public GameObject skill1HitBox;
+    public GameObject skill2HitBox;
+    public GameObject ultimateHitBox;
 
     [Header("Player Status")]
     public float speed;
@@ -56,6 +59,7 @@ public class PlayerActive : MonoBehaviour
     {
         skill1HitBox.SetActive(false);
         skill2HitBox.SetActive(false);
+        ultimateHitBox.SetActive(false);
         cameraPivot = CameraAct.cameraPivot;
         wasAiming = false;
         defaultSpeed = speed;
@@ -477,8 +481,13 @@ public class PlayerActive : MonoBehaviour
         {
             Debug.Log("Ultimate jalan");
             Mecha.Ultimate = Mecha.MinUltimate;
-            yield return new WaitForSeconds(5f); //lama ultimate
+            Mecha.UsingUltimate = true;
+            ultimateHitBox.SetActive(true);
+
+            yield return new WaitForSeconds(Mecha.UltDuration); //lama ultimate
+            ultimateHitBox.SetActive(false);
             Mecha.UltimateRegen = false;
+            Mecha.UsingUltimate = false;
             Debug.Log("Ultimate berenti");
         }
     }
