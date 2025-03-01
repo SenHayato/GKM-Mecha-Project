@@ -15,9 +15,9 @@ public class EnemyActive : MonoBehaviour
     [SerializeField] private CapsuleCollider deathCollider;
     public GameObject UIHealth;
 
-    [Header("Atribut")]
-    public float speed;   
-    public float stoppingDistance;
+    //[Header("Atribut")]
+    //public float speed;   
+    //public float stoppingDistance;
 
     //test
     private PlayerInput gameInput;
