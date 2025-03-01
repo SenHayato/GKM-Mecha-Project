@@ -62,10 +62,13 @@ public class PowerUpItem : MonoBehaviour
                     DefUp();
                     break;
                 case TypePower.UltimateRegen:
+                    Player.Ultimate += UltRegenUp;
                     break;
                 case TypePower.EnergyRegen:
+                    Player.Energy += EngRegenUp;
                     break;
                 case TypePower.HeatlhRegen:
+                    Player.Health += HPRegenUp;
                     break;
             }
             gameObject.SetActive(false);
