@@ -577,9 +577,11 @@ public class PlayerActive : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        int damageCal = damage - Mecha.Defence;
         if (!Mecha.isBlocking)
         {
-            Mecha.Health -= (damage - Mecha.Defence);
+            Mecha.Health -= damageCal;
+            Debug.Log("Player Damage " + damageCal);
         }
     }
     public void UpdatePosition()
