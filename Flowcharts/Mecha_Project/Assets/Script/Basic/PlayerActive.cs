@@ -1,5 +1,4 @@
 using System.Collections;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,11 +17,17 @@ public class PlayerActive : MonoBehaviour
     public Transform playerPosition;
     //public WeaponScript weapon;
     public WeaponRaycast Weapon;
+    public ParticleSystem thusterParticle;
 
     [Header("HitBox")]
     public GameObject skill1HitBox;
     public GameObject skill2HitBox;
     public GameObject ultimateHitBox;
+
+    [Header("BoostEffect")]
+    [SerializeField] private float normalBoostSpeed;
+    [SerializeField] private float fastBoostSpeed;
+    [SerializeField] private float dashBoostSpeed;
 
     [Header("Player Status")]
     public float speed;
@@ -87,6 +92,8 @@ public class PlayerActive : MonoBehaviour
         interaction = gameInput.actions.FindAction("Interaction");
         reloadAction = gameInput.actions.FindAction("Reload");
         boostAction = gameInput.actions.FindAction("Boost");
+
+        dashBoostSpeed = 2 * normalBoostSpeed; //BoostSpeed Effect
     }
     void Update()
     {
@@ -113,7 +120,9 @@ public class PlayerActive : MonoBehaviour
         //Ultimate Energy Regen
         if (!Mecha.UltimateRegen && Mecha.Ultimate < Mecha.MaxUltimate) _= StartCoroutine(UltimateRegen());
         if (!Mecha.EnergyRegen && Mecha.Energy < Mecha.MaxEnergy) _= StartCoroutine(EnergyRegen());
+
         SkillBusy();
+        ParticleSet();
     }
     public void DashPlayer()
     {
@@ -151,6 +160,33 @@ public class PlayerActive : MonoBehaviour
         speed = defaultSpeed;
         Mecha.isBoosting = false;
     }
+
+    private void ParticleSet()
+    {
+        var particleMain = thusterParticle.main;
+        if (Mecha.isBoosting)
+        {
+            particleMain.simulationSpeed = fastBoostSpeed;
+        }
+        else if (Mecha.isDashing)
+        {
+            particleMain.simulationSpeed = dashBoostSpeed;
+        }
+        else
+        {
+            particleMain.simulationSpeed = normalBoostSpeed;
+        }
+
+        if (Mecha.isAiming)
+        {
+            particleMain.simulationSpace = ParticleSystemSimulationSpace.Local;
+        }
+        else
+        {
+            particleMain.simulationSpace = ParticleSystemSimulationSpace.World;
+        }
+    }
+
     public void Reloading()
     {
         if (reloadAction.triggered || Weapon.ammo <= 0)
