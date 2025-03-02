@@ -9148,7 +9148,6 @@ GameObject:
   - component: {fileID: 1260541494}
   - component: {fileID: 1260541493}
   - component: {fileID: 1260541492}
-  - component: {fileID: 1260541501}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -9316,6 +9315,7 @@ MonoBehaviour:
   PlayerObj: {fileID: 1758872513}
   Player: {fileID: 1758872518}
   enemyData: {fileID: 1260541498}
+  agent: {fileID: 1260541492}
   anim: {fileID: 0}
   gameManager: {fileID: 1819764829}
   charController: {fileID: 1260541495}
@@ -9347,6 +9347,8 @@ MonoBehaviour:
   isDeath: 0
   isMoving: 0
   isBlocking: 0
+  showLineOfSight: 1
+  lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
   patrolRadius: 10
   patrolWaitTime: 2
   attackCooldown: 2
@@ -9375,74 +9377,6 @@ Transform:
   - {fileID: 1429907796}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1260541501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1260541491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8dbde49f1448b140aaed6a16947b148, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 1260541492}
-  anim: {fileID: 0}
-  charController: {fileID: 0}
-  deathCollider: {fileID: 0}
-  audioSource: {fileID: 0}
-  gameManager: {fileID: 1819764829}
-  gameInput: {fileID: 0}
-  playerObj: {fileID: 1758872513}
-  player: {fileID: 0}
-  viewRadius: 15
-  viewAngle: 90
-  playerMask:
-    m_Bits: 8
-  obstacleMask:
-    m_Bits: 2048
-  waypoints:
-  - {fileID: 938803209}
-  - {fileID: 790182796}
-  startWaitTime: 4
-  timeToRotate: 2
-  speedWalk: 4.5
-  speedRun: 7.5
-  currentWaypointIndex: 0
-  waitTime: 0
-  timeToRotateCounter: 0
-  playerLastPosition: {x: 0, y: 0, z: 0}
-  playerPosition: {x: 0, y: 0, z: 0}
-  playerInRange: 0
-  playerNear: 0
-  isPatrol: 0
-  caughtPlayer: 0
-  stoppingDistance: 2.5
-  maxHealth: 100
-  health: 0
-  minHealth: 0
-  isDead: 0
-  healthUI: {fileID: 1422426746}
-  firePoint: {fileID: 1015449500}
-  maxShootDistance: 20
-  targetLayers:
-    m_Bits: 8
-  damagePerShot: 10
-  bulletTracer: {fileID: 159361939}
-  tracerDuration: 0.05
-  impactEffectPrefab: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
-  impactEffectLifetime: 1
-  maxBulletCount: 30
-  currentBulletCount: 30
-  shootingCooldown: 0.5
-  bulletsPerShot: 1
-  bulletSpread: 10
-  reloadTime: 2
-  isReloading: 0
-  reloadSound: {fileID: 0}
-  shootSound: {fileID: 0}
-  canShoot: 1
 --- !u!1 &1261966846
 GameObject:
   m_ObjectHideFlags: 0
@@ -12605,7 +12539,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 279db6a58453ce04a84ec3538b1689f0, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 2b81443281b6b7b4889636b2a1242276, type: 2}
   m_BuildHeightMesh: 0
 --- !u!65 &1787981014
 BoxCollider:

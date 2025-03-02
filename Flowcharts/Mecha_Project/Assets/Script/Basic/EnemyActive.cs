@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class EnemyActive : MonoBehaviour
@@ -9,6 +10,7 @@ public class EnemyActive : MonoBehaviour
     public GameObject PlayerObj;
     public Transform Player;
     public EnemyModel enemyData;
+    public NavMeshAgent agent;
     public Animator anim;
     public GameMaster gameManager;
     [SerializeField] private CharacterController charController;
@@ -19,90 +21,45 @@ public class EnemyActive : MonoBehaviour
     public float speed = 3.5f;
     public float stoppingDistance = 1.5f;
 
-    // Audio and VFX references could be added here
-
+    //test
     private PlayerInput gameInput;
-
     public void Awake()
     {
-        // Find the player using GameObject.FindGameObjectWithTag
         PlayerObj = GameObject.FindGameObjectWithTag("Player");
-        if (PlayerObj != null)
-        {
-            Player = PlayerObj.transform;
-            Debug.Log("Found player: " + PlayerObj.name);
-        }
-        else
-        {
-            Debug.LogError("Player not found! Make sure it has the 'Player' tag.");
-        }
-
+        Player = PlayerObj.GetComponent<Transform>();
         anim = GetComponent<Animator>();
-        if (anim == null)
-        {
-            Debug.LogWarning("Animator component not found on " + gameObject.name);
-        }
-
         enemyData = GetComponent<EnemyModel>();
-        if (enemyData == null)
-        {
-            Debug.LogError("EnemyModel component not found on " + gameObject.name);
-        }
-
         gameInput = FindAnyObjectByType<PlayerInput>();
         gameManager = FindAnyObjectByType<GameMaster>();
-
         deathCollider = GetComponent<CapsuleCollider>();
-        if (deathCollider == null)
-        {
-            deathCollider = gameObject.AddComponent<CapsuleCollider>();
-            deathCollider.center = new Vector3(0, 1, 0);
-            deathCollider.height = 2f;
-            deathCollider.radius = 0.5f;
-            deathCollider.enabled = false;
-        }
-
         charController = GetComponent<CharacterController>();
-        if (charController == null)
-        {
-            Debug.LogWarning("CharacterController not found on " + gameObject.name);
-            charController = gameObject.AddComponent<CharacterController>();
-            charController.center = new Vector3(0, 1, 0);
-            charController.height = 2f;
-            charController.radius = 0.5f;
-        }
+        agent = GetComponent<NavMeshAgent>();
     }
 
     private void Start()
     {
-        if (UIHealth != null)
-        {
-            UIHealth.SetActive(false);
-        }
+        UIHealth.SetActive(false);
+        enemyData.health = enemyData.maxHealth;
+        deathCollider.enabled = false;
 
-        if (enemyData != null)
+        if(enemyData != null)
         {
-            enemyData.health = enemyData.maxHealth;
-
-            // Initialize enemy model with reference to this component
             enemyData.Initialize(this);
         }
 
-        if (deathCollider != null)
-        {
-            deathCollider.enabled = false;
-        }
+        deathCollider.enabled = false;
     }
 
+   
     public void UIHealthBar()
     {
-        if (UIHealth != null && enemyData != null && enemyData.health < enemyData.maxHealth)
+        if (enemyData.health < enemyData.maxHealth)
         {
             UIHealth.SetActive(true);
         }
     }
 
-    public void TakeDamage(int damage)
+     public void TakeDamage(int damage)
     {
         if (enemyData == null) return;
 
@@ -110,85 +67,74 @@ public class EnemyActive : MonoBehaviour
         UIHealthBar();
         Debug.Log(gameObject.name + " Kena Damage " + damage.ToString());
 
-        // Play hit animation or sound here
         if (anim != null)
         {
             anim.SetTrigger("Hit");
         }
 
-        // Check if enemy should die after taking damage
         if (enemyData.health <= enemyData.minHealth)
         {
             enemyData.isDeath = true;
         }
     }
 
-    // Test function - could be removed in production
+    //test
     public void Damage()
     {
-        if (gameInput == null) return;
-
         InputAction inputAction = gameInput.actions.FindAction("TestKillEnemy");
-        if (inputAction != null && inputAction.triggered)
+        InputAction testEnemy = inputAction;
+        if (testEnemy.triggered)
         {
             TakeDamage(100);
-            Debug.Log("Test kill enemy triggered");
         }
     }
 
     public void Death()
     {
-        if (enemyData != null && enemyData.isDeath)
+        if (enemyData.health <= enemyData.minHealth)
         {
-            // Trigger death animation
-            if (anim != null)
+            enemyData.isDeath = true;
+            if (enemyData != null && enemyData.isDeath)
             {
-                anim.SetTrigger("Death");
-                Debug.Log("Death animation triggered");
-            }
+                if (anim != null)
+                {
+                    anim.SetTrigger("Death");
+                    Debug.Log("Death animation triggered");
+                }
 
-            if (deathCollider != null)
-            {
-                deathCollider.enabled = true;
-            }
+                if (deathCollider != null)
+                {
+                    deathCollider.enabled = true;
+                }
 
-            if (charController != null)
-            {
-                charController.enabled = false;
-            }
+                if (charController != null)
+                {
+                    charController.enabled = false;
+                }
 
-            // Disable AI behavior
-            if (enemyData != null)
-            {
-                enemyData.isMoving = false;
-                enemyData.isAttacking = false;
+                if (enemyData != null)
+                {
+                    enemyData.isMoving = false;
+                    enemyData.isAttacking = false;
+                }
+                Destroy(gameObject, 2f); // 2f is the duration of death animation
             }
-
-            Destroy(gameObject, 2f); // 2f is the duration of death animation
         }
     }
 
+    //private void CheckPlayerVisibilty()
+    //{
+    //    if (playerInSight)
+    //    {
+    //        Debug.Log($"Player is in sight at distance {distanceToPlayer}");
+    //    }
+    //}
     public void OnDestroy()
     {
-        if (gameManager != null)
-        {
-            gameManager.KillCount++;
-            Debug.Log("Kill count increased: " + gameManager.KillCount);
-        }
+        gameManager.KillCount++;
     }
 
-    // This Update only handles specific components related to this gameObject
-    void Update()
-    {
-        Death();
-        UIHealthBar();
-
-        // Test function - could be removed in production
-        Damage();
-    }
-
-    // Animation event handlers
-    public void OnAttackStart()
+     public void OnAttackStart()
     {
         if (enemyData != null)
         {
@@ -204,7 +150,35 @@ public class EnemyActive : MonoBehaviour
         }
     }
 
-    // This method will be called by EnemyModel to apply movement
+    // In EnemyModel.cs - modify the existing UpdateMovement() method
+    //private void UpdateMovement()
+    //{
+    //    if (enemyData != null && enemyData.enabled && !enemyData.isDeath)  // Using isDeath which is defined in your class
+    //    {
+    //        // If we have a NavMeshAgent, let it handle movement calculation
+    //        isMoving = navAgent.velocity.magnitude > 0.1f;
+
+    //        // Sync character controller with NavMeshAgent
+    //        if (enemyData != null)
+    //        {
+    //            Vector3 direction = agent.desiredVelocity.normalized;
+    //            float currentSpeed = agent.speed;
+
+    //            // Only apply movement through EnemyActive if we need to move
+    //            if (isMoving)
+    //            {
+    //                ApplyMovement(direction, currentSpeed, true);
+
+    //                // This line helps sync the positions
+    //                en.nextPosition = transform.position;
+    //            }
+    //            else
+    //            {
+    //                ApplyMovement(Vector3.zero, 0, false);
+    //            }
+    //        }
+    //    }
+    //}
     public void ApplyMovement(Vector3 direction, float currentSpeed, bool shouldRotate)
     {
         if (charController != null && enemyData != null && !enemyData.isDeath)
@@ -215,7 +189,7 @@ public class EnemyActive : MonoBehaviour
             // Apply gravity
             if (!charController.isGrounded)
             {
-                charController.Move(Vector3.down * 9.8f * Time.deltaTime);
+                charController.Move(9.8f * Time.deltaTime * Vector3.down);
             }
 
             // Handle rotation
@@ -248,5 +222,18 @@ public class EnemyActive : MonoBehaviour
                 }
             }
         }
+    }
+
+    void Update()
+    {
+        if (enemyData != null && enemyData.health <= enemyData.minHealth)
+        {
+            Death();
+        }
+        UIHealthBar();
+        //EnemyFollow();
+
+        //test
+        Damage();
     }
 }
