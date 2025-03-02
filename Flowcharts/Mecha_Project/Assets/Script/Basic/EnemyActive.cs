@@ -16,8 +16,8 @@ public class EnemyActive : MonoBehaviour
     public GameObject UIHealth;
 
     [Header("Atribut")]
-    public float speed;
-    public float stoppingDistance;
+    public float speed = 3.5f;
+    public float stoppingDistance = 1.5f;
 
     // Audio and VFX references could be added here
 
@@ -25,29 +25,78 @@ public class EnemyActive : MonoBehaviour
 
     public void Awake()
     {
+        // Find the player using GameObject.FindGameObjectWithTag
         PlayerObj = GameObject.FindGameObjectWithTag("Player");
-        Player = PlayerObj.GetComponent<Transform>();
+        if (PlayerObj != null)
+        {
+            Player = PlayerObj.transform;
+            Debug.Log("Found player: " + PlayerObj.name);
+        }
+        else
+        {
+            Debug.LogError("Player not found! Make sure it has the 'Player' tag.");
+        }
+
         anim = GetComponent<Animator>();
+        if (anim == null)
+        {
+            Debug.LogWarning("Animator component not found on " + gameObject.name);
+        }
+
         enemyData = GetComponent<EnemyModel>();
+        if (enemyData == null)
+        {
+            Debug.LogError("EnemyModel component not found on " + gameObject.name);
+        }
+
         gameInput = FindAnyObjectByType<PlayerInput>();
         gameManager = FindAnyObjectByType<GameMaster>();
+
         deathCollider = GetComponent<CapsuleCollider>();
+        if (deathCollider == null)
+        {
+            deathCollider = gameObject.AddComponent<CapsuleCollider>();
+            deathCollider.center = new Vector3(0, 1, 0);
+            deathCollider.height = 2f;
+            deathCollider.radius = 0.5f;
+            deathCollider.enabled = false;
+        }
+
         charController = GetComponent<CharacterController>();
+        if (charController == null)
+        {
+            Debug.LogWarning("CharacterController not found on " + gameObject.name);
+            charController = gameObject.AddComponent<CharacterController>();
+            charController.center = new Vector3(0, 1, 0);
+            charController.height = 2f;
+            charController.radius = 0.5f;
+        }
     }
 
     private void Start()
     {
-        UIHealth.SetActive(false);
-        enemyData.health = enemyData.maxHealth;
-        deathCollider.enabled = false;
+        if (UIHealth != null)
+        {
+            UIHealth.SetActive(false);
+        }
 
-        // Register this component with the EnemyModel controller
-        enemyData.Initialize(this);
+        if (enemyData != null)
+        {
+            enemyData.health = enemyData.maxHealth;
+
+            // Initialize enemy model with reference to this component
+            enemyData.Initialize(this);
+        }
+
+        if (deathCollider != null)
+        {
+            deathCollider.enabled = false;
+        }
     }
 
     public void UIHealthBar()
     {
-        if (enemyData.health < enemyData.maxHealth)
+        if (UIHealth != null && enemyData != null && enemyData.health < enemyData.maxHealth)
         {
             UIHealth.SetActive(true);
         }
@@ -55,11 +104,17 @@ public class EnemyActive : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (enemyData == null) return;
+
         enemyData.health -= damage;
         UIHealthBar();
-        Debug.Log("Enemy Kena Damage " + damage.ToString());
+        Debug.Log(gameObject.name + " Kena Damage " + damage.ToString());
 
         // Play hit animation or sound here
+        if (anim != null)
+        {
+            anim.SetTrigger("Hit");
+        }
 
         // Check if enemy should die after taking damage
         if (enemyData.health <= enemyData.minHealth)
@@ -71,30 +126,43 @@ public class EnemyActive : MonoBehaviour
     // Test function - could be removed in production
     public void Damage()
     {
+        if (gameInput == null) return;
+
         InputAction inputAction = gameInput.actions.FindAction("TestKillEnemy");
-        InputAction testEnemy = inputAction;
-        if (testEnemy.triggered)
+        if (inputAction != null && inputAction.triggered)
         {
             TakeDamage(100);
+            Debug.Log("Test kill enemy triggered");
         }
     }
 
     public void Death()
     {
-        if (enemyData.isDeath)
+        if (enemyData != null && enemyData.isDeath)
         {
             // Trigger death animation
             if (anim != null)
             {
                 anim.SetTrigger("Death");
+                Debug.Log("Death animation triggered");
             }
 
-            deathCollider.enabled = true;
-            charController.enabled = false;
+            if (deathCollider != null)
+            {
+                deathCollider.enabled = true;
+            }
+
+            if (charController != null)
+            {
+                charController.enabled = false;
+            }
 
             // Disable AI behavior
-            enemyData.isMoving = false;
-            enemyData.isAttacking = false;
+            if (enemyData != null)
+            {
+                enemyData.isMoving = false;
+                enemyData.isAttacking = false;
+            }
 
             Destroy(gameObject, 2f); // 2f is the duration of death animation
         }
@@ -105,11 +173,11 @@ public class EnemyActive : MonoBehaviour
         if (gameManager != null)
         {
             gameManager.KillCount++;
+            Debug.Log("Kill count increased: " + gameManager.KillCount);
         }
     }
 
     // This Update only handles specific components related to this gameObject
-    // The AI logic is now in EnemyModel
     void Update()
     {
         Death();
@@ -122,36 +190,62 @@ public class EnemyActive : MonoBehaviour
     // Animation event handlers
     public void OnAttackStart()
     {
-        enemyData.isAttacking = true;
+        if (enemyData != null)
+        {
+            enemyData.isAttacking = true;
+        }
     }
 
     public void OnAttackEnd()
     {
-        enemyData.isAttacking = false;
+        if (enemyData != null)
+        {
+            enemyData.isAttacking = false;
+        }
     }
 
     // This method will be called by EnemyModel to apply movement
     public void ApplyMovement(Vector3 direction, float currentSpeed, bool shouldRotate)
     {
-        if (charController != null && !enemyData.isDeath)
+        if (charController != null && enemyData != null && !enemyData.isDeath)
         {
             // Apply movement using character controller
             charController.Move(currentSpeed * Time.deltaTime * direction);
 
+            // Apply gravity
+            if (!charController.isGrounded)
+            {
+                charController.Move(Vector3.down * 9.8f * Time.deltaTime);
+            }
+
             // Handle rotation
             if (shouldRotate && direction != Vector3.zero)
             {
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    Quaternion.LookRotation(direction),
-                    10f * Time.deltaTime
-                );
+                // Ensure we only rotate around the y-axis
+                Vector3 horizontalDirection = direction;
+                horizontalDirection.y = 0;
+
+                if (horizontalDirection != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.Slerp(
+                        transform.rotation,
+                        Quaternion.LookRotation(horizontalDirection),
+                        10f * Time.deltaTime
+                    );
+                }
             }
 
             // Update animation
             if (anim != null)
             {
-                anim.SetFloat("Move", direction.magnitude > 0.1f ? 1f : 0f);
+                float moveSpeed = direction.magnitude > 0.1f ? 1f : 0f;
+                anim.SetFloat("Move", moveSpeed);
+
+                // Debug movement animation state
+                if (direction.magnitude > 0.1f && !anim.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+                {
+                    Debug.Log("Setting move animation: " + moveSpeed);
+                }
             }
         }
     }
