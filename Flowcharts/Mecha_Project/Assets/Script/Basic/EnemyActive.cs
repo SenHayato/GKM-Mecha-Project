@@ -15,9 +15,9 @@ public class EnemyActive : MonoBehaviour
     [SerializeField] private CapsuleCollider deathCollider;
     public GameObject UIHealth;
 
-    //[Header("Atribut")]
-    //public float speed;   
-    //public float stoppingDistance;
+    [Header("Atribut")]
+    public float speed = 3.5f;
+    public float stoppingDistance = 1.5f;
 
     //test
     private PlayerInput gameInput;
@@ -48,27 +48,23 @@ public class EnemyActive : MonoBehaviour
         }
     }
 
-    //public void EnemyFollow()
-    //{
-    //    float distance = Vector3.Distance(transform.position, Player.position); // Periksa jarak
-
-    //    if (distance > stoppingDistance)
-    //    {
-    //        Vector3 direction = (Player.position - transform.position).normalized; // Hitung arah menuju player
-    //        transform.position += speed * Time.deltaTime * direction;
-    //        transform.LookAt(Player); //Mengatur rotasi musuh untuk menghadap ke arah player
-    //        anim.SetFloat("Move", 1f);
-    //    }
-    //    else
-    //    {
-    //        anim.SetFloat("Move", 0f);
-    //    }
-    //}
-
-    public void TakeDamage(int damage) //test
+     public void TakeDamage(int damage)
     {
+        if (enemyData == null) return;
+
         enemyData.health -= damage;
-        Debug.Log("Enemy Kena Damage " + damage.ToString());
+        UIHealthBar();
+        Debug.Log(gameObject.name + " Kena Damage " + damage.ToString());
+
+        if (anim != null)
+        {
+            anim.SetTrigger("Hit");
+        }
+
+        if (enemyData.health <= enemyData.minHealth)
+        {
+            enemyData.isDeath = true;
+        }
     }
 
     //test
@@ -78,27 +74,107 @@ public class EnemyActive : MonoBehaviour
         InputAction testEnemy = inputAction;
         if (testEnemy.triggered)
         {
-            enemyData.health -= 100;
-        }
-        if (enemyData.health <= enemyData.minHealth)
-        {
-            enemyData.isDeath = true;
+            TakeDamage(100);
         }
     }
 
     public void Death()
     {
-        if (enemyData.isDeath)
+        if (enemyData.health <= enemyData.minHealth)
         {
-            deathCollider.enabled = true;
-            charController.enabled = false;
-            Destroy(gameObject, 2f); //2f adalah lama animasi kill
+            enemyData.isDeath = true;
+            if (enemyData != null && enemyData.isDeath)
+            {
+                if (anim != null)
+                {
+                    anim.SetTrigger("Death");
+                    Debug.Log("Death animation triggered");
+                }
+
+                if (deathCollider != null)
+                {
+                    deathCollider.enabled = true;
+                }
+
+                if (charController != null)
+                {
+                    charController.enabled = false;
+                }
+
+                if (enemyData != null)
+                {
+                    enemyData.isMoving = false;
+                    enemyData.isAttacking = false;
+                }
+                Destroy(gameObject, 2f); // 2f is the duration of death animation
+            }
         }
     }
 
     public void OnDestroy()
     {
         gameManager.KillCount++;
+    }
+
+     public void OnAttackStart()
+    {
+        if (enemyData != null)
+        {
+            enemyData.isAttacking = true;
+        }
+    }
+
+    public void OnAttackEnd()
+    {
+        if (enemyData != null)
+        {
+            enemyData.isAttacking = false;
+        }
+    }
+
+    public void ApplyMovement(Vector3 direction, float currentSpeed, bool shouldRotate)
+    {
+        if (charController != null && enemyData != null && !enemyData.isDeath)
+        {
+            // Apply movement using character controller
+            charController.Move(currentSpeed * Time.deltaTime * direction);
+
+            // Apply gravity
+            if (!charController.isGrounded)
+            {
+                charController.Move(9.8f * Time.deltaTime * Vector3.down);
+            }
+
+            // Handle rotation
+            if (shouldRotate && direction != Vector3.zero)
+            {
+                // Ensure we only rotate around the y-axis
+                Vector3 horizontalDirection = direction;
+                horizontalDirection.y = 0;
+
+                if (horizontalDirection != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.Slerp(
+                        transform.rotation,
+                        Quaternion.LookRotation(horizontalDirection),
+                        10f * Time.deltaTime
+                    );
+                }
+            }
+
+            // Update animation
+            if (anim != null)
+            {
+                float moveSpeed = direction.magnitude > 0.1f ? 1f : 0f;
+                anim.SetFloat("Move", moveSpeed);
+
+                // Debug movement animation state
+                if (direction.magnitude > 0.1f && !anim.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+                {
+                    Debug.Log("Setting move animation: " + moveSpeed);
+                }
+            }
+        }
     }
 
     void Update()
