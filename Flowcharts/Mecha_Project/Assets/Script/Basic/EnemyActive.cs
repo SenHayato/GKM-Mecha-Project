@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class EnemyActive : MonoBehaviour
@@ -9,6 +10,7 @@ public class EnemyActive : MonoBehaviour
     public GameObject PlayerObj;
     public Transform Player;
     public EnemyModel enemyData;
+    public NavMeshAgent agent;
     public Animator anim;
     public GameMaster gameManager;
     [SerializeField] private CharacterController charController;
@@ -31,6 +33,7 @@ public class EnemyActive : MonoBehaviour
         gameManager = FindAnyObjectByType<GameMaster>();
         deathCollider = GetComponent<CapsuleCollider>();
         charController = GetComponent<CharacterController>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     private void Start()
@@ -38,8 +41,16 @@ public class EnemyActive : MonoBehaviour
         UIHealth.SetActive(false);
         enemyData.health = enemyData.maxHealth;
         deathCollider.enabled = false;
+
+        if(enemyData != null)
+        {
+            enemyData.Initialize(this);
+        }
+
+        deathCollider.enabled = false;
     }
 
+   
     public void UIHealthBar()
     {
         if (enemyData.health < enemyData.maxHealth)
@@ -111,13 +122,6 @@ public class EnemyActive : MonoBehaviour
         }
     }
 
-    public void OnDestroy()
-    {
-        gameManager.KillCount++;
-    }
-
-     public void OnAttackStart()
-    {
         if (enemyData != null)
         {
             enemyData.isAttacking = true;
@@ -179,7 +183,10 @@ public class EnemyActive : MonoBehaviour
 
     void Update()
     {
-        Death();
+        if (enemyData != null && enemyData.health <= enemyData.minHealth)
+        {
+            Death();
+        }
         UIHealthBar();
         //EnemyFollow();
 
