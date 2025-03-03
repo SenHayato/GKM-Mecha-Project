@@ -11,7 +11,7 @@ public class HUDGameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentAmmo;
     [SerializeField] private TextMeshProUGUI maxAmmo;
     [SerializeField] private TextMeshProUGUI healthPoint;
-    [SerializeField] private TextMeshProUGUI questInfo;
+    public TextMeshProUGUI questInfo;
     [SerializeField] private TextMeshProUGUI killCounterTxt;
     [SerializeField] private UnityEngine.UI.Image healthImage;
     [SerializeField] private UnityEngine.UI.Slider healthBar;
