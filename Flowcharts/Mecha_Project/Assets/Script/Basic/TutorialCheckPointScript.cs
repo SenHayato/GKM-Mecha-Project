@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TurotialCheckPointScript : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class TurotialCheckPointScript : MonoBehaviour
     [SerializeField] private float checkPointDuration; //Destroy Duration
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Collider pointCollider;
+    [SerializeField] private string NextSceneName;
     //[SerializeField] private Material pointMaterial;
 
     //Checker
@@ -60,8 +63,16 @@ public class TurotialCheckPointScript : MonoBehaviour
         }
         else
         {
-            //nextStageTransition
+            if (NextSceneName != null)
+            {
+                LoadNextStage();
+            }
         }
+    }
+
+    private void LoadNextStage()
+    {
+        SceneManager.LoadScene(NextSceneName);
     }
 
     private void Update()

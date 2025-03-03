@@ -127,6 +127,11 @@ public class GameMaster : MonoBehaviour
         SceneManager.LoadScene(MainMenu);
     }
 
+    public void LoadNextStage(string SceneName)
+    {
+        SceneManager.LoadScene(SceneName);
+    }
+
     public void Timer()
     {
         timer -= Time.deltaTime;
