@@ -122,20 +122,6 @@ public class EnemyActive : MonoBehaviour
         }
     }
 
-    //private void CheckPlayerVisibilty()
-    //{
-    //    if (playerInSight)
-    //    {
-    //        Debug.Log($"Player is in sight at distance {distanceToPlayer}");
-    //    }
-    //}
-    public void OnDestroy()
-    {
-        gameManager.KillCount++;
-    }
-
-     public void OnAttackStart()
-    {
         if (enemyData != null)
         {
             enemyData.isAttacking = true;
@@ -150,35 +136,6 @@ public class EnemyActive : MonoBehaviour
         }
     }
 
-    // In EnemyModel.cs - modify the existing UpdateMovement() method
-    //private void UpdateMovement()
-    //{
-    //    if (enemyData != null && enemyData.enabled && !enemyData.isDeath)  // Using isDeath which is defined in your class
-    //    {
-    //        // If we have a NavMeshAgent, let it handle movement calculation
-    //        isMoving = navAgent.velocity.magnitude > 0.1f;
-
-    //        // Sync character controller with NavMeshAgent
-    //        if (enemyData != null)
-    //        {
-    //            Vector3 direction = agent.desiredVelocity.normalized;
-    //            float currentSpeed = agent.speed;
-
-    //            // Only apply movement through EnemyActive if we need to move
-    //            if (isMoving)
-    //            {
-    //                ApplyMovement(direction, currentSpeed, true);
-
-    //                // This line helps sync the positions
-    //                en.nextPosition = transform.position;
-    //            }
-    //            else
-    //            {
-    //                ApplyMovement(Vector3.zero, 0, false);
-    //            }
-    //        }
-    //    }
-    //}
     public void ApplyMovement(Vector3 direction, float currentSpeed, bool shouldRotate)
     {
         if (charController != null && enemyData != null && !enemyData.isDeath)
