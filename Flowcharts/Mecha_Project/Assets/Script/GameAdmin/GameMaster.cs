@@ -56,6 +56,30 @@ public class GameMaster : MonoBehaviour
         countdown = false;
         timer = defaultTimer;
 
+        switch (StageType)
+        {
+            case StageType.StageTutorial:
+                QuestText = "Ini stage tutorial";
+                countdown = false;
+                break;
+            case StageType.Stage1:
+                QuestText = "Ini stage 1";
+                countdown = false;
+                break;
+            case StageType.Stage2:
+                QuestText = "Ini stage 2";
+                countdown = true;
+                if (countdown)
+                {
+                    Timer();
+                }
+                break;
+            case StageType.StageBoss:
+                QuestText = "Ini stage Boss";
+                countdown = false;
+                break;
+        }
+
         /*acceptAction = input.actions.FindAction("Accept");
         navigateAction = input.actions.FindAction("Back");
         backAction = input.actions.FindAction("Navigate");
@@ -66,6 +90,7 @@ public class GameMaster : MonoBehaviour
         //screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         //Cursor.SetCursor(null, screenCenter, CursorMode.ForceSoftware);
     }
+
     //public void SaveManager()
     //{
     //    SaveSystem.SavePlayer(MechaData);
@@ -154,38 +179,14 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    public void QuestInfo()
-    {
-        switch (StageType)
-        {
-            case StageType.StageTutorial:
-                QuestText = "Ini stage tutorial";
-                countdown = false;
-                break;
-            case StageType.Stage1:
-                QuestText = "Ini stage 1";
-                countdown = false;
-                break;
-            case StageType.Stage2:
-                QuestText = "Ini stage 2";
-                countdown = true;
-                if (countdown)
-                {
-                    Timer();
-                }
-                break;
-            case StageType.StageBoss:
-                QuestText = "Ini stage Boss";
-                countdown = false;
-                break;
-        }
-    }
-
     public void Update()
     {
         //PauseButton();
-        QuestInfo();
         HideCursor();
+        if (countdown)
+        {
+            Timer();
+        }
     }
 }
 
