@@ -122,11 +122,6 @@ public class EnemyActive : MonoBehaviour
         }
     }
 
-        if (enemyData != null)
-        {
-            enemyData.isAttacking = true;
-        }
-    }
 
     public void OnAttackEnd()
     {
