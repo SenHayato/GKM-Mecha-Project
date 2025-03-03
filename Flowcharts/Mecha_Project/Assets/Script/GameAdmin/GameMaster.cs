@@ -12,6 +12,7 @@ public class GameMaster : MonoBehaviour
     [Header("QuestInfo")]
     public StageType StageType;
     public string QuestText;
+    public int checkPointReach;
 
     [Header("GameAdmin")]
     public GameObject PauseMenu;

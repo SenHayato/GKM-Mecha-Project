@@ -7,52 +7,44 @@ public class TurotialCheckPointScript : MonoBehaviour
     [SerializeField] private GameMaster gameMaster;
     [SerializeField] private CheckPointNumber checkPointNumber;
     [SerializeField] private string checkPointInfo;
+    [SerializeField] private GameObject nextChekpoint;
+    [SerializeField] private float checkPointDuration;
+    [SerializeField] private MeshRenderer meshRenderer;
 
     private void Awake()
     {
         gameMaster = FindAnyObjectByType<GameMaster>();
     }
 
-    private void QuestDetail()
+    private void Start()
     {
-        switch (checkPointNumber)
-        {
-            case CheckPointNumber.CheckPoint1:
-                checkPointInfo = "Movement Tutorial";
-                break;
-            case CheckPointNumber.CheckPoint2:
-                checkPointInfo = "Evade dan Dash";
-                break;
-            case CheckPointNumber.CheckPoint3:
-                checkPointInfo = "Menembak";
-                break;
-            case CheckPointNumber.CheckPoint4:
-                checkPointInfo = "PowerUp";
-                break;
-            case CheckPointNumber.CheckPoint5:
-                checkPointInfo = "Skill";
-                break;
-            case CheckPointNumber.CheckPoint6:
-                checkPointInfo = "Ultimate";
-                break;
-        }
+        meshRenderer = GetComponent<MeshRenderer>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            meshRenderer.enabled = false;
             gameMaster.QuestText = checkPointInfo;
+            Destroy(gameObject, checkPointDuration);
         }
     }
 
-    private void Update()
+    private void OnDestroy()
     {
-        QuestDetail();
+        if (nextChekpoint != null)
+        {
+             nextChekpoint.SetActive(true);
+        }
+        else
+        {
+            //nextStageTransition
+        }
     }
 }
 
 public enum CheckPointNumber
 {
-    CheckPoint1, CheckPoint2, CheckPoint3, CheckPoint4, CheckPoint5, CheckPoint6,
+    CheckPoint1, CheckPoint2, CheckPoint3, CheckPoint4, CheckPoint5, CheckPoint6, CheckPoint7, CheckPoint8, CheckPoint9, CheckPoint10,
 }
