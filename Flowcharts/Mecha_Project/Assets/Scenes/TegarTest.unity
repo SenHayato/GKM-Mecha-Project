@@ -183,6 +183,7 @@ MonoBehaviour:
   nextChekpoint: {fileID: 924532609}
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
+  pointCollider: {fileID: 0}
 --- !u!64 &21968370
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1402,6 +1403,7 @@ MonoBehaviour:
   nextChekpoint: {fileID: 0}
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
+  pointCollider: {fileID: 0}
 --- !u!1 &335443080
 GameObject:
   m_ObjectHideFlags: 0
@@ -8533,7 +8535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de86fd7a82ab23f4ebade903c7460778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1777185409918010707, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
+  enemy: {fileID: 4945768763590132655, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
 --- !u!1 &752955844
 GameObject:
   m_ObjectHideFlags: 0
@@ -9148,6 +9150,7 @@ MonoBehaviour:
   nextChekpoint: {fileID: 335384384}
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
+  pointCollider: {fileID: 0}
 --- !u!64 &874751371
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9310,6 +9313,7 @@ MonoBehaviour:
   nextChekpoint: {fileID: 874751368}
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
+  pointCollider: {fileID: 0}
 --- !u!64 &924532612
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16072,6 +16076,7 @@ MonoBehaviour:
   nextChekpoint: {fileID: 21968367}
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
+  pointCollider: {fileID: 0}
 --- !u!64 &1256387433
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -18064,6 +18069,7 @@ MonoBehaviour:
   nextChekpoint: {fileID: 1976790998}
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
+  pointCollider: {fileID: 0}
 --- !u!1 &1508406127
 GameObject:
   m_ObjectHideFlags: 0
@@ -21284,6 +21290,7 @@ MonoBehaviour:
   nextChekpoint: {fileID: 1256387430}
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
+  pointCollider: {fileID: 0}
 --- !u!64 &1976791001
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -23344,6 +23351,7 @@ MonoBehaviour:
   PlayerObj: {fileID: 0}
   Player: {fileID: 0}
   enemyData: {fileID: 0}
+  agent: {fileID: 0}
   anim: {fileID: 0}
   gameManager: {fileID: 0}
   charController: {fileID: 0}
@@ -23625,10 +23633,17 @@ MonoBehaviour:
   minHealth: 0
   attackPower: 0
   attackSpeed: 0
+  attackRange: 2
+  detectionRange: 10
   isAttacking: 0
   isDeath: 0
   isMoving: 0
   isBlocking: 0
+  showLineOfSight: 1
+  lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
+  patrolRadius: 10
+  patrolWaitTime: 2
+  attackCooldown: 2
 --- !u!4 &1713933040112956190
 Transform:
   m_ObjectHideFlags: 0
