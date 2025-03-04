@@ -79,9 +79,9 @@ public class TurotialCheckPointScript : MonoBehaviour
     {
         EnemyChecker();
     }
-}
 
-public enum CheckPointNumber
-{
-    CheckPoint1, CheckPoint2, CheckPoint3, CheckPoint4, CheckPoint5, CheckPoint6, CheckPoint7
+    public enum CheckPointNumber
+    {
+        CheckPoint1, CheckPoint2, CheckPoint3, CheckPoint4, CheckPoint5, CheckPoint6, CheckPoint7
+    }
 }
