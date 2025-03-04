@@ -17,7 +17,7 @@ public class TurotialCheckPointScript : MonoBehaviour
     //[SerializeField] private Material pointMaterial;
 
     //Checker
-    GameObject[] enemies;
+    //GameObject[] enemies;
 
     private void Awake()
     {
@@ -32,8 +32,8 @@ public class TurotialCheckPointScript : MonoBehaviour
 
     public void EnemyChecker()
     {
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemies.Length >= 1)
+        int enemies = FindObjectsOfType<EnemyModel>().Length;
+        if (enemies >= 1)
         {
             meshRenderer.enabled = false;
             pointCollider.enabled = false;

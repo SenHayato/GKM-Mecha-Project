@@ -1,58 +1,36 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class SpawnerActive : MonoBehaviour
 {
-    [SerializeField] float spawnerDuration;
-    [SerializeField] int maxEnemyInArea; //Maksimal musuh di area
-    [SerializeField] GameObject[] spawnPrefabs;
-    [SerializeField] bool spawnerReady;
-
-    //checker
-    EnemyModel[] enemies;
-    int spawnerNumber;
+    [SerializeField] private float spawnerDuration;
+    [SerializeField] private int maxEnemyInArea; // Spawn musuh jika kurang dari ....
+    [SerializeField] private GameObject[] spawnPrefabs;
+    [SerializeField] private bool spawnerReady = true;
 
     private void Start()
     {
-        spawnerReady = false;
+        StartCoroutine(SpawnEnemy());
     }
 
-    public void EnemyChecker()
+    private IEnumerator SpawnEnemy()
     {
-        enemies = FindObjectsOfType<EnemyModel>();
-        spawnerNumber = Random.Range(0, spawnPrefabs.Length);
-    }
-
-    private void SpawnEnemy()
-    {
-        if (enemies.Length <= maxEnemyInArea)
+        while (spawnerReady)
         {
-            spawnerReady = true;
-        }
-        
-        if (enemies.Length > maxEnemyInArea)
-        {
-            spawnerReady = false;
-            Debug.Log("Enemy melebihi batas");
-        }
-    }
-
-    private IEnumerator EnemySpawning()
-    {
-        if (spawnerReady)
-        {
-            Instantiate(spawnPrefabs[spawnerNumber], this.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(spawnerDuration);
-            spawnerReady = false;
-        }
-    }
 
-    void Update()
-    {
-        StartCoroutine(EnemySpawning());
-        EnemyChecker();
-        SpawnEnemy();
+            int currentEnemyCount = FindObjectsOfType<EnemyModel>().Length;
+            if (currentEnemyCount < maxEnemyInArea)
+            {
+                int spawnerNumber = Random.Range(0, spawnPrefabs.Length);
+                Instantiate(spawnPrefabs[spawnerNumber], transform.position, Quaternion.identity);
+                Debug.Log("Banyak Musuh " + (currentEnemyCount + 1));
+            }
+
+            if (currentEnemyCount == maxEnemyInArea)
+            {
+                Debug.Log("Musuh sudah mencapai batas maksimal");
+            }
+        }
     }
 }
