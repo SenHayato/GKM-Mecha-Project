@@ -10,6 +10,7 @@ public class EnemyActive : MonoBehaviour
     public GameObject PlayerObj;
     public Transform Player;
     public EnemyModel enemyData;
+    private AIController enemyAI;
     public NavMeshAgent agent;
     public Animator anim;
     public GameMaster gameManager;
@@ -25,15 +26,20 @@ public class EnemyActive : MonoBehaviour
     private PlayerInput gameInput;
     public void Awake()
     {
+        //Player
         PlayerObj = GameObject.FindGameObjectWithTag("Player");
         Player = PlayerObj.GetComponent<Transform>();
-        anim = GetComponent<Animator>();
+        //Enemy
         enemyData = GetComponent<EnemyModel>();
-        gameInput = FindAnyObjectByType<PlayerInput>();
-        gameManager = FindAnyObjectByType<GameMaster>();
+        enemyAI = GetComponent<AIController>();
+        //Enemy Model
+        anim = GetComponent<Animator>();
         deathCollider = GetComponent<CapsuleCollider>();
         charController = GetComponent<CharacterController>();
         agent = GetComponent<NavMeshAgent>();
+        //Game Manager
+        gameInput = FindAnyObjectByType<PlayerInput>();
+        gameManager = FindAnyObjectByType<GameMaster>();
     }
 
     private void Start()
@@ -42,9 +48,9 @@ public class EnemyActive : MonoBehaviour
         enemyData.health = enemyData.maxHealth;
         deathCollider.enabled = false;
 
-        if(enemyData != null)
+        if(enemyAI != null)
         {
-            enemyData.Initialize(this);
+            enemyAI.Initialize(this);
         }
 
         deathCollider.enabled = false;
@@ -131,35 +137,74 @@ public class EnemyActive : MonoBehaviour
         }
     }
 
+    public void AttackPlayer()
+    {
+        if (enemyData == null || enemyData.isDeath || Player == null) return;
+
+        // Calculate distance to player
+        float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
+
+        // Check if within attack range
+        if (distanceToPlayer <= enemyData.attackRange && !enemyData.isAttacking)
+        {
+            // Face the player
+            Vector3 directionToPlayer = (Player.position - transform.position).normalized;
+            directionToPlayer.y = 0;
+            transform.rotation = Quaternion.LookRotation(directionToPlayer);
+
+            // Trigger attack
+            enemyData.isAttacking = true;
+            if (anim != null)
+            {
+                anim.SetTrigger("Attack");
+            } 
+        }
+    }
+
+
+    public void OnDrawGizmosSelected()
+    {
+        // Visualize attack range
+        if (enemyData != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, enemyData.attackRange);
+
+            // Visualize detection range
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(transform.position, enemyData.detectionRange);
+        }
+    }
+
     public void ApplyMovement(Vector3 direction, float currentSpeed, bool shouldRotate)
     {
-        if (charController != null && enemyData != null && !enemyData.isDeath)
+    if (charController != null && enemyData != null && !enemyData.isDeath)
+    {
+        // Apply movement using character controller
+        charController.Move(currentSpeed * Time.deltaTime * direction);
+
+        // Apply gravity
+        if (!charController.isGrounded)
         {
-            // Apply movement using character controller
-            charController.Move(currentSpeed * Time.deltaTime * direction);
+            charController.Move(9.8f * Time.deltaTime * Vector3.down);
+        }
 
-            // Apply gravity
-            if (!charController.isGrounded)
+        // Handle rotation
+        if (shouldRotate && direction != Vector3.zero)
+        {
+            // Ensure we only rotate around the y-axis
+            Vector3 horizontalDirection = direction;
+            horizontalDirection.y = 0;
+
+            if (horizontalDirection != Vector3.zero)
             {
-                charController.Move(9.8f * Time.deltaTime * Vector3.down);
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    Quaternion.LookRotation(horizontalDirection),
+                    10f * Time.deltaTime
+                );
             }
-
-            // Handle rotation
-            if (shouldRotate && direction != Vector3.zero)
-            {
-                // Ensure we only rotate around the y-axis
-                Vector3 horizontalDirection = direction;
-                horizontalDirection.y = 0;
-
-                if (horizontalDirection != Vector3.zero)
-                {
-                    transform.rotation = Quaternion.Slerp(
-                        transform.rotation,
-                        Quaternion.LookRotation(horizontalDirection),
-                        10f * Time.deltaTime
-                    );
-                }
-            }
+        }
 
             // Update animation
             if (anim != null)
@@ -181,11 +226,9 @@ public class EnemyActive : MonoBehaviour
         if (enemyData != null && enemyData.health <= enemyData.minHealth)
         {
             Death();
+            Damage();
         }
+        //For AIController handle behavior
         UIHealthBar();
-        //EnemyFollow();
-
-        //test
-        Damage();
     }
 }

@@ -9142,11 +9142,11 @@ GameObject:
   - component: {fileID: 1260541500}
   - component: {fileID: 1260541499}
   - component: {fileID: 1260541498}
+  - component: {fileID: 1260541493}
   - component: {fileID: 1260541497}
   - component: {fileID: 1260541496}
   - component: {fileID: 1260541495}
   - component: {fileID: 1260541494}
-  - component: {fileID: 1260541493}
   - component: {fileID: 1260541492}
   m_Layer: 9
   m_Name: Enemy
@@ -9184,31 +9184,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260541491}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ea4a4ab3f8c30341b894ae6721958af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 1260541492}
-  PlayerOBJ: {fileID: 0}
-  startWaitTime: 4
-  timeToRotate: 2
-  speedWalk: 6
-  speedRun: 9
-  viewRadius: 15
-  viewAngle: 90
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  meshResolution: 1
-  edgeIterations: 4
-  edgeDistance: 0.5
-  waypoints:
-  - {fileID: 938803209}
-  - {fileID: 790182796}
 --- !u!136 &1260541494
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -9342,7 +9322,7 @@ MonoBehaviour:
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
-  detectionRange: 10
+  detectionRange: 5
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -9351,7 +9331,11 @@ MonoBehaviour:
   lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
   patrolRadius: 10
   patrolWaitTime: 2
+  startPosition: {x: 0, y: 0, z: 0}
+  currentDestination: {x: 0, y: 0, z: 0}
+  destinationChangeTimer: 0
   attackCooldown: 2
+  attackTimer: 0
 --- !u!33 &1260541499
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9369,7 +9353,7 @@ Transform:
   m_GameObject: {fileID: 1260541491}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.84, y: 1.06, z: 4.1}
+  m_LocalPosition: {x: -1.84, y: 1.06, z: 14.24}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10422,7 +10406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de86fd7a82ab23f4ebade903c7460778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 6815314266433708217, guid: 979e52060d0daa641af627384b95eda7, type: 3}
+  enemy: {fileID: 1399895883}
 --- !u!4 &1399895885
 Transform:
   m_ObjectHideFlags: 0
@@ -12297,6 +12281,7 @@ MonoBehaviour:
   playerPosition: {fileID: 0}
   Weapon: {fileID: 0}
   thusterParticle: {fileID: 2114970187}
+  windEffect: {fileID: 0}
   skill1HitBox: {fileID: 605906243}
   skill2HitBox: {fileID: 1255677733}
   ultimateHitBox: {fileID: 573380529}
