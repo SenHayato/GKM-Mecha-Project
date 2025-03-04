@@ -8837,7 +8837,7 @@ GameObject:
   - component: {fileID: 737564210}
   - component: {fileID: 737564211}
   m_Layer: 0
-  m_Name: TestEnemySpawn
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8852,7 +8852,7 @@ Transform:
   m_GameObject: {fileID: 737564209}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.06, z: 5.28}
+  m_LocalPosition: {x: 10.44, y: 1.06, z: -3.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8865,7 +8865,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737564209}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: de86fd7a82ab23f4ebade903c7460778, type: 3}
   m_Name: 
