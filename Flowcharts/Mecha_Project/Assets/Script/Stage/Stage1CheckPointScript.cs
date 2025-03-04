@@ -15,7 +15,8 @@ public class Stage1CheckPointScript : MonoBehaviour
     [SerializeField] private string NextSceneName;
 
     //flag
-    GameObject[] enemies;
+    //GameObject[] enemies;
+
     void Awake()
     {
         gameMaster = FindFirstObjectByType<GameMaster>();
@@ -29,8 +30,8 @@ public class Stage1CheckPointScript : MonoBehaviour
 
     public void EnemyChecker()
     {
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemies.Length >= 1)
+        int enemies = FindObjectsOfType<EnemyModel>().Length;
+        if (enemies >= 1)
         {
             meshRenderer.enabled = false;
             pointCollider.enabled = false;
