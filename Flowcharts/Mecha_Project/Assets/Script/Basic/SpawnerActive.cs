@@ -16,10 +16,14 @@ public class SpawnerActive : MonoBehaviour
         enemies = FindObjectsOfType<EnemyModel>();
         int spawnerNumber = Random.Range(0, spawnPrefabs.Length);
         Debug.Log(spawnerNumber.ToString());
-        //if (enemies.Length < maxEnemyInARea)
-        //{
-            
-        //}
+        if (enemies.Length < maxEnemyInARea)
+        {
+            Instantiate(spawnPrefabs[spawnerNumber], transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log("Enemy melebihi batas");
+        }
     }
 
     void Update()

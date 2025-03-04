@@ -8835,10 +8835,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 737564210}
+  - component: {fileID: 737564214}
   - component: {fileID: 737564211}
   - component: {fileID: 737564213}
   - component: {fileID: 737564212}
-  - component: {fileID: 737564214}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -8881,7 +8881,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737564209}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -8936,6 +8936,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eae92ec8f8262fd42983091f1d8f73e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnerDuration: 2
+  maxEnemyInARea: 10
+  spawnPrefabs:
+  - {fileID: 4945768763590132655, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
+  - {fileID: 559008701309167482, guid: b048f6c2c4ff41f4ea375f84ad0b64be, type: 3}
 --- !u!1 &752955844
 GameObject:
   m_ObjectHideFlags: 0
