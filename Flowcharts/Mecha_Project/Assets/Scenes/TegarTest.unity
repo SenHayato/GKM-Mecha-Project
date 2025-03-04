@@ -8248,6 +8248,8 @@ GameObject:
   - component: {fileID: 687048701}
   - component: {fileID: 687048703}
   - component: {fileID: 687048702}
+  - component: {fileID: 687048705}
+  - component: {fileID: 687048704}
   m_Layer: 5
   m_Name: QuestInfo
   m_TagString: Untagged
@@ -8273,7 +8275,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 963, y: -195}
-  m_SizeDelta: {x: 403, y: 70.9122}
+  m_SizeDelta: {x: 403, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &687048702
 MonoBehaviour:
@@ -8313,6 +8315,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687048700}
   m_CullTransparentMesh: 1
+--- !u!114 &687048704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687048700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 1
+  m_ReverseArrangement: 0
+--- !u!114 &687048705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687048700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
 --- !u!1 &732022809
 GameObject:
   m_ObjectHideFlags: 0
@@ -18070,7 +18112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMaster: {fileID: 0}
   checkPointNumber: 0
-  checkPointInfo: Movement
+  checkPointInfo: Movement shajdiahisodjoasjdoiajdiajsdiojasodjaosjdoajdoiajdiojasodjaoisjdoaisjdoiasjdoiasjdiosajdoaisdjasjd
   nextChekpoint: {fileID: 1976790998}
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
@@ -18900,10 +18942,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 687048701}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 185, y: -35.5}
-  m_SizeDelta: {x: 370, y: 71}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 403, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1608316219
 MonoBehaviour:
@@ -18925,7 +18967,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Loren Ipsum Quest Mecha Protocol abcd
+  m_text: Loren Ipsum Quest Mecha Protocol abcdjdsofjsdfjksdjfklsdjfklsjdfkljsdklfjklsdjfklsdjfklsdjfkljjashdjahsdjhajshdjashdjashdjsahdjashdkashdkjakdkjadksusduihadhasdhaskdhaskdhaskhd
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
