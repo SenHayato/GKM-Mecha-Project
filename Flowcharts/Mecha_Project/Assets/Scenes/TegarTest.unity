@@ -8838,6 +8838,7 @@ GameObject:
   - component: {fileID: 737564211}
   - component: {fileID: 737564213}
   - component: {fileID: 737564212}
+  - component: {fileID: 737564214}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -8923,6 +8924,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 737564209}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &737564214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737564209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eae92ec8f8262fd42983091f1d8f73e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &752955844
 GameObject:
   m_ObjectHideFlags: 0
@@ -24667,26 +24680,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea4a4ab3f8c30341b894ae6721958af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 6184001697788389097}
-  PlayerOBJ: {fileID: 0}
-  startWaitTime: 4
-  timeToRotate: 2
-  speedWalk: 6
-  speedRun: 9
-  viewRadius: 15
-  viewAngle: 90
-  playerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 2048
-  meshResolution: 1
-  edgeIterations: 4
-  edgeDistance: 0.5
-  waypoints:
-  - {fileID: 2083187769}
-  - {fileID: 1858980972}
 --- !u!4 &2275614537293725482
 Transform:
   m_ObjectHideFlags: 0
@@ -25149,11 +25142,19 @@ MonoBehaviour:
   isDeath: 0
   isMoving: 0
   isBlocking: 0
+  isReloading: 0
   showLineOfSight: 1
   lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
   patrolRadius: 10
   patrolWaitTime: 2
+  startPosition: {x: 0, y: 0, z: 0}
+  currentDestination: {x: 0, y: 0, z: 0}
+  destinationChangeTimer: 0
   attackCooldown: 2
+  attackTimer: 0
+  maxAmmo: 30
+  currentAmmo: 30
+  reloadTime: 2
 --- !u!114 &3421913921733029704
 MonoBehaviour:
   m_ObjectHideFlags: 0
