@@ -12,6 +12,7 @@ public class GameMaster : MonoBehaviour
     [Header("QuestInfo")]
     public StageType StageType;
     public string QuestText;
+    public int checkPointReach;
 
     [Header("GameAdmin")]
     public GameObject PauseMenu;
@@ -124,6 +125,11 @@ public class GameMaster : MonoBehaviour
     public void BacktoMenu()
     {
         SceneManager.LoadScene(MainMenu);
+    }
+
+    public void LoadNextStage(string SceneName)
+    {
+        SceneManager.LoadScene(SceneName);
     }
 
     public void Timer()
