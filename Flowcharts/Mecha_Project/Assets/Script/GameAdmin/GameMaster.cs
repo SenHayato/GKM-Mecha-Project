@@ -54,7 +54,7 @@ public class GameMaster : MonoBehaviour
     {
         isPaused = false;
         PlayerHealth = MechaData.Health;
-        countdown = false;
+        //countdown = false; //Hanya perlu di stage gurun Endurance
         timer = defaultTimer;
 
         switch (StageType)
@@ -139,6 +139,15 @@ public class GameMaster : MonoBehaviour
         int seconds = Mathf.FloorToInt(timer % 60);
         timeFormat = string.Format("{00:00}:{1:00}", minutes, seconds);
         HUDManager.timerText.text = timeFormat;
+
+        if (timer <= 20f)
+        {
+            HUDManager.timerText.color = Color.red;
+        }
+        else
+        {
+            HUDManager.timerText.color = Color.white;
+        }
     }
 
     public void Paused()
