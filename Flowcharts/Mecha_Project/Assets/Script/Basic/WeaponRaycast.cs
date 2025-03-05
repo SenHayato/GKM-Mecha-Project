@@ -67,22 +67,26 @@ public class WeaponRaycast : MonoBehaviour
                 if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
                 {
                     enemy.TakeDamage(player.AttackPow);
+                    HUDManager.hitEffect.color = Color.red;
                     yield return new WaitForSeconds(fireRate);
+                    HUDManager.hitEffect.color = Color.white;
                 }
             }
             else
             {
-
+                HUDManager.hitEffect.color = Color.white;
             }
 
             if (hitEffect != null)
             {
                 Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                HUDManager.hitEffect.color = Color.white;
                 Debug.Log("Tembakan kena target!");
             }
         }
         else
         {
+            HUDManager.hitEffect.color = Color.white;
             targetPoint = ray.GetPoint(range);
         }
 
