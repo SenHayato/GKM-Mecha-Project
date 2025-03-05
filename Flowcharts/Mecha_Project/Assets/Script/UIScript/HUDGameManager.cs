@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 public class HUDGameManager : MonoBehaviour
 {
     [Header("UIAtribut")]
@@ -25,7 +27,7 @@ public class HUDGameManager : MonoBehaviour
 
     [Header("CrossHair")]
     public RectTransform recoilCrossHair;
-    public GameObject hitCrossHair;
+    //public GameObject hitCrossHair;
 
     [Header("MiniMAP")]
     [SerializeField] private GameObject mapCamera;
@@ -58,8 +60,6 @@ public class HUDGameManager : MonoBehaviour
         skill2Bar.maxValue = mechaScript.cooldownSkill2;
         easeHealthBar.maxValue = healthBar.maxValue;
         easeHealthBar.value = easeHealthBar.maxValue;
-
-        hitCrossHair.SetActive(false);
     }
 
     public void AmmoMonitor()
@@ -143,15 +143,15 @@ public class HUDGameManager : MonoBehaviour
         {
             if (!mechaScript.isAiming)
             {
-                recoilCrossHair.sizeDelta = new Vector2(60f, 60f);
+                recoilCrossHair.sizeDelta = new Vector2(145f, 145f);
             }
             else
             {
-                recoilCrossHair.sizeDelta = new Vector2(35f, 35f);
+                recoilCrossHair.sizeDelta = new Vector2(115f, 115f);
             }
         } else
         {
-            recoilCrossHair.sizeDelta = new Vector2(20f, 20f);
+            recoilCrossHair.sizeDelta = new Vector2(88f, 88f);
         }
     }
 

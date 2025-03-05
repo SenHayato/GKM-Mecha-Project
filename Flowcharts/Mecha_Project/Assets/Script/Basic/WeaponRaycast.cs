@@ -67,14 +67,12 @@ public class WeaponRaycast : MonoBehaviour
                 if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
                 {
                     enemy.TakeDamage(player.AttackPow);
-                    HUDManager.hitCrossHair.SetActive(true);
                     yield return new WaitForSeconds(fireRate);
-                    HUDManager.hitCrossHair.SetActive(false);
                 }
             }
             else
             {
-                HUDManager.hitCrossHair.SetActive(false);
+
             }
 
             if (hitEffect != null)
@@ -85,7 +83,6 @@ public class WeaponRaycast : MonoBehaviour
         }
         else
         {
-            HUDManager.hitCrossHair.SetActive(false);
             targetPoint = ray.GetPoint(range);
         }
 
