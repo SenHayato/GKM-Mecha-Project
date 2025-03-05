@@ -27,6 +27,7 @@ public class HUDGameManager : MonoBehaviour
 
     [Header("CrossHair")]
     public RectTransform recoilCrossHair;
+    public UnityEngine.UI.Image hitEffect;
     //public GameObject hitCrossHair;
 
     [Header("MiniMAP")]
@@ -60,6 +61,8 @@ public class HUDGameManager : MonoBehaviour
         skill2Bar.maxValue = mechaScript.cooldownSkill2;
         easeHealthBar.maxValue = healthBar.maxValue;
         easeHealthBar.value = easeHealthBar.maxValue;
+
+        hitEffect = recoilCrossHair.GetComponent<UnityEngine.UI.Image>();
     }
 
     public void AmmoMonitor()
