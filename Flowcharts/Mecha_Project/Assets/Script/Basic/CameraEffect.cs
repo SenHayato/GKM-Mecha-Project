@@ -10,6 +10,7 @@ public class CameraEffect : MonoBehaviour
     [SerializeField] private GameObject boostEffect;
     [SerializeField] private GameObject ultimateEffect;
     [SerializeField] private GameObject criticalEffect;
+    [SerializeField] private GameObject scopeEffect;
 
     [Header("EffectVolume")]
     [SerializeField] private Volume criticalVolume;
@@ -30,6 +31,7 @@ public class CameraEffect : MonoBehaviour
         boostEffect.SetActive(false);
         ultimateEffect.SetActive(false);
         criticalEffect.SetActive(false);
+        scopeEffect.SetActive(false);
     }
 
     public void CriticalEffect()
@@ -101,10 +103,23 @@ public class CameraEffect : MonoBehaviour
         }
     }
 
+    public void ScopeCameraEffect()
+    {
+        if (mechaPlayer.isAiming)
+        {
+            scopeEffect.SetActive(true);
+        }
+        else
+        {
+            scopeEffect.SetActive(false);
+        }
+    }
+
     private void Update()
     {
         UltimateEffect();
         BoostEffect();
         CriticalEffect();
+        ScopeCameraEffect();
     }
 }

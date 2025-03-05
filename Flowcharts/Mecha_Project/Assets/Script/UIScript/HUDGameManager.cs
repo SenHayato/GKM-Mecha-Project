@@ -28,6 +28,7 @@ public class HUDGameManager : MonoBehaviour
     [Header("CrossHair")]
     public RectTransform recoilCrossHair;
     public UnityEngine.UI.Image hitEffect;
+    public GameObject scopeHair;
     //public GameObject hitCrossHair;
 
     [Header("MiniMAP")]
@@ -155,6 +156,15 @@ public class HUDGameManager : MonoBehaviour
         } else
         {
             recoilCrossHair.sizeDelta = new Vector2(88f, 88f);
+        }
+
+        if (mechaScript.isAiming)
+        {
+            scopeHair.SetActive(true);
+        }
+        else
+        {
+            scopeHair.SetActive(false);
         }
     }
 
