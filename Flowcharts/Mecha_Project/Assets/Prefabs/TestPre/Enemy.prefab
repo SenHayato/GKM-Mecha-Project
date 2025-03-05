@@ -494,6 +494,7 @@ GameObject:
   - component: {fileID: 6680671458617483360}
   - component: {fileID: 6803510434229760004}
   - component: {fileID: 7577824971922757004}
+  - component: {fileID: 2173967926067514857}
   m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
@@ -540,7 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 1
   maxHealth: 1000
-  health: 0
+  health: 1000
   minHealth: 0
   attackPower: 0
   attackSpeed: 0
@@ -654,6 +655,29 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2173967926067514857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4945768763590132655}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27cf4d291eac9941a4db26c0ee68d6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerObj: {fileID: 0}
+  Player: {fileID: 0}
+  enemyData: {fileID: 0}
+  agent: {fileID: 0}
+  anim: {fileID: 0}
+  gameManager: {fileID: 0}
+  charController: {fileID: 0}
+  deathCollider: {fileID: 0}
+  UIHealth: {fileID: 0}
+  speed: 3.5
+  stoppingDistance: 1.5
 --- !u!1 &5424400955380079878
 GameObject:
   m_ObjectHideFlags: 0
