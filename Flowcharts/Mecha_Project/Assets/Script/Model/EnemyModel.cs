@@ -47,5 +47,7 @@ public class EnemyModel : MonoBehaviour
 public enum EnemyType
     {
         EnemyShort,  // Melee enemies
-        EnemyRange   // Ranged enemies
+        EnemyRange,  // Ranged enemies
+        MiniBoss,    //MiniBoss
+        Boss,        //BossStage
     }
