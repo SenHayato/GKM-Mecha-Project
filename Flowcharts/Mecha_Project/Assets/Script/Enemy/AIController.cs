@@ -8,7 +8,7 @@ public class AIController : MonoBehaviour
     private EnemyModel enemyModel;
     private EnemyActive enemyActive;
     private NavMeshAgent navAgent;
-    private LineRenderer lineOfSight;
+    public LineRenderer lineOfSight;
 
     // State management
     private enum AIState { Idle, Patrol, Chase, Attack, Retreat, Dead }
@@ -18,6 +18,8 @@ public class AIController : MonoBehaviour
     private Transform playerTransform;
     private bool playerInSight = false;
     private bool isObstacleInTheWay = false;
+
+
 
     void Awake()
     {
@@ -554,6 +556,11 @@ public class AIController : MonoBehaviour
                 if (hit.collider.CompareTag("Player"))
                 {
                     hitPlayer = true;
+                    if (hit.collider.TryGetComponent<PlayerActive>(out var player))
+                    {
+                        player.TakeDamage(enemyModel.attackPower);
+                        Debug.Log("Player Terkena Damage : ");
+                    }
 
                     // Create hit effect for player
                     if (Resources.Load<GameObject>("Prefabs/HitEffect"))
