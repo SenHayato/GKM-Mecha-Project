@@ -19235,7 +19235,7 @@ MonoBehaviour:
   maxHealth: 1000
   health: 0
   minHealth: 0
-  attackPower: 0
+  attackPower: 1000
   attackSpeed: 0
   attackRange: 2
   detectionRange: 10
@@ -19564,6 +19564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea4a4ab3f8c30341b894ae6721958af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lineOfSight: {fileID: 7188445463655339916}
 --- !u!1 &4195830143307787597
 GameObject:
   m_ObjectHideFlags: 0
