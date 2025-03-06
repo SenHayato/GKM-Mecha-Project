@@ -143,6 +143,9 @@ public class HUDGameManager : MonoBehaviour
 
     public void RecoilCrossHair()
     {
+        //UnityEngine.UI.Image scopeImage = scopeHair.GetComponent<UnityEngine.UI.Image>();
+        //float smoothTime;
+        //float lerpSpeed = 1f;
         if (mechaScript.isShooting)
         {
             if (!mechaScript.isAiming)
