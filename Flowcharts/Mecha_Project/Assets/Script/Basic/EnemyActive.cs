@@ -40,6 +40,7 @@ public class EnemyActive : MonoBehaviour
         //Game Manager
         gameInput = FindAnyObjectByType<PlayerInput>();
         gameManager = FindAnyObjectByType<GameMaster>();
+
     }
 
     private void Start()

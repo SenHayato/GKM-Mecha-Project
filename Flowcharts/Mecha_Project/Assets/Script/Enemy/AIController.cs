@@ -370,25 +370,6 @@ public class AIController : MonoBehaviour
         }
     }
 
-    private void LookAtPlayer()
-    {
-        if (playerTransform != null)
-        {
-            // Calculate direction to player
-            Vector3 direction = (playerTransform.position - transform.position).normalized;
-            direction.y = 0; // Keep rotation on horizontal plane
-
-            // Only rotate if we have a valid direction
-            if (direction != Vector3.zero)
-            {
-                // Create a rotation that looks in the direction
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-
-                // Smoothly rotate towards the target rotation
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 10f * Time.deltaTime);
-            }
-        }
-    }
     private void HandleAttackState()
     {
         if (playerTransform == null)
@@ -410,8 +391,6 @@ public class AIController : MonoBehaviour
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 10f * Time.deltaTime);
         }
-        // Check if we're still in attack range
-        LookAtPlayer();
 
         // Check if we're still in attack range
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
@@ -425,23 +404,6 @@ public class AIController : MonoBehaviour
                 navAgent.isStopped = false;
             }
             return;
-        }
-
-        // For ranged enemies, check ammo and handle reloading
-        if (enemyModel.enemyType == EnemyType.EnemyRange)
-        {
-            // If currently reloading, don't attack
-            if (enemyModel.isReloading)
-            {
-                return;
-            }
-
-            // If out of ammo, start reloading
-            if (enemyModel.currentAmmo <= 0)
-            {
-                StartCoroutine(ReloadGun());
-                return;
-            }
         }
 
         // Perform attack if cooldown is over
@@ -511,57 +473,205 @@ public class AIController : MonoBehaviour
 
     private void PerformAttack()
     {
+        // For range enemies, use raycast to attack
         enemyModel.isAttacking = true;
 
         // For range enemies, use raycast to attack
         if (enemyModel.enemyType == EnemyType.EnemyRange)
         {
-            // Reduce ammo on each shot
-            enemyModel.currentAmmo--;
+            if (playerTransform != null)
+            {
+                Vector3 facingDirection = (playerTransform.position - transform.position).normalized;
+                facingDirection.y = 0;
+                transform.rotation = Quaternion.LookRotation(facingDirection);
+            }
+            // Use the weapon fire point instead of a hardcoded offset
+            Vector3 attackOrigin = enemyModel.weaponFirePoint != null
+                ? enemyModel.weaponFirePoint.position
+                : transform.position + transform.forward * 0.5f + Vector3.up * 1.2f + transform.right * 0.3f;
 
-            Vector3 attackOrigin = transform.position + Vector3.up * 1.5f; // Adjust to fire from head/weapon height
-            Vector3 directionToPlayer = (playerTransform.position + Vector3.up * 1.0f - attackOrigin).normalized; // Aim at player's center mass
+            Vector3 directionToPlayer = (playerTransform.position + Vector3.up * 1.0f - attackOrigin).normalized;
             RaycastHit hit;
-
-            // Visual effect for ranged attack
-            Debug.DrawRay(attackOrigin, directionToPlayer * enemyModel.attackRange * 3, Color.magenta, 1.0f);
-
-            // Rest of your ranged attack code...
-
             // Create a temporary LineRenderer for the attack visualization with better properties
             GameObject tempLaser = new GameObject("AttackLaser");
             LineRenderer laser = tempLaser.AddComponent<LineRenderer>();
             laser.startWidth = 0.1f;
             laser.endWidth = 0.05f; // Tapered effect
 
-            // Rest of the existing attack code...
+            // Use a more suitable material for beam effect
+            if (Resources.Load<Material>("Materials/LaserBeam"))
+            {
+                laser.material = Resources.Load<Material>("Materials/LaserBeam");
+            }
+            else
+            {
+                Material laserMat = new Material(Shader.Find("Sprites/Default"));
+                laserMat.color = Color.magenta;
+                laser.material = laserMat;
+            }
+
+            laser.startColor = new Color(1f, 0f, 1f, 0.8f); // Semi-transparent magenta
+            laser.endColor = new Color(1f, 0f, 1f, 0.2f); // Fade out at the end
+            laser.positionCount = 2;
+            laser.SetPosition(0, attackOrigin);
+
+            // Add subtle glow effect
+            GameObject glowObj = new GameObject("AttackGlow");
+            glowObj.transform.position = attackOrigin;
+            Light glowLight = glowObj.AddComponent<Light>();
+            glowLight.color = Color.magenta;
+            glowLight.intensity = 2f;
+            glowLight.range = 3f;
+
+            // Sound effect
+            AudioSource audioSource = GetComponent<AudioSource>();
+            if (audioSource != null && Resources.Load<AudioClip>("Sounds/LaserShot"))
+            {
+                audioSource.PlayOneShot(Resources.Load<AudioClip>("Sounds/LaserShot"));
+            }
+
+            // Layer mask to ignore self/other enemies
+            int layerMask = ~(1 << gameObject.layer);
+
+            bool hitPlayer = false;
+
+            // Perform the actual raycast
+            if (Physics.Raycast(attackOrigin, directionToPlayer, out hit, enemyModel.attackRange * 3, layerMask))
+            {
+                // Set endpoint of visual laser
+                laser.SetPosition(1, hit.point);
+
+                // Impact effect at hit point
+                GameObject impactObj = new GameObject("ImpactEffect");
+                impactObj.transform.position = hit.point;
+                Light impactLight = impactObj.AddComponent<Light>();
+                impactLight.color = Color.red;
+                impactLight.intensity = 3f;
+                impactLight.range = 2f;
+                Destroy(impactObj, 0.3f);
+
+                // Check if we hit the player
+                if (hit.collider.CompareTag("Player"))
+                {
+                    hitPlayer = true;
+
+                    // Create hit effect for player
+                    if (Resources.Load<GameObject>("Prefabs/HitEffect"))
+                    {
+                        Instantiate(Resources.Load<GameObject>("Prefabs/HitEffect"), hit.point, Quaternion.LookRotation(hit.normal));
+                    }
+                }
+                else
+                {
+                    // Hit something else - create appropriate effect based on material
+                    // Create a simple particle effect at the hit point
+                    GameObject hitEffect = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    hitEffect.transform.position = hit.point;
+                    hitEffect.transform.localScale = Vector3.one * 0.2f;
+
+                    // Make it glow based on the surface hit
+                    Renderer renderer = hitEffect.GetComponent<Renderer>();
+                    if (renderer != null)
+                    {
+                        Material mat = new Material(Shader.Find("Standard"));
+                        mat.EnableKeyword("_EMISSION");
+
+                        // Adapt color based on what was hit
+                        if (hit.collider.gameObject.CompareTag("Metal"))
+                            mat.SetColor("_EmissionColor", Color.yellow * 2f);
+                        else if (hit.collider.gameObject.CompareTag("Stone"))
+                            mat.SetColor("_EmissionColor", Color.gray * 2f);
+                        else
+                            mat.SetColor("_EmissionColor", Color.red * 2f);
+
+                        renderer.material = mat;
+                    }
+
+                    // Remove collider from hit effect
+                    Collider hitCollider = hitEffect.GetComponent<Collider>();
+                    if (hitCollider != null) Destroy(hitCollider);
+
+                    // Destroy the hit effect after a delay
+                    Destroy(hitEffect, 0.5f);
+                }
+            }
+            else
+            {
+                // Didn't hit anything, show max range with effect at the end
+                Vector3 endPoint = attackOrigin + directionToPlayer * enemyModel.attackRange * 3;
+                laser.SetPosition(1, endPoint);
+
+                // Optional: Add small end effect for missed shots
+                GameObject endEffect = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                endEffect.transform.position = endPoint;
+                endEffect.transform.localScale = Vector3.one * 0.1f;
+
+                Renderer renderer = endEffect.GetComponent<Renderer>();
+                if (renderer != null)
+                {
+                    Material mat = new Material(Shader.Find("Standard"));
+                    mat.color = new Color(1f, 0f, 1f, 0.3f);
+                    renderer.material = mat;
+                }
+
+                Collider endCollider = endEffect.GetComponent<Collider>();
+                if (endCollider != null) Destroy(endCollider);
+
+                Destroy(endEffect, 0.3f);
+            }
+
+            // Add muzzle flash effect at the origin
+            GameObject muzzleFlash = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            muzzleFlash.transform.position = attackOrigin;
+            muzzleFlash.transform.localScale = Vector3.one * 0.3f;
+
+            Renderer muzzleRenderer = muzzleFlash.GetComponent<Renderer>();
+            if (muzzleRenderer != null)
+            {
+                Material mat = new Material(Shader.Find("Standard"));
+                mat.EnableKeyword("_EMISSION");
+                mat.SetColor("_EmissionColor", Color.white * 3f);
+                muzzleRenderer.material = mat;
+            }
+
+            Collider muzzleCollider = muzzleFlash.GetComponent<Collider>();
+            if (muzzleCollider != null) Destroy(muzzleCollider);
+
+            // Destroy temporary visual effects after delay
+            Destroy(muzzleFlash, 0.2f);
+            Destroy(tempLaser, hitPlayer ? 0.3f : 0.5f); // Shorter duration if hit for more responsive feel
+            Destroy(glowObj, 0.2f);
+
+            // Apply a slight recoil to the enemy
         }
 
         StartCoroutine(ResetAttackFlag());
     }
 
-    private IEnumerator ReloadGun()
+    private void LookAtPlayer()
     {
-        Debug.Log("Enemy reloading...");
-
-        // Set reloading flag
-        enemyModel.isReloading = true;
-
-        // Play reload animation if available
-        if (GetComponent<Animator>() != null)
+        if (playerTransform != null)
         {
-            GetComponent<Animator>().SetTrigger("Reload");
+            Vector3 direction = (playerTransform.position - transform.position).normalized;
+            direction.y = 0;
+
+            if (direction != Vector3.zero)
+            {
+                if (enemyModel.enemyType == EnemyType.EnemyRange && currentState == AIState.Attack && enemyModel.attackTimer <= 0f)
+                {
+                    transform.rotation = Quaternion.LookRotation(direction);
+
+                    Debug.Log("Ranged enemy directly facing player for attack");
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 10f * Time.deltaTime);
+                }
+            }
         }
-
-        // Wait for reload time
-        yield return new WaitForSeconds(enemyModel.reloadTime);
-
-        // Reload complete
-        enemyModel.currentAmmo = enemyModel.maxAmmo;
-        enemyModel.isReloading = false;
-
-        Debug.Log("Enemy reload complete. Ammo: " + enemyModel.currentAmmo);
     }
+        
+
     // Helper method for recoil effect
     private IEnumerator ApplyRecoil(Vector3 recoilDirection)
     {

@@ -21,7 +21,6 @@ public class EnemyModel : MonoBehaviour
     public bool isDeath;
     public bool isMoving;
     public bool isBlocking;
-    public bool isReloading = false;
 
     [Header("Debug Visualization")]
     public bool showLineOfSight = true;
@@ -37,11 +36,7 @@ public class EnemyModel : MonoBehaviour
     [Header("Combat")]
     public float attackCooldown = 2f;
     public float attackTimer = 0f;
-
-    [Header("Gun Properties")]
-    public int maxAmmo = 30;
-    public int currentAmmo = 30;
-    public float reloadTime = 2f;
+    public Transform weaponFirePoint;
 }
 
 public enum EnemyType
