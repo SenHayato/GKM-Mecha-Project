@@ -559,7 +559,6 @@ public class AIController : MonoBehaviour
                     if (hit.collider.TryGetComponent<PlayerActive>(out var player))
                     {
                         player.TakeDamage(enemyModel.attackPower);
-                        Debug.Log("Player Terkena Damage : ");
                     }
 
                     // Create hit effect for player
