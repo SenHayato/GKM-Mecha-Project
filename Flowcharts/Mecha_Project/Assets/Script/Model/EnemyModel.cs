@@ -5,6 +5,8 @@ public class EnemyModel : MonoBehaviour
 {
     public EnemyType enemyType;
 
+    public string enemyName;
+
     [Header("Health")]
     public int maxHealth;
     public int health;
