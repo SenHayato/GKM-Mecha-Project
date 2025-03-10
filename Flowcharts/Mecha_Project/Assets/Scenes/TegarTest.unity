@@ -1198,6 +1198,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &173545205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6378845379060410495, guid: 9b45db297589f97429b3b52c61bef0cc, type: 3}
+  m_PrefabInstance: {fileID: 5896801769864708653}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &175446350
 GameObject:
   m_ObjectHideFlags: 0
@@ -24337,7 +24342,6 @@ GameObject:
   - component: {fileID: 1847377411}
   - component: {fileID: 1847377414}
   - component: {fileID: 1847377413}
-  - component: {fileID: 1847377412}
   m_Layer: 3
   m_Name: Backpack
   m_TagString: Untagged
@@ -24361,27 +24365,6 @@ Transform:
   - {fileID: 339491387}
   m_Father: {fileID: 886749861027424089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1847377412
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1847377410}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1847377413
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -29746,8 +29729,33 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6378845379060410495, guid: 9b45db297589f97429b3b52c61bef0cc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5896801769864708655}
   m_SourcePrefab: {fileID: 100100000, guid: 9b45db297589f97429b3b52c61bef0cc, type: 3}
+--- !u!64 &5896801769864708655
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 173545205}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5495902117074765545, guid: b52a9fa8a0880f54a9ac921bd198b3d3, type: 3}
 --- !u!224 &5914782251740727408
 RectTransform:
   m_ObjectHideFlags: 0
