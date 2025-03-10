@@ -19,10 +19,19 @@ public class PowerUpItem : MonoBehaviour
     public bool isDefUp;
     public float EffectDuration;
 
+    //checker
+    int defaultAtk;
+    int defaultDef;
+
     private void Awake()
     {
         powerUpModel = FindFirstObjectByType<PowerUpModel>();
         Player = FindAnyObjectByType<MechaPlayer>();
+    }
+    private void Start()
+    {
+        defaultAtk = Player.AttackPow;
+        defaultDef = Player.Defence;
     }
     public void Update()
     {
@@ -41,7 +50,8 @@ public class PowerUpItem : MonoBehaviour
         }
         else
         {
-            Player.AttackPow -= AtkPowerUp;
+            //Player.AttackPow -= AtkPowerUp;
+            Player.AttackPow = defaultAtk;
         }
     }
      public void DefUp()
@@ -52,7 +62,8 @@ public class PowerUpItem : MonoBehaviour
         }
         else
         {
-            Player.Defence -= DefPowerUp;
+            //Player.Defence -= DefPowerUp;
+            Player.Defence = defaultDef;
         }
      }
 
