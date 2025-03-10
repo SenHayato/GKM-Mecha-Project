@@ -1,27 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyUIManager : MonoBehaviour
 {
     public UnityEngine.UI.Slider healthBar;
     public UnityEngine.UI.Slider easeBar;
+    public TextMeshProUGUI enemyNameTxt;
     public EnemyModel enemyData;
     public GameObject playerCamera;
 
-    [SerializeField] private GameObject UIhealth;
+    [SerializeField] private GameObject uiInfo;
 
     private void Awake()
     {
-        enemyData = GetComponentInParent<EnemyModel>();
         playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     private void Start()
     {
+        enemyData = GetComponentInParent<EnemyModel>();
         healthBar.maxValue = enemyData.maxHealth;
         easeBar.maxValue = enemyData.maxHealth;
         easeBar.value = easeBar.maxValue;
+        enemyNameTxt.text = enemyData.enemyName;
     }
 
     public void BarMonitor()
@@ -41,7 +44,7 @@ public class EnemyUIManager : MonoBehaviour
 
     public void LookPlayer()
     {
-        UIhealth.transform.LookAt(playerCamera.transform);
+        uiInfo.transform.LookAt(playerCamera.transform);
     }
 
     private void Update()
