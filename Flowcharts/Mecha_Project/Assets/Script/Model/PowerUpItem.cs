@@ -18,6 +18,10 @@ public class PowerUpItem : MonoBehaviour
     public bool isDefUp;
     public float EffectDuration;
 
+    private void Awake()
+    {
+        
+    }
     public void Start()
     {
         //Enemies = FindObjectsOfType<SkripEnemy>();
