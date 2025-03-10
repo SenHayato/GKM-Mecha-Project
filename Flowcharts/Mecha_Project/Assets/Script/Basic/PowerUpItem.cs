@@ -5,23 +5,32 @@ public class PowerUpItem : MonoBehaviour
     public TypePower Type;
     //public SkripEnemy Enemies;
     public MechaPlayer Player;
+    public PowerUpModel powerUpModel;
 
     [Header("PowerUP Value")]
-    public int AtkPowerUp;
-    public int DefPowerUp;
-    public int EngRegenUp;
-    public int HPRegenUp;
-    public int UltRegenUp;
+    [SerializeField] int AtkPowerUp; 
+    [SerializeField] int DefPowerUp;
+    [SerializeField] int EngRegenUp;
+    [SerializeField] int HPRegenUp;
+    [SerializeField] int UltRegenUp;
 
     [Header("PowerUp Status")]
     public bool isAtkUp;
     public bool isDefUp;
     public float EffectDuration;
 
-    public void Start()
+    private void Awake()
     {
-        //Enemies = FindObjectsOfType<SkripEnemy>();
+        powerUpModel = FindFirstObjectByType<PowerUpModel>();
         Player = FindAnyObjectByType<MechaPlayer>();
+    }
+    public void Update()
+    {
+        AtkPowerUp = powerUpModel.AtkPowerUp;
+        DefPowerUp = powerUpModel.DefPowerUp;
+        EngRegenUp = powerUpModel.EngRegenUp;
+        HPRegenUp = powerUpModel.HPRegenUp;
+        UltRegenUp = powerUpModel.UltRegenUp;
     }
 
     public void AtkUp()
