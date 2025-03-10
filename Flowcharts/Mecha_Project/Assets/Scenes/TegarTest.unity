@@ -25127,6 +25127,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea4a4ab3f8c30341b894ae6721958af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  lineOfSight: {fileID: 0}
 --- !u!4 &2275614537293725482
 Transform:
   m_ObjectHideFlags: 0
@@ -25589,7 +25593,6 @@ MonoBehaviour:
   isDeath: 0
   isMoving: 0
   isBlocking: 0
-  isReloading: 0
   showLineOfSight: 1
   lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
   patrolRadius: 10
@@ -25599,9 +25602,7 @@ MonoBehaviour:
   destinationChangeTimer: 0
   attackCooldown: 2
   attackTimer: 0
-  maxAmmo: 30
-  currentAmmo: 30
-  reloadTime: 2
+  weaponFirePoint: {fileID: 0}
 --- !u!114 &3421913921733029704
 MonoBehaviour:
   m_ObjectHideFlags: 0
