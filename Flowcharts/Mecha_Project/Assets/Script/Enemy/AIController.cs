@@ -476,12 +476,12 @@ public class AIController : MonoBehaviour
 
     public void PerformAttackRange()
     {
-        Vector3 targetPoint;
         // For range enemies, use raycast to attack
         enemyModel.isAttacking = true;
         // For range enemies, use raycast to attack
         if (enemyModel.enemyType == EnemyType.EnemyRange)
         {
+            Vector3 targetPoint;
             Vector3 attackOrigin = transform.position + Vector3.up * 1.5f; // Adjust to fire from head/weapon height
             Vector3 directionToPlayer = (playerTransform.position + Vector3.up * 1.0f - attackOrigin).normalized; // Aim at player's center mass
             RaycastHit hit;
@@ -494,6 +494,7 @@ public class AIController : MonoBehaviour
             // Perform the actual raycast
             if (Physics.Raycast(attackOrigin, directionToPlayer, out hit, enemyModel.attackRange * 3, hitLayer))
             {
+                targetPoint = hit.point;
                 // Check if we hit the player
                 if (hit.collider.CompareTag("Player"))
                 {
@@ -522,19 +523,32 @@ public class AIController : MonoBehaviour
             }
             else
             {
-                targetPoint = attackOrigin;
+                targetPoint = attackOrigin + (directionToPlayer * enemyModel.attackRange * 3);
             }
-            //StartCoroutine(BulletTrailEffect(targetPoint));
+            StartCoroutine(BulletTrailEffect(targetPoint, attackOrigin));
             StartCoroutine(ResetAttackFlag());
         }
     }
-    public IEnumerator BulletTrailEffect(Vector3 targetPoint)
+    public IEnumerator BulletTrailEffect(Vector3 targetPoint, Vector3 startPoint)
     {
-        lineOfSight.enabled = true;
-        lineOfSight.SetPosition(0, enemyModel.weaponFirePoint.transform.position);
-        lineOfSight.SetPosition(1, targetPoint);
-        yield return new WaitForSeconds(enemyModel.attackCooldown * 1.5f);
-        lineOfSight.enabled = false;
+        // Buat LineRenderer khusus untuk efek tembakan
+        LineRenderer bulletTrail = gameObject.AddComponent<LineRenderer>();
+        bulletTrail.startWidth = 0.05f;
+        bulletTrail.endWidth = 0.05f;
+        bulletTrail.material = new Material(Shader.Find("Sprites/Default"));
+        bulletTrail.startColor = Color.red;
+        bulletTrail.endColor = Color.yellow;
+        bulletTrail.positionCount = 2;
+
+        // Set posisi bullet trail
+        bulletTrail.SetPosition(0, startPoint);
+        bulletTrail.SetPosition(1, targetPoint);
+
+        // Tunggu beberapa saat
+        yield return new WaitForSeconds(0.1f);
+
+        // Hapus efek trail
+        Destroy(bulletTrail);
     }
 
 
