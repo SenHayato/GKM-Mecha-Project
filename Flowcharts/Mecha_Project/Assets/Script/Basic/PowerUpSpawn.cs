@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PowerUpSpawn : MonoBehaviour
@@ -9,6 +10,9 @@ public class PowerUpSpawn : MonoBehaviour
     [SerializeField] float timerToSpawn;
     [SerializeField] bool isReady;
     [SerializeField] GameObject[] powerUpPrefabs;
+
+    //flag
+    //bool isSpawning = false;
     void Start()
     {
         timerToSpawn = spawnerDuration;
@@ -23,7 +27,7 @@ public class PowerUpSpawn : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("PowerUp"))
+        if (other.CompareTag("Player"))
         {
             isReady = true;
         }
@@ -33,13 +37,15 @@ public class PowerUpSpawn : MonoBehaviour
     {
         if (isReady)
         {
-            int powerNumber = Random.Range(0, powerUpPrefabs.Length);
-            timerToSpawn -= 1 * Time.deltaTime;
+            timerToSpawn -= Time.deltaTime;
+
             if (timerToSpawn <= 0)
             {
-                timerToSpawn = 0;
+                isReady = false;
+                int powerNumber = Random.Range(0, powerUpPrefabs.Length);
                 Instantiate(powerUpPrefabs[powerNumber], transform.position, Quaternion.identity);
-                Debug.Log("Spawn Power Up Nomor" + powerNumber);
+                Debug.Log("Spawn Power Up Nomor " + powerNumber);
+                timerToSpawn = spawnerDuration;
             }
         }
         else
