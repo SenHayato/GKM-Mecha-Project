@@ -18,7 +18,7 @@ public class LoadingScript : MonoBehaviour
     void LoadingMonitor()
     {
         progressBar.value = progress;
-        progress += 1 * Time.deltaTime;
+        //progress += 1 * Time.deltaTime;
     }
 
     void Update()
