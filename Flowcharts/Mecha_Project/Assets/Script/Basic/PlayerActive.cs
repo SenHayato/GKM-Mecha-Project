@@ -53,7 +53,6 @@ public class PlayerActive : MonoBehaviour
         GameMaster = FindAnyObjectByType<GameMaster>();
         CameraAct = FindAnyObjectByType<CameraActive>();
         rotationSpeed = CameraAct.rotationSpeed;
-        playerPosition = GetComponent<Transform>();
         //skill1HitBox = GameObject.Find("Skill1HitBox");
         //skill1HitBox = GameObject.Find("Skill2HitBox");
         Weapon = GetComponentInChildren<WeaponRaycast>();
@@ -63,6 +62,8 @@ public class PlayerActive : MonoBehaviour
     }
     private void Start()
     {
+        playerPosition = GetComponent<Transform>();
+        cameraPivot = CameraAct.cameraParent;
         skill1HitBox.SetActive(false);
         skill2HitBox.SetActive(false);
         ultimateHitBox.SetActive(false);

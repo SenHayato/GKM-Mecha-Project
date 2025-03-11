@@ -14,6 +14,7 @@ public class CameraActive : MonoBehaviour
     public Transform cameraPivot;
     public Transform cameraAimPost;
     public Transform cameraMainPost;
+    public Transform cameraParent; //untuk akses player active saja
 
     [Header("Reference")]
     public PlayerInput cameraControl;
