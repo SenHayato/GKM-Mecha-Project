@@ -28,7 +28,7 @@ public class EnemyModel : MonoBehaviour
     public bool showLineOfSight = true;
     public Color lineOfSightColor = Color.red;
     public bool showFieldOfView = true;
-    public Color fieldOfViewColor = new Color(1f, 1f, 0f, 0.2f);
+    public Color fieldOfViewColor = new(1f, 1f, 0f, 0.2f);
 
     [Header("AI Behavior")]
     public float patrolRadius = 10f;

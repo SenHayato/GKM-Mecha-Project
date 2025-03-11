@@ -6,23 +6,54 @@ using UnityEngine;
 public class DialogueSystem : MonoBehaviour
 {
     [Header("Dialogue Set Up")]
-    [SerializeField] UnityEngine.UI.Image[] playerProfile;
-    [SerializeField] TextMeshProUGUI[] dialogueText;
+    [SerializeField] Sprite[] playerProfile;
+    [SerializeField] string[] dialogue;
+    [SerializeField] AudioClip[] voiceClip;
+    [SerializeField] bool isActive;
 
-    [SerializeField] EnemyModel[] enemyModels;
+    [Header("Dialogue ON")]
+    [SerializeField] UnityEngine.UI.Image imageProfile;
+    [SerializeField] TextMeshProUGUI dialogueText;
+    [SerializeField] AudioSource voiceSource;
 
-    void DialogueSetUp()
-    {
+    //check
+    EnemyModel[] enemyModels;
 
-    }
+    //private void Start()
+    //{
+    //    //StartCoroutine(DialougeActive());
+    //}
 
-    void EnemyMonitoring()
+    IEnumerator EnemyMonitoring()
     {
         enemyModels = FindObjectsOfType<EnemyModel>();
+        foreach (EnemyModel enemy in enemyModels)
+        {
+            if (enemy.isDeath)
+            {
+                isActive = true;
+                yield return new WaitForSeconds(1f);
+            }
+        }
+    }
+
+    IEnumerator DialougeActive()
+    {
+        int dialougeNumber = Random.Range(0, playerProfile.Length);
+        if (isActive)
+        {
+            voiceSource.enabled = true;
+            voiceSource.clip = voiceClip[dialougeNumber];
+            imageProfile.sprite = playerProfile[dialougeNumber];
+            dialogueText.text = dialogue[dialougeNumber];
+            yield return new WaitForSeconds(1f);
+            isActive = false;
+        }
     }
 
     void Update()
     {
-        EnemyMonitoring();
+        StartCoroutine(DialougeActive());
+        StartCoroutine(EnemyMonitoring());
     }
 }
