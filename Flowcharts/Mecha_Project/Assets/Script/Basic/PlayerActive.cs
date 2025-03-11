@@ -227,7 +227,7 @@ public class PlayerActive : MonoBehaviour
     public void ScopeMode()
     {
         CameraAct.ScopeCamera();
-        if (scopeAction.IsPressed() && Weapon.ammo >= 0)
+        if (scopeAction.IsPressed() && Weapon.ammo >= 0 && !Mecha.isDeath)
         {
             Mecha.isAiming = true;
         }
@@ -266,7 +266,7 @@ public class PlayerActive : MonoBehaviour
     }
     public void Shooting()
     {
-        if (shootAction.IsPressed() && Weapon.ammo >= 0)
+        if (shootAction.IsPressed() && Weapon.ammo >= 0 && !Mecha.isDeath)
         {
             Mecha.isShooting = true;
         }
@@ -432,7 +432,7 @@ public class PlayerActive : MonoBehaviour
 
     public IEnumerator Skill1()
     {
-        if (skill1Action.triggered && Mecha.readySkill1)
+        if (skill1Action.triggered && Mecha.readySkill1 && !Mecha.isDeath)
         {
             Debug.Log("Skill 1 Aktif Korotine");
             skillBusy = true;
@@ -457,7 +457,7 @@ public class PlayerActive : MonoBehaviour
 
     public IEnumerator Skill2()
     {
-        if (skill2Action.triggered && Mecha.readySkill2)
+        if (skill2Action.triggered && Mecha.readySkill2 && !Mecha.isDeath)
         {
             Debug.Log("Skill 2 Aktif Korotine");
             skillBusy = true;
@@ -489,9 +489,10 @@ public class PlayerActive : MonoBehaviour
 
             if (Mecha.isDeath)
             {
+                Time.timeScale = 0.5f;
                 speed = 0f;
                 anim.SetBool("IsDeath", true);
-                Invoke(nameof(ToLoseCG), 5f);
+                //Invoke(nameof(ToLoseCG), 5f);
             }
             else
             {
@@ -518,7 +519,7 @@ public class PlayerActive : MonoBehaviour
     //Ultimate
     public IEnumerator UseUltimate()
     {
-        if (ultimateAction.triggered && Mecha.Ultimate == Mecha.MaxUltimate)
+        if (ultimateAction.triggered && Mecha.Ultimate == Mecha.MaxUltimate && !Mecha.isDeath)
         {
             Debug.Log("Ultimate jalan");
             Mecha.Ultimate = Mecha.MinUltimate;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -16,6 +17,7 @@ public class GameMaster : MonoBehaviour
 
     [Header("GameAdmin")]
     public GameObject PauseMenu;
+    public PlayerInput playerInput;
     public GameObject Player;
     public HUDGameManager HUDManager;
     public bool isPaused;
@@ -24,6 +26,10 @@ public class GameMaster : MonoBehaviour
     public string WinScreen;
     public string LoseScreen;
     public string MainMenu;
+
+    [Header("Transition")]
+    public GameObject fadeIn;
+    public GameObject fadeOut;
 
     InputAction pauseAction;
 
@@ -52,6 +58,9 @@ public class GameMaster : MonoBehaviour
 
     private void Start()
     {
+        playerInput = GetComponent<PlayerInput>();
+        fadeIn.SetActive(true);
+        fadeOut.SetActive(false);
         isPaused = false;
         PlayerHealth = MechaData.Health;
         //countdown = false; //Hanya perlu di stage gurun Endurance
@@ -111,7 +120,14 @@ public class GameMaster : MonoBehaviour
     //    transform.position = Player.transform.position;
     //    Debug.Log("LoadData");
     //}
-
+    IEnumerator TransitionManager()
+    {
+        if (MechaData.isDeath)
+        {
+            yield return new WaitForSeconds(1f);
+            fadeOut.SetActive(true);
+        }
+    }
     public void LosingScreen()
     {
         SceneManager.LoadScene(LoseScreen);
@@ -201,6 +217,11 @@ public class GameMaster : MonoBehaviour
         if (countdown)
         {
             Timer();
+        }
+        StartCoroutine(TransitionManager());
+        if (MechaData.isDeath)
+        {
+            playerInput.enabled = false;
         }
     }
 }
