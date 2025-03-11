@@ -24939,13 +24939,14 @@ GameObject:
   - component: {fileID: 1697842063}
   - component: {fileID: 1697842065}
   - component: {fileID: 1697842064}
+  - component: {fileID: 1697842066}
   m_Layer: 10
   m_Name: ScopeHair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1697842063
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24964,8 +24965,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.0000047683716}
-  m_SizeDelta: {x: 1366, y: 768.375}
+  m_AnchoredPosition: {x: 0.000022888184, y: 0.000019073486}
+  m_SizeDelta: {x: 2001.036, y: 1125.583}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1697842064
 MonoBehaviour:
@@ -25005,6 +25006,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1697842062}
   m_CullTransparentMesh: 1
+--- !u!111 &1697842066
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697842062}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 65c5d8d3c840490459619975787351b1, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 65c5d8d3c840490459619975787351b1, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1698278790
 GameObject:
   m_ObjectHideFlags: 0
