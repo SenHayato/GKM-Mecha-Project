@@ -626,6 +626,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 2
   Player: {fileID: 0}
+  powerUpModel: {fileID: 0}
   AtkPowerUp: 50
   DefPowerUp: 1000
   EngRegenUp: 50
@@ -3009,6 +3010,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 4
   Player: {fileID: 0}
+  powerUpModel: {fileID: 0}
   AtkPowerUp: 50
   DefPowerUp: 1000
   EngRegenUp: 50
@@ -5197,6 +5199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 0
   Player: {fileID: 0}
+  powerUpModel: {fileID: 0}
   AtkPowerUp: 50
   DefPowerUp: 1000
   EngRegenUp: 50
@@ -6747,6 +6750,7 @@ MonoBehaviour:
   cameraPivot: {fileID: 989654282}
   cameraAimPost: {fileID: 635515235}
   cameraMainPost: {fileID: 2024308646}
+  cameraParent: {fileID: 0}
   cameraControl: {fileID: 0}
   PlayerAct: {fileID: 0}
   MainCameraOBJ: {fileID: 1641979820}
@@ -7455,6 +7459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 1
   Player: {fileID: 0}
+  powerUpModel: {fileID: 0}
   AtkPowerUp: 50
   DefPowerUp: 1000
   EngRegenUp: 50
@@ -13045,6 +13050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 3
   Player: {fileID: 0}
+  powerUpModel: {fileID: 0}
   AtkPowerUp: 50
   DefPowerUp: 1000
   EngRegenUp: 50
@@ -19201,6 +19207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 1
+  enemyName: 
   maxHealth: 1000
   health: 0
   minHealth: 0
@@ -19690,9 +19697,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 449760430074127978}
   easeBar: {fileID: 6863132675859300328}
+  enemyNameTxt: {fileID: 0}
   enemyData: {fileID: 0}
   playerCamera: {fileID: 0}
-  UIhealth: {fileID: 5063763593428789038}
+  uiInfo: {fileID: 0}
 --- !u!65 &5227503347021887326
 BoxCollider:
   m_ObjectHideFlags: 0
