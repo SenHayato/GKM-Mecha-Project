@@ -8,7 +8,7 @@ public class LoadingScript : MonoBehaviour
     [SerializeField] int progress;
 
     //flag
-    float progressFloat;
+    float timesBar;
 
     void Start()
     {
@@ -18,7 +18,10 @@ public class LoadingScript : MonoBehaviour
     void LoadingMonitor()
     {
         progressBar.value = progress;
-        //progress += 1 * Time.deltaTime;
+        for (float a = 0; a <= timesBar; a++)
+        {
+
+        }
     }
 
     void Update()
