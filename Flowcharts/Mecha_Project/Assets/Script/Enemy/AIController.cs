@@ -6,10 +6,13 @@ using UnityEngine.AI;
 public class AIController : MonoBehaviour
 {
     public LayerMask hitLayer;
+    public LayerMask obstacleLayer; //Ngeblock vision
     private EnemyModel enemyModel;
     private EnemyActive enemyActive;
     private NavMeshAgent navAgent;
     public LineRenderer lineOfSight;
+    private Mesh fovMesh; //Visualisasi Fov
+
 
     // State management
     private enum AIState { Idle, Patrol, Chase, Attack, Retreat, Dead }
@@ -18,6 +21,7 @@ public class AIController : MonoBehaviour
 
     private Transform playerTransform;
     private bool playerInSight = false;
+    private bool playerInFieldOfView = false;
     private bool isObstacleInTheWay = false;
 
 
@@ -36,6 +40,7 @@ public class AIController : MonoBehaviour
             navAgent.angularSpeed = 120f;
         }
 
+
         // Create line renderer for line of sight visualization
         if (enemyModel.showLineOfSight && lineOfSight == null)
         {
@@ -48,7 +53,39 @@ public class AIController : MonoBehaviour
             lineOfSight.positionCount = 2;
         }
 
+        if (enemyModel.showFieldOfView)
+        {
+            CreateFOVMesh();
+        }
+
         enemyModel.startPosition = transform.position;
+
+        if (obstacleLayer == 0)
+        {
+            obstacleLayer = LayerMask.GetMask("Default", "Environment", "Wall");
+        }
+    }
+
+    private void CreateFOVMesh()
+    {
+        //Membuat game object untuk visualisasi FOV
+        GameObject fovObject = new GameObject("FOV_Visualizer");
+        fovObject.transform.parent = transform;
+        fovObject.transform.localPosition = Vector3.zero;
+        fovObject.transform.localRotation = Quaternion.identity;
+
+        //Mesh Filter dan Renderer
+        MeshFilter meshFilter = fovObject.AddComponent<MeshFilter>();
+        MeshRenderer meshRenderer = fovObject.AddComponent<MeshRenderer>();
+
+        //Membuat material dengan shader yang transparant
+        Material fovMaterial = new Material(Shader.Find("Transparent/Diffuse"));
+        fovMaterial.color = enemyModel.fieldOfViewColor;
+        meshRenderer.material = fovMaterial;
+
+        //iniliasi mesh
+        fovMesh = new Mesh();
+        meshFilter.mesh = fovMesh;
     }
 
     public void Initialize(EnemyActive active)

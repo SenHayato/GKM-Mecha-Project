@@ -27,6 +27,8 @@ public class EnemyModel : MonoBehaviour
     [Header("Debug Visualization")]
     public bool showLineOfSight = true;
     public Color lineOfSightColor = Color.red;
+    public bool showFieldOfView = true;
+    public Color fieldOfViewColor = new Color(1f, 1f, 0f, 0.2f);
 
     [Header("AI Behavior")]
     public float patrolRadius = 10f;
@@ -34,6 +36,12 @@ public class EnemyModel : MonoBehaviour
     public Vector3 startPosition;
     public Vector3 currentDestination;
     public float destinationChangeTimer = 0f;
+
+    [Header("FieldOfView")]
+    public float viewAngle = 90f;
+    public bool useFieldOfView = true;
+    public float peripheralViewAngle = 45f;
+    public float closeRangeAwareness = 2f;
 
     [Header("Combat")]
     public float attackCooldown = 2f;
