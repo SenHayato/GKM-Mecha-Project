@@ -1,3 +1,4 @@
+using Microsoft.Unity.VisualStudio.Editor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class LoadingScript : MonoBehaviour
     [SerializeField] int progress;
 
     //flag
-    float timesBar;
+     [SerializeField] float timesBar;
 
     void Start()
     {
@@ -18,10 +19,6 @@ public class LoadingScript : MonoBehaviour
     void LoadingMonitor()
     {
         progressBar.value = progress;
-        for (float a = 0; a <= timesBar; a++)
-        {
-
-        }
     }
 
     void Update()
