@@ -8280,6 +8280,7 @@ MonoBehaviour:
   cameraPivot: {fileID: 382303084}
   cameraAimPost: {fileID: 1564065490}
   cameraMainPost: {fileID: 1768970037}
+  cameraParent: {fileID: 0}
   cameraControl: {fileID: 0}
   PlayerAct: {fileID: 0}
   MainCameraOBJ: {fileID: 1183995289}
@@ -14708,7 +14709,7 @@ GameObject:
   - component: {fileID: 1183995291}
   - component: {fileID: 1183995290}
   m_Layer: 0
-  m_Name: Camera
+  m_Name: CameraPivot
   m_TagString: Camera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24965,7 +24966,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000022888184, y: 0.000019073486}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2001.036, y: 1125.583}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1697842064
@@ -26078,7 +26079,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -333, y: 0.0000095367}
+  m_AnchoredPosition: {x: -566, y: 0.0000095367}
   m_SizeDelta: {x: 217.8099, y: 66.7622}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1792870142
@@ -31623,7 +31624,7 @@ MonoBehaviour:
   Mecha: {fileID: 0}
   GameMaster: {fileID: 0}
   CameraAct: {fileID: 0}
-  cameraPivot: {fileID: 1183995292}
+  cameraPivot: {fileID: 0}
   playerPosition: {fileID: 0}
   Weapon: {fileID: 0}
   thusterParticle: {fileID: 339491389}
