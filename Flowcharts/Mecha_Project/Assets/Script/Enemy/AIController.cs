@@ -141,6 +141,10 @@ public class AIController : MonoBehaviour
         // Check if player is in sight
         CheckPlayerVisibility();
 
+        if (enemyModel.showFieldOfView  && fovMesh != null)
+        {
+            UpdateFOVMesh();
+        }
         // Update enemy movement based on NavMeshAgent if available
         UpdateMovement();
 
@@ -150,17 +154,54 @@ public class AIController : MonoBehaviour
             Debug.Log($"Enemy state changed: {previousState} -> {currentState}");
             previousState = currentState;
         }
+    }
+    private void UpdateFOVMesh()
+    {
+        if (fovMesh == null) return;
 
-        // Force state to chase if in range for debugging
-        if (playerTransform != null && Vector3.Distance(transform.position, playerTransform.position) < enemyModel.detectionRange)
+        int segments = 50;
+        float angle = enemyModel.viewAngle;
+        float range = enemyModel.detectionRange;
+
+        Vector3[] vertices = new Vector3[segments + 2];
+        int[] triangles = new int [segments * 3];
+
+        vertices[0] = Vector3.zero;
+
+        for (int i = 0; i <=segments; i++)
         {
-            if (currentState != AIState.Chase && currentState != AIState.Attack)
+            float percent = i / (float)segments;
+            float radian = percent * angle * Mathf.Deg2Rad;
+            float x = Mathf.Sin(radian - (angle * Mathf.Deg2Rad / 2));
+            float z = Mathf.Cos(radian - (angle * Mathf.Deg2Rad / 2));
+
+            Vector3 direction = new Vector3(x, 0, z);
+            direction = transform.TransformDirection(direction);
+
+            //Check for obstacles
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + Vector3.up, direction, out hit, range, obstacleLayer))
             {
-                Debug.Log("Player in range, switching to Chase state");
+                vertices[i + 1] = transform.InverseTransformPoint(hit.point);
+            }
+            else
+            {
+                vertices[i + 1] = transform.InverseTransformPoint(transform.position + Vector3.up + direction * range);
+            }
+
+            if (i < segments)
+            {
+                triangles[i * 3] = 0;
+                triangles[i * 3 + 1] = i + 1;
+                triangles[i * 3 + 2] = i + 2;
             }
         }
+        fovMesh.Clear();
+        fovMesh.vertices = vertices;
+        fovMesh.triangles = triangles;
+        fovMesh.RecalculateNormals();
     }
-
     private void UpdateMovement()
     {
         if (navAgent != null && navAgent.enabled)
@@ -187,97 +228,159 @@ public class AIController : MonoBehaviour
         }
     }
 
+    private bool IsInFieldOfView (Vector3 targetPosition)
+    {
+        if (!enemyModel.useFieldOfView)
+            return true;
+
+        // Mendapatkan arah menuju target
+        Vector3 directionToTarget = (targetPosition - transform.position).normalized;
+
+        //Kalkulasi angle diantara arah kedepan dan arah menuju target
+        float angle = Vector3.Angle(transform.forward, directionToTarget);
+
+        // Memastikan jika target di dalam pengelihatan angle
+        if (angle < enemyModel.viewAngle / 2)
+        {
+            return true;
+        }
+
+        // Melihat jika target berada di pengelihatan periferal
+        if (angle < (enemyModel.viewAngle / 2) + enemyModel.peripheralViewAngle)
+        {
+            //Berada di pengelihatan periferal, enemy mempunyai kesempatan untuk mendeteksi player menggunakan jarak
+            float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+            float detectionChance = 1.0f - (angle / ((enemyModel.viewAngle / 2) + enemyModel.peripheralViewAngle));
+
+            //Peluang tinggi untuk mendeteksi player pada pengelihatan periferal
+            detectionChance *= (enemyModel.detectionRange - distanceToTarget) / enemyModel.detectionRange;
+
+            if (Random.value < detectionChance)
+            {
+                return true;
+            }
+        }
+
+        // Pada jarak yang sangat dekat, selalu mendeteksi, berapa pun FOV-nya
+        if (Vector3.Distance(transform.position, targetPosition) <= enemyModel.closeRangeAwareness)
+        {
+            return true;
+        }
+        return false;
+    }
+
     private void CheckPlayerVisibility()
     {
         if (playerTransform == null) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
+        // Reset visibility flags
+        playerInSight = false;
+        playerInFieldOfView = false;
+
         // Only check for visibility if player is within detection range
         if (distanceToPlayer <= enemyModel.detectionRange)
         {
-            // Set start position for line of sight slightly above the enemy's center
-            Vector3 startPos = transform.position + Vector3.up;
+            // First check if player is in field of view
+            playerInFieldOfView = IsInFieldOfView(playerTransform.position);
 
-            // Calculate direction to player and target position
-            Vector3 directionToPlayer = (playerTransform.position - startPos).normalized;
-            Vector3 targetPos = playerTransform.position;
-
-            // Raycast to check for obstacles
-            RaycastHit hit;
-            bool hitSomething = Physics.Raycast(
-                startPos,
-                directionToPlayer,
-                out hit,
-                distanceToPlayer,
-                Physics.AllLayers ^ (1 << LayerMask.NameToLayer("Enemy"))
-            );
-
-            // Update line renderer positions
-            if (lineOfSight != null && enemyModel.showLineOfSight)
+            if (playerInFieldOfView)
             {
-                lineOfSight.SetPosition(0, startPos);
+                // Set start position for line of sight slightly above the enemy's center
+                Vector3 startPos = transform.position + Vector3.up;
 
-                if (hitSomething)
+                // Calculate direction to player and target position
+                Vector3 directionToPlayer = (playerTransform.position - startPos).normalized;
+                Vector3 targetPos = playerTransform.position;
+
+                // Raycast to check for obstacles
+                RaycastHit hit;
+                bool hitSomething = Physics.Raycast(
+                    startPos,
+                    directionToPlayer,
+                    out hit,
+                    distanceToPlayer,
+                    Physics.AllLayers ^ (1 << LayerMask.NameToLayer("Enemy"))
+                );
+
+                // Update line renderer positions for debugging
+                if (lineOfSight != null && enemyModel.showLineOfSight)
                 {
-                    // If we hit something, draw line to hit point
-                    lineOfSight.SetPosition(1, hit.point);
+                    lineOfSight.SetPosition(0, startPos);
 
-                    // If we hit the player, change line color to green
-                    if (hit.collider.CompareTag("Player"))
+                    if (hitSomething)
                     {
-                        lineOfSight.startColor = Color.green;
-                        lineOfSight.endColor = Color.green;
-                        playerInSight = true;
+                        // If we hit something, draw line to hit point
+                        lineOfSight.SetPosition(1, hit.point);
+
+                        // If we hit the player, change line color to green
+                        if (hit.collider.CompareTag("Player"))
+                        {
+                            lineOfSight.startColor = Color.green;
+                            lineOfSight.endColor = Color.green;
+                            playerInSight = true;
+                        }
+                        else
+                        {
+                            // Hit something else
+                            lineOfSight.startColor = Color.red;
+                            lineOfSight.endColor = Color.red;
+                            playerInSight = false;
+                        }
                     }
                     else
                     {
-                        // Hit something else
-                        lineOfSight.startColor = Color.red;
-                        lineOfSight.endColor = Color.red;
-                        playerInSight = false;
+                        // No hit, draw full line
+                        lineOfSight.SetPosition(1, targetPos);
+                        lineOfSight.startColor = Color.yellow;
+                        lineOfSight.endColor = Color.yellow;
+                        playerInSight = true;
                     }
                 }
                 else
                 {
-                    // No hit, draw full line
-                    lineOfSight.SetPosition(1, targetPos);
-                    lineOfSight.startColor = Color.yellow;
-                    lineOfSight.endColor = Color.yellow;
+                    // No line renderer, just update playerInSight based on hit
+                    playerInSight = hitSomething && hit.collider.CompareTag("Player");
+                }
+
+                // For debugging
+                if (playerInSight)
+                {
+                    Debug.DrawLine(startPos, targetPos, Color.green);
+                }
+                else
+                {
+                    Debug.DrawLine(startPos, hitSomething ? hit.point : targetPos, Color.red);
+                }
+
+                // Very close range force detection for gameplay purposes
+                if (distanceToPlayer <= enemyModel.closeRangeAwareness)
+                {
                     playerInSight = true;
                 }
             }
             else
             {
-                // No line renderer, just update playerInSight based on hit
-                playerInSight = hitSomething && hit.collider.CompareTag("Player");
-            }
-
-            // For debugging
-            if (playerInSight)
-            {
-                Debug.DrawLine(startPos, targetPos, Color.green);
-            }
-            else
-            {
-                Debug.DrawLine(startPos, hitSomething ? hit.point : targetPos, Color.red);
-            }
-
-            // If player is in range, force detection for debugging
-            if (distanceToPlayer <= enemyModel.detectionRange * 0.7f)
-            {
-                playerInSight = true;
+                // Player not in FOV, update line renderer to show nothing
+                if (lineOfSight != null && enemyModel.showLineOfSight)
+                {
+                    lineOfSight.SetPosition(0, transform.position + Vector3.up);
+                    lineOfSight.SetPosition(1, transform.position + Vector3.up);
+                    lineOfSight.startColor = Color.gray;
+                    lineOfSight.endColor = Color.gray;
+                }
             }
         }
         else
         {
-            playerInSight = false;
-
-            // Update line renderer to show nothing
+            // Player too far, update line renderer to show nothing
             if (lineOfSight != null && enemyModel.showLineOfSight)
             {
                 lineOfSight.SetPosition(0, transform.position + Vector3.up);
                 lineOfSight.SetPosition(1, transform.position + Vector3.up);
+                lineOfSight.startColor = Color.gray;
+                lineOfSight.endColor = Color.gray;
             }
         }
     }
@@ -331,7 +434,7 @@ public class AIController : MonoBehaviour
     private void HandleIdleState()
     {
         // If player is spotted, chase them
-        if (playerInSight)
+        if (playerInSight && playerInFieldOfView)
         {
             currentState = AIState.Chase;
             return;
@@ -348,7 +451,7 @@ public class AIController : MonoBehaviour
     private void HandlePatrolState()
     {
         // If player is spotted, chase them
-        if (playerInSight)
+        if (playerInSight && playerInFieldOfView)
         {
             currentState = AIState.Chase;
             return;
@@ -383,11 +486,11 @@ public class AIController : MonoBehaviour
         }
 
         // If player is lost from sight for a while, go back to patrol
-        if (!playerInSight)
+        if (!playerInSight || !playerInFieldOfView)
         {
             // For debugging, let's stay in chase mode for now
-            // currentState = AIState.Patrol;
-            // return;
+            StartCoroutine(LosingPlayerMemory());
+             return;
         }
 
         // Move toward player
@@ -410,11 +513,58 @@ public class AIController : MonoBehaviour
         }
     }
 
+    private IEnumerator LosingPlayerMemory()
+    {
+        // Enemy "remembers" dimana enemy terakhir melihat player untuk waktu yang singkat
+        Vector3 lastKnownPosition = playerTransform.position;
+
+        if (navAgent != null && navAgent.enabled)
+        {
+            navAgent.SetDestination(lastKnownPosition);
+        }
+
+        // Menunggu untuk enemy mencapai lokasi terakhir atau timeout
+        float searchTime = 0f;
+        float maxSearchTime = 3f;
+
+        while (searchTime < maxSearchTime)
+        {
+            // Jika player ditemukan lagi, kembali pada state pengejaran
+            if (playerInSight && playerInFieldOfView)
+            {
+                yield break;
+            }
+            
+            // Jika enemy mencapai waktu lokasi terakhir
+            if (navAgent != null && !navAgent.pathPending && navAgent.remainingDistance < 0.5f)
+            {
+                break;
+            }
+
+            searchTime += 0.2f;
+            yield return new WaitForSeconds(searchTime);
+        }
+
+        // Setelah pencarian sementara, kembali pada state patrol
+        currentState = AIState.Patrol;
+    }
+
     private void HandleAttackState()
     {
         if (playerTransform == null)
         {
             currentState = AIState.Patrol;
+            return;
+        }
+
+        // Jika player itu menghilang dari pengelihatan atau diluar dari area pengelihatan, kembali untuk mengejar
+        if (!playerInSight || !playerInFieldOfView)
+        {
+            currentState = AIState.Chase;
+            if(navAgent !=null && navAgent.enabled)
+            {
+                navAgent.isStopped = false;
+            }
             return;
         }
 
@@ -445,23 +595,52 @@ public class AIController : MonoBehaviour
             }
             return;
         }
-
-        // Perform attack if cooldown is over
-        if (enemyModel.attackTimer <= 0)
+        
+        // Untuk enemy jarak pendek, menggunakan EnemyActive's attack method
+        if (enemyModel.enemyType == EnemyType.EnemyShort && enemyActive != null)
         {
-            PerformAttackRange();
-            enemyModel.attackTimer = enemyModel.attackCooldown;
-        }
-
-        // Chance to retreat after attack (especially for ranged enemies)
-        if (enemyModel.enemyType == EnemyType.EnemyRange && Random.value < 0.3f)
-        {
-            currentState = AIState.Retreat;
-            if (navAgent != null && navAgent.enabled)
+            if (enemyModel.attackTimer <= 0)
             {
-                navAgent.isStopped = false;
+                enemyActive.AttackPlayer();
+                enemyModel.attackTimer = enemyModel.attackCooldown;
             }
         }
+        // Untuk enemy jarak jauh, menggunakan cara sendiri
+        else if (enemyModel.enemyType == EnemyType.EnemyRange)
+        {
+            // Melakukan attack jika cooldown selesai
+            if (enemyModel.attackTimer <= 0)
+            {
+                PerformAttackRange();
+                enemyModel.attackTimer = enemyModel.attackCooldown;
+            }
+
+            // Chance to retreat after attack (especially for ranged enemies)
+            if (Random.value < 0.3f)
+            {
+                currentState = AIState.Retreat;
+                if (navAgent != null && navAgent.enabled)
+                {
+                    navAgent.isStopped = false;
+                }
+            }
+        }
+        //// Perform attack if cooldown is over
+        //if (enemyModel.attackTimer <= 0)
+        //{
+        //    PerformAttackRange();
+        //    enemyModel.attackTimer = enemyModel.attackCooldown;
+        //}
+
+        //// Chance to retreat after attack (especially for ranged enemies)
+        //if (enemyModel.enemyType == EnemyType.EnemyRange && Random.value < 0.3f)
+        //{
+        //    currentState = AIState.Retreat;
+        //    if (navAgent != null && navAgent.enabled)
+        //    {
+        //        navAgent.isStopped = false;
+        //    }
+        //}
     }
 
     private void HandleRetreatState()
@@ -490,7 +669,7 @@ public class AIController : MonoBehaviour
         if (Random.value < 0.3f ||
             (navAgent != null && !navAgent.pathPending && navAgent.remainingDistance < 0.5f))
         {
-            currentState = playerInSight ? AIState.Chase : AIState.Patrol;
+            currentState = playerInSight && playerInFieldOfView ? AIState.Chase : AIState.Patrol;
         }
     }
 
@@ -664,6 +843,55 @@ public class AIController : MonoBehaviour
         // Draw patrol area
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(Application.isPlaying ? enemyModel.startPosition : transform.position, enemyModel.patrolRadius);
+
+        // Menunjukkan Cone FOV
+        if (enemyModel.useFieldOfView)
+        {
+            Gizmos.color = new Color(1f, 0.5f, 0f, 0.3f); // Orange
+
+            float halfFOV = enemyModel.viewAngle / 2;
+            float coneLength = enemyModel.detectionRange;
+
+            // Draw main FOV cone
+            Vector3 forward = transform.forward * coneLength;
+            Vector3 right = Quaternion.Euler(0, halfFOV, 0) * forward;
+            Vector3 left = Quaternion.Euler(0, halfFOV, 0) * forward;
+
+            Gizmos.DrawLine(transform.position, transform.position + right);
+            Gizmos.DrawLine(transform.position, transform.position + left);
+            Gizmos.DrawLine(transform.position + right, transform.position + left);
+
+            // Draw peripheral vision extension if enabled
+            if (enemyModel.peripheralViewAngle > 0)
+            {
+                Gizmos.color = new Color(1f, 0.5f, 0f, 0.1f); // Lighter orange
+
+                float halfPeripheralFOV = (enemyModel.viewAngle / 2) + enemyModel.peripheralViewAngle;
+                float peripheralConeLength = enemyModel.detectionRange * 0.7f; // Shorter range for peripheral vision
+
+                Vector3 peripheralForward = transform.forward * peripheralConeLength;
+                Vector3 peripheralRight = Quaternion.Euler(0, halfPeripheralFOV, 0) * peripheralForward;
+                Vector3 peripheralLeft = Quaternion.Euler(0, -halfPeripheralFOV, 0) * peripheralForward;
+
+                Gizmos.DrawLine(transform.position, transform.position + peripheralRight);
+                Gizmos.DrawLine(transform.position, transform.position + peripheralLeft);
+                Gizmos.DrawLine(transform.position + peripheralRight, transform.position + peripheralLeft);
+            }
+
+            // Draw close range awareness circle
+            Gizmos.color = new Color(1f, 0f, 0f, 0.2f); // Red with transparency
+            Gizmos.DrawSphere(transform.position, enemyModel.closeRangeAwareness);
+        }
+
+        // Draw current destination if in play mode
+        if (Application.isPlaying && navAgent != null && navAgent.enabled)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(navAgent.destination, 0.3f);
+            Gizmos.DrawLine(transform.position, navAgent.destination);
+        }
+
     }
+
 }
 
