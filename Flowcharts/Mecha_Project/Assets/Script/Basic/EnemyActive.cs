@@ -65,7 +65,7 @@ public class EnemyActive : MonoBehaviour
         }
     }
 
-     public void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         if (enemyData == null) return;
 
