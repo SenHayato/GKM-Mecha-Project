@@ -40,7 +40,6 @@ public class EnemyActive : MonoBehaviour
         //Game Manager
         gameInput = FindAnyObjectByType<PlayerInput>();
         gameManager = FindAnyObjectByType<GameMaster>();
-
     }
 
     private void Start()
@@ -184,33 +183,33 @@ public class EnemyActive : MonoBehaviour
 
     public void ApplyMovement(Vector3 direction, float currentSpeed, bool shouldRotate)
     {
-    if (charController != null && enemyData != null && !enemyData.isDeath)
-    {
-        // Apply movement using character controller
-        charController.Move(currentSpeed * Time.deltaTime * direction);
-
-        // Apply gravity
-        if (!charController.isGrounded)
+        if (charController != null && enemyData != null && !enemyData.isDeath)
         {
-            charController.Move(9.8f * Time.deltaTime * Vector3.down);
-        }
+            // Apply movement using character controller
+            charController.Move(currentSpeed * Time.deltaTime * direction);
 
-        // Handle rotation
-        if (shouldRotate && direction != Vector3.zero)
-        {
-            // Ensure we only rotate around the y-axis
-            Vector3 horizontalDirection = direction;
-            horizontalDirection.y = 0;
-
-            if (horizontalDirection != Vector3.zero)
+            // Apply gravity
+            if (!charController.isGrounded)
             {
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    Quaternion.LookRotation(horizontalDirection),
-                    10f * Time.deltaTime
-                );
+                charController.Move(9.8f * Time.deltaTime * Vector3.down);
             }
-        }
+
+            // Handle rotation
+            if (shouldRotate && direction != Vector3.zero)
+            {
+                // Ensure we only rotate around the y-axis
+                Vector3 horizontalDirection = direction;
+                horizontalDirection.y = 0;
+
+                if (horizontalDirection != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.Slerp(
+                        transform.rotation,
+                        Quaternion.LookRotation(horizontalDirection),
+                        10f * Time.deltaTime
+                    );
+                }
+            }
 
             // Update animation
             if (anim != null)
