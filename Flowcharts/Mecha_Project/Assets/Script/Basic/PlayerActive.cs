@@ -15,6 +15,7 @@ public class PlayerActive : MonoBehaviour
     public CameraActive CameraAct;
     public Transform cameraPivot;
     public Transform playerPosition;
+    public CameraEffect cameraEffect;
     //public WeaponScript weapon;
     public WeaponRaycast Weapon;
     public ParticleSystem thusterParticle;
@@ -59,6 +60,7 @@ public class PlayerActive : MonoBehaviour
         Mecha = GetComponent<MechaPlayer>();
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+        cameraEffect = FindAnyObjectByType<CameraEffect>();
     }
     private void Start()
     {
@@ -587,6 +589,7 @@ public class PlayerActive : MonoBehaviour
         if (!Mecha.isBlocking)
         {
             Mecha.Health -= damageCal;
+            StartCoroutine(cameraEffect.HitEffect());
             Debug.Log("Player Damage " + damageCal);
         }
     }
