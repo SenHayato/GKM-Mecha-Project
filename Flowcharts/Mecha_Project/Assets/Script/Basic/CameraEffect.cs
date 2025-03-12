@@ -11,10 +11,12 @@ public class CameraEffect : MonoBehaviour
     [SerializeField] private GameObject ultimateEffect;
     [SerializeField] private GameObject criticalEffect;
     [SerializeField] private GameObject scopeEffect;
+    [SerializeField] private GameObject hitEffect;
 
     [Header("EffectVolume")]
     [SerializeField] private Volume criticalVolume;
     [SerializeField] private Volume boostVolume;
+    [SerializeField] private Volume hitVolume;
 
     [Header("Reference")]
     [SerializeField] private MechaPlayer mechaPlayer;
@@ -24,6 +26,7 @@ public class CameraEffect : MonoBehaviour
         mechaPlayer = FindFirstObjectByType<MechaPlayer>();
         criticalVolume = criticalEffect.GetComponent<Volume>();
         boostVolume = boostEffect.GetComponent<Volume>();
+        hitVolume = hitEffect.GetComponent<Volume>();
     }
 
     private void Start()
@@ -32,6 +35,7 @@ public class CameraEffect : MonoBehaviour
         ultimateEffect.SetActive(false);
         criticalEffect.SetActive(false);
         scopeEffect.SetActive(false);
+        hitEffect.SetActive(false);
     }
 
     public void CriticalEffect()
@@ -61,6 +65,18 @@ public class CameraEffect : MonoBehaviour
             }
             vignette.intensity.value = 0f; // Kembali ke normal setelah kedipan
         }
+    }
+
+    public IEnumerator HitEffect()
+    {
+        hitEffect.SetActive(true);
+        if (hitVolume.profile.TryGet<UnityEngine.Rendering.Universal.Vignette>(out var vignette))
+        {
+            vignette.intensity.overrideState = true;
+            vignette.intensity.value = Mathf.Lerp(0.45f, 0f, 0.25f);
+        }
+        yield return new WaitForSeconds(0.25f);
+        hitEffect.SetActive(false);
     }
 
     public void BoostEffect()
