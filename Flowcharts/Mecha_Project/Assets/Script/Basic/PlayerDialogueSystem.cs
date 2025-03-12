@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DialogueSystem : MonoBehaviour
+public class PlayerDialogueSystem : MonoBehaviour
 {
     [Header("Dialogue Set Up")]
     [SerializeField] Sprite[] playerProfile;
     [SerializeField] string[] dialogue;
     [SerializeField] AudioClip[] voiceClip;
-    [SerializeField] bool isActive;
 
     [Header("Dialogue ON")]
+    [SerializeField] bool isActive;
     [SerializeField] UnityEngine.UI.Image imageProfile;
     [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] AudioSource voiceSource;

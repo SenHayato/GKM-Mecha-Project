@@ -129,6 +129,11 @@ public class EnemyActive : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        gameManager.KillCount++;
+    }
+
 
     public void OnAttackEnd()
     {
