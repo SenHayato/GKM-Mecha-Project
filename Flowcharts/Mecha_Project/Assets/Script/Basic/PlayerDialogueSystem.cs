@@ -48,6 +48,7 @@ public class PlayerDialogueSystem : MonoBehaviour
             animationClip.Play("DialogueIn");
             voiceSource.enabled = true;
             voiceSource.clip = voiceClip[dialougeNumber];
+            voiceSource.Play();
             imageProfile.sprite = playerProfile[dialougeNumber];
             dialogueText.text = dialogue[dialougeNumber];
             yield return new WaitForSeconds(voiceClip[dialougeNumber].length);
