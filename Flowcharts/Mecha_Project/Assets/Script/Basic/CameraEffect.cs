@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -67,15 +68,16 @@ public class CameraEffect : MonoBehaviour
         }
     }
 
-    public IEnumerator HitEffect()
+    public IEnumerator HitEffect() //Masih bug
     {
         hitEffect.SetActive(true);
         if (hitVolume.profile.TryGet<UnityEngine.Rendering.Universal.Vignette>(out var vignette))
         {
             vignette.intensity.overrideState = true;
-            vignette.intensity.value = Mathf.Lerp(0.45f, 0f, 0.25f);
+            //vignette.intensity.value = Mathf.SmoothStep(0.5f, 0f, time);
+            yield return new WaitForSeconds(2f);
         }
-        yield return new WaitForSeconds(0.25f);
+        vignette.intensity.value = 0.5f;
         hitEffect.SetActive(false);
     }
 
