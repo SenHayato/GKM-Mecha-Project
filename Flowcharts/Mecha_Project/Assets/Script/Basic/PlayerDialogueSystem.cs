@@ -9,6 +9,7 @@ public class PlayerDialogueSystem : MonoBehaviour
     [SerializeField] Sprite[] playerProfile;
     [SerializeField] string[] dialogue;
     [SerializeField] AudioClip[] voiceClip;
+    [SerializeField] Animation animationClip;
 
     [Header("Dialogue ON")]
     [SerializeField] bool isActive;
@@ -18,10 +19,11 @@ public class PlayerDialogueSystem : MonoBehaviour
 
     //check
     EnemyModel[] enemyModels;
+    bool wasActive;
 
     //private void Start()
     //{
-    //    //StartCoroutine(DialougeActive());
+    //    StartCoroutine(DialougeActive());
     //}
 
     IEnumerator EnemyMonitoring()
@@ -40,14 +42,19 @@ public class PlayerDialogueSystem : MonoBehaviour
     IEnumerator DialougeActive()
     {
         int dialougeNumber = Random.Range(0, playerProfile.Length);
-        if (isActive)
+        if (isActive && !wasActive)
         {
+            wasActive = true;
+            animationClip.Play("DialogueIn");
             voiceSource.enabled = true;
             voiceSource.clip = voiceClip[dialougeNumber];
             imageProfile.sprite = playerProfile[dialougeNumber];
             dialogueText.text = dialogue[dialougeNumber];
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(voiceClip[dialougeNumber].length);
+            animationClip.Play("DialogueOut");
+            yield return new WaitForSeconds(0.8f);
             isActive = false;
+            wasActive = false;
         }
     }
 

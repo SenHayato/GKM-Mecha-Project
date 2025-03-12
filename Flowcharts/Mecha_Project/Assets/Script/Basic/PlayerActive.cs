@@ -212,6 +212,8 @@ public class PlayerActive : MonoBehaviour
             StopCoroutine(Weapon.FireShoot());
             dashAction.Disable();
             blockAction.Disable();
+            skill1Action.Disable();
+            skill2Action.Disable();
         }
         else
         {
@@ -222,6 +224,8 @@ public class PlayerActive : MonoBehaviour
             dashAction.Enable();
             reloadAction.Enable();
             blockAction.Enable();
+            skill1Action.Enable();
+            skill2Action.Enable();
         }
     }
     public void ScopeMode()
@@ -432,7 +436,7 @@ public class PlayerActive : MonoBehaviour
 
     public IEnumerator Skill1()
     {
-        if (skill1Action.triggered && Mecha.readySkill1 && !Mecha.isDeath)
+        if (skill1Action.triggered && Mecha.readySkill1 && !Mecha.isDeath && !Mecha.isReloading)
         {
             Debug.Log("Skill 1 Aktif Korotine");
             skillBusy = true;
@@ -457,7 +461,7 @@ public class PlayerActive : MonoBehaviour
 
     public IEnumerator Skill2()
     {
-        if (skill2Action.triggered && Mecha.readySkill2 && !Mecha.isDeath)
+        if (skill2Action.triggered && Mecha.readySkill2 && !Mecha.isDeath && !Mecha.isReloading)
         {
             Debug.Log("Skill 2 Aktif Korotine");
             skillBusy = true;

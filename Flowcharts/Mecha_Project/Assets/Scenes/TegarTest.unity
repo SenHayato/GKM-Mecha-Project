@@ -2542,7 +2542,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -586, y: -384}
+  m_AnchoredPosition: {x: -600, y: -384}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &263845988
@@ -2566,6 +2566,7 @@ MonoBehaviour:
   - Gabut
   voiceClip:
   - {fileID: 8300000, guid: 621e4d0eb451abd47bc3a956e383d92f, type: 3}
+  animationClip: {fileID: 263845989}
   isActive: 0
   imageProfile: {fileID: 1390088988}
   dialogueText: {fileID: 2077506831}
@@ -2582,8 +2583,9 @@ Animation:
   m_Animation: {fileID: 7400000, guid: 5c82ade4bdd2edb40a45c2f5f7abdc41, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 5c82ade4bdd2edb40a45c2f5f7abdc41, type: 2}
+  - {fileID: 7400000, guid: 846fa64fdf070da4c8aec08088ebd708, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!1 &273625054
@@ -28957,7 +28959,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Loren Ipsum Quest Mecha Protocol kjsahdkjahdjkashdkhasdkjsahdkjhaskdhakhdakshdkash
+  m_text: Loren Ipsum Quest Mecha Protocol kjsahdkjahdjkashdkhasdkjsahdkjhaskdhakhdakshdkashkdsfkskdfksdnfjksnfjksdnfkdnsk
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
