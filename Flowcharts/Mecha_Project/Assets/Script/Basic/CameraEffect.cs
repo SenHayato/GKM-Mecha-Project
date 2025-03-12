@@ -17,7 +17,7 @@ public class CameraEffect : MonoBehaviour
     [Header("EffectVolume")]
     [SerializeField] private Volume criticalVolume;
     [SerializeField] private Volume boostVolume;
-    [SerializeField] private Volume hitVolume;
+    //[SerializeField] private Volume hitVolume;
 
     [Header("Reference")]
     [SerializeField] private MechaPlayer mechaPlayer;
@@ -27,7 +27,7 @@ public class CameraEffect : MonoBehaviour
         mechaPlayer = FindFirstObjectByType<MechaPlayer>();
         criticalVolume = criticalEffect.GetComponent<Volume>();
         boostVolume = boostEffect.GetComponent<Volume>();
-        hitVolume = hitEffect.GetComponent<Volume>();
+        //hitVolume = hitEffect.GetComponent<Volume>();
     }
 
     private void Start()
@@ -71,13 +71,7 @@ public class CameraEffect : MonoBehaviour
     public IEnumerator HitEffect() //Masih bug
     {
         hitEffect.SetActive(true);
-        if (hitVolume.profile.TryGet<UnityEngine.Rendering.Universal.Vignette>(out var vignette))
-        {
-            vignette.intensity.overrideState = true;
-            //vignette.intensity.value = Mathf.SmoothStep(0.5f, 0f, time);
-            yield return new WaitForSeconds(2f);
-        }
-        vignette.intensity.value = 0.5f;
+        yield return new WaitForSeconds(1f);
         hitEffect.SetActive(false);
     }
 
