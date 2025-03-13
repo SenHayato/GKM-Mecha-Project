@@ -10,4 +10,8 @@ public class PowerUpModel : MonoBehaviour
     public int EngRegenUp;
     public int HPRegenUp;
     public int UltRegenUp;
+
+    [Header("Animation")]
+    public float spinSpeed;
+    public Vector3 rotationAxis;
 }
