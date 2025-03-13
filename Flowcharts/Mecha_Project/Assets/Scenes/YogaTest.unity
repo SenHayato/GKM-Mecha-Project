@@ -4090,6 +4090,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1639255276}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &630854456
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 630854457}
+  m_Layer: 9
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &630854457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630854456}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.84, y: 1.06, z: 4.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7556564234547886502}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &635515234
 GameObject:
   m_ObjectHideFlags: 0
@@ -6730,6 +6762,7 @@ MonoBehaviour:
   ultimateEffect: {fileID: 1993547384}
   criticalEffect: {fileID: 1991662003}
   scopeEffect: {fileID: 505319444}
+  hitEffect: {fileID: 0}
   criticalVolume: {fileID: 0}
   boostVolume: {fileID: 0}
   mechaPlayer: {fileID: 0}
@@ -11377,6 +11410,7 @@ MonoBehaviour:
   CameraAct: {fileID: 0}
   cameraPivot: {fileID: 1641979821}
   playerPosition: {fileID: 0}
+  cameraEffect: {fileID: 0}
   Weapon: {fileID: 0}
   thusterParticle: {fileID: 2114970187}
   windEffect: {fileID: 0}
@@ -12128,6 +12162,7 @@ MonoBehaviour:
   QuestText: 
   checkPointReach: 0
   PauseMenu: {fileID: 1229796205}
+  playerInput: {fileID: 0}
   Player: {fileID: 0}
   HUDManager: {fileID: 0}
   isPaused: 1
@@ -12135,6 +12170,8 @@ MonoBehaviour:
   WinScreen: OutroCG
   LoseScreen: LoseScreen
   MainMenu: TittleScreen
+  fadeIn: {fileID: 0}
+  fadeOut: {fileID: 0}
   KillCount: 0
   defaultTimer: 60
   timeFormat: 
@@ -19194,41 +19231,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &448541390931984435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5732259131275768560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32c75b41f9274b94ba4bcc352f9d24b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyType: 1
-  enemyName: 
-  maxHealth: 1000
-  health: 0
-  minHealth: 0
-  attackPower: 3000
-  attackSpeed: 0
-  attackRange: 2
-  detectionRange: 10
-  isAttacking: 0
-  isDeath: 0
-  isMoving: 0
-  isBlocking: 0
-  showLineOfSight: 1
-  lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
-  patrolRadius: 10
-  patrolWaitTime: 2
-  startPosition: {x: 0, y: 0, z: 0}
-  currentDestination: {x: 0, y: 0, z: 0}
-  destinationChangeTimer: 0
-  attackCooldown: 2
-  attackTimer: 0
-  weaponFirePoint: {fileID: 7182516813564694799}
 --- !u!114 &449760430074127978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19535,7 +19537,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5732259131275768560}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ea4a4ab3f8c30341b894ae6721958af, type: 3}
   m_Name: 
@@ -19543,6 +19545,9 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 8
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 2048
   lineOfSight: {fileID: 7188445463655339916}
 --- !u!1 &4195830143307787597
 GameObject:
@@ -19635,7 +19640,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerObj: {fileID: 1758872513}
   Player: {fileID: 1758872518}
-  enemyData: {fileID: 448541390931984435}
+  enemyData: {fileID: 0}
   agent: {fileID: 8976015907341135819}
   anim: {fileID: 0}
   gameManager: {fileID: 1819764829}
@@ -19749,8 +19754,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7556564234547886502}
   - component: {fileID: 7342464990868427040}
-  - component: {fileID: 448541390931984435}
+  - component: {fileID: 8976015907341135821}
   - component: {fileID: 3973263230677083042}
+  - component: {fileID: 8976015907341135820}
   - component: {fileID: 4700220283125667512}
   - component: {fileID: 6312206610652549439}
   - component: {fileID: 6144345313671938395}
@@ -20213,13 +20219,13 @@ Transform:
   m_GameObject: {fileID: 5732259131275768560}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.84, y: 1.06, z: 4.1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8774031261990957353}
   - {fileID: 3604037109151538939}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 630854457}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7589238296216438475
 GameObject:
@@ -20330,12 +20336,73 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8976015907341135820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5732259131275768560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacle:
+    serializedVersion: 2
+    m_Bits: 0
+  navAgent: {fileID: 8976015907341135819}
+  centrePoint: {fileID: 630854457}
+--- !u!114 &8976015907341135821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5732259131275768560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32c75b41f9274b94ba4bcc352f9d24b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 0
+  enemyName: 
+  maxHealth: 5000
+  health: 1500
+  minHealth: 0
+  attackPower: 0
+  attackSpeed: 0
+  attackRange: 2
+  detectionRange: 10
+  isAttacking: 0
+  isDeath: 0
+  isMoving: 0
+  isBlocking: 0
+  showLineOfSight: 1
+  lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
+  showFieldOfView: 1
+  fieldOfViewColor: {r: 1, g: 1, b: 0, a: 0.2}
+  patrolRadius: 10
+  patrolWaitTime: 2
+  startPosition: {x: 0, y: 0, z: 0}
+  currentDestination: {x: 0, y: 0, z: 0}
+  destinationChangeTimer: 0
+  viewAngle: 90
+  useFieldOfView: 1
+  peripheralViewAngle: 45
+  closeRangeAwareness: 2
+  attackCooldown: 2
+  attackTimer: 0
+  weaponFirePoint: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1758872518}
-  - {fileID: 7556564234547886502}
+  - {fileID: 630854457}
   - {fileID: 763489653}
   - {fileID: 210109960}
   - {fileID: 938803209}
