@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PowerUpItem : MonoBehaviour
@@ -6,13 +7,15 @@ public class PowerUpItem : MonoBehaviour
     //public SkripEnemy Enemies;
     public MechaPlayer Player;
     public PowerUpModel powerUpModel;
+    private float spinSpeed;
+    private Vector3 rotationAxis;
 
     [Header("PowerUP Value")]
-    [SerializeField] int AtkPowerUp; 
-    [SerializeField] int DefPowerUp;
-    [SerializeField] int EngRegenUp;
-    [SerializeField] int HPRegenUp;
-    [SerializeField] int UltRegenUp;
+    private int AtkPowerUp; 
+    private int DefPowerUp;
+    private int EngRegenUp;
+    private int HPRegenUp;
+    private int UltRegenUp;
 
     [Header("PowerUp Status")]
     public bool isAtkUp;
@@ -40,6 +43,15 @@ public class PowerUpItem : MonoBehaviour
         EngRegenUp = powerUpModel.EngRegenUp;
         HPRegenUp = powerUpModel.HPRegenUp;
         UltRegenUp = powerUpModel.UltRegenUp;
+        spinSpeed = powerUpModel.spinSpeed;
+        rotationAxis = powerUpModel.rotationAxis;
+
+        Muter();
+    }
+
+    void Muter()
+    {
+        this.transform.Rotate(1 * spinSpeed * Time.deltaTime * rotationAxis);
     }
 
     public void AtkUp()
