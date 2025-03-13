@@ -264,6 +264,7 @@ public class AIController : MonoBehaviour
         // Pada jarak yang sangat dekat, selalu mendeteksi, berapa pun FOV-nya
         if (Vector3.Distance(transform.position, targetPosition) <= enemyModel.closeRangeAwareness)
         {
+            
             return true;
         }
         return false;
@@ -766,62 +767,6 @@ public class AIController : MonoBehaviour
         // Hapus efek trail
         Destroy(bulletTrail);
     }
-
-
-    private void LookAtPlayer()
-    {
-        if (playerTransform != null)
-        {
-            Vector3 direction = (playerTransform.position - transform.position).normalized;
-            direction.y = 0;
-
-            if (direction != Vector3.zero)
-            {
-                if (enemyModel.enemyType == EnemyType.EnemyRange && currentState == AIState.Attack && enemyModel.attackTimer <= 0f)
-                {
-                    transform.rotation = Quaternion.LookRotation(direction);
-
-                    Debug.Log("Ranged enemy directly facing player for attack");
-                }
-                else
-                {
-                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 10f * Time.deltaTime);
-                }
-            }
-        }
-    }
-    // Helper method for recoil effect
-    public IEnumerator ApplyRecoil(Vector3 recoilDirection)
-    {
-        if (navAgent != null && navAgent.enabled)
-        {
-            // Temporarily disable NavMeshAgent to allow manual movement
-            navAgent.isStopped = true;
-            navAgent.updatePosition = false;
-
-            // Apply small recoil push
-            Vector3 originalPos = transform.position;
-            Vector3 targetPos = transform.position + recoilDirection;
-
-            float elapsed = 0f;
-            float duration = 0.1f;
-
-            while (elapsed < duration)
-            {
-                transform.position = Vector3.Lerp(originalPos, targetPos, elapsed / duration);
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
-
-            // Reset NavMeshAgent
-            navAgent.nextPosition = transform.position;
-            navAgent.updatePosition = true;
-            navAgent.isStopped = false;
-        }
-
-        yield return null;
-    }
-
     private IEnumerator ResetAttackFlag()
     {
         yield return new WaitForSeconds(0.5f);
