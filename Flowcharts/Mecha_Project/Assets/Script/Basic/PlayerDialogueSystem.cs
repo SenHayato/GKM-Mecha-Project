@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerDialogueSystem : MonoBehaviour
@@ -50,14 +51,12 @@ public class PlayerDialogueSystem : MonoBehaviour
         }
     }
 
-    void HealthMonitor()
+    IEnumerator HealthMonitor()
     {
         if (mechaPlayer.Health <= 25000)
         {
             criticalTrigger = true;
-        }
-        else
-        {
+            yield return new WaitForSeconds(1f);
             criticalTrigger = false;
         }
     }
@@ -90,7 +89,7 @@ public class PlayerDialogueSystem : MonoBehaviour
             yield return new WaitForSeconds(criticalVoiceClip[dialougeNumber].length);
             animationClip.Play("DialogueOut");
             yield return new WaitForSeconds(0.8f);
-            criticalTrigger = false;
+            criticalTrigger = false; //flag
             wasActive = false;
         }
     }
@@ -107,7 +106,7 @@ public class PlayerDialogueSystem : MonoBehaviour
             voiceSource.Play();
             imageProfile.sprite = ultimateSprite[dialougeNumber];
             dialogueText.text = ultimateDialogue[dialougeNumber];
-            yield return new WaitForSeconds(ultimateVoiceClip[dialougeNumber].length);
+            yield return new WaitForSeconds(mechaPlayer.UltDuration);
             animationClip.Play("DialogueOut");
             yield return new WaitForSeconds(0.8f);
             ultimateTrigger = false;
@@ -137,7 +136,7 @@ public class PlayerDialogueSystem : MonoBehaviour
 
     void Update()
     {
-        HealthMonitor();
+        StartCoroutine(HealthMonitor());
         StartCoroutine(CriticalDialouge());
         StartCoroutine(KillDialougeActive());
         StartCoroutine(EnemyDeathMonitoring());
