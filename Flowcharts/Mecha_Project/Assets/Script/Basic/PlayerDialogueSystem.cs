@@ -35,11 +35,13 @@ public class PlayerDialogueSystem : MonoBehaviour
 
     //check
     EnemyModel[] enemyModels;
-    bool wasActive;
+    bool wasActive = false;
+    bool killWasActive = false;
 
     private void Start()
     {
         mechaPlayer = FindFirstObjectByType<MechaPlayer>();
+        StartCoroutine(HealthMonitor());
     }
 
     IEnumerator PlayerMonitoring()
@@ -53,11 +55,22 @@ public class PlayerDialogueSystem : MonoBehaviour
 
     IEnumerator HealthMonitor()
     {
-        if (mechaPlayer.Health <= 25000)
+        while (true)
         {
-            criticalTrigger = true;
-            yield return new WaitForSeconds(1f);
-            criticalTrigger = false;
+            if (mechaPlayer.Health <= 25000)
+            {
+                if (!criticalTrigger) // Hindari mengulang
+                {
+                    criticalTrigger = true;
+                    yield return new WaitForSeconds(1f);
+                }
+            }
+            else
+            {
+                criticalTrigger = false;
+                killWasActive = false;
+            }
+            yield return new WaitForSeconds(0.5f); // Cek
         }
     }
 
@@ -77,9 +90,9 @@ public class PlayerDialogueSystem : MonoBehaviour
     IEnumerator CriticalDialouge()
     {
         int dialougeNumber = Random.Range(0, crticalSprite.Length);
-        if (criticalTrigger && !wasActive)
+        if (criticalTrigger && !killWasActive)
         {
-            wasActive = true;
+            killWasActive = true;
             animationClip.Play("DialogueIn");
             voiceSource.enabled = true;
             voiceSource.clip = criticalVoiceClip[dialougeNumber];
@@ -90,7 +103,7 @@ public class PlayerDialogueSystem : MonoBehaviour
             animationClip.Play("DialogueOut");
             yield return new WaitForSeconds(0.8f);
             criticalTrigger = false; //flag
-            wasActive = false;
+            //killWasActive = false;
         }
     }
 
@@ -136,7 +149,7 @@ public class PlayerDialogueSystem : MonoBehaviour
 
     void Update()
     {
-        StartCoroutine(HealthMonitor());
+        //StartCoroutine(HealthMonitor());
         StartCoroutine(CriticalDialouge());
         StartCoroutine(KillDialougeActive());
         StartCoroutine(EnemyDeathMonitoring());
