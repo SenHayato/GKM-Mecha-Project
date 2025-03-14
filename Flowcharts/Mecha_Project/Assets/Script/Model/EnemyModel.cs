@@ -46,6 +46,8 @@ public class EnemyModel : MonoBehaviour
     [Header("Combat")]
     public float attackCooldown = 2f;
     public float attackTimer = 0f;
+    public int attackDamageMin;
+    public int attackDamageMax;
     public Transform weaponFirePoint;
 }
 

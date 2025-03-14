@@ -602,6 +602,7 @@ public class AIController : MonoBehaviour
         {
             if (enemyModel.attackTimer <= 0)
             {
+                PerformAttackShort();
                 enemyActive.AttackPlayer();
                 enemyModel.attackTimer = enemyModel.attackCooldown;
             }
@@ -709,7 +710,7 @@ public class AIController : MonoBehaviour
             // Create a temporary LineRenderer for the attack visualization with better properties
            
             // Perform the actual raycast
-            if (Physics.Raycast(attackOrigin, directionToPlayer, out hit, enemyModel.attackRange * 3, hitLayer))
+            if (Physics.Raycast(attackOrigin, directionToPlayer, out hit, enemyModel.attackRange * 8, hitLayer))
             {
                 targetPoint = hit.point;
                 // Check if we hit the player
@@ -745,6 +746,51 @@ public class AIController : MonoBehaviour
             StartCoroutine(BulletTrailEffect(targetPoint, attackOrigin));
             StartCoroutine(ResetAttackFlag());
         }
+    }
+
+    public void PerformAttackShort()
+    {
+        // For short enemies, use distance to attack
+        enemyModel.isAttacking = true;
+        // For short enemies, use distance to attack
+        if (enemyModel.enemyType == EnemyType.EnemyShort)
+        {
+            float distanceToPlayer = Vector3.Distance(transform.position, enemyActive.Player.position);
+            if (distanceToPlayer <= enemyModel.attackRange)
+            {
+                RaycastHit hit;
+                Vector3 directionToPlayer = (enemyActive.Player.position - transform.position).normalized;
+
+                if(Physics.Raycast(transform.position, directionToPlayer, out hit, enemyModel.attackRange))
+                {
+
+                    // Check if we hit the player
+                    if (hit.collider.CompareTag("Player"))
+                    {
+                        // Apply damage to player - using TryGetComponent for efficiency
+                        if (hit.collider.gameObject.TryGetComponent<PlayerActive>(out var playerActive))
+                        {
+                            if (playerActive != null)
+                            {
+                                playerActive.TakeDamage(enemyModel.attackPower);
+                                Debug.Log($"Range attack hit player for {enemyModel.attackPower} damage");
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Player hit but no PlayerHealth component found");
+                            }
+
+                            // Create hit effect for player
+                            if (Resources.Load<GameObject>("Prefabs/HitEffect"))
+                            {
+                                Instantiate(Resources.Load<GameObject>("Prefabs/HitEffect"), hit.point, Quaternion.LookRotation(hit.normal));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        StartCoroutine(ResetAttackFlag());
     }
     public IEnumerator BulletTrailEffect(Vector3 targetPoint, Vector3 startPoint)
     {
