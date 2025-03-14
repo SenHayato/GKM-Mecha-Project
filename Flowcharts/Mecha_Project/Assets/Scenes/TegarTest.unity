@@ -21728,8 +21728,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMaster: {fileID: 0}
   mechaPlayer: {fileID: 0}
-  musicLibrary: []
   musicSource: {fileID: 0}
+  tutorialBGM: {fileID: 0}
+  cityStageBGM: {fileID: 0}
+  dessertStageBGM: {fileID: 0}
+  finalStageBGM: {fileID: 0}
+  bgmMixer: {fileID: 0}
 --- !u!1 &1274172580
 GameObject:
   m_ObjectHideFlags: 0
@@ -32278,7 +32282,7 @@ AudioSource:
   m_GameObject: {fileID: 1794778470}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b3a9316288b735a4bb270f3eaa94b492, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
