@@ -22,8 +22,13 @@ public class MusicManager : MonoBehaviour
         
     }
 
+    void AudioMonitor()
+    {
+
+    }
+
     void Update()
     {
-        
+        AudioMonitor();
     }
 }
