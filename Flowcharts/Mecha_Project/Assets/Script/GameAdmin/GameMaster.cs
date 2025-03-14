@@ -35,7 +35,7 @@ public class GameMaster : MonoBehaviour
 
     [Header("PlayerAchive")]
     public int KillCount;
-    private float timer;
+    public float timer;
     public float defaultTimer;
     public string timeFormat;
     public bool countdown;

@@ -2588,12 +2588,27 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 621e4d0eb451abd47bc3a956e383d92f, type: 3}
   - {fileID: 8300000, guid: a727e83d9834ad64ca56e352295ec4d2, type: 3}
   - {fileID: 8300000, guid: 73b6858bff95fd241a5b2e9a92f6d1b4, type: 3}
-  ultimateSprite: []
-  ultimateDialogue: []
-  ultimateVoiceClip: []
-  crticalSprite: []
-  criticalDialogue: []
-  criticalVoiceClip: []
+  ultimateSprite:
+  - {fileID: 21300000, guid: 58679a032860cd840af3177e5d360046, type: 3}
+  - {fileID: 21300000, guid: ae5b4bb560d925645adc76dbbdc7600a, type: 3}
+  - {fileID: 21300000, guid: 2ceef0f7f34eda045990fe15c65e6672, type: 3}
+  ultimateDialogue:
+  - Ultimate 1
+  - Ultimate 2
+  - Ultimate 3
+  ultimateVoiceClip:
+  - {fileID: 8300000, guid: 1395b494ec8f418488794d594e6d474d, type: 3}
+  - {fileID: 8300000, guid: 027bd24689513d742bdf220d9a8021ee, type: 3}
+  - {fileID: 8300000, guid: 4a20d04b764dbcd4faa71826af773255, type: 3}
+  crticalSprite:
+  - {fileID: 21300000, guid: d5c345c4bb5820149b8ab0ed64e1b1eb, type: 3}
+  - {fileID: 21300000, guid: 1818c4648a94ae04c841e32f4106b3d7, type: 3}
+  criticalDialogue:
+  - Critical 1
+  - Critical 2
+  criticalVoiceClip:
+  - {fileID: 8300000, guid: 0692f667c577fc34381c49ba656aa2e9, type: 3}
+  - {fileID: 8300000, guid: a6849a07586478442b2c98c88b4ca05c, type: 3}
   killTrigger: 0
   ultimateTrigger: 0
   criticalTrigger: 0
@@ -21644,7 +21659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31dac20fcfa9304695e71770e9bdc0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageType: 0
+  StageType: 2
   QuestText: 
   checkPointReach: 0
   PauseMenu: {fileID: 1605250513}
@@ -21659,7 +21674,8 @@ MonoBehaviour:
   fadeIn: {fileID: 64398751}
   fadeOut: {fileID: 470513228}
   KillCount: 0
-  defaultTimer: 25
+  timer: 0
+  defaultTimer: 70
   timeFormat: 
   countdown: 0
   MechaData: {fileID: 0}
@@ -21727,13 +21743,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMaster: {fileID: 0}
-  mechaPlayer: {fileID: 0}
   musicSource: {fileID: 0}
-  tutorialBGM: {fileID: 0}
-  cityStageBGM: {fileID: 0}
-  dessertStageBGM: {fileID: 0}
-  finalStageBGM: {fileID: 0}
+  musicObj: {fileID: 1794778470}
+  dessertStageBGM: {fileID: 8300000, guid: 94e452aa64edb014fba3874717726d85, type: 3}
+  dessertStageBGMAlter: {fileID: 8300000, guid: e74dce34d1d21344b902e11e16c548e1, type: 3}
   bgmMixer: {fileID: 0}
+  isPlaying: 1
 --- !u!1 &1274172580
 GameObject:
   m_ObjectHideFlags: 0
@@ -23487,11 +23502,11 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444530828}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -32282,16 +32297,16 @@ AudioSource:
   m_GameObject: {fileID: 1794778470}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: b3a9316288b735a4bb270f3eaa94b492, type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 127
   DopplerLevel: 1
   MinDistance: 1.6001499
   MaxDistance: 500
