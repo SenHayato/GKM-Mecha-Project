@@ -104,7 +104,7 @@ public class WeaponRaycast : MonoBehaviour
     }
     public IEnumerator ReloadAmmo()
     {
-        if (ammo == maxAmmo || isReloading || player.isDashing) yield break;
+        if (isReloading || player.isDashing) yield break;
 
         ammo = 0;
         isReloading = true;
