@@ -603,7 +603,6 @@ public class AIController : MonoBehaviour
             if (enemyModel.attackTimer <= 0)
             {
                 PerformAttackShort();
-                enemyActive.AttackPlayer();
                 enemyModel.attackTimer = enemyModel.attackCooldown;
             }
         }
@@ -750,35 +749,43 @@ public class AIController : MonoBehaviour
 
     public void PerformAttackShort()
     {
-        // For short enemies, use distance to attack
         enemyModel.isAttacking = true;
+
         // For short enemies, use distance to attack
         if (enemyModel.enemyType == EnemyType.EnemyShort)
         {
-            float distanceToPlayer = Vector3.Distance(transform.position, enemyActive.Player.position);
+            // Use weapon point if available, otherwise default to a reasonable position
+            Vector3 attackOrigin;
+            if (enemyModel.weaponFirePoint != null)
+            {
+                attackOrigin = enemyModel.weaponFirePoint.position;
+            }
+            else
+            {
+                // Default to approximate weapon height
+                attackOrigin = transform.position + transform.forward * 0.5f + Vector3.up * 1.0f;
+            }
+
+            Vector3 directionToPlayer = (enemyActive.Player.position - attackOrigin).normalized;
+            float distanceToPlayer = Vector3.Distance(attackOrigin, enemyActive.Player.position);
+
             if (distanceToPlayer <= enemyModel.attackRange)
             {
                 RaycastHit hit;
-                Vector3 directionToPlayer = (enemyActive.Player.position - transform.position).normalized;
 
-                if(Physics.Raycast(transform.position, directionToPlayer, out hit, enemyModel.attackRange))
+                // Debug visualization for melee attack
+                Debug.DrawRay(attackOrigin, directionToPlayer * enemyModel.attackRange, Color.red, 0.5f);
+
+                if (Physics.Raycast(attackOrigin, directionToPlayer, out hit, enemyModel.attackRange))
                 {
-
                     // Check if we hit the player
                     if (hit.collider.CompareTag("Player"))
                     {
-                        // Apply damage to player - using TryGetComponent for efficiency
+                        // Apply damage to player
                         if (hit.collider.gameObject.TryGetComponent<PlayerActive>(out var playerActive))
                         {
-                            if (playerActive != null)
-                            {
-                                playerActive.TakeDamage(enemyModel.attackPower);
-                                Debug.Log($"Range attack hit player for {enemyModel.attackPower} damage");
-                            }
-                            else
-                            {
-                                Debug.LogWarning("Player hit but no PlayerHealth component found");
-                            }
+                            playerActive.TakeDamage(enemyModel.attackPower);
+                            Debug.Log($"Melee attack hit player for {enemyModel.attackPower} damage");
 
                             // Create hit effect for player
                             if (Resources.Load<GameObject>("Prefabs/HitEffect"))
@@ -786,11 +793,22 @@ public class AIController : MonoBehaviour
                                 Instantiate(Resources.Load<GameObject>("Prefabs/HitEffect"), hit.point, Quaternion.LookRotation(hit.normal));
                             }
                         }
+                        else
+                        {
+                            Debug.LogWarning("Player hit but no PlayerHealth component found");
+                        }
                     }
                 }
             }
+
+            // Also call enemyActive.AttackPlayer() to trigger the animation
+            if (enemyActive != null)
+            {
+                enemyActive.AttackPlayer();
+            }
         }
-        StartCoroutine(ResetAttackFlag());
+
+        StartCoroutine(ResetAttackFlag()); ;
     }
     public IEnumerator BulletTrailEffect(Vector3 targetPoint, Vector3 startPoint)
     {

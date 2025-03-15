@@ -162,6 +162,7 @@ public class EnemyActive : MonoBehaviour
             if (anim != null)
             {
                 anim.SetTrigger("Attack");
+                anim.SetBool("IsAttacking", true);
             } 
         }
     }

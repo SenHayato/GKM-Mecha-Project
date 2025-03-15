@@ -3884,6 +3884,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  playerActive: {fileID: 0}
 --- !u!4 &573380534
 Transform:
   m_ObjectHideFlags: 0
@@ -4109,6 +4110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  playerActive: {fileID: 0}
 --- !u!4 &605906248
 Transform:
   m_ObjectHideFlags: 0
@@ -8976,6 +8978,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  playerActive: {fileID: 0}
 --- !u!4 &1255677738
 Transform:
   m_ObjectHideFlags: 0
@@ -12007,6 +12010,7 @@ MonoBehaviour:
   Mecha: {fileID: 0}
   GameMaster: {fileID: 0}
   CameraAct: {fileID: 0}
+  combatVoiceAct: {fileID: 0}
   cameraPivot: {fileID: 1641979821}
   playerPosition: {fileID: 0}
   cameraEffect: {fileID: 0}
@@ -12031,6 +12035,7 @@ MonoBehaviour:
   skillBusy: 0
   controller: {fileID: 0}
   anim: {fileID: 0}
+  isDamage: 0
 --- !u!114 &1758872517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12065,13 +12070,17 @@ MonoBehaviour:
   EnergyCost: 50
   EnergyRegen: 1
   readySkill1: 0
+  usingSkill1: 0
   skill1Time: 0
   cooldownSkill1: 5
   skill1Damage: 200
+  skill1Duration: 0
   readySkill2: 0
+  usingSkill2: 0
   skill2Time: 0
   cooldownSkill2: 5
   skill2Damage: 500
+  skill2Duration: 0
   Defence: 1000
   isDeath: 0
   isBlocking: 0
@@ -12861,6 +12870,7 @@ MonoBehaviour:
   fadeIn: {fileID: 0}
   fadeOut: {fileID: 0}
   KillCount: 0
+  timer: 0
   defaultTimer: 60
   timeFormat: 
   countdown: 0

@@ -11,52 +11,102 @@ public class ControllerEnemy : MonoBehaviour
     public LayerMask obstacle;
     private EnemyActive enemyActive;
     private EnemyModel enemyModel;
-    
+    public Transform player;
+
+    private Animator anim;
+
+    [Header("Patrolling")]
+    public Vector3 walkPoint;
+    bool walkPointSet;
+    public float walkPointRange;
+
     public NavMeshAgent navAgent;
-    private bool isWaiting;
+
+    public bool alreadyAttacked;
+    public GameObject projectile;
+
+
+    public float sightRange, attackRange;
+    public bool playerInSightRange, playerInAttackRange;
 
 
     public Transform centrePoint; // Area central yang membuat enemy dapat bergerak bebas didalamnya
-    void Start()
+    void Awake()
     {
+        player = GameObject.Find("Player").transform;
         navAgent = GetComponent<NavMeshAgent>();
-        if (enemyModel != null)
-        {
-            enemyModel.startPosition = transform.position;
-        }
+        anim = GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!isWaiting && navAgent.remainingDistance <= navAgent.stoppingDistance)
-        {
-            StartCoroutine(CooldownPatrol());
-        }
+
     }
     private IEnumerator CooldownPatrol()
     {
-        isWaiting = true;
         yield return new WaitForSeconds(enemyModel.patrolWaitTime);
         PatrolRange();
-        isWaiting = false;
     }
     private void PatrolRange()
     {
-        if (navAgent == null || !navAgent.enabled) return;
-
-        Vector3 randomDirection = Random.insideUnitSphere * enemyModel.patrolRadius;
-        randomDirection.y = 0;
-        Vector3 targetPosition = enemyModel.startPosition + randomDirection;
-
-        NavMeshHit hit;
-        if(NavMesh.SamplePosition(targetPosition, out hit, enemyModel.patrolRadius, NavMesh.AllAreas))
+        if (!walkPointSet)
         {
-            enemyModel.currentDestination = hit.position;
-            navAgent.SetDestination(enemyModel.currentDestination);
+            SearchWalkPoint();
+        }
+        if (walkPointSet)
+        {
+            navAgent.SetDestination(walkPoint);
+        }
+        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+
+        // Jika sudah mencapai point yang dituju maka
+        if(distanceToWalkPoint.magnitude < 1f)
+        {
+            walkPointSet = false;
         }
     }
 
+    public void SearchWalkPoint()
+    {
+        float randomZ = Random.Range(-walkPointRange, walkPointRange);
+        float randomX = Random.Range(-walkPointRange, walkPointRange);
+
+        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+
+        if(Physics.Raycast(walkPoint, -transform.up, 2f))
+        {
+            walkPointSet = true;
+        }
+    }
+
+    public void Chase()
+    {
+        navAgent.SetDestination(player.position);
+    }
+
+    void Attack()
+    {
+        navAgent.SetDestination(transform.position);
+
+        transform.LookAt(player);
+
+        Debug.Log("Player Getting attacked by enemy");
+
+        if (!alreadyAttacked)
+        {
+            //CharacterController charcontrol = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<CharacterController>))();
+
+            alreadyAttacked = true;
+            Invoke(nameof(ResetAttack), enemyModel.attackCooldown);
+        }
+    }
+
+    public void ResetAttack()
+    {
+        alreadyAttacked = false;
+    }
     void FieldOfView()
     {
 
