@@ -34,14 +34,18 @@ public class MechaPlayer : MonoBehaviour
     [Header("Skill Condition")]
     //skill1
     public bool readySkill1;
+    public bool usingSkill1;
     public float skill1Time;
     public float cooldownSkill1;
     public int skill1Damage;
+    public float skill1Duration;
     //skill2
     public bool readySkill2;
+    public bool usingSkill2;
     public float skill2Time;
     public float cooldownSkill2;
     public int skill2Damage;
+    public float skill2Duration;
 
     [Header("Defence")]
     public int Defence;

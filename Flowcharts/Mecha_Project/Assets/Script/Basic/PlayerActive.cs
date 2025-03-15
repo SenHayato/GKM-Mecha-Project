@@ -10,10 +10,13 @@ public class PlayerActive : MonoBehaviour
     // Input
     public InputAction moveAction, jumpAction, flyUp, shootAction, scopeAction, skill1Action, skill2Action,
         flyDown, blockAction, dashAction, selectButton, ultimateAction, interaction, reloadAction, boostAction;
-
+    [Header("Reference")]
     public MechaPlayer Mecha;
     public GameMaster GameMaster;
     public CameraActive CameraAct;
+    public CombatVoiceActive combatVoiceAct;
+
+    [Header("Player Set Up")]
     public Transform cameraPivot;
     public Transform playerPosition;
     public CameraEffect cameraEffect;
@@ -50,6 +53,9 @@ public class PlayerActive : MonoBehaviour
     public CharacterController controller;
     public Animator anim;
 
+    //flag
+    public bool isDamage = false;
+
     public void Awake()
     {
         gameInput = FindAnyObjectByType<PlayerInput>();
@@ -63,6 +69,7 @@ public class PlayerActive : MonoBehaviour
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
         cameraEffect = FindAnyObjectByType<CameraEffect>();
+        combatVoiceAct = GetComponent<CombatVoiceActive>();
     }
     private void Start()
     {
@@ -444,6 +451,7 @@ public class PlayerActive : MonoBehaviour
         {
             Debug.Log("Skill 1 Aktif Korotine");
             skillBusy = true;
+            Mecha.usingSkill1 = true;
             Mecha.skill1Time = Mecha.cooldownSkill1;
             skill2Action.Disable();
             Mecha.readySkill1 = false;
@@ -452,7 +460,8 @@ public class PlayerActive : MonoBehaviour
             yield return new WaitForSeconds(1.1f);
             skill1HitBox.SetActive(true);
 
-            yield return new WaitForSeconds(2.20f); //lama skill
+            yield return new WaitForSeconds(Mecha.skill1Duration); //lama skill
+            Mecha.usingSkill1 = false;
             skillBusy = false;
             skill2Action.Enable();
             skill1HitBox.SetActive(false);
@@ -469,6 +478,7 @@ public class PlayerActive : MonoBehaviour
         {
             Debug.Log("Skill 2 Aktif Korotine");
             skillBusy = true;
+            Mecha.usingSkill2 = true;
             Mecha.skill2Time = Mecha.cooldownSkill2;
             skill1Action.Disable();
             Mecha.readySkill2 = false;
@@ -477,9 +487,10 @@ public class PlayerActive : MonoBehaviour
             yield return new WaitForSeconds(2f);
             skill2HitBox.SetActive(true);
 
-            yield return new WaitForSeconds(4.11f); //lama skill
-            skill1Action.Enable();
+            yield return new WaitForSeconds(Mecha.skill2Duration); //lama skill
+            Mecha.usingSkill2 = false;
             skillBusy = false;
+            skill1Action.Enable();
             skill2HitBox.SetActive(false);
         }
         else
@@ -590,6 +601,7 @@ public class PlayerActive : MonoBehaviour
         int damageCal = damage - Mecha.Defence;
         if (!Mecha.isBlocking)
         {
+            combatVoiceAct.DamageVoice();
             Mecha.Health -= damageCal;
             StartCoroutine(cameraEffect.HitEffect());
             Debug.Log("Player Damage " + damageCal);
