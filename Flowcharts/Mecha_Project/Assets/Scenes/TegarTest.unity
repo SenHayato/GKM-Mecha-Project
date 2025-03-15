@@ -1465,6 +1465,7 @@ MonoBehaviour:
   Type: 2
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -2432,6 +2433,7 @@ MonoBehaviour:
   Type: 1
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -15986,6 +15988,7 @@ MonoBehaviour:
   Type: 4
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -21728,6 +21731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f848f208a09932429cb22d9a04d8617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EffectDuration: 5
   AtkPowerUp: 150
   DefPowerUp: 2500
   EngRegenUp: 50
@@ -22370,6 +22374,7 @@ MonoBehaviour:
   Type: 3
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -24279,6 +24284,7 @@ MonoBehaviour:
   Type: 2
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -30786,6 +30792,7 @@ MonoBehaviour:
   Type: 3
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -32997,6 +33004,7 @@ MonoBehaviour:
   Type: 1
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -33157,6 +33165,7 @@ MonoBehaviour:
   Type: 4
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -34661,6 +34670,7 @@ MonoBehaviour:
   Type: 0
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -35128,6 +35138,7 @@ MonoBehaviour:
   Type: 0
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -37824,17 +37835,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mechaPlayer: {fileID: 0}
-  playerActive: {fileID: 0}
+  powerUpModel: {fileID: 0}
   attackVoice:
   - {fileID: 8300000, guid: cae5718cd3c266342a623c9180eb9fc9, type: 3}
   - {fileID: 8300000, guid: 05f73e59e5ba2bb4ca6d60338199a0cf, type: 3}
-  defenceVoice: []
+  defenceVoice:
+  - {fileID: 8300000, guid: 77abad41eb1513248b582d1f559154bb, type: 3}
+  - {fileID: 8300000, guid: 573c94e2aaab15645a0e218cd73dffa8, type: 3}
   skill1Voice: {fileID: 8300000, guid: bf73df2017b1fd74cb9022747ddddb34, type: 3}
   skill2Voice: {fileID: 8300000, guid: 977357611953e0f42ab8fd8d7d043793, type: 3}
   damageVoice:
   - {fileID: 8300000, guid: bee9bd940b7df7440a3c1ef9c5d48183, type: 3}
   - {fileID: 8300000, guid: a0237556eec59e34caa143f063589327, type: 3}
-  powerUpVoice: []
+  powerUpVoice:
+  - {fileID: 8300000, guid: 54c9351bda76d82499535cb7ded3d0cf, type: 3}
+  - {fileID: 8300000, guid: 62ceba670ef5ffd498411051fe0ee778, type: 3}
   voiceSource: {fileID: 0}
   isActive: 0
 --- !u!4 &5462220121486034104
