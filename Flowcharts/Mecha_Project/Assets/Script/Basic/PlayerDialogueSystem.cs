@@ -25,6 +25,11 @@ public class PlayerDialogueSystem : MonoBehaviour
     [SerializeField] string[] criticalDialogue;
     [SerializeField] AudioClip[] criticalVoiceClip;
 
+    [Header("Special Event")]                       //sprite, text dan voice harus terurut
+    [SerializeField] Sprite[] specialSprite;
+    [SerializeField] string[] specialDialouge;
+    [SerializeField] AudioClip[] specialVoiceClip;
+
     [Header("Dialogue ON")]
     [SerializeField] bool killTrigger;
     [SerializeField] bool ultimateTrigger;

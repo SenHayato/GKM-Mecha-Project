@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class CombatVoiceActive : MonoBehaviour
 {
+    [Header("Reference")]
+    [SerializeField] MechaPlayer mechaPlayer;
+    [SerializeField] PlayerActive playerActive;
+
     [Header("Attack Voice")]
     [SerializeField] AudioClip[] attackVoice;
 
@@ -14,9 +19,6 @@ public class CombatVoiceActive : MonoBehaviour
     [SerializeField] AudioClip skill1Voice;
     [SerializeField] AudioClip skill2Voice;
 
-    [Header("Ultimate Voice")]
-    [SerializeField] AudioClip[] ultimateVoice;
-
     [Header("Damage Voice")]
     [SerializeField] AudioClip[] damageVoice;
 
@@ -25,13 +27,74 @@ public class CombatVoiceActive : MonoBehaviour
 
     [Header("Voice Set Up")]
     [SerializeField] AudioSource voiceSource;
-    [SerializeField] bool isActive;
+    [SerializeField] bool isActive = false;
+
 
     //check
     bool wasActive = false;
 
     private void Awake()
     {
+        playerActive = GetComponent<PlayerActive>();
+        mechaPlayer = GetComponent<MechaPlayer>();
+    }
+
+    private void Start()
+    {
         voiceSource = GetComponent<AudioSource>();
+    }
+
+    void PlayerMonitoring()
+    {
+        int voiceNumber = Random.Range(0, attackVoice.Length);
+        if (mechaPlayer.isShooting && !wasActive)
+        {
+            wasActive = true;
+            voiceSource.clip = attackVoice[voiceNumber];
+            voiceSource.Play();
+        }
+
+        if (!mechaPlayer.isShooting)
+        {
+            wasActive = false;
+        }
+    }
+
+    public void DamageVoice()
+    {
+        int voiceNumber = Random.Range(0, damageVoice.Length);
+        voiceSource.clip = damageVoice[voiceNumber];
+        voiceSource.Play();
+    }
+
+    IEnumerator SKill1Voice()
+    {
+        if (mechaPlayer.usingSkill1 && !isActive)
+        {
+            isActive = true;
+            voiceSource.clip = skill1Voice;
+            voiceSource.Play();
+            yield return new WaitForSeconds(mechaPlayer.skill1Duration + 2f);
+            isActive = false;
+        }
+    }
+    
+    IEnumerator Skill2Voice()
+    {
+        if (mechaPlayer.usingSkill2 && !isActive)
+        {
+            isActive = true;
+            voiceSource.clip = skill2Voice;
+            voiceSource.Play();
+            yield return new WaitForSeconds(mechaPlayer.skill2Duration + 2f);
+            isActive = false;
+        }
+    }
+
+    private void Update()
+    {
+        PlayerMonitoring();
+        StartCoroutine(SKill1Voice());
+        StartCoroutine(Skill2Voice());
     }
 }

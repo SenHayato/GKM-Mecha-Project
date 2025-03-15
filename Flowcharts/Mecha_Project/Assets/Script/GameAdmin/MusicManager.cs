@@ -39,7 +39,7 @@ public class MusicManager : MonoBehaviour
         switch (gameMaster.StageType) //hanya untuk boss stage
         {
             case StageType.StageBoss:
-                bossObj = GameObject.FindGameObjectWithTag("Enemy");
+                bossObj = GameObject.FindGameObjectWithTag("Boss");
                 bossModel = bossObj.GetComponent<EnemyModel>();
                 break;
         }

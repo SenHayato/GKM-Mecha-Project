@@ -2609,6 +2609,9 @@ MonoBehaviour:
   criticalVoiceClip:
   - {fileID: 8300000, guid: 0692f667c577fc34381c49ba656aa2e9, type: 3}
   - {fileID: 8300000, guid: a6849a07586478442b2c98c88b4ca05c, type: 3}
+  specialSprite: []
+  specialDialouge: []
+  specialVoiceClip: []
   killTrigger: 0
   ultimateTrigger: 0
   criticalTrigger: 0
@@ -12995,6 +12998,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  playerActive: {fileID: 0}
 --- !u!1 &874751368
 GameObject:
   m_ObjectHideFlags: 0
@@ -13824,6 +13828,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  playerActive: {fileID: 0}
 --- !u!1 &933554789
 GameObject:
   m_ObjectHideFlags: 0
@@ -33535,6 +33540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  playerActive: {fileID: 0}
 --- !u!1 &1979140986
 GameObject:
   m_ObjectHideFlags: 0
@@ -37422,6 +37428,7 @@ GameObject:
   - component: {fileID: 5428487010729106810}
   - component: {fileID: 5428487010729106808}
   - component: {fileID: 5428487010729106811}
+  - component: {fileID: 5428487010729106814}
   - component: {fileID: 5428487010729106813}
   m_Layer: 3
   m_Name: Player
@@ -37606,6 +37613,7 @@ MonoBehaviour:
   Mecha: {fileID: 0}
   GameMaster: {fileID: 0}
   CameraAct: {fileID: 0}
+  combatVoiceAct: {fileID: 0}
   cameraPivot: {fileID: 0}
   playerPosition: {fileID: 0}
   cameraEffect: {fileID: 0}
@@ -37630,6 +37638,7 @@ MonoBehaviour:
   skillBusy: 0
   controller: {fileID: 0}
   anim: {fileID: 0}
+  isDamage: 0
 --- !u!95 &5428487010729106811
 Animator:
   serializedVersion: 5
@@ -37685,13 +37694,17 @@ MonoBehaviour:
   EnergyCost: 50
   EnergyRegen: 1
   readySkill1: 0
+  usingSkill1: 0
   skill1Time: 0
   cooldownSkill1: 5
   skill1Damage: 200
+  skill1Duration: 2.2
   readySkill2: 0
+  usingSkill2: 0
   skill2Time: 0
   cooldownSkill2: 5
   skill2Damage: 500
+  skill2Duration: 4.11
   Defence: 1000
   isDeath: 0
   isBlocking: 0
@@ -37798,6 +37811,32 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5428487010729106814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5428487010729106807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8257578617b64524c9065a7f186f927a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mechaPlayer: {fileID: 0}
+  playerActive: {fileID: 0}
+  attackVoice:
+  - {fileID: 8300000, guid: cae5718cd3c266342a623c9180eb9fc9, type: 3}
+  - {fileID: 8300000, guid: 05f73e59e5ba2bb4ca6d60338199a0cf, type: 3}
+  defenceVoice: []
+  skill1Voice: {fileID: 8300000, guid: bf73df2017b1fd74cb9022747ddddb34, type: 3}
+  skill2Voice: {fileID: 8300000, guid: 977357611953e0f42ab8fd8d7d043793, type: 3}
+  damageVoice:
+  - {fileID: 8300000, guid: bee9bd940b7df7440a3c1ef9c5d48183, type: 3}
+  - {fileID: 8300000, guid: a0237556eec59e34caa143f063589327, type: 3}
+  powerUpVoice: []
+  voiceSource: {fileID: 0}
+  isActive: 0
 --- !u!4 &5462220121486034104
 Transform:
   m_ObjectHideFlags: 0
