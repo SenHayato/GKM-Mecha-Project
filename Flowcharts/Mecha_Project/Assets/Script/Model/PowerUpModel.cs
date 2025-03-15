@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PowerUpModel : MonoBehaviour
 {
+    public float EffectDuration;
+
     [Header("PowerUP Value")]
     public int AtkPowerUp;
     public int DefPowerUp;

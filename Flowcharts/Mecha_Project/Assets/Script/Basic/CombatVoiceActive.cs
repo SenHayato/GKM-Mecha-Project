@@ -7,7 +7,7 @@ public class CombatVoiceActive : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] MechaPlayer mechaPlayer;
-    [SerializeField] PlayerActive playerActive;
+    //[SerializeField] PlayerActive playerActive;
 
     [Header("Attack Voice")]
     [SerializeField] AudioClip[] attackVoice;
@@ -31,11 +31,12 @@ public class CombatVoiceActive : MonoBehaviour
 
 
     //check
-    bool wasActive = false;
+    bool shootActive = false;
+    bool defenceActive = false;
 
     private void Awake()
     {
-        playerActive = GetComponent<PlayerActive>();
+        //playerActive = GetComponent<PlayerActive>();
         mechaPlayer = GetComponent<MechaPlayer>();
     }
 
@@ -47,17 +48,37 @@ public class CombatVoiceActive : MonoBehaviour
     void PlayerMonitoring()
     {
         int voiceNumber = Random.Range(0, attackVoice.Length);
-        if (mechaPlayer.isShooting && !wasActive)
+        if (mechaPlayer.isShooting && !shootActive)
         {
-            wasActive = true;
+            shootActive = true;
             voiceSource.clip = attackVoice[voiceNumber];
             voiceSource.Play();
         }
 
+        if (mechaPlayer.isBlocking && !defenceActive)
+        {
+            defenceActive = true;
+            voiceSource.clip = defenceVoice[voiceNumber];
+            voiceSource.Play();
+        }
+
+        //Reset
         if (!mechaPlayer.isShooting)
         {
-            wasActive = false;
+            shootActive = false;
         }
+
+        if (!mechaPlayer.isBlocking)
+        {
+            defenceActive = false;
+        }
+    }
+
+    public void PowerUpGet()
+    {
+        int voiceNumber = Random.Range(0, powerUpVoice.Length);
+        voiceSource.clip = powerUpVoice[voiceNumber];
+        voiceSource.Play();
     }
 
     public void DamageVoice()

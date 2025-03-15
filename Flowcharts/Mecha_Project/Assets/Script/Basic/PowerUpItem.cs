@@ -9,6 +9,7 @@ public class PowerUpItem : MonoBehaviour
     public PowerUpModel powerUpModel;
     private float spinSpeed;
     private Vector3 rotationAxis;
+    public CombatVoiceActive voiceActive;
 
     [Header("PowerUP Value")]
     private int AtkPowerUp; 
@@ -28,6 +29,7 @@ public class PowerUpItem : MonoBehaviour
 
     private void Awake()
     {
+        voiceActive = FindAnyObjectByType<CombatVoiceActive>();
         powerUpModel = FindFirstObjectByType<PowerUpModel>();
         Player = FindAnyObjectByType<MechaPlayer>();
     }
@@ -45,6 +47,7 @@ public class PowerUpItem : MonoBehaviour
         UltRegenUp = powerUpModel.UltRegenUp;
         spinSpeed = powerUpModel.spinSpeed;
         rotationAxis = powerUpModel.rotationAxis;
+        EffectDuration = powerUpModel.EffectDuration;
 
         Muter();
     }
@@ -83,6 +86,7 @@ public class PowerUpItem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            voiceActive.PowerUpGet();
             switch (Type)
             {
                 case TypePower.AttackUp:
