@@ -11,12 +11,12 @@ public class MusicManager : MonoBehaviour
     [SerializeField] GameObject musicObj;
 
     [Header("Music Library")]
-    //[SerializeField] AudioClip tutorialBGM;
-    //[SerializeField] AudioClip cityStageBGM;
+    [SerializeField] AudioClip tutorialBGM;
+    [SerializeField] AudioClip cityStageBGM;
     [SerializeField] AudioClip dessertStageBGM;
     [SerializeField] AudioClip dessertStageBGMAlter;
-    //[SerializeField] AudioClip finalStageBGM;
-    //[SerializeField] AudioClip finalStageBGMAlter;
+    [SerializeField] AudioClip finalStageBGM;
+    [SerializeField] AudioClip finalStageBGMAlter;
 
     [Header("Music SetUp")]
     [SerializeField] AudioMixer bgmMixer;
@@ -25,6 +25,8 @@ public class MusicManager : MonoBehaviour
 
     //check
     bool wasPlaying = false;
+    GameObject bossObj;
+    EnemyModel bossModel;
     void Awake()
     {
         gameMaster = GetComponent<GameMaster>();
@@ -32,18 +34,26 @@ public class MusicManager : MonoBehaviour
         musicSource = GetComponentInChildren<AudioSource>();
     }
 
-    //private void Start()
-    //{
-    //    musicObj.SetActive(true);
-    //}
+    private void Start()
+    {
+        switch (gameMaster.StageType) //hanya untuk boss stage
+        {
+            case StageType.StageBoss:
+                bossObj = GameObject.FindGameObjectWithTag("Enemy");
+                bossModel = bossObj.GetComponent<EnemyModel>();
+                break;
+        }
+    }
 
     void AudioMonitor()
     {
         switch (gameMaster.StageType)
         {
             case StageType.StageTutorial:
+                musicSource.clip = tutorialBGM;
                 break;
             case StageType.Stage1: //City Stage
+                musicSource.clip = cityStageBGM;
                 break;
             case StageType.Stage2: // Dessert Stage
                 //AudioClip newClip;
@@ -55,7 +65,7 @@ public class MusicManager : MonoBehaviour
                 //{
                 //    newClip = dessertStageBGM;
                 //}
-                AudioClip newClip = gameMaster.timer < 60f ? dessertStageBGMAlter : dessertStageBGM;
+                AudioClip newClip = gameMaster.timer <= 60f ? dessertStageBGMAlter : dessertStageBGM;
                 if (musicSource.clip != newClip)
                 {
                     musicSource.clip = newClip;
@@ -63,6 +73,12 @@ public class MusicManager : MonoBehaviour
                 }
                 break;
             case StageType.StageBoss: //Dessert Stage Final
+                AudioClip bossClip = bossModel.health <= 50000 ? finalStageBGMAlter : finalStageBGM;
+                if (musicSource.clip != bossClip)
+                {
+                    musicSource.clip = bossClip;
+                    musicSource.Play();
+                }
                 break;
         }
 

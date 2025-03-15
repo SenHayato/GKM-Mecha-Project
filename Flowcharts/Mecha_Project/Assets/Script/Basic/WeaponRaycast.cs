@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEditor.UI;
+using System.Collections.Generic;
 
 public class WeaponRaycast : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class WeaponRaycast : MonoBehaviour
     public LineRenderer lineRenderer;
     public CameraActive cameraAct;
     public HUDGameManager HUDManager;
+    HashSet<string> enemyTags;
 
     [Header("Weapon Atribut")]
     [Range(0f, 10f)] public float recoilValueX;
@@ -46,6 +48,7 @@ public class WeaponRaycast : MonoBehaviour
         lineRenderer.enabled = false;
         defaultValueX = recoilValueX;
         defaultValueY = recoilValueY;
+        enemyTags = playerSkrip.enemyTags;
     }
     public IEnumerator FireShoot()
     {
@@ -62,7 +65,7 @@ public class WeaponRaycast : MonoBehaviour
         {
             targetPoint = hit.point;
 
-            if (hit.collider.CompareTag("Enemy"))
+            if (enemyTags.Contains(hit.collider.tag))
             {
                 if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
                 {
