@@ -21659,7 +21659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31dac20fcfa9304695e71770e9bdc0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageType: 2
+  StageType: 3
   QuestText: 
   checkPointReach: 0
   PauseMenu: {fileID: 1605250513}
@@ -21723,7 +21723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f848f208a09932429cb22d9a04d8617, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AtkPowerUp: 50
+  AtkPowerUp: 150
   DefPowerUp: 2500
   EngRegenUp: 50
   HPRegenUp: 20000
@@ -21745,9 +21745,13 @@ MonoBehaviour:
   gameMaster: {fileID: 0}
   musicSource: {fileID: 0}
   musicObj: {fileID: 1794778470}
+  tutorialBGM: {fileID: 8300000, guid: a64fb207e205cec489afb3239e1cde75, type: 3}
+  cityStageBGM: {fileID: 8300000, guid: ab0d4bc2155844e46ad1cc7cb4db4482, type: 3}
   dessertStageBGM: {fileID: 8300000, guid: 94e452aa64edb014fba3874717726d85, type: 3}
   dessertStageBGMAlter: {fileID: 8300000, guid: e74dce34d1d21344b902e11e16c548e1, type: 3}
-  bgmMixer: {fileID: 0}
+  finalStageBGM: {fileID: 8300000, guid: de909516034311f46802fc447e731d7c, type: 3}
+  finalStageBGMAlter: {fileID: 8300000, guid: 7826f25de0be1cc4ca3ec1ae23be75bb, type: 3}
+  bgmMixer: {fileID: 24100000, guid: b3a9316288b735a4bb270f3eaa94b492, type: 2}
   isPlaying: 1
 --- !u!1 &1274172580
 GameObject:
@@ -24440,7 +24444,7 @@ GameObject:
   - component: {fileID: 1529357158}
   m_Layer: 9
   m_Name: Boss
-  m_TagString: Enemy
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24614,7 +24618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 3
   enemyName: 13OO5
-  maxHealth: 20000
+  maxHealth: 200000
   health: 0
   minHealth: 0
   attackPower: 0
@@ -37662,7 +37666,7 @@ MonoBehaviour:
   Health: 100000
   MaxHealth: 100000
   MinHealth: 0
-  AttackPow: 25
+  AttackPow: 100
   AttackSpd: 0
   Ultimate: 0
   MaxUltimate: 100
@@ -39464,9 +39468,9 @@ SceneRoots:
   - {fileID: 1605250517}
   - {fileID: 1791822597}
   - {fileID: 601515910}
+  - {fileID: 1529357166}
   - {fileID: 4728362945554280580}
   - {fileID: 324050717}
-  - {fileID: 1529357166}
   - {fileID: 260988173}
   - {fileID: 131218862}
   - {fileID: 1193907222}

@@ -6,23 +6,27 @@ using UnityEngine;
 public class UltimateScript : MonoBehaviour
 {
     [SerializeField] MechaPlayer playerData;
+    [SerializeField] PlayerActive playerActive;
+    HashSet<string> enemyTags;
     private float duration;
     private float interval;
 
     private void Awake()
     {
         playerData = GetComponentInParent<MechaPlayer>();
+        playerActive = GetComponentInParent<PlayerActive>();
     }
 
     private void Start()
     {
+        enemyTags = playerActive.enemyTags;
         duration = playerData.UltDuration;
         interval = playerData.UltInterval;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (enemyTags.Contains(other.tag))
         {
             StartCoroutine(ApplyDamageOverTime(other.GetComponent<EnemyActive>()));
         }

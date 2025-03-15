@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +21,7 @@ public class PlayerActive : MonoBehaviour
     public WeaponRaycast Weapon;
     public ParticleSystem thusterParticle;
     public GameObject windEffect;
+    public HashSet<string> enemyTags = new() { "Enemy", "Boss", "MiniBoss" };
 
     [Header("HitBox")]
     public GameObject skill1HitBox;
