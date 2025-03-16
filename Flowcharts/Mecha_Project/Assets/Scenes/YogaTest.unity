@@ -627,6 +627,7 @@ MonoBehaviour:
   Type: 2
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -3081,6 +3082,7 @@ MonoBehaviour:
   Type: 4
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -5300,6 +5302,7 @@ MonoBehaviour:
   Type: 0
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -7703,6 +7706,7 @@ MonoBehaviour:
   Type: 1
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -13936,18 +13940,33 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933122965}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hitLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
+  Player:
+    serializedVersion: 2
+    m_Bits: 8
   obstacle:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
+  Ground:
+    serializedVersion: 2
+    m_Bits: 1
+  player: {fileID: 0}
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointRange: 10
   navAgent: {fileID: 1933122967}
+  alreadyAttacked: 0
+  projectile: {fileID: 0}
+  sightRange: 10
+  attackRange: 5
+  playerInSightRange: 0
+  playerInAttackRange: 0
   centrePoint: {fileID: 630854457}
 --- !u!114 &1933122973
 MonoBehaviour:
@@ -13956,7 +13975,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933122965}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ea4a4ab3f8c30341b894ae6721958af, type: 3}
   m_Name: 
@@ -14054,6 +14073,7 @@ MonoBehaviour:
   Type: 3
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
+  voiceActive: {fileID: 0}
   isAtkUp: 0
   isDefUp: 0
   EffectDuration: 5
@@ -21432,10 +21452,25 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 0
+  Player:
+    serializedVersion: 2
+    m_Bits: 0
   obstacle:
     serializedVersion: 2
     m_Bits: 0
+  Ground:
+    serializedVersion: 2
+    m_Bits: 0
+  player: {fileID: 0}
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointRange: 0
   navAgent: {fileID: 8976015907341135819}
+  alreadyAttacked: 0
+  projectile: {fileID: 0}
+  sightRange: 0
+  attackRange: 0
+  playerInSightRange: 0
+  playerInAttackRange: 0
   centrePoint: {fileID: 630854457}
 --- !u!114 &8976015907341135821
 MonoBehaviour:

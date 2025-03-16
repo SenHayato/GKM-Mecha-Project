@@ -8,7 +8,9 @@ public class ControllerEnemy : MonoBehaviour
 {
     [Header("Layering")]
     public LayerMask hitLayer;
+    public LayerMask Player;
     public LayerMask obstacle;
+    public LayerMask Ground;
     private EnemyActive enemyActive;
     private EnemyModel enemyModel;
     public Transform player;
@@ -29,6 +31,7 @@ public class ControllerEnemy : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
 
+    private Quaternion initialRotation;
 
     public Transform centrePoint; // Area central yang membuat enemy dapat bergerak bebas didalamnya
     void Awake()
@@ -42,7 +45,12 @@ public class ControllerEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, Player);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, Player);
 
+        if (!playerInSightRange && !playerInAttackRange) PatrolRange();
+        if (playerInSightRange && !playerInAttackRange) Chase();
+        if (playerInSightRange && playerInAttackRange) Attack();
     }
     private IEnumerator CooldownPatrol()
     {
@@ -75,7 +83,7 @@ public class ControllerEnemy : MonoBehaviour
 
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        if(Physics.Raycast(walkPoint, -transform.up, 2f))
+        if(Physics.Raycast(walkPoint, -transform.up, 2f, Ground))
         {
             walkPointSet = true;
         }
@@ -85,7 +93,6 @@ public class ControllerEnemy : MonoBehaviour
     {
         navAgent.SetDestination(player.position);
     }
-
     void Attack()
     {
         navAgent.SetDestination(transform.position);
@@ -96,7 +103,15 @@ public class ControllerEnemy : MonoBehaviour
 
         if (!alreadyAttacked)
         {
-            //CharacterController charcontrol = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<CharacterController>))();
+            // Menyimpan Rotasi awal
+            initialRotation = transform.rotation;
+            // Menghitung arah ke pemain
+            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+
+            // Menggunakan LookAt untuk menghadap ke player
+            transform.LookAt(player);
+
+            CharacterController charcontrol = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<CharacterController>();
 
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), enemyModel.attackCooldown);
@@ -106,6 +121,15 @@ public class ControllerEnemy : MonoBehaviour
     public void ResetAttack()
     {
         alreadyAttacked = false;
+        initialRotation = transform.rotation;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red; ;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere (transform.position, sightRange);
     }
     void FieldOfView()
     {
