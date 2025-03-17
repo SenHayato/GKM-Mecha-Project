@@ -25,6 +25,13 @@ public class HUDGameManager : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Slider skill2Bar;
     public TextMeshProUGUI timerText;
 
+    [Header("Audio Library")]
+    [SerializeField] AudioClip killDing;
+
+    [Header("Audio SetUP")]
+    [SerializeField] AudioSource soundSource;
+    [SerializeField] bool soundActive = false;
+
     [Header("CrossHair")]
     public RectTransform recoilCrossHair;
     public UnityEngine.UI.Image hitEffect;
@@ -41,6 +48,9 @@ public class HUDGameManager : MonoBehaviour
     [SerializeField] private MechaPlayer mechaScript;
     [SerializeField] private GameObject playerObj;
     [SerializeField] private GameMaster gameMaster;
+
+    //flag
+    bool wasKill = false;
 
     void Awake()
     {
@@ -64,6 +74,7 @@ public class HUDGameManager : MonoBehaviour
         easeHealthBar.value = easeHealthBar.maxValue;
 
         hitEffect = recoilCrossHair.GetComponent<UnityEngine.UI.Image>();
+        soundSource = GetComponent<AudioSource>();
     }
 
     public void AmmoMonitor()
@@ -109,6 +120,18 @@ public class HUDGameManager : MonoBehaviour
     public void KillCounter()
     {
         killCounterTxt.text = gameMaster.KillCount.ToString();
+
+        if (gameMaster.KillCount % 10 == 0 && gameMaster.KillCount > 0 && wasKill && soundActive) //kill count habis di bagi 10
+        {
+            soundSource.clip = killDing;
+            wasKill = false;
+            soundSource.Play();
+        }
+
+        if (gameMaster.KillCount % 10 != 0)
+        {
+            wasKill = true;
+        }
 
         KillCount(); //test class
     }

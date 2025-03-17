@@ -35,6 +35,7 @@ public class WeaponRaycast : MonoBehaviour
     [SerializeField] AudioClip fireSound;
     [SerializeField] AudioClip rechargeSound; //Reload SFX
     [SerializeField] bool fireActive = false;
+    [SerializeField] bool rechargeActive = false;
 
     //flag
     private bool isReloading = false;
@@ -75,6 +76,21 @@ public class WeaponRaycast : MonoBehaviour
         {
             fireActive = false;
             audioSource.loop = false;
+        }
+
+        if (mechaPlayer.isReloading)
+        {
+            audioSource.clip = rechargeSound;
+            audioSource.loop = false;
+            if (!rechargeActive)
+            {
+                rechargeActive = true;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            rechargeActive = false;
         }
     }
 
@@ -142,7 +158,7 @@ public class WeaponRaycast : MonoBehaviour
         readytoShoot = false;
 
         Debug.Log("Reloading");
-        yield return new WaitForSecondsRealtime(3.30f);
+        yield return new WaitForSecondsRealtime(reloadSpeed);
 
         ammo = maxAmmo;
         isReloading = false;
