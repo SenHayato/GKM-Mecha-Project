@@ -21,7 +21,11 @@ public class EnemyActive : MonoBehaviour
     [Header("Atribut")]
     public float speed = 3.5f;
     public float stoppingDistance = 1.5f;
+    public AudioSource hitSound;
+    public bool isHit;
 
+    //flag
+    bool wasHit = false;
     //test
     private PlayerInput gameInput;
     public void Awake()
@@ -44,10 +48,10 @@ public class EnemyActive : MonoBehaviour
 
     private void Start()
     {
+        hitSound = GetComponent<AudioSource>(); //hit sound
         UIHealth.SetActive(false);
         enemyData.health = enemyData.maxHealth;
         deathCollider.enabled = false;
-
         if(enemyAI != null)
         {
             enemyAI.Initialize(this);
@@ -67,12 +71,13 @@ public class EnemyActive : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        isHit = true;
+        StartCoroutine(HitSound());
         if (enemyData == null) return;
 
         enemyData.health -= damage;
         UIHealthBar();
         Debug.Log(gameObject.name + " Kena Damage " + damage.ToString());
-
         if (anim != null)
         {
             anim.SetTrigger("Hit");
@@ -82,6 +87,18 @@ public class EnemyActive : MonoBehaviour
         {
             enemyData.isDeath = true;
         }
+    }
+
+    IEnumerator HitSound()
+    {
+        if (isHit && wasHit)
+        {
+            wasHit = false;
+            hitSound.Play();
+        }
+        yield return new WaitForSeconds(0.5f);
+        wasHit = true;
+        isHit = false;
     }
 
     //test

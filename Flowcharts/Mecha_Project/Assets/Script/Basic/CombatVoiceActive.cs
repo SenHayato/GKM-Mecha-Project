@@ -29,7 +29,6 @@ public class CombatVoiceActive : MonoBehaviour
     [SerializeField] AudioSource voiceSource;
     [SerializeField] bool isActive = false;
 
-
     //check
     bool shootActive = false;
     bool defenceActive = false;
