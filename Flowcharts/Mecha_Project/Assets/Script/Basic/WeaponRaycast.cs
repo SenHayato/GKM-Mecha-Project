@@ -2,13 +2,14 @@ using UnityEngine;
 using System.Collections;
 using UnityEditor.UI;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class WeaponRaycast : MonoBehaviour
 {
     public LayerMask hitLayers;
     public GameObject hitEffect;
     public Transform bulletSpawn;
-    public MechaPlayer player;
+    public MechaPlayer mechaPlayer;
     public PlayerActive playerSkrip;
     public Camera mainCamera;
     public LineRenderer lineRenderer;
@@ -20,6 +21,7 @@ public class WeaponRaycast : MonoBehaviour
     [Range(0f, 10f)] public float recoilValueX;
     [Range(0f, 10f)] public float recoilValueY;
     [Range(0f, 10f)] public float recoilSpeed;
+    public AudioSource audioSource;
     public float fireRate;
     public float reloadSpeed;
     public float range = 100f;
@@ -29,6 +31,11 @@ public class WeaponRaycast : MonoBehaviour
     public int ammo;
     public int maxAmmo;
 
+    [Header("Sound Library")]
+    [SerializeField] AudioClip fireSound;
+    [SerializeField] AudioClip rechargeSound; //Reload SFX
+    [SerializeField] bool fireActive = false;
+
     //flag
     private bool isReloading = false;
     private float defaultValueX; //default recoil x
@@ -36,13 +43,14 @@ public class WeaponRaycast : MonoBehaviour
 
     private void Awake()
     {
-        player = GetComponentInParent<MechaPlayer>();
+        mechaPlayer = GetComponentInParent<MechaPlayer>();
         playerSkrip = GetComponentInParent<PlayerActive>();
         mainCamera = Camera.main;
         HUDManager = FindAnyObjectByType<HUDGameManager>();
     }
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         cameraAct = mainCamera.GetComponentInParent<CameraActive>();
         ammo = maxAmmo;
         lineRenderer.enabled = false;
@@ -50,6 +58,26 @@ public class WeaponRaycast : MonoBehaviour
         defaultValueY = recoilValueY;
         enemyTags = playerSkrip.enemyTags;
     }
+
+    void SoundMonitor()
+    {
+        if (mechaPlayer.isShooting)
+        {
+            audioSource.clip = fireSound;
+            audioSource.loop = true;
+            if (!fireActive)
+            {
+                fireActive = true;
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            fireActive = false;
+            audioSource.loop = false;
+        }
+    }
+
     public IEnumerator FireShoot()
     {
         if (!canShoot || isReloading || ammo <= 0) yield break;
@@ -69,7 +97,7 @@ public class WeaponRaycast : MonoBehaviour
             {
                 if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
                 {
-                    enemy.TakeDamage(player.AttackPow);
+                    enemy.TakeDamage(mechaPlayer.AttackPow);
                     HUDManager.hitEffect.color = Color.red;
                     yield return new WaitForSeconds(fireRate);
                     HUDManager.hitEffect.color = Color.white;
@@ -92,7 +120,6 @@ public class WeaponRaycast : MonoBehaviour
             HUDManager.hitEffect.color = Color.white;
             targetPoint = ray.GetPoint(range);
         }
-
         StartCoroutine(BulletTrailEffect(targetPoint));
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
@@ -107,11 +134,11 @@ public class WeaponRaycast : MonoBehaviour
     }
     public IEnumerator ReloadAmmo()
     {
-        if (isReloading || player.isDashing) yield break;
+        if (isReloading || mechaPlayer.isDashing) yield break;
 
         ammo = 0;
         isReloading = true;
-        player.isReloading = isReloading;
+        mechaPlayer.isReloading = isReloading;
         readytoShoot = false;
 
         Debug.Log("Reloading");
@@ -119,13 +146,13 @@ public class WeaponRaycast : MonoBehaviour
 
         ammo = maxAmmo;
         isReloading = false;
-        player.isReloading = isReloading;
+        mechaPlayer.isReloading = isReloading;
         readytoShoot = true;
     }
 
     public void RecoilAdjust()
     {
-        if (player.isAiming)
+        if (mechaPlayer.isAiming)
         {
             recoilValueX = 0.5f;
             recoilValueY = 0.15f;
@@ -139,6 +166,7 @@ public class WeaponRaycast : MonoBehaviour
 
     private void Update()
     {
+        SoundMonitor();
         RecoilAdjust();
     }
 }
