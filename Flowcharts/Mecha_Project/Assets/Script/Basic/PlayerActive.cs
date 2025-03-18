@@ -36,9 +36,15 @@ public class PlayerActive : MonoBehaviour
     [SerializeField] private float fastBoostSpeed;
     [SerializeField] private float dashBoostSpeed;
 
+    [Header("Mecha Sound")]
+    [SerializeField] AudioSource hitSound;
+    public AudioSource thrusterSound;
+    [SerializeField] AudioSource blockSound;
+
     [Header("Player Status")]
     public float speed;
     private float defaultSpeed;
+    float dashSpeed;
     public float jumpForce;
     public float gravity;
     public bool isGrounded;
@@ -46,15 +52,15 @@ public class PlayerActive : MonoBehaviour
     public float fallMultiplier;
     public float rotationSpeed;
     private bool wasAiming;
-    public float boostDuration;
-    public float boostSpeedMultiplier;
     [SerializeField] bool skillBusy;
-
     public CharacterController controller;
     public Animator anim;
 
-    //flag
-    public bool isDamage = false;
+    [Header("Boost Config")]
+    public float boostDuration;
+    public float boostSpeedMultiplier;
+    [SerializeField] float boostDistance;
+    [SerializeField] float boostDirectionLerp = 0;
 
     public void Awake()
     {
@@ -106,6 +112,7 @@ public class PlayerActive : MonoBehaviour
         reloadAction = gameInput.actions.FindAction("Reload");
         boostAction = gameInput.actions.FindAction("Boost");
 
+        dashSpeed = speed * 2; //DashMovement
         dashBoostSpeed = 2 * normalBoostSpeed; //BoostSpeed Effect
     }
     void Update()
@@ -136,6 +143,7 @@ public class PlayerActive : MonoBehaviour
 
         SkillBusy();
         ParticleSet();
+        //BoostDirectionSet();
     }
     public void DashPlayer()
     {
@@ -144,34 +152,56 @@ public class PlayerActive : MonoBehaviour
             reloadAction.Disable();
             boostAction.Disable();
             Mecha.isDashing = true;
-            speed *= 2f;
+            speed = dashSpeed;
             Debug.Log("Dash");
         }
 
-        if (!dashAction.IsPressed() && Mecha.isDashing)
+        if (!dashAction.IsPressed() && Mecha.isDashing && !Mecha.isBoosting)
         {
             reloadAction.Enable();
             boostAction.Enable();
             Mecha.isDashing = false;
             anim.SetFloat("Move", 0f);
-            speed /= 2f;
+            speed = defaultSpeed;
+        }
+    }
+
+    public void BoostDirectionSet()
+    {
+        if (Mecha.isBoosting)
+        {
+            boostDirectionLerp += Time.deltaTime * 1f;
+        }
+        else
+        {
+            boostDirectionLerp = 0f;
         }
     }
     public IEnumerator BoostOn()
     {
+        float time = 0f;
+        Vector3 forward = cameraPivot.transform.forward;
+        forward.y = 0f;
+        forward.Normalize();
+        Vector3 moveDirection = (forward * boostDistance).normalized;
+
         if (Mecha.isBoosting && Mecha.Energy >= Mecha.EnergyCost)
         {
             skillBusy = true;
-            speed += boostSpeedMultiplier;
-            Mecha.Energy -= Mecha.EnergyCost;
-            Debug.Log("BoostOn");
             anim.SetFloat("Move", 3f);
-            windEffect.SetActive(true);
-            //anim.SetBool("IsBoosting", true);
+            speed = 14f;
+            Mecha.Energy -= Mecha.EnergyCost;
+            while (time < 1f)
+            {
+                time += Time.deltaTime / boostDirectionLerp;
+                controller.Move(speed * Time.deltaTime * moveDirection); // Gerakan bertahap 
+                windEffect.SetActive(true);
+                yield return null;
+            }
         }
-        yield return new WaitForSeconds(2f);
+        // boost selesai
+        yield return new WaitForSeconds(0.05f);
         windEffect.SetActive(false);
-        //anim.SetFloat("Move", 3f);
         skillBusy = false;
         speed = defaultSpeed;
         Mecha.isBoosting = false;
@@ -311,8 +341,9 @@ public class PlayerActive : MonoBehaviour
 
         if (!Mecha.isDeath)
         {
-            if (moveInput != Vector2.zero)
+            if (moveInput != Vector2.zero && !Mecha.isBoosting)
             {
+                Mecha.isIdle = false;
                 Vector3 forward = cameraPivot.transform.forward;  // Arah kamera
                 Vector3 right = cameraPivot.transform.right;
                 forward.y = 0f; // Tetap Horizontal
@@ -342,17 +373,22 @@ public class PlayerActive : MonoBehaviour
                 {
                     anim.SetFloat("Move", 2f);
                 }
-
-                if (boostAction.triggered && Mecha.Energy >= Mecha.EnergyCost && !Mecha.isBoosting)
-                {
-                    Mecha.isBoosting = true;
-                    StartCoroutine(BoostOn());
-                }
             }
             else
             {
-                anim.SetFloat("Move", 0f);
-                anim.SetBool("IsMove", false);
+                Mecha.isIdle = true;
+                if (!Mecha.isBoosting)
+                {
+                    anim.SetFloat("Move", 0f);
+                    anim.SetBool("IsMove", false);
+                }
+            }
+
+            if (boostAction.triggered && Mecha.Energy >= Mecha.EnergyCost && !Mecha.isBoosting)
+            {
+                Mecha.isBoosting = true;
+                anim.SetFloat("Move", 3f);
+                StartCoroutine(BoostOn());
             }
         }
     }
@@ -603,8 +639,13 @@ public class PlayerActive : MonoBehaviour
         {
             combatVoiceAct.DamageVoice();
             Mecha.Health -= damageCal;
+            hitSound.Play();
             StartCoroutine(cameraEffect.HitEffect());
             Debug.Log("Player Damage " + damageCal);
+        }
+        else
+        {
+            blockSound.Play();
         }
     }
     public void UpdatePosition()

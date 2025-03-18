@@ -59,6 +59,7 @@ public class MechaPlayer : MonoBehaviour
     public bool isDashing;
     public bool isReloading;
     public bool isBoosting;
+    public bool isIdle;
 
     [Header("Player Position")]
     public Transform PlayerPosition;
