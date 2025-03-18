@@ -3352,6 +3352,9 @@ MonoBehaviour:
   skill1Bar: {fileID: 133294974}
   skill2Bar: {fileID: 1380269715}
   timerText: {fileID: 186850102}
+  killDing: {fileID: 0}
+  soundSource: {fileID: 0}
+  soundActive: 0
   recoilCrossHair: {fileID: 1119525607}
   hitEffect: {fileID: 1354472304}
   scopeHair: {fileID: 1543500598}
@@ -12812,7 +12815,7 @@ MonoBehaviour:
     m_Bits: 567
   hitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
   bulletSpawn: {fileID: 1889144341}
-  player: {fileID: 0}
+  mechaPlayer: {fileID: 0}
   playerSkrip: {fileID: 0}
   mainCamera: {fileID: 0}
   lineRenderer: {fileID: 886436519}
@@ -12821,6 +12824,7 @@ MonoBehaviour:
   recoilValueX: 1
   recoilValueY: 0.5
   recoilSpeed: 1
+  audioSource: {fileID: 0}
   fireRate: 0.05
   reloadSpeed: 3.3
   range: 100
@@ -12829,6 +12833,10 @@ MonoBehaviour:
   readytoShoot: 0
   ammo: 0
   maxAmmo: 60
+  fireSound: {fileID: 0}
+  rechargeSound: {fileID: 0}
+  fireActive: 0
+  rechargeActive: 0
 --- !u!1 &1819764828
 GameObject:
   m_ObjectHideFlags: 0
@@ -13933,6 +13941,8 @@ MonoBehaviour:
   UIHealth: {fileID: 2048059483}
   speed: 0
   stoppingDistance: 15
+  hitSound: {fileID: 0}
+  isHit: 0
 --- !u!114 &1933122972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13948,26 +13958,10 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 8
-  Player:
-    serializedVersion: 2
-    m_Bits: 8
-  obstacle:
+  obstacleLayer:
     serializedVersion: 2
     m_Bits: 2048
-  Ground:
-    serializedVersion: 2
-    m_Bits: 1
-  player: {fileID: 0}
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 10
-  navAgent: {fileID: 1933122967}
-  alreadyAttacked: 0
-  projectile: {fileID: 0}
-  sightRange: 10
-  attackRange: 5
-  playerInSightRange: 0
-  playerInAttackRange: 0
-  centrePoint: {fileID: 630854457}
+  lineOfSight: {fileID: 0}
 --- !u!114 &1933122973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20750,6 +20744,8 @@ MonoBehaviour:
   UIHealth: {fileID: 5063763593428789038}
   speed: 0
   stoppingDistance: 15
+  hitSound: {fileID: 0}
+  isHit: 0
 --- !u!222 &4988319324267278977
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21452,26 +21448,10 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 0
-  Player:
+  obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
-  obstacle:
-    serializedVersion: 2
-    m_Bits: 0
-  Ground:
-    serializedVersion: 2
-    m_Bits: 0
-  player: {fileID: 0}
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 0
-  navAgent: {fileID: 8976015907341135819}
-  alreadyAttacked: 0
-  projectile: {fileID: 0}
-  sightRange: 0
-  attackRange: 0
-  playerInSightRange: 0
-  playerInAttackRange: 0
-  centrePoint: {fileID: 630854457}
+  lineOfSight: {fileID: 0}
 --- !u!114 &8976015907341135821
 MonoBehaviour:
   m_ObjectHideFlags: 0

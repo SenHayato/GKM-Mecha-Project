@@ -1,138 +1,125 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 public class ControllerEnemy : MonoBehaviour
 {
-    [Header("Layering")]
     public LayerMask hitLayer;
-    public LayerMask Player;
-    public LayerMask obstacle;
-    public LayerMask Ground;
-    private EnemyActive enemyActive;
+    public LayerMask obstacleLayer; //Ngeblock vision
     private EnemyModel enemyModel;
-    public Transform player;
-
-    private Animator anim;
-
-    [Header("Patrolling")]
-    public Vector3 walkPoint;
-    bool walkPointSet;
-    public float walkPointRange;
-
-    public NavMeshAgent navAgent;
-
-    public bool alreadyAttacked;
-    public GameObject projectile;
+    private EnemyActive enemyActive;
+    private NavMeshAgent navAgent;
+    public LineRenderer lineOfSight;
+    private Mesh fovMesh; //Visualisasi Fov
 
 
-    public float sightRange, attackRange;
-    public bool playerInSightRange, playerInAttackRange;
+    // State management
+    private enum AIState { Idle, Patrol, Chase, Attack, Retreat, Dead }
+    private AIState currentState = AIState.Idle;
+    private AIState previousState;
 
-    private Quaternion initialRotation;
+    private Transform playerTransform;
+    private bool playerInSight = false;
+    private bool playerInFieldOfView = false;
+    private bool isObstacleInTheWay = false;
 
-    public Transform centrePoint; // Area central yang membuat enemy dapat bergerak bebas didalamnya
-    void Awake()
+    private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        enemyModel = GetComponent<EnemyModel>();
         navAgent = GetComponent<NavMeshAgent>();
-        anim = GetComponent<Animator>();
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, Player);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, Player);
-
-        if (!playerInSightRange && !playerInAttackRange) PatrolRange();
-        if (playerInSightRange && !playerInAttackRange) Chase();
-        if (playerInSightRange && playerInAttackRange) Attack();
-    }
-    private IEnumerator CooldownPatrol()
-    {
-        yield return new WaitForSeconds(enemyModel.patrolWaitTime);
-        PatrolRange();
-    }
-    private void PatrolRange()
-    {
-        if (!walkPointSet)
+        if (obstacleLayer == 0)
         {
-            SearchWalkPoint();
-        }
-        if (walkPointSet)
-        {
-            navAgent.SetDestination(walkPoint);
-        }
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-        // Jika sudah mencapai point yang dituju maka
-        if(distanceToWalkPoint.magnitude < 1f)
-        {
-            walkPointSet = false;
+            obstacleLayer = LayerMask.GetMask("Default", "Environment", "Wall");
         }
     }
 
-    public void SearchWalkPoint()
+    private void Update()
     {
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        if (enemyModel.isDeath) return;
 
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        if(Physics.Raycast(walkPoint, -transform.up, 2f, Ground))
+    }
+
+    private void ChaseState()
+    {
+        if (navAgent != null && navAgent.enabled)
         {
-            walkPointSet = true;
+            navAgent.SetDestination(playerTransform.position);
+
+            // Pengecekan apakah code bekerja
+            Debug.DrawLine(transform.position, playerTransform.position, Color.blue, 0.2f);
+        }
+
+        // Cek apakah berada di range attack
+        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        float effectiveAttackRange = (enemyModel.enemyType == EnemyType.EnemyRange) ? enemyModel.attackRange * 2.5f : enemyModel.attackRange;
+
+        if (distanceToPlayer <= effectiveAttackRange)
+        {
+            currentState = AIState.Attack;
+            Debug.Log("Switching to Attack State : distance" + distanceToPlayer + ", attakc range = " + effectiveAttackRange);
         }
     }
-
-    public void Chase()
+    private void IdleState()
     {
-        navAgent.SetDestination(player.position);
-    }
-    void Attack()
-    {
-        navAgent.SetDestination(transform.position);
-
-        transform.LookAt(player);
-
-        Debug.Log("Player Getting attacked by enemy");
-
-        if (!alreadyAttacked)
+        if (playerInSight && !isObstacleInTheWay)
         {
-            // Menyimpan Rotasi awal
-            initialRotation = transform.rotation;
-            // Menghitung arah ke pemain
-            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            currentState = AIState.Chase;
+            return;
+        }
 
-            // Menggunakan LookAt untuk menghadap ke player
-            transform.LookAt(player);
-
-            CharacterController charcontrol = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<CharacterController>();
-
-            alreadyAttacked = true;
-            Invoke(nameof(ResetAttack), enemyModel.attackCooldown);
+        //if(Random.value < 0.3f)
+        {
+            currentState = AIState.Patrol;
+            //GeneratePatrolDestination();
         }
     }
-
-    public void ResetAttack()
+    private void PatrolState()
     {
-        alreadyAttacked = false;
-        initialRotation = transform.rotation;
+        // Jika Player ditemukan, maka kejar dia
+
+        // Check jika kita membutuhkan destinasi patrol baru
+        if (enemyModel.destinationChangeTimer <= 0f || (navAgent != null && !navAgent.pathPending && navAgent.remainingDistance < 0.5f))
+        {
+            enemyModel.destinationChangeTimer = enemyModel.patrolWaitTime;
+
+            // Antara ke idle atau mencari rute baru untuk point patrol
+            //if (Random.value < 0.3f)
+            {
+                currentState = AIState.Idle;
+                if (navAgent != null)
+                {
+                    navAgent.SetDestination(transform.position);
+                }
+                //}
+                //else
+                //{
+                //    GeneratePatrolDestination();
+                //}
+            }
+        }
+       
     }
-
-    private void OnDrawGizmosSelected()
+    private void GeneratePatrolDestination()
     {
-        Gizmos.color = Color.red; ;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere (transform.position, sightRange);
-    }
-    void FieldOfView()
-    {
+        if (navAgent == null || !navAgent.enabled)
+            return;
 
+        // Men Generate patrol secara acak di dalam radius
+        //Vector3 randomDirection = Random.insideUnitSphere * enemyModel.patrolRadius;
+        //randomDirection.y = 0; // Melihat target pada sumbu Y yang sama
+        // Vector3 targetPosition = enemyModel.startPosition + randomDirection;
+
+        NavMeshHit navHit;
+        //if (NavMesh.SamplePosition(targetPosition, out navHit, enemyModel.patrolRadius, NavMesh.AllAreas))
+        //{
+        //    enemyModel.currentDestination = navHit.position;
+        //    navAgent.SetDestination(enemyModel.currentDestination);
+        //}
     }
 }
