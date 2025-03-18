@@ -49,6 +49,9 @@ public class HUDGameManager : MonoBehaviour
     [SerializeField] private GameObject playerObj;
     [SerializeField] private GameMaster gameMaster;
 
+    [Header("Animation")]
+    public Animation questUIAnim;
+
     //flag
     bool wasKill = false;
 
