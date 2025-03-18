@@ -259,6 +259,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: 
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!64 &21968370
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -556,6 +557,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: 
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!82 &28285280
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1170,6 +1172,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: 
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!82 &72811765
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2843,6 +2846,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: Tutorial
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!82 &335384390
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11081,7 +11085,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &737564210
 Transform:
   m_ObjectHideFlags: 0
@@ -11982,6 +11986,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: 
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!64 &874751371
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12494,6 +12499,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: 
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!64 &924532612
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -13370,6 +13376,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: 
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!82 &1010405492
 AudioSource:
   m_ObjectHideFlags: 0
@@ -20049,6 +20056,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: 
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!64 &1256387433
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -22598,6 +22606,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: 
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!82 &1477916642
 AudioSource:
   m_ObjectHideFlags: 0
@@ -30112,6 +30121,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: Tutorial
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!82 &1788211361
 AudioSource:
   m_ObjectHideFlags: 0
@@ -31049,6 +31059,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: 
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!82 &1882560374
 AudioSource:
   m_ObjectHideFlags: 0
@@ -31674,6 +31685,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: 
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!64 &1976791001
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -32489,6 +32501,7 @@ MonoBehaviour:
   pointCollider: {fileID: 0}
   NextSceneName: 
   HUDManager: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!82 &2037235296
 AudioSource:
   m_ObjectHideFlags: 0
@@ -34629,23 +34642,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4936342202266720350, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6332705760858483842, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
+      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6332705760858483842, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6332705760858483842, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6478198996885950449, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6478198996885950449, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36232,11 +36245,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 226619147139011255, guid: 3d45df697a3858e4f9eed4374e3e0396, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 226619147139011255, guid: 3d45df697a3858e4f9eed4374e3e0396, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1476196768206021245, guid: 3d45df697a3858e4f9eed4374e3e0396, type: 3}
       propertyPath: m_Name
@@ -36244,7 +36257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1476196768206021245, guid: 3d45df697a3858e4f9eed4374e3e0396, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3305402787903669565, guid: 3d45df697a3858e4f9eed4374e3e0396, type: 3}
       propertyPath: m_LocalPosition.x
@@ -36288,11 +36301,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4786544461156130236, guid: 3d45df697a3858e4f9eed4374e3e0396, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4786544461156130236, guid: 3d45df697a3858e4f9eed4374e3e0396, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -36341,19 +36354,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 144356694140229622, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 144356694140229622, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1023026067101467435, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1023026067101467435, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2220768618571313335, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_AnchorMax.x
@@ -36373,7 +36386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2647847965200942680, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4253169031318542367, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -36417,19 +36430,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4938293826484686210, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.49
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4938293826484686210, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7209554953632810363, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7209554953632810363, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8817291217355062069, guid: 2cbccbad16e64a7429bd910749d0bbfa, type: 3}
       propertyPath: m_AnchorMax.x
