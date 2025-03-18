@@ -9,14 +9,14 @@ public class SFXManager : MonoBehaviour
     [SerializeField] PlayerActive playerActive;
 
     [Header("SFX Library")]
-    [SerializeField] AudioClip ultimateUse;
-    [SerializeField] AudioClip warningAlarm;
     [SerializeField] AudioClip ultimateFull;
     [SerializeField] AudioClip energyFull;
     [SerializeField] AudioClip playerExplode;
-    [SerializeField] AudioClip sprintSound;
-    [SerializeField] AudioClip dashSound;
+    public AudioClip waypointReach;
     [SerializeField] bool isActive = false;
+
+    [Header("AudioSetUp")]
+    public AudioSource audioSource;
 
     //flag
     float thrusterLerp = 0f;

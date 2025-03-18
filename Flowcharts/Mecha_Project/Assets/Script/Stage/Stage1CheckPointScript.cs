@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.VFX;
 
 public class Stage1CheckPointScript : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class Stage1CheckPointScript : MonoBehaviour
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Collider pointCollider;
     [SerializeField] private string NextSceneName;
+    [SerializeField] private HUDGameManager HUDManager;
+    [SerializeField] private AudioSource audioSource;
 
     //flag
     //GameObject[] enemies;
@@ -20,10 +23,12 @@ public class Stage1CheckPointScript : MonoBehaviour
     void Awake()
     {
         gameMaster = FindFirstObjectByType<GameMaster>();
+        HUDManager = FindAnyObjectByType<HUDGameManager>();
     }
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         meshRenderer = GetComponent<MeshRenderer>();
         pointCollider = GetComponent<Collider>();
     }
@@ -47,9 +52,18 @@ public class Stage1CheckPointScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            audioSource.Play();
             meshRenderer.enabled = false;
             gameMaster.QuestText = checkPointInfo;
             Destroy(gameObject, checkPointDuration);
+            if (nextChekpoint != null)
+            {
+                HUDManager.questUIAnim.Play("QuestInfoIn");
+            }
+            else
+            {
+                HUDManager.questUIAnim.Play("QuestInfoOut");
+            }
         }
     }
 
