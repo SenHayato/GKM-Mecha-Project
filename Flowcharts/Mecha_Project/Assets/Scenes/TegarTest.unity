@@ -8063,6 +8063,7 @@ MonoBehaviour:
   cameraControl: {fileID: 0}
   PlayerAct: {fileID: 0}
   MainCameraOBJ: {fileID: 1183995289}
+  MainCamera: {fileID: 0}
   defaultFOV: 60
   scopeFOV: 55
   boostFOV: 75
@@ -8296,7 +8297,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4031
+    m_Bits: 8127
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -9138,7 +9139,7 @@ GameObject:
   - component: {fileID: 509878490}
   - component: {fileID: 509878489}
   - component: {fileID: 509878488}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TestDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22268,7 +22269,7 @@ TerrainCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1508355388}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 87cc811e65261b847bc1e58ee71f5a42, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -22276,7 +22277,7 @@ TerrainCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
+  m_ProvidesContacts: 1
   m_Enabled: 1
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 6a7cd70d0dbe110469bf1e4100a84f20, type: 2}
@@ -22921,7 +22922,7 @@ GameObject:
   - component: {fileID: 1593430532}
   - component: {fileID: 1593430531}
   - component: {fileID: 1593430530}
-  - component: {fileID: 1593430529}
+  - component: {fileID: 1593430533}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -22929,27 +22930,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &1593430529
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1593430528}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1593430530
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23015,6 +22995,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1593430533
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593430528}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1596573867
 GameObject:
   m_ObjectHideFlags: 0
@@ -31462,7 +31464,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitLayers:
     serializedVersion: 2
-    m_Bits: 567
+    m_Bits: 2565
   hitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
   bulletSpawn: {fileID: 1960431605}
   mechaPlayer: {fileID: 0}

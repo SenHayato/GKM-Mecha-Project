@@ -187,6 +187,7 @@ public class PlayerActive : MonoBehaviour
 
         if (Mecha.isBoosting && Mecha.Energy >= Mecha.EnergyCost)
         {
+            playerPosition.rotation = CameraAct.MainCamera.transform.rotation;
             skillBusy = true;
             anim.SetFloat("Move", 3f);
             speed = 14f;
