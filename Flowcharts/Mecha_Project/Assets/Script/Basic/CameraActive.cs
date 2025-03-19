@@ -20,7 +20,7 @@ public class CameraActive : MonoBehaviour
     public PlayerInput cameraControl;
     public PlayerActive PlayerAct;
     public GameObject MainCameraOBJ;
-    private Camera MainCamera;
+    public Camera MainCamera;
     private MechaPlayer Mecha;
     InputAction lookAction;
 

@@ -31,7 +31,7 @@ public class SFXManager : MonoBehaviour
     {
         if (mechaPlayer.isDashing)
         {
-            thrusterLerp += Time.deltaTime / 0.5f;
+            thrusterLerp += Time.deltaTime / 0.2f;
             playerActive.thrusterSound.volume = Mathf.Lerp(0.5f, 1f, thrusterLerp);
         }
         else
