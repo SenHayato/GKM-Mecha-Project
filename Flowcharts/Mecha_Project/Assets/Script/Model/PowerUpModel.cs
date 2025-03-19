@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PowerUpModel : MonoBehaviour
@@ -15,5 +16,5 @@ public class PowerUpModel : MonoBehaviour
 
     [Header("Animation")]
     public float spinSpeed;
-    public Vector3 rotationAxis;
+    //public Vector3 rotationAxis;
 }
