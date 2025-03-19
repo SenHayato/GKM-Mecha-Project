@@ -628,9 +628,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
   voiceActive: {fileID: 0}
-  isAtkUp: 0
-  isDefUp: 0
-  EffectDuration: 5
 --- !u!135 &79792067
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3083,9 +3080,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
   voiceActive: {fileID: 0}
-  isAtkUp: 0
-  isDefUp: 0
-  EffectDuration: 5
 --- !u!135 &452419392
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -3365,6 +3359,7 @@ MonoBehaviour:
   mechaScript: {fileID: 0}
   playerObj: {fileID: 0}
   gameMaster: {fileID: 0}
+  questUIAnim: {fileID: 0}
 --- !u!114 &475701583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5306,9 +5301,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
   voiceActive: {fileID: 0}
-  isAtkUp: 0
-  isDefUp: 0
-  EffectDuration: 5
 --- !u!135 &763489650
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -7710,9 +7702,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
   voiceActive: {fileID: 0}
-  isAtkUp: 0
-  isDefUp: 0
-  EffectDuration: 5
 --- !u!135 &1108999929
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -8401,6 +8390,7 @@ GameObject:
   - component: {fileID: 1201742751}
   - component: {fileID: 1201742750}
   - component: {fileID: 1201742753}
+  - component: {fileID: 1201742754}
   m_Layer: 9
   m_Name: Weapon
   m_TagString: Untagged
@@ -8442,7 +8432,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 3.5, y: 1.97, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1201742751
 MeshRenderer:
@@ -8505,7 +8495,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3bc83afdb0f2923428829ae459db71ca, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
@@ -8515,6 +8505,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1201742754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201742748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638d00c80700f2d449cc18584a447a48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 1201742753}
+  enemyModel: {fileID: 1933122974}
+  enemyActive: {fileID: 1933122971}
+  comboLength: 3
+  comboTimeWindow: 2
+  attackRadius: 1.5
+  atackPoint: {fileID: 1201742749}
+  useRandomPattern: 1
+  attackTriggers:
+  - Attack 1
+  - Attack 2
+  - Attack 3
 --- !u!1 &1229796205
 GameObject:
   m_ObjectHideFlags: 0
@@ -12030,6 +12044,9 @@ MonoBehaviour:
   normalBoostSpeed: 4
   fastBoostSpeed: 100
   dashBoostSpeed: 0
+  hitSound: {fileID: 0}
+  thrusterSound: {fileID: 0}
+  blockSound: {fileID: 0}
   speed: 4
   jumpForce: 15
   gravity: 9.8
@@ -12037,12 +12054,13 @@ MonoBehaviour:
   verticalVelocity: 0
   fallMultiplier: 5
   rotationSpeed: 0
-  boostDuration: 2
-  boostSpeedMultiplier: 10
   skillBusy: 0
   controller: {fileID: 0}
   anim: {fileID: 0}
-  isDamage: 0
+  boostDuration: 2
+  boostSpeedMultiplier: 10
+  boostDistance: 0
+  boostDirectionLerp: 0
 --- !u!114 &1758872517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12097,6 +12115,7 @@ MonoBehaviour:
   isDashing: 0
   isReloading: 0
   isBoosting: 0
+  isIdle: 0
   PlayerPosition: {fileID: 1758872518}
 --- !u!4 &1758872518
 Transform:
@@ -13950,7 +13969,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933122965}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
   m_Name: 
@@ -13969,7 +13988,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1933122965}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ea4a4ab3f8c30341b894ae6721958af, type: 3}
   m_Name: 
@@ -14068,9 +14087,6 @@ MonoBehaviour:
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
   voiceActive: {fileID: 0}
-  isAtkUp: 0
-  isDefUp: 0
-  EffectDuration: 5
 --- !u!135 &1941986150
 SphereCollider:
   m_ObjectHideFlags: 0

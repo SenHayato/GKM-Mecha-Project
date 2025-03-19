@@ -69,6 +69,65 @@ public class Sword : MonoBehaviour
         lastAttackTime = Time.time;
 
         // Damage masuk dalam animasi acara atau langsung
-        //StartCoroutine(ApplyDamageDelayed(0.2f));
+        StartCoroutine(ApplyDamageDelayed(0.2f));
     }
+
+    private IEnumerator ApplyDamageDelayed(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        // Meng aplikasikan damage ke player jika di dalam range
+        if(enemyActive.Player != null)
+        {
+            float distanceToPlayer = Vector3.Distance(atackPoint.position, enemyActive.Player.position);
+
+            if(distanceToPlayer <= attackRadius)
+            {
+                // Kalkulasi Damage - bisa sangat 
+                int damage = enemyModel.attackPower;
+                if (currentComboIndex > 0) damage = Mathf.RoundToInt(damage * (1f + currentComboIndex * 0.2f));
+
+                // Aplikasikan damage
+                enemyActive.Player.GetComponent<PlayerActive>()?.TakeDamage(damage);
+
+                Debug.Log($"Sword attack hit player for {damage} damage (combo: {currentComboIndex})");
+            }
+        }
+        StartCoroutine(ResetAttackState(0.5f));
+
+    }
+
+    private IEnumerator ResetAttackState(float delay)
+    {
+        yield return new WaitForSeconds (delay);
+        enemyModel.isAttacking = false;
+    }
+
+    public void OnAttackHit()
+    {
+        if(enemyActive.Player != null)
+        {
+            float distanceToPlayer = Vector3.Distance(atackPoint.position, enemyActive.Player.position);
+            if(distanceToPlayer <= attackRadius)
+            {
+                int damage = enemyModel.attackPower;
+                if (currentComboIndex > 0) damage = Mathf.RoundToInt(damage * (1f + currentComboIndex * 0.2f));
+
+                // Aplikasikan damage
+                enemyActive.Player.GetComponent<PlayerActive>()?.TakeDamage(damage);
+
+                Debug.Log($"Sword attack hit player for {damage} damage (combo: {currentComboIndex})");
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if(atackPoint != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(atackPoint.position, attackRadius);
+        }
+    }
+
 }
