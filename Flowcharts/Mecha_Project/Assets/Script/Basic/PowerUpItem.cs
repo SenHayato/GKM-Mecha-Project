@@ -8,7 +8,7 @@ public class PowerUpItem : MonoBehaviour
     public MechaPlayer Player;
     public PowerUpModel powerUpModel;
     private float spinSpeed;
-    private Vector3 rotationAxis;
+    //private Vector3 rotationAxis;
     public CombatVoiceActive voiceActive;
 
     [Header("PowerUP Value")]
@@ -19,9 +19,9 @@ public class PowerUpItem : MonoBehaviour
     private int UltRegenUp;
 
     [Header("PowerUp Status")]
-    public bool isAtkUp;
-    public bool isDefUp;
-    public float EffectDuration;
+    private bool isAtkUp;
+    private bool isDefUp;
+    private float EffectDuration;
 
     //checker
     int defaultAtk;
@@ -46,7 +46,7 @@ public class PowerUpItem : MonoBehaviour
         HPRegenUp = powerUpModel.HPRegenUp;
         UltRegenUp = powerUpModel.UltRegenUp;
         spinSpeed = powerUpModel.spinSpeed;
-        rotationAxis = powerUpModel.rotationAxis;
+        //rotationAxis = powerUpModel.rotationAxis;
         EffectDuration = powerUpModel.EffectDuration;
 
         Muter();
@@ -54,7 +54,7 @@ public class PowerUpItem : MonoBehaviour
 
     void Muter()
     {
-        this.transform.Rotate(1 * spinSpeed * Time.deltaTime * rotationAxis);
+        transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y + spinSpeed * Time.deltaTime, 0f);
     }
 
     public void AtkUp()
