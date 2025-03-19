@@ -750,7 +750,13 @@ public class AIController : MonoBehaviour
     public void PerformAttackShort()
     {
         enemyModel.isAttacking = true;
-
+        
+        Sword meleePattern = GetComponent<Sword>();
+        if (meleePattern != null)
+        {
+            meleePattern.PerformAttackShort();
+            return;
+        }
         // For short enemies, use distance to attack
         if (enemyModel.enemyType == EnemyType.EnemyShort)
         {
@@ -809,6 +815,7 @@ public class AIController : MonoBehaviour
         }
 
         StartCoroutine(ResetAttackFlag()); ;
+        StartCoroutine(ResetAttackFlag());
     }
     public IEnumerator BulletTrailEffect(Vector3 targetPoint, Vector3 startPoint)
     {
