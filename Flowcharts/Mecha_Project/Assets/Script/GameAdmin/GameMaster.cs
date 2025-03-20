@@ -63,7 +63,6 @@ public class GameMaster : MonoBehaviour
         fadeOut.SetActive(false);
         isPaused = false;
         PlayerHealth = MechaData.Health;
-        //countdown = false; //Hanya perlu di stage gurun Endurance
         timer = defaultTimer;
         HUDManager.questUIAnim.Play("QuestInfoIn");
 
