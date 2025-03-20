@@ -112,6 +112,7 @@ public class PlayerActive : MonoBehaviour
         reloadAction = gameInput.actions.FindAction("Reload");
         boostAction = gameInput.actions.FindAction("Boost");
 
+        defaultSpeed = Mecha.defaultSpeed;
         dashSpeed = speed * 2; //DashMovement
         dashBoostSpeed = 2 * normalBoostSpeed; //BoostSpeed Effect
     }
@@ -411,11 +412,10 @@ public class PlayerActive : MonoBehaviour
         {
             Debug.Log("Jump");
             verticalVelocity = jumpForce;
+            Vector3 jumpMovement = new Vector3(0, verticalVelocity, 0) * Time.deltaTime;
+            controller.Move(jumpMovement);
             isGrounded = false;
-            if (anim.GetBool("IsJump") != true)
-            {
-                anim.SetBool("IsJump", true);
-            }
+            anim.SetBool("IsJump", true);
         }
         if (isGrounded)
         {

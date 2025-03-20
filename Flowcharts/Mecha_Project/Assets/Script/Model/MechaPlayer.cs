@@ -60,6 +60,7 @@ public class MechaPlayer : MonoBehaviour
     public bool isReloading;
     public bool isBoosting;
     public bool isIdle;
+    public float defaultSpeed;
 
     [Header("Player Position")]
     public Transform PlayerPosition;

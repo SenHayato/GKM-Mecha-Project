@@ -150,10 +150,12 @@ public class WeaponRaycast : MonoBehaviour
     }
     public IEnumerator ReloadAmmo()
     {
-        if (isReloading || mechaPlayer.isDashing) yield break;
+        if (isReloading) yield break;
 
         ammo = 0;
         isReloading = true;
+        mechaPlayer.isDashing = false;
+        playerSkrip.speed = mechaPlayer.defaultSpeed;
         mechaPlayer.isReloading = isReloading;
         readytoShoot = false;
 

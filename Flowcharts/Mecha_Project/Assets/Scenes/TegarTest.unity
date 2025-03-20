@@ -10957,7 +10957,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de86fd7a82ab23f4ebade903c7460778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 4945768763590132655, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
+  enemy: {fileID: 4936342202266720350, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
 --- !u!23 &737564212
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11021,11 +11021,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerDuration: 2
-  maxEnemyInArea: 10
+  maxEnemyInArea: 20
   spawnPrefabs:
   - {fileID: 4936342202266720350, guid: f6b49d40274c4ad43aa643ee40fae80a, type: 3}
   - {fileID: 4936342202266720350, guid: 1a905fd9f00344142963232a8255b27e, type: 3}
   spawnerReady: 1
+  gameMaster: {fileID: 0}
 --- !u!1 &752955844
 GameObject:
   m_ObjectHideFlags: 0
@@ -11662,7 +11663,9 @@ MonoBehaviour:
   stage2CutScene: {fileID: 0}
   stageBossCutScene: {fileID: 0}
   outroCutScene: {fileID: 0}
+  audioSources: []
   videoPlayerOBJ: {fileID: 672859044}
+  videoPlayer: {fileID: 0}
   isPlaying: 0
 --- !u!1 &829265434
 GameObject:
@@ -20037,7 +20040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31dac20fcfa9304695e71770e9bdc0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageType: 3
+  StageType: 2
   QuestText: 
   checkPointReach: 0
   PauseMenu: {fileID: 1605250513}
@@ -20123,6 +20126,7 @@ MonoBehaviour:
   gameMaster: {fileID: 0}
   musicSource: {fileID: 0}
   musicObj: {fileID: 1794778470}
+  cutSceneManager: {fileID: 0}
   tutorialBGM: {fileID: 8300000, guid: a64fb207e205cec489afb3239e1cde75, type: 3}
   cityStageBGM: {fileID: 8300000, guid: 5a6fb0bd12a5df046a2b58d3788dbb56, type: 3}
   dessertStageBGM: {fileID: 8300000, guid: 94e452aa64edb014fba3874717726d85, type: 3}
@@ -30081,7 +30085,7 @@ GameObject:
   - component: {fileID: 1794778471}
   m_Layer: 0
   m_Name: BackgroundMusic
-  m_TagString: Untagged
+  m_TagString: MusicManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35245,6 +35249,7 @@ MonoBehaviour:
   isReloading: 0
   isBoosting: 0
   isIdle: 0
+  defaultSpeed: 4
   PlayerPosition: {fileID: 4620144013182552013}
 --- !u!82 &5428487010729106813
 AudioSource:

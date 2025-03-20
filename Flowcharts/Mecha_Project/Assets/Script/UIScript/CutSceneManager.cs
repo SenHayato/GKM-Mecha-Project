@@ -17,9 +17,12 @@ public class CutSceneManager : MonoBehaviour
     [SerializeField] VideoClip stageBossCutScene;
     [SerializeField] VideoClip outroCutScene;
 
+    [Header("Audio Monitor")]
+    [SerializeField] AudioSource[] audioSources;
+
     [Header("Video Set Up")]
     public GameObject videoPlayerOBJ;
-    private VideoPlayer videoPlayer;
+    public VideoPlayer videoPlayer;
     [SerializeField] bool isPlaying = false;
 
     //flag
@@ -27,10 +30,18 @@ public class CutSceneManager : MonoBehaviour
     private void Awake()
     {
         videoPlayer = GetComponentInChildren<VideoPlayer>();
+        audioSources = FindObjectsOfType<AudioSource>();
     }
 
     private void Start()
     {
+        foreach (var source in audioSources)
+        {
+            if (!source.CompareTag("MusicManager"))
+            {
+                source.enabled = false;
+            }
+        }
         videoPlayerOBJ.SetActive(true);
         switch (gameMaster.StageType)
         {
@@ -56,8 +67,13 @@ public class CutSceneManager : MonoBehaviour
             isPlaying = true;
             videoPlayer.Play();
         }
-        yield return new WaitForSecondsRealtime((float)videoPlayer.clip.length);
+        yield return new WaitForSecondsRealtime((float)videoPlayer.clip.length + 2f);
+        foreach (var source in audioSources)
+        {
+            source.enabled = true;
+        }
         videoPlayerOBJ.SetActive(false);
+        trigger = false;
         isPlaying = false;
 
     }
