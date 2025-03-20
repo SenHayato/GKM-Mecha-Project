@@ -9,6 +9,7 @@ public class MusicManager : MonoBehaviour
     //[SerializeField] MechaPlayer mechaPlayer;
     [SerializeField] AudioSource musicSource;
     [SerializeField] GameObject musicObj;
+    [SerializeField] CutSceneManager cutSceneManager;
 
     [Header("Music Library")]
     [SerializeField] AudioClip tutorialBGM;
@@ -32,6 +33,7 @@ public class MusicManager : MonoBehaviour
         gameMaster = GetComponent<GameMaster>();
         //mechaPlayer = FindFirstObjectByType<MechaPlayer>();
         musicSource = GetComponentInChildren<AudioSource>();
+        cutSceneManager = FindFirstObjectByType<CutSceneManager>();
     }
 
     private void Start()
@@ -100,7 +102,8 @@ public class MusicManager : MonoBehaviour
 
     void Update()
     {
-        AudioMonitor();
+        Invoke(nameof(AudioMonitor), (float)cutSceneManager.videoPlayer.clip.length - 4f);
+        //AudioMonitor();
         //MusicPlay();
     }
 }

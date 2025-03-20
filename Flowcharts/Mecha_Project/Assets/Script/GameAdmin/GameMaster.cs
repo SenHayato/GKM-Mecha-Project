@@ -36,7 +36,7 @@ public class GameMaster : MonoBehaviour
     [Header("PlayerAchive")]
     public int KillCount;
     public float timer;
-    public float defaultTimer;
+    public float defaultTimer; //saat game berjalan waktu default 3 menit
     public string timeFormat;
     public bool countdown;
     Vector3 screenCenter;
