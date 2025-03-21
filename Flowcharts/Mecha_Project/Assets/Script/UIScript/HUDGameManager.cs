@@ -23,6 +23,7 @@ public class HUDGameManager : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Slider ammoBar;
     [SerializeField] private UnityEngine.UI.Slider skill1Bar;
     [SerializeField] private UnityEngine.UI.Slider skill2Bar;
+    [SerializeField] private UnityEngine.UI.Slider awakeningBar;
     public TextMeshProUGUI timerText;
 
     [Header("Audio Library")]
@@ -68,13 +69,20 @@ public class HUDGameManager : MonoBehaviour
 
     private void Start()
     {
+        //health
         healthBar.maxValue = mechaScript.MaxHealth;
+        //ultimate
         ultimateBar.maxValue = mechaScript.MaxUltimate;
+        //energy
         energyBar.maxValue = mechaScript.MaxEnergy;
+        //skill
         skill1Bar.maxValue = mechaScript.cooldownSkill1;
         skill2Bar.maxValue = mechaScript.cooldownSkill2;
+        //ease
         easeHealthBar.maxValue = healthBar.maxValue;
         easeHealthBar.value = easeHealthBar.maxValue;
+        //awakening
+        awakeningBar.maxValue = mechaScript.MaxAwakening;
 
         hitEffect = recoilCrossHair.GetComponent<UnityEngine.UI.Image>();
         soundSource = GetComponent<AudioSource>();
@@ -109,6 +117,8 @@ public class HUDGameManager : MonoBehaviour
         skill1Bar.value = mechaScript.skill1Time;
         //Skill2
         skill2Bar.value = mechaScript.skill2Time;
+        //Awakening
+        awakeningBar.value = mechaScript.Awakening;
     }
 
     public void EaseHealthBar()
