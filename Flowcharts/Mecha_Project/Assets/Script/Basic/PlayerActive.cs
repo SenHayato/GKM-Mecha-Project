@@ -9,7 +9,7 @@ public class PlayerActive : MonoBehaviour
 
     // Input
     public InputAction moveAction, jumpAction, flyUp, shootAction, scopeAction, skill1Action, skill2Action,
-        flyDown, blockAction, dashAction, selectButton, ultimateAction, interaction, reloadAction, boostAction;
+        flyDown, blockAction, dashAction, selectButton, ultimateAction, interaction, reloadAction, boostAction, awakeningAction;
     [Header("Reference")]
     public MechaPlayer Mecha;
     public GameMaster GameMaster;
@@ -25,6 +25,11 @@ public class PlayerActive : MonoBehaviour
     public ParticleSystem thusterParticle;
     public GameObject windEffect;
     public HashSet<string> enemyTags = new() { "Enemy", "Boss", "MiniBoss" };
+    //public Material[] playerMaterial; //Material yanhg bisa berubah warna
+    //private Color[] defaultColor;
+    private float defaultSpeed;
+    private float dashSpeed;
+    private int defaultAttack;
 
     [Header("HitBox")]
     public GameObject skill1HitBox;
@@ -43,8 +48,6 @@ public class PlayerActive : MonoBehaviour
 
     [Header("Player Status")]
     public float speed;
-    private float defaultSpeed;
-    float dashSpeed;
     public float jumpForce;
     public float gravity;
     public bool isGrounded;
@@ -111,7 +114,9 @@ public class PlayerActive : MonoBehaviour
         interaction = gameInput.actions.FindAction("Interaction");
         reloadAction = gameInput.actions.FindAction("Reload");
         boostAction = gameInput.actions.FindAction("Boost");
-
+        awakeningAction = gameInput.actions.FindAction("Awakening");
+        
+        defaultAttack = Mecha.AttackPow;
         defaultSpeed = Mecha.defaultSpeed;
         dashSpeed = speed * 2; //DashMovement
         dashBoostSpeed = 2 * normalBoostSpeed; //BoostSpeed Effect
@@ -137,6 +142,8 @@ public class PlayerActive : MonoBehaviour
         UpdatePosition();
         SKillCooldown();
         StartCoroutine(UseUltimate());
+        StartCoroutine(AwakeningActive());
+        AwakeningReady();
         //StartCoroutine(BoostOn());
         //Ultimate Energy Regen
         if (!Mecha.UltimateRegen && Mecha.Ultimate < Mecha.MaxUltimate) _= StartCoroutine(UltimateRegen());
@@ -145,6 +152,51 @@ public class PlayerActive : MonoBehaviour
         SkillBusy();
         ParticleSet();
         //BoostDirectionSet();
+    }
+
+    void AwakeningReady()
+    {
+        if (Mecha.Awakening >= Mecha.MaxAwakening)
+        {
+            Mecha.awakeningReady = true;
+        }
+        else
+        {
+            Mecha.awakeningReady = false;
+        }
+    }
+
+    IEnumerator AwakeningActive()
+    {
+        if (awakeningAction.triggered && Mecha.awakeningReady)
+        {
+            Mecha.awakeningReady = false;
+            Mecha.Awakening = Mecha.MinAwakening;
+            Mecha.UsingAwakening = true;
+            yield return new WaitForSeconds(Mecha.AwakeningDuration);
+            Mecha.UsingAwakening = false;
+        }
+
+        //condition
+        if (Mecha.UsingAwakening)
+        {
+            Mecha.AttackPow = Mecha.awakeningAttack;
+            Time.timeScale = 0;
+            yield return new WaitForSecondsRealtime(0.7f);
+            Time.timeScale = 1;
+            //foreach (var materials in playerMaterial)
+            //{
+            //    materials.color = Color.blue;
+            //}
+        }
+        else
+        {
+            Mecha.AttackPow = defaultAttack;
+            //foreach (var materials in playerMaterial)
+            //{
+            //    materials.color = Color.white;
+            //}
+        }
     }
     public void DashPlayer()
     {

@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEditor.UI;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.Mathematics;
 
 public class WeaponRaycast : MonoBehaviour
 {
@@ -95,6 +96,11 @@ public class WeaponRaycast : MonoBehaviour
         }
     }
 
+    public void AwakeningMonitor()
+    {
+        mechaPlayer.Awakening = Mathf.Clamp(mechaPlayer.Awakening, mechaPlayer.MinAwakening, mechaPlayer.MaxAwakening);
+    }
+
     public IEnumerator FireShoot()
     {
         if (!canShoot || isReloading || ammo <= 0) yield break;
@@ -115,7 +121,10 @@ public class WeaponRaycast : MonoBehaviour
                 if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
                 {
                     enemy.TakeDamage(mechaPlayer.AttackPow);
-                    mechaPlayer.Awakening += mechaPlayer.AwakeningRegen;
+                    if (!mechaPlayer.UsingAwakening)
+                    {
+                        mechaPlayer.Awakening += mechaPlayer.AwakeningRegen;
+                    }
                     HUDManager.hitEffect.color = Color.red;
                     yield return new WaitForSeconds(fireRate);
                     HUDManager.hitEffect.color = Color.white;
@@ -188,5 +197,6 @@ public class WeaponRaycast : MonoBehaviour
     {
         SoundMonitor();
         RecoilAdjust();
+        AwakeningMonitor();
     }
 }
