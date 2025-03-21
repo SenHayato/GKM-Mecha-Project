@@ -25,7 +25,7 @@ public class WeaponRaycast : MonoBehaviour
     public float fireRate;
     public float reloadSpeed;
     public float range = 100f;
-    public float bulletSpeed = 200f;
+    //public float bulletSpeed = 200f;
     public bool canShoot = true;
     public bool readytoShoot = true;
     public int ammo;
