@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MechaPlayer : MonoBehaviour
@@ -11,10 +12,18 @@ public class MechaPlayer : MonoBehaviour
     public int AttackPow;
     public float AttackSpd;
 
+    [Header("Awakening Bar")]
+    public float Awakening;
+    public float MaxAwakening;
+    [HideInInspector] public float MinAwakening = 0;
+    public float AwakeningRegen;
+    public bool isAwakening;
+    public bool awakeningReady;
+
     [Header("Ultimate Bar")]
     public int Ultimate;
     public int MaxUltimate; //100
-    public int MinUltimate; //0
+    [HideInInspector] public int MinUltimate = 0;
     public int UltRegenValue;
     public int UltDamage;
     public float UltInterval;
@@ -26,7 +35,7 @@ public class MechaPlayer : MonoBehaviour
     [Header("Energy")]
     public int Energy;
     public int MaxEnergy; //100
-    public int MinEnergy; //0
+    [HideInInspector] public int MinEnergy = 0; //0
     public int EngRegenValue;
     public int EnergyCost; //50
     public bool EnergyRegen;

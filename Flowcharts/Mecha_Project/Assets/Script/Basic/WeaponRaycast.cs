@@ -49,6 +49,7 @@ public class WeaponRaycast : MonoBehaviour
         mainCamera = Camera.main;
         HUDManager = FindAnyObjectByType<HUDGameManager>();
     }
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -114,6 +115,7 @@ public class WeaponRaycast : MonoBehaviour
                 if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
                 {
                     enemy.TakeDamage(mechaPlayer.AttackPow);
+                    mechaPlayer.Awakening += mechaPlayer.AwakeningRegen;
                     HUDManager.hitEffect.color = Color.red;
                     yield return new WaitForSeconds(fireRate);
                     HUDManager.hitEffect.color = Color.white;
