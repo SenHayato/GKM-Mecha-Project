@@ -211,6 +211,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Awakening",
+                    "type": "Button",
+                    "id": "94df8fb0-6af4-4efb-a9c7-6421cf2cd462",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -772,6 +781,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "TestSpawn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d2e41f8-1b90-413f-b84f-284be7a4af7e",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC;Mouse",
+                    "action": "Awakening",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "189a8cc5-d323-4de7-9cf2-6c546be994f4",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Awakening",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

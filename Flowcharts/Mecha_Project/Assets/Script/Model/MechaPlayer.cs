@@ -10,15 +10,17 @@ public class MechaPlayer : MonoBehaviour
 
     [Header("Attack")]
     public int AttackPow;
-    public float AttackSpd;
+    //public float AttackSpd;
 
     [Header("Awakening Bar")]
     public float Awakening;
     public float MaxAwakening;
     [HideInInspector] public float MinAwakening = 0;
     public float AwakeningRegen;
-    public bool isAwakening;
+    public float AwakeningDuration;
+    public bool UsingAwakening;
     public bool awakeningReady;
+    public int awakeningAttack;
 
     [Header("Ultimate Bar")]
     public int Ultimate;

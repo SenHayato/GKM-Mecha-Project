@@ -15,6 +15,7 @@ public class HUDGameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI healthPoint;
     [SerializeField] private TextMeshProUGUI questInfo;
     [SerializeField] private TextMeshProUGUI killCounterTxt;
+    public TextMeshProUGUI timerText;
     [SerializeField] private UnityEngine.UI.Image healthImage;
     [SerializeField] private UnityEngine.UI.Slider healthBar;
     [SerializeField] private UnityEngine.UI.Slider easeHealthBar;
@@ -24,7 +25,9 @@ public class HUDGameManager : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Slider skill1Bar;
     [SerializeField] private UnityEngine.UI.Slider skill2Bar;
     [SerializeField] private UnityEngine.UI.Slider awakeningBar;
-    public TextMeshProUGUI timerText;
+    [SerializeField] private UnityEngine.UI.Image barImage;
+    [SerializeField] private GameObject awakeningSlideImage;
+    //[SerializeField] private Animator slideAwakenAnim;
 
     [Header("Audio Library")]
     [SerializeField] AudioClip killDing;
@@ -86,6 +89,29 @@ public class HUDGameManager : MonoBehaviour
 
         hitEffect = recoilCrossHair.GetComponent<UnityEngine.UI.Image>();
         soundSource = GetComponent<AudioSource>();
+    }
+
+    void AwakeningMonitor()
+    {
+        Color color = barImage.color;
+        if (mechaScript.UsingAwakening)
+        {
+            awakeningSlideImage.SetActive(true);
+        }
+        else
+        {
+            awakeningSlideImage.SetActive(false);
+        }
+
+        if (mechaScript.awakeningReady)
+        {
+            color.a = Mathf.PingPong(Time.time * 10f, 1f);
+        }
+        else
+        {
+            color.a = 1f;
+        }
+        barImage.color = color;
     }
 
     public void AmmoMonitor()
@@ -239,6 +265,7 @@ public class HUDGameManager : MonoBehaviour
         QuestMonitor();
         TimerSetUp();
         RecoilCrossHair();
+        AwakeningMonitor();
 
         TakeDamage();
     }
