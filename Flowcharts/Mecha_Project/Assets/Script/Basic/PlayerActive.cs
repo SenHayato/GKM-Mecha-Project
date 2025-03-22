@@ -15,6 +15,7 @@ public class PlayerActive : MonoBehaviour
     public GameMaster GameMaster;
     public CameraActive CameraAct;
     public CombatVoiceActive combatVoiceAct;
+    public MusicManager musicManager;
 
     [Header("Player Set Up")]
     public Transform cameraPivot;
@@ -67,6 +68,7 @@ public class PlayerActive : MonoBehaviour
 
     public void Awake()
     {
+        musicManager = FindAnyObjectByType<MusicManager>();
         gameInput = FindAnyObjectByType<PlayerInput>();
         GameMaster = FindAnyObjectByType<GameMaster>();
         CameraAct = FindAnyObjectByType<CameraActive>();
@@ -181,8 +183,9 @@ public class PlayerActive : MonoBehaviour
         if (Mecha.UsingAwakening)
         {
             Mecha.AttackPow = Mecha.awakeningAttack;
+            Mecha.UltDamage = Mecha.awakeningAttack + 200;
             Time.timeScale = 0;
-            yield return new WaitForSecondsRealtime(0.7f);
+            yield return new WaitForSecondsRealtime(0.72f);
             Time.timeScale = 1;
             //foreach (var materials in playerMaterial)
             //{
