@@ -29,6 +29,7 @@ public class CutSceneManager : MonoBehaviour
     bool trigger = true;
     private void Awake()
     {
+        gameMaster = FindAnyObjectByType<GameMaster>();
         videoPlayer = GetComponentInChildren<VideoPlayer>();
         audioSources = FindObjectsOfType<AudioSource>();
     }
@@ -39,25 +40,28 @@ public class CutSceneManager : MonoBehaviour
         {
             if (!source.CompareTag("MusicManager"))
             {
-                source.enabled = false;
+                if (source != null)
+                {
+                    source.enabled = false;
+                }
             }
         }
         videoPlayerOBJ.SetActive(true);
-        switch (gameMaster.StageType)
-        {
-            case StageType.StageTutorial:
-                videoPlayer.clip = introCutScene;
-                break;
-            case StageType.Stage1:
-                videoPlayer.clip = stage1CutScene;
-                break;
-            case StageType.Stage2:
-                videoPlayer.clip = stage2CutScene;
-                break;
-            case StageType.StageBoss:
-                videoPlayer.clip = stageBossCutScene;
-                break;
-        }
+        //switch (gameMaster.StageType)
+        //{
+        //    case StageType.StageTutorial:
+        //        videoPlayer.clip = introCutScene;
+        //        break;
+        //    case StageType.Stage1:
+        //        videoPlayer.clip = stage1CutScene;
+        //        break;
+        //    case StageType.Stage2:
+        //        videoPlayer.clip = stage2CutScene;
+        //        break;
+        //    case StageType.StageBoss:
+        //        videoPlayer.clip = stageBossCutScene;
+        //        break;
+        //}
     }
 
     IEnumerator VideoMonitoring()
@@ -70,7 +74,10 @@ public class CutSceneManager : MonoBehaviour
         yield return new WaitForSecondsRealtime((float)videoPlayer.clip.length + 2f);
         foreach (var source in audioSources)
         {
-            source.enabled = true;
+            if (source != null)
+            {
+                source.enabled = true;
+            }
         }
         videoPlayerOBJ.SetActive(false);
         trigger = false;

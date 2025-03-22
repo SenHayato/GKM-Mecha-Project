@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
 
 public class EnemySoundManager : MonoBehaviour
@@ -8,7 +5,7 @@ public class EnemySoundManager : MonoBehaviour
     [Header("Sound Library")]
     [SerializeField] AudioClip fireSound;
     [SerializeField] AudioClip slashSound;
-    [SerializeField] AudioClip exploded;
+    [SerializeField] AudioClip explodedSound;
 
     [Header("Sound Trigger")]
     [SerializeField] bool isFiring = false;
@@ -21,7 +18,8 @@ public class EnemySoundManager : MonoBehaviour
 
     private void Awake()
     {
-        soundSource = GetComponentInChildren<AudioSource>();
+        soundSource = GetComponent<AudioSource>();
+        enemyModel = GetComponentInParent<EnemyModel>();
     }
 
     void EnemyMonitorRange()
@@ -60,9 +58,20 @@ public class EnemySoundManager : MonoBehaviour
         }
     }
 
+    void EnemyExploded()
+    {
+        if (enemyModel.isDeath && !isExploded)
+        {
+            soundSource.clip = explodedSound;
+            soundSource.Play();
+            isExploded = true;
+        }
+    }
+
     private void Update()
     {
         EnemyMonitorRange();
         EnemyShortMonitor();
+        EnemyExploded();
     }
 }

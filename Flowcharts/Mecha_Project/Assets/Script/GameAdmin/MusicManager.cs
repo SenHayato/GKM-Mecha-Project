@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -10,6 +11,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] AudioSource musicSource;
     [SerializeField] GameObject musicObj;
     [SerializeField] CutSceneManager cutSceneManager;
+    [SerializeField] MechaPlayer mechaPlayer;
 
     [Header("Music Library")]
     [SerializeField] AudioClip tutorialBGM;
@@ -23,17 +25,23 @@ public class MusicManager : MonoBehaviour
     [SerializeField] AudioMixer bgmMixer;
     [SerializeField] bool isPlaying;
 
+    [Header("Awakening Music Setting")]
+    [SerializeField] AudioSource awakeningSource;
+    bool awakeningActive = false;
+
 
     //check
     bool wasPlaying = false;
     GameObject bossObj;
     EnemyModel bossModel;
+    [SerializeField] float timelerp = 0;
     void Awake()
     {
         gameMaster = GetComponent<GameMaster>();
         //mechaPlayer = FindFirstObjectByType<MechaPlayer>();
         musicSource = GetComponentInChildren<AudioSource>();
         cutSceneManager = FindFirstObjectByType<CutSceneManager>();
+        mechaPlayer = FindAnyObjectByType<MechaPlayer>();
     }
 
     private void Start()
@@ -44,6 +52,26 @@ public class MusicManager : MonoBehaviour
                 bossObj = GameObject.FindGameObjectWithTag("Boss");
                 bossModel = bossObj.GetComponent<EnemyModel>();
                 break;
+        }
+    }
+
+    void AwakeningMusicFlap()
+    {
+        if (mechaPlayer.UsingAwakening && !awakeningActive)
+        {
+            awakeningSource.Play();
+            awakeningSource.volume = 1f;
+            musicSource.volume = 0f;
+            timelerp = 0f;
+            awakeningActive = true;
+        }
+        
+        if (!mechaPlayer.UsingAwakening)
+        {
+            awakeningActive = false;
+            timelerp += Time.deltaTime / 2f;
+            musicSource.volume = Mathf.Lerp(0f, 1f, timelerp);
+            awakeningSource.volume = Mathf.Lerp(1f , 0f, timelerp);
         }
     }
 
@@ -103,6 +131,7 @@ public class MusicManager : MonoBehaviour
     void Update()
     {
         Invoke(nameof(AudioMonitor), (float)cutSceneManager.videoPlayer.clip.length - 4f);
+        AwakeningMusicFlap();
         //AudioMonitor();
         //MusicPlay();
     }
