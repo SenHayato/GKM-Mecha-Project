@@ -24,4 +24,17 @@ public class ControllerEnemy : MonoBehaviour
     {
         agent.SetDestination(player.position);
     }
+
+    private void Patrolling()
+    {
+        if (model.patrolRadius > 0)
+        {
+
+        }
+    }
+
+    private void WalkPoint()
+    {
+
+    }
 }
