@@ -8,15 +8,20 @@ using UnityEngine.UIElements;
 
 public class ControllerEnemy : MonoBehaviour
 {
-    public float lookRadius = 10f;
-
+    public Transform player;
     EnemyModel model;
     EnemyActive active;
+
     NavMeshAgent agent;
-    Transform target;
-    private void Start()
+
+    private void Awake()
     {
+        agent= GetComponent<NavMeshAgent>();
         model = GetComponent<EnemyModel>();
-        agent = GetComponent<NavMeshAgent>();
+    }
+
+    private void Update()
+    {
+        agent.SetDestination(player.position);
     }
 }
