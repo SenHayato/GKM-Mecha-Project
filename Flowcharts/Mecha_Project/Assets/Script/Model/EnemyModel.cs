@@ -16,7 +16,6 @@ public class EnemyModel : MonoBehaviour
     public int attackPower;
     public int attackSpeed;
     public float attackRange = 2f;
-    public float detectionRange = 10f;
 
     [Header("Status")]
     public bool isAttacking;
@@ -38,6 +37,7 @@ public class EnemyModel : MonoBehaviour
     public float destinationChangeTimer = 0f;
 
     [Header("FieldOfView")]
+    public float detectionRange = 10f;
     public float viewAngle = 90f;
     public bool useFieldOfView = true;
     public float peripheralViewAngle = 45f;
