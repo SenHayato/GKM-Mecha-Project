@@ -777,6 +777,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 969403711}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &103997972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 103997973}
+  m_Layer: 0
+  m_Name: WayPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &103997973
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103997972}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.955923, y: 0.01, z: 4.355182}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &122657245
 GameObject:
   m_ObjectHideFlags: 0
@@ -18523,7 +18554,7 @@ Transform:
   m_GameObject: {fileID: 1137059855}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -4.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -27035,6 +27066,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672373669}
   m_CullTransparentMesh: 1
+--- !u!1 &1678722988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1678722989}
+  m_Layer: 0
+  m_Name: WayPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1678722989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678722988}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.754077, y: 0.01, z: 4.355182}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1699350187
 GameObject:
   m_ObjectHideFlags: 0
@@ -29017,6 +29079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wayPoints: []
 --- !u!114 &1933122973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29066,6 +29129,7 @@ MonoBehaviour:
   fieldOfViewColor: {r: 1, g: 1, b: 0, a: 0.2}
   patrolRadius: 10
   patrolWaitTime: 2
+  maxWaitingTime: 0
   startPosition: {x: 0, y: 0, z: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   destinationChangeTimer: 0
@@ -33203,6 +33267,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wayPoints:
+  - {fileID: 103997973}
+  - {fileID: 1678722989}
 --- !u!114 &6457158700785582229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33256,8 +33323,9 @@ MonoBehaviour:
   lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
   showFieldOfView: 1
   fieldOfViewColor: {r: 1, g: 1, b: 0, a: 0.2}
-  patrolRadius: 10
+  patrolRadius: 15
   patrolWaitTime: 2
+  maxWaitingTime: 0
   startPosition: {x: 0, y: 0, z: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   destinationChangeTimer: 0
@@ -33311,7 +33379,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 5
+  m_StoppingDistance: 0.2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -34417,6 +34485,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wayPoints: []
 --- !u!114 &8976015907341135821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34447,6 +34516,7 @@ MonoBehaviour:
   fieldOfViewColor: {r: 1, g: 1, b: 0, a: 0.2}
   patrolRadius: 10
   patrolWaitTime: 2
+  maxWaitingTime: 0
   startPosition: {x: 0, y: 0, z: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   destinationChangeTimer: 0
@@ -34576,6 +34646,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1137059862}
+  - {fileID: 103997973}
+  - {fileID: 1678722989}
   - {fileID: 5969449893122906665}
   - {fileID: 630854457}
   - {fileID: 763489653}

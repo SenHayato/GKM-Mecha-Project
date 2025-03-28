@@ -31,7 +31,8 @@ public class EnemyModel : MonoBehaviour
 
     [Header("AI Behavior")]
     public float patrolRadius = 10f;
-    public float patrolWaitTime = 2f;
+    public float patrolWaitTime = 0f;
+    public float maxWaitingTime = 0f;
     public Vector3 startPosition;
     public Vector3 currentDestination;
     public float destinationChangeTimer = 0f;

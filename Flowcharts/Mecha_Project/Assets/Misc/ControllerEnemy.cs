@@ -14,7 +14,10 @@ public class ControllerEnemy : MonoBehaviour
     private Transform playerTransform;
     private EnemyModel model;
     private EnemyActive active;
-    private Vector3 target;
+
+    [SerializeField]
+    private Transform[] wayPoints;
+    private int currentWaypoints;
 
     private bool playerInSight = false;
     private bool playerInFieldOfView = false;
@@ -24,16 +27,34 @@ public class ControllerEnemy : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         model = GetComponent<EnemyModel>();
-        target = transform.position;
         playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+        currentWaypoints = -1;
 
+        GoToNexPoint();
 
     }
 
     private void Update()
     {
         float distance = Vector3.Distance(playerTransform.position, transform.position);
+        // Patrolling
+        if (agent.remainingDistance < 0.5f)
+        {
+            if (model.maxWaitingTime == 0)
+                model.maxWaitingTime = Random.Range(2, 6);
 
+            if (model.patrolWaitTime >= model.maxWaitingTime)
+            {
+                model.maxWaitingTime = 0;
+                model.patrolWaitTime = 0;
+                GoToNexPoint();
+            }
+            else
+            {
+                model.patrolWaitTime += Time.deltaTime;
+            }
+        }
+        // Memaksa Enemy untuk menghadap player jika dalam keadaan mengejar
         if (distance <= model.detectionRange)
         {
             agent.SetDestination(playerTransform.position);
@@ -49,12 +70,25 @@ public class ControllerEnemy : MonoBehaviour
         if (model.attackTimer > 0)
             model.attackTimer -= Time.deltaTime;
     }
-
+    
+    void GoToNexPoint()
+    {
+        if (wayPoints.Length != 0)
+        {
+            currentWaypoints = (currentWaypoints + 1) % wayPoints.Length;
+            agent.SetDestination(wayPoints[currentWaypoints].position);
+        }
+    }
     void FaceTarget()
     {
         Vector3 direction = (playerTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp (transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    void Patrol()
+    {
+
     }
 
     private void OnDrawGizmosSelected()
