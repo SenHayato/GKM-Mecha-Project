@@ -1,15 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Video;
 
 public class CutSceneManager : MonoBehaviour
 {
-    [Header("Reference")]
-    [SerializeField] GameMaster gameMaster;
-
     [Header("CutScene Video")]
     [SerializeField] VideoClip introCutScene;
     [SerializeField] VideoClip stage1CutScene;
@@ -23,13 +18,12 @@ public class CutSceneManager : MonoBehaviour
     [Header("Video Set Up")]
     public GameObject videoPlayerOBJ;
     public VideoPlayer videoPlayer;
-    [SerializeField] bool isPlaying = false;
+    public bool isPlaying = false;
 
     //flag
     bool trigger = true;
     private void Awake()
     {
-        gameMaster = FindAnyObjectByType<GameMaster>();
         videoPlayer = GetComponentInChildren<VideoPlayer>();
         audioSources = FindObjectsOfType<AudioSource>();
     }
@@ -74,7 +68,7 @@ public class CutSceneManager : MonoBehaviour
         yield return new WaitForSecondsRealtime((float)videoPlayer.clip.length + 2f);
         foreach (var source in audioSources)
         {
-            if (source != null)
+            if (source != null && !source.enabled)
             {
                 source.enabled = true;
             }
@@ -98,8 +92,27 @@ public class CutSceneManager : MonoBehaviour
         }
     }
 
+    public void SkipButton()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            Debug.Log("SkipCg");
+            isPlaying = false;
+            trigger = false;
+            videoPlayerOBJ.SetActive(false);
+            foreach (var source in audioSources)
+            {
+                if (source != null)
+                {
+                    source.enabled = true;
+                }
+            }
+        }
+    }
+
     private void Update()
     {
+        SkipButton();
         GameTimeManager();
         StartCoroutine(VideoMonitoring());
     }

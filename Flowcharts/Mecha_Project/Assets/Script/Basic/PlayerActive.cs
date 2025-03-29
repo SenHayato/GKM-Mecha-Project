@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerActive : MonoBehaviour
 {
-    PlayerInput gameInput;
+    [SerializeField] PlayerInput gameInput;
 
     // Input
     public InputAction moveAction, jumpAction, flyUp, shootAction, scopeAction, skill1Action, skill2Action,
@@ -187,6 +188,14 @@ public class PlayerActive : MonoBehaviour
             Time.timeScale = 0;
             yield return new WaitForSecondsRealtime(0.72f);
             Time.timeScale = 1;
+            if (GameMaster.isPaused)
+            {
+                Time.timeScale = 0;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+            }
             //foreach (var materials in playerMaterial)
             //{
             //    materials.color = Color.blue;

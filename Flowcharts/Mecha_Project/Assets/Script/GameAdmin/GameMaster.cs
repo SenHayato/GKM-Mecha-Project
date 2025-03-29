@@ -1,12 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements.Experimental;
 
 public class GameMaster : MonoBehaviour
 {
@@ -22,7 +17,6 @@ public class GameMaster : MonoBehaviour
     public HUDGameManager HUDManager;
     public bool isPaused;
     public PlayerInput input;
-    //public GameObject Transition;
     public string WinScreen;
     public string LoseScreen;
     public string MainMenu;
@@ -47,6 +41,9 @@ public class GameMaster : MonoBehaviour
     public int PlayerHealth;
     public string LastScene;
 
+    [Header("Reference")]
+    [SerializeField] CutSceneManager cutSceneManager;
+
     private void Awake()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -54,11 +51,12 @@ public class GameMaster : MonoBehaviour
         pauseAction = input.actions.FindAction("Pause");
         MechaData = Player.GetComponent<MechaPlayer>();
         HUDManager = FindAnyObjectByType<HUDGameManager>();   
+        playerInput = GetComponent<PlayerInput>();
+        cutSceneManager = FindFirstObjectByType<CutSceneManager>();
     }
 
     private void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
         fadeIn.SetActive(true);
         fadeOut.SetActive(false);
         isPaused = false;
@@ -194,17 +192,33 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+    public void BlockInput()
+    {
+        if (cutSceneManager.isPlaying)
+        {
+            playerInput.enabled = false;
+        }
+        else
+        {
+            playerInput.enabled = true;
+        }
+    }
+
     public void PauseButton()
     {
-        if (pauseAction.triggered)
+        if (!cutSceneManager.isPlaying)
         {
-            Debug.Log("PauseButton");
-            if (!isPaused)
+            if (pauseAction.triggered)
             {
-                isPaused = true;
-            } else
-            {
-                isPaused = false;
+                Debug.Log("PauseButton");
+                if (!isPaused)
+                {
+                    isPaused = true;
+                }
+                else
+                {
+                    isPaused = false;
+                }
             }
             Paused();
         }
@@ -212,7 +226,8 @@ public class GameMaster : MonoBehaviour
 
     public void Update()
     {
-        //PauseButton();
+        BlockInput();
+        PauseButton();
         HideCursor();
         if (countdown)
         {
@@ -224,6 +239,7 @@ public class GameMaster : MonoBehaviour
             playerInput.enabled = false;
         }
     }
+
 }
 
 public enum StageType
