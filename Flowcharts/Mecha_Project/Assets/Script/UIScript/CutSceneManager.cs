@@ -5,6 +5,8 @@ using UnityEngine.Video;
 
 public class CutSceneManager : MonoBehaviour
 {
+    public KeyCode skipButton;
+
     [Header("CutScene Video")]
     [SerializeField] VideoClip introCutScene;
     [SerializeField] VideoClip stage1CutScene;
@@ -94,7 +96,7 @@ public class CutSceneManager : MonoBehaviour
 
     public void SkipButton()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(skipButton))
         {
             Debug.Log("SkipCg");
             isPlaying = false;
