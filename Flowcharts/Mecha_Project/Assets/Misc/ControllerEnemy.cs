@@ -1,125 +1,99 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 public class ControllerEnemy : MonoBehaviour
 {
-    public LayerMask hitLayer;
-    public LayerMask obstacleLayer; //Ngeblock vision
-    private EnemyModel enemyModel;
-    private EnemyActive enemyActive;
-    private NavMeshAgent navAgent;
-    public LineRenderer lineOfSight;
-    private Mesh fovMesh; //Visualisasi Fov
-
-
-    // State management
-    private enum AIState { Idle, Patrol, Chase, Attack, Retreat, Dead }
+    // State Management
+    private enum AIState { Idle, Patrol, Chase, Attack}
     private AIState currentState = AIState.Idle;
-    private AIState previousState;
 
+    // Components
+    private NavMeshAgent agent;
     private Transform playerTransform;
+    private EnemyModel model;
+    private EnemyActive active;
+
+    [SerializeField]
+    private Transform[] wayPoints;
+    private int currentWaypoints;
+
     private bool playerInSight = false;
     private bool playerInFieldOfView = false;
     private bool isObstacleInTheWay = false;
 
-    private void Awake()
+    private void Start()
     {
-        enemyModel = GetComponent<EnemyModel>();
-        navAgent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
+        model = GetComponent<EnemyModel>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+        currentWaypoints = -1;
 
-        if (obstacleLayer == 0)
-        {
-            obstacleLayer = LayerMask.GetMask("Default", "Environment", "Wall");
-        }
+        GoToNexPoint();
+
     }
 
     private void Update()
     {
-        if (enemyModel.isDeath) return;
-
-
-    }
-
-    private void ChaseState()
-    {
-        if (navAgent != null && navAgent.enabled)
+        float distance = Vector3.Distance(playerTransform.position, transform.position);
+        // Patrolling
+        if (agent.remainingDistance < 0.5f)
         {
-            navAgent.SetDestination(playerTransform.position);
+            if (model.maxWaitingTime == 0)
+                model.maxWaitingTime = Random.Range(2, 6);
 
-            // Pengecekan apakah code bekerja
-            Debug.DrawLine(transform.position, playerTransform.position, Color.blue, 0.2f);
-        }
-
-        // Cek apakah berada di range attack
-        float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
-        float effectiveAttackRange = (enemyModel.enemyType == EnemyType.EnemyRange) ? enemyModel.attackRange * 2.5f : enemyModel.attackRange;
-
-        if (distanceToPlayer <= effectiveAttackRange)
-        {
-            currentState = AIState.Attack;
-            Debug.Log("Switching to Attack State : distance" + distanceToPlayer + ", attakc range = " + effectiveAttackRange);
-        }
-    }
-    private void IdleState()
-    {
-        if (playerInSight && !isObstacleInTheWay)
-        {
-            currentState = AIState.Chase;
-            return;
-        }
-
-        //if(Random.value < 0.3f)
-        {
-            currentState = AIState.Patrol;
-            //GeneratePatrolDestination();
-        }
-    }
-    private void PatrolState()
-    {
-        // Jika Player ditemukan, maka kejar dia
-
-        // Check jika kita membutuhkan destinasi patrol baru
-        if (enemyModel.destinationChangeTimer <= 0f || (navAgent != null && !navAgent.pathPending && navAgent.remainingDistance < 0.5f))
-        {
-            enemyModel.destinationChangeTimer = enemyModel.patrolWaitTime;
-
-            // Antara ke idle atau mencari rute baru untuk point patrol
-            //if (Random.value < 0.3f)
+            if (model.patrolWaitTime >= model.maxWaitingTime)
             {
-                currentState = AIState.Idle;
-                if (navAgent != null)
-                {
-                    navAgent.SetDestination(transform.position);
-                }
-                //}
-                //else
-                //{
-                //    GeneratePatrolDestination();
-                //}
+                model.maxWaitingTime = 0;
+                model.patrolWaitTime = 0;
+                GoToNexPoint();
+            }
+            else
+            {
+                model.patrolWaitTime += Time.deltaTime;
             }
         }
-       
+        // Memaksa Enemy untuk menghadap player jika dalam keadaan mengejar
+        if (distance <= model.detectionRange)
+        {
+            agent.SetDestination(playerTransform.position);
+
+            if(distance <= agent.stoppingDistance)
+            {
+                // Attack the Target
+                // Face Target
+                FaceTarget();
+            }
+        }
+        // Update timers
+        if (model.attackTimer > 0)
+            model.attackTimer -= Time.deltaTime;
     }
-    private void GeneratePatrolDestination()
+    
+    void GoToNexPoint()
     {
-        if (navAgent == null || !navAgent.enabled)
-            return;
+        if (wayPoints.Length != 0)
+        {
+            currentWaypoints = (currentWaypoints + 1) % wayPoints.Length;
+            agent.SetDestination(wayPoints[currentWaypoints].position);
+        }
+    }
+    void FaceTarget()
+    {
+        Vector3 direction = (playerTransform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp (transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
 
-        // Men Generate patrol secara acak di dalam radius
-        //Vector3 randomDirection = Random.insideUnitSphere * enemyModel.patrolRadius;
-        //randomDirection.y = 0; // Melihat target pada sumbu Y yang sama
-        // Vector3 targetPosition = enemyModel.startPosition + randomDirection;
+    void Patrol()
+    {
 
-        NavMeshHit navHit;
-        //if (NavMesh.SamplePosition(targetPosition, out navHit, enemyModel.patrolRadius, NavMesh.AllAreas))
-        //{
-        //    enemyModel.currentDestination = navHit.position;
-        //    navAgent.SetDestination(enemyModel.currentDestination);
-        //}
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, model.detectionRange);
     }
 }
