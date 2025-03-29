@@ -65,15 +65,27 @@ public class MusicManager : MonoBehaviour
             timelerp = 0f;
             awakeningActive = true;
         }
-        
+
         if (!mechaPlayer.UsingAwakening)
         {
             awakeningActive = false;
             timelerp += Time.deltaTime / 2f;
             musicSource.volume = Mathf.Lerp(0f, 1f, timelerp);
-            awakeningSource.volume = Mathf.Lerp(1f , 0f, timelerp);
+            awakeningSource.volume = Mathf.Lerp(1f, 0f, timelerp);
         }
     }
+    void MusicWhenPause()
+    {
+        //if (gameMaster.isPaused)
+        //{
+        //    musicSource.volume = 0.5f;
+        //}
+        //else
+        //{
+        //    musicSource.volume = 1f;
+        //}
+    }
+
 
     void AudioMonitor()
     {
@@ -127,9 +139,9 @@ public class MusicManager : MonoBehaviour
     //    }
     //}
 
-
     void Update()
     {
+        MusicWhenPause();
         Invoke(nameof(AudioMonitor), (float)cutSceneManager.videoPlayer.clip.length - 4f);
         AwakeningMusicFlap();
         //AudioMonitor();

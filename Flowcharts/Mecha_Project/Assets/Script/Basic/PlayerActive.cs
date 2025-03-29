@@ -17,6 +17,7 @@ public class PlayerActive : MonoBehaviour
     public CameraActive CameraAct;
     public CombatVoiceActive combatVoiceAct;
     public MusicManager musicManager;
+    public CutSceneManager cutSceneManager;
 
     [Header("Player Set Up")]
     public Transform cameraPivot;
@@ -82,6 +83,7 @@ public class PlayerActive : MonoBehaviour
         anim = GetComponent<Animator>();
         cameraEffect = FindAnyObjectByType<CameraEffect>();
         combatVoiceAct = GetComponent<CombatVoiceActive>();
+        cutSceneManager = FindFirstObjectByType<CutSceneManager>();
     }
     private void Start()
     {
@@ -126,6 +128,8 @@ public class PlayerActive : MonoBehaviour
     }
     void Update()
     {
+        PauseControl();
+
         //Hukum Fisika COY
         ApplyGravity();
         SelectButtonPress();
@@ -635,6 +639,25 @@ public class PlayerActive : MonoBehaviour
             Mecha.skill2Time = 0;
             Mecha.readySkill2 = true;
         }
+
+        //skill Overlap
+        if (Mecha.usingSkill1)
+        {
+            skill2Action.Disable();
+        }
+        else
+        {
+            skill2Action.Enable();
+        }
+
+        if (Mecha.usingSkill2)
+        {
+            skill1Action.Disable();
+        }
+        else
+        {
+            skill1Action.Enable();
+        }
     }
     //Ultimate
     public IEnumerator UseUltimate()
@@ -685,15 +708,45 @@ public class PlayerActive : MonoBehaviour
             dashAction.Disable();
             boostAction.Disable();
             ultimateAction.Disable();
+            skill1Action.Disable();
+            skill2Action.Disable();
         }
         else
         {
             reloadAction.Enable();
             shootAction.Enable();
-            scopeAction.Enable(); 
-            dashAction.Enable(); 
+            scopeAction.Enable();
+            dashAction.Enable();
             boostAction.Enable();
             ultimateAction.Enable();
+        }
+    }
+
+    public void PauseControl()
+    {
+        if (GameMaster.isPaused || cutSceneManager.isPlaying)
+        {
+            skillBusy = true;
+            reloadAction.Disable();
+            shootAction.Disable();
+            scopeAction.Disable();
+            dashAction.Disable();
+            boostAction.Disable();
+            ultimateAction.Disable();
+            jumpAction.Disable();
+            skill1Action.Disable();
+            skill2Action.Disable();
+        }
+        else
+        {
+            skillBusy = false;
+            reloadAction.Enable();
+            shootAction.Enable();
+            scopeAction.Enable();
+            dashAction.Enable();
+            boostAction.Enable();
+            ultimateAction.Enable();
+            jumpAction.Enable();
         }
     }
 
