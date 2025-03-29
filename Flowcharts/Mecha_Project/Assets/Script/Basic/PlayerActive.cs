@@ -736,6 +736,7 @@ public class PlayerActive : MonoBehaviour
             jumpAction.Disable();
             skill1Action.Disable();
             skill2Action.Disable();
+            awakeningAction.Disable();
         }
         else
         {
@@ -747,6 +748,7 @@ public class PlayerActive : MonoBehaviour
             boostAction.Enable();
             ultimateAction.Enable();
             jumpAction.Enable();
+            awakeningAction.Enable();
         }
     }
 
