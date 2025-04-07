@@ -30,9 +30,12 @@ public class PlayerActive : MonoBehaviour
     public HashSet<string> enemyTags = new() { "Enemy", "Boss", "MiniBoss" };
     //public Material[] playerMaterial; //Material yanhg bisa berubah warna
     //private Color[] defaultColor;
+
+    [Header("Default Parameter")]
     private float defaultSpeed;
     private float dashSpeed;
     private int defaultAttack;
+    private int defaultUltDamage;
 
     [Header("HitBox")]
     public GameObject skill1HitBox;
@@ -121,6 +124,7 @@ public class PlayerActive : MonoBehaviour
         boostAction = gameInput.actions.FindAction("Boost");
         awakeningAction = gameInput.actions.FindAction("Awakening");
         
+        defaultUltDamage = Mecha.UltDamage;
         defaultAttack = Mecha.AttackPow;
         defaultSpeed = Mecha.defaultSpeed;
         dashSpeed = speed * 2; //DashMovement
@@ -207,7 +211,11 @@ public class PlayerActive : MonoBehaviour
         }
         else
         {
-            Mecha.AttackPow = defaultAttack;
+            if (!Mecha.isAttackUp)
+            {
+                Mecha.UltDamage = defaultUltDamage;
+                Mecha.AttackPow = defaultAttack;
+            }
             //foreach (var materials in playerMaterial)
             //{
             //    materials.color = Color.white;
