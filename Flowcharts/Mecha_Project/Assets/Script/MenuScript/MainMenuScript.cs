@@ -64,48 +64,35 @@ public class MainMenuScript : MonoBehaviour
         }
     }
 
-    void NewGameButton()
+    public void NewGameButton()
     {
-        
+
     }
 
-    void SettingButton()
+    public void SettingButton()
     {
         menuMaster.settingScreenActive = true;
+        Debug.Log("Setting Test");
     }
 
-    void GalleryButton()
+    public void GalleryButton()
     {
-       menuMaster.galleryScreenActive = true;
+        menuMaster.galleryScreenActive = true;
     }
 
-    void CreditButton()
+    public void CreditButton()
     {
         menuMaster.creditScreenActive = true;
     }
 
-    void BackButton()
+    public void BackButton()
     {
-        
+
     }
 
-    void ExitGameButton()
+    public void ExitGameButton()
     {
         Application.Quit();
-    }
-
-    void ButtonFunction()
-    {
-        if (buttonActive)
-        {
-            NewGameButton();
-            SettingButton();
-            GalleryButton();
-            CreditButton();
-            ExitGameButton();
-        }
-
-        BackButton();
     }
 
     private void Update()
@@ -113,6 +100,5 @@ public class MainMenuScript : MonoBehaviour
         AnimationManager();
         ButtonMonitoring();
         ButtonToggle();
-        ButtonFunction();
     }
 }

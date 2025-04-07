@@ -34,8 +34,9 @@ public class TittleScreen : MonoBehaviour
             isPressed = true;
             tittleButton.SetActive(false);
             tittleScreenAnim.Play("TittleScreenClose");
-            yield return new WaitForSeconds(tittleScreenAnim.clip.length + 0.5f);
+            yield return new WaitForSeconds(tittleScreenAnim.clip.length);
             menuMaster.tittleScreenActive = false;
+            menuMaster.mainmenuScreenActive = true;
             gameObject.SetActive(false); //tittle screen
         }
     }
