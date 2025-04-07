@@ -21286,6 +21286,10 @@ MonoBehaviour:
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
   voiceActive: {fileID: 0}
+  meshRenderer: {fileID: 0}
+  triggerParticle: {fileID: 0}
+  powerCollider: {fileID: 0}
+  UIMap: {fileID: 0}
 --- !u!135 &1316335940
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -23533,6 +23537,10 @@ MonoBehaviour:
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
   voiceActive: {fileID: 0}
+  meshRenderer: {fileID: 0}
+  triggerParticle: {fileID: 0}
+  powerCollider: {fileID: 0}
+  UIMap: {fileID: 0}
 --- !u!135 &1512993184
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -32452,6 +32460,10 @@ MonoBehaviour:
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
   voiceActive: {fileID: 0}
+  meshRenderer: {fileID: 0}
+  triggerParticle: {fileID: 0}
+  powerCollider: {fileID: 0}
+  UIMap: {fileID: 0}
 --- !u!135 &1934849871
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -32610,6 +32622,10 @@ MonoBehaviour:
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
   voiceActive: {fileID: 0}
+  meshRenderer: {fileID: 0}
+  triggerParticle: {fileID: 0}
+  powerCollider: {fileID: 0}
+  UIMap: {fileID: 0}
 --- !u!135 &1955618033
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -34268,6 +34284,10 @@ MonoBehaviour:
   Player: {fileID: 0}
   powerUpModel: {fileID: 0}
   voiceActive: {fileID: 0}
+  meshRenderer: {fileID: 0}
+  triggerParticle: {fileID: 0}
+  powerCollider: {fileID: 0}
+  UIMap: {fileID: 0}
 --- !u!135 &2086314464
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -36861,6 +36881,7 @@ MonoBehaviour:
   MaxHealth: 100000
   MinHealth: 0
   AttackPow: 100
+  isAttackUp: 0
   Awakening: 0
   MaxAwakening: 500
   MinAwakening: 0
@@ -36868,7 +36889,7 @@ MonoBehaviour:
   AwakeningDuration: 20
   UsingAwakening: 0
   awakeningReady: 0
-  awakeningAttack: 300
+  awakeningAttack: 400
   Ultimate: 0
   MaxUltimate: 100
   MinUltimate: 0

@@ -10,6 +10,10 @@ public class PowerUpItem : MonoBehaviour
     private float spinSpeed;
     //private Vector3 rotationAxis;
     public CombatVoiceActive voiceActive;
+    [SerializeField] MeshRenderer meshRenderer;
+    [SerializeField] GameObject triggerParticle;
+    [SerializeField] Collider powerCollider;
+    [SerializeField] GameObject UIMap;
 
     [Header("PowerUP Value")]
     private int AtkPowerUp; 
@@ -29,12 +33,18 @@ public class PowerUpItem : MonoBehaviour
 
     private void Awake()
     {
+        powerCollider = GetComponent<Collider>();
+        meshRenderer = GetComponent<MeshRenderer>();
         voiceActive = FindAnyObjectByType<CombatVoiceActive>();
         powerUpModel = FindFirstObjectByType<PowerUpModel>();
         Player = FindAnyObjectByType<MechaPlayer>();
     }
     private void Start()
     {
+        UIMap.SetActive(true);
+        powerCollider.enabled = true;
+        meshRenderer.enabled = true;
+        triggerParticle.SetActive(false);
         defaultAtk = Player.AttackPow;
         defaultDef = Player.Defence;
     }
@@ -65,7 +75,6 @@ public class PowerUpItem : MonoBehaviour
         }
         else
         {
-            //Player.AttackPow -= AtkPowerUp;
             Player.AttackPow = defaultAtk;
         }
     }
@@ -77,19 +86,20 @@ public class PowerUpItem : MonoBehaviour
         }
         else
         {
-            //Player.Defence -= DefPowerUp;
             Player.Defence = defaultDef;
         }
      }
 
     private void OnTriggerEnter(Collider other)
     {
+        triggerParticle.SetActive(true);
         if (other.CompareTag("Player"))
         {
             voiceActive.PowerUpGet();
             switch (Type)
             {
                 case TypePower.AttackUp:
+                    Player.isAttackUp = true;
                     isAtkUp = true;
                     AtkUp();
                     break;
@@ -107,7 +117,9 @@ public class PowerUpItem : MonoBehaviour
                     Player.Health += HPRegenUp;
                     break;
             }
-            gameObject.SetActive(false);
+            UIMap.SetActive(false);
+            powerCollider.enabled = false;
+            meshRenderer.enabled = false;
             Destroy(gameObject, EffectDuration);
         }
     }
@@ -117,19 +129,20 @@ public class PowerUpItem : MonoBehaviour
         switch (Type)
         {
             case TypePower.AttackUp:
-                 isAtkUp = false;
-                 AtkUp();
-                 break;
+                isAtkUp = false;
+                Player.isAttackUp = false;
+                AtkUp();
+                break;
             case TypePower.DefenceUp:
-                 isDefUp = false;
-                 DefUp();
-                 break;
+                isDefUp = false;
+                DefUp();
+                break;
             case TypePower.UltimateRegen:
-                 break;
+                break;
             case TypePower.EnergyRegen:
-                 break;
+                break;
             case TypePower.HeatlhRegen:
-                 break;
+                break;
         }
     }
 }

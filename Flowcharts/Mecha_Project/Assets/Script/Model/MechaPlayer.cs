@@ -10,6 +10,7 @@ public class MechaPlayer : MonoBehaviour
 
     [Header("Attack")]
     public int AttackPow;
+    public bool isAttackUp;
     //public float AttackSpd;
 
     [Header("Awakening Bar")]
