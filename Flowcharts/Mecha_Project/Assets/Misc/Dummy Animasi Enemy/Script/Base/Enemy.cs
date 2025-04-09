@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable
+public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable, ITriggerCheckable
 {
     [field: SerializeField] public float MaxHealth { get; set; } = 100f;
     public float CurrentHealth { get; set; }
@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable
     public EnemyIdleState IdleState { get; set; }
     public EnemyChaseState ChaseState { get; set; }
     public EnemyAttackState AttackState { get; set; }
+    public bool IsChased { get; set; }
+    public bool IsWithinAttackDistance { get; set; }
 
 
     #endregion
@@ -102,12 +104,26 @@ public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable
     }
     #endregion
 
+    #region Distance Checks
+    public void SetChaseStatus(bool isChased)
+    {
+        IsChased = isChased;
+    }
+
+    public void SetAttackDistancebool(bool isAttackDistance)
+    {
+        IsWithinAttackDistance = isAttackDistance;
+    }
+
+    #endregion
+
     #region Animation Triggers
 
     private void AnimationTriggerEvent(AnimationTriggerType triggerType)
     {
         StateMachine.CurrentEnemyState.AnimationTriggerEvent(triggerType);
     }
+
     public enum AnimationTriggerType
     {
         EnemyDamaged,
@@ -115,4 +131,13 @@ public class Enemy : MonoBehaviour, IDamageable, IEnemyMoveable
     }
 
     #endregion
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, 10f); // chase range
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 7.5f); // attack range
+    }
 }
