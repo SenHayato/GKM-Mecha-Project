@@ -7,12 +7,14 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] Animation mainMenuAnim;
     [SerializeField] MenuMaster menuMaster;
     [SerializeField] Button[] menuButton;
+    public AudioSource menuAudio;
 
     //flag
     bool animPlay;
 
     private void Awake()
     {
+        menuAudio = GetComponent<AudioSource>();
         menuMaster = FindFirstObjectByType<MenuMaster>();
         mainMenuAnim = GetComponent<Animation>();
     }
@@ -21,6 +23,7 @@ public class MainMenuScript : MonoBehaviour
     {
         menuButton = GetComponentsInChildren<Button>();
         animPlay = false;
+        menuAudio.enabled = true;
     }
 
     void ButtonMonitoring()
@@ -66,7 +69,8 @@ public class MainMenuScript : MonoBehaviour
 
     public void NewGameButton()
     {
-
+        menuMaster.newGameScreenActive = true;
+        menuAudio.volume = Mathf.Lerp(1f, 0f, Time.deltaTime / 0.005f);
     }
 
     public void SettingButton()
@@ -78,16 +82,13 @@ public class MainMenuScript : MonoBehaviour
     public void GalleryButton()
     {
         menuMaster.galleryScreenActive = true;
+        menuAudio.enabled = false;
     }
 
     public void CreditButton()
     {
         menuMaster.creditScreenActive = true;
-    }
-
-    public void BackButton()
-    {
-
+        menuAudio.enabled = false;
     }
 
     public void ExitGameButton()

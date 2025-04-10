@@ -6,11 +6,15 @@ public class MenuMaster : MonoBehaviour
 {
     public PlayerInput playerInput;
 
-    public GameObject tittleScreen, mainmenuScreen, settingScreen, creditScene, cgGallery;
+    public GameObject tittleScreen, mainmenuScreen, newGameScreen, settingScreen, creditScene, cgGallery;
+
+    [Header("Menu Script")]
+    [SerializeField] MainMenuScript mainMenuScript;
 
     [Header("Canvas Condition")]
     public bool tittleScreenActive;
     public bool mainmenuScreenActive;
+    public bool newGameScreenActive; //Tips Screen
     public bool settingScreenActive;
     public bool galleryScreenActive;
     public bool creditScreenActive;
@@ -29,6 +33,16 @@ public class MenuMaster : MonoBehaviour
         else
         {
             tittleScreen.SetActive(false);
+        }
+
+        //newGameScreen
+        if (newGameScreenActive)
+        {
+            newGameScreen.SetActive(true);
+        }
+        else
+        {
+            newGameScreen.SetActive(false);
         }
 
         //mainMenuScreen
@@ -71,6 +85,22 @@ public class MenuMaster : MonoBehaviour
             creditScene.SetActive(false);
         }
     }
+
+    public void BackButton() //Tombol kembali
+    {
+        mainmenuScreenActive = true;
+        if (!mainMenuScript.menuAudio.enabled)
+        {
+            mainMenuScript.menuAudio.enabled = true;
+        }
+
+        //tutup screen lain
+        creditScreenActive = false;
+        settingScreenActive = false;
+        galleryScreenActive = false;
+        newGameScreenActive = false;
+    }
+
 
     private void Update()
     {
