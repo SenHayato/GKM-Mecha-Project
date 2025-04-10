@@ -11,9 +11,11 @@ public class TittleScreen : MonoBehaviour
     [SerializeField] bool isPressed;
     [SerializeField] Animation tittleScreenAnim;
     [SerializeField] GameObject tittleButton;
+    [SerializeField] AudioSource tittleClickSFX;
 
     private void Awake()
     {
+        tittleClickSFX = GetComponent<AudioSource>();
         gameObject.SetActive(true);
         //playerInput = FindFirstObjectByType<PlayerInput>();
         menuMaster = FindFirstObjectByType<MenuMaster>();
@@ -32,6 +34,7 @@ public class TittleScreen : MonoBehaviour
         if (!isPressed && (Keyboard.current.anyKey.wasPressedThisFrame || Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame))
         {
             isPressed = true;
+            tittleClickSFX.Play();
             tittleButton.SetActive(false);
             tittleScreenAnim.Play("TittleScreenClose");
             yield return new WaitForSeconds(tittleScreenAnim.clip.length);
