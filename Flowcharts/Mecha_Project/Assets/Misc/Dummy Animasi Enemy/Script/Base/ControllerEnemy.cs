@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,7 +39,7 @@ public class ControllerEnemy : MonoBehaviour
     {
         float distance = Vector3.Distance(playerTransform.position, transform.position);
         // Patrolling
-        if (agent.remainingDistance < 0.5f)
+        if (agent.remainingDistance > 0.5f)
         {
             if (model.maxWaitingTime == 0)
                 model.maxWaitingTime = Random.Range(2, 6);
@@ -73,7 +74,12 @@ public class ControllerEnemy : MonoBehaviour
     
     void GoToNexPoint()
     {
-        if (wayPoints.Length != 0)
+        if (wayPoints.Length == 0 )
+        {
+            return;
+        }
+        float distanceToWayPoint = Vector3.Distance(wayPoints[currentWaypoints].position, transform.position);
+        if (distanceToWayPoint <= 3)
         {
             currentWaypoints = (currentWaypoints + 1) % wayPoints.Length;
             agent.SetDestination(wayPoints[currentWaypoints].position);
