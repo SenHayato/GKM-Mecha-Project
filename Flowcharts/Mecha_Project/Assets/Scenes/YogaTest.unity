@@ -5447,6 +5447,37 @@ Transform:
   - {fileID: 1139933509}
   m_Father: {fileID: 1174215414}
   m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
+--- !u!1 &62237030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 62237031}
+  m_Layer: 0
+  m_Name: WayPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &62237031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 62237030}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.92, y: 0.01, z: 4.355182}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &66899220
 GameObject:
   m_ObjectHideFlags: 0
@@ -22737,11 +22768,11 @@ Transform:
   m_GameObject: {fileID: 1678722988}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.754077, y: 0.01, z: 4.355182}
+  m_LocalPosition: {x: 11.120077, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 5969449893122906665}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1698823862
 GameObject:
@@ -33080,13 +33111,14 @@ Transform:
   m_GameObject: {fileID: 6457158700785582227}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.366, y: 0.01, z: 4.355182}
+  m_LocalPosition: {x: 0.5, y: 0.01, z: 6.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6261504613851358151}
   - {fileID: 8585096530516678918}
   - {fileID: 2199988353424423613}
+  - {fileID: 1678722989}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &6031903808927016840
@@ -33293,7 +33325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wayPoints:
   - {fileID: 103997973}
-  - {fileID: 1678722989}
+  - {fileID: 62237031}
 --- !u!114 &6457158700785582229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34671,7 +34703,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1174215414}
   - {fileID: 103997973}
-  - {fileID: 1678722989}
+  - {fileID: 62237031}
   - {fileID: 5969449893122906665}
   - {fileID: 630854457}
   - {fileID: 763489653}
