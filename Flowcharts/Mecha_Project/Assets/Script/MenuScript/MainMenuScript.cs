@@ -70,7 +70,7 @@ public class MainMenuScript : MonoBehaviour
     public void NewGameButton()
     {
         menuMaster.newGameScreenActive = true;
-        menuAudio.volume = Mathf.Lerp(1f, 0f, Time.deltaTime / 0.005f);
+        menuAudio.volume = Mathf.Lerp(1f, 0.2f, Time.deltaTime / 0.005f);
     }
 
     public void SettingButton()
