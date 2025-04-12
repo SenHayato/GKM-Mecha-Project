@@ -11,6 +11,7 @@ public class ControllerEnemy : MonoBehaviour
     private AIState currentState = AIState.Idle;
 
     // Components
+    public LayerMask hitLayer;
     private NavMeshAgent agent;
     private Transform playerTransform;
     private EnemyModel model;
@@ -28,7 +29,7 @@ public class ControllerEnemy : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         model = GetComponent<EnemyModel>();
-        playerTransform = GameObject.FindGameObjectWithTag("Player")?.transform;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         currentWaypoints = -1;
 
         GoToNexPoint();
@@ -39,10 +40,10 @@ public class ControllerEnemy : MonoBehaviour
     {
         float distance = Vector3.Distance(playerTransform.position, transform.position);
         // Patrolling
-        if (agent.remainingDistance > 0.5f)
+        if (agent.remainingDistance < 0.5f)
         {
             if (model.maxWaitingTime == 0)
-                model.maxWaitingTime = Random.Range(2, 6);
+                model.maxWaitingTime = 5f;
 
             if (model.patrolWaitTime >= model.maxWaitingTime)
             {
@@ -74,12 +75,7 @@ public class ControllerEnemy : MonoBehaviour
     
     void GoToNexPoint()
     {
-        if (wayPoints.Length == 0 )
-        {
-            return;
-        }
-        float distanceToWayPoint = Vector3.Distance(wayPoints[currentWaypoints].position, transform.position);
-        if (distanceToWayPoint <= 3)
+        if (wayPoints.Length != 0 )
         {
             currentWaypoints = (currentWaypoints + 1) % wayPoints.Length;
             agent.SetDestination(wayPoints[currentWaypoints].position);
@@ -89,10 +85,47 @@ public class ControllerEnemy : MonoBehaviour
     {
         Vector3 direction = (playerTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp (transform.rotation, lookRotation, Time.deltaTime * 5f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
-    void Patrol()
+    void AttackRanged()
+    {
+        model.isAttacking = true;
+        if(model.enemyType == EnemyType.EnemyRange)
+        {
+            Vector3 targetPoint;
+            Vector3 attackOrigin = transform.position + Vector3.up * 1.5f;
+            Vector3 directionToPlayer = (playerTransform.position + Vector3.up * 1.0f - attackOrigin).normalized;
+            RaycastHit hit;
+
+            Debug.DrawRay(attackOrigin, 3 * model.attackRange * directionToPlayer, Color.magenta, 1.0f);
+
+           if (Physics.Raycast(attackOrigin, directionToPlayer, out hit, model.attackRange * 8, hitLayer)){
+                targetPoint = hit.point;
+
+                if (hit.collider.CompareTag("Player"))
+                {
+                    hit.collider.gameObject.TryGetComponent<PlayerActive>(out var playerActive);
+                    if(playerActive != null)
+                    {
+                        playerActive.TakeDamage(model.attackPower);
+                        Debug.Log($"Range attack hit player for {model.attackPower} damage");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Player hit but no PlayerHealth component found");
+                    }
+                }
+            }
+            else
+            {
+                //targetPoint = attackOrigin + (directionToPlayer * model.attackRange * 3);
+            }
+           //StartCoroutine(ResetAttack());
+        }
+    }
+
+    void ResetAttack()
     {
 
     }

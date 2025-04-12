@@ -24737,6 +24737,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 0
   wayPoints: []
 --- !u!114 &1933122973
 MonoBehaviour:
@@ -33323,6 +33326,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 0
   wayPoints:
   - {fileID: 103997973}
   - {fileID: 62237031}
@@ -33381,7 +33387,7 @@ MonoBehaviour:
   fieldOfViewColor: {r: 1, g: 1, b: 0, a: 0.2}
   patrolRadius: 15
   patrolWaitTime: 2
-  maxWaitingTime: 0
+  maxWaitingTime: 5
   startPosition: {x: 0, y: 0, z: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   destinationChangeTimer: 0
@@ -34541,6 +34547,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 0
   wayPoints: []
 --- !u!114 &8976015907341135821
 MonoBehaviour:
