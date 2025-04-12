@@ -8,6 +8,7 @@ public class MusicManager : MonoBehaviour
 {
     [SerializeField] GameMaster gameMaster;
     //[SerializeField] MechaPlayer mechaPlayer;
+    [SerializeField] AudioSource jingleSource;
     [SerializeField] AudioSource musicSource;
     [SerializeField] GameObject musicObj;
     [SerializeField] CutSceneManager cutSceneManager;
@@ -20,6 +21,12 @@ public class MusicManager : MonoBehaviour
     [SerializeField] AudioClip dessertStageBGMAlter;
     [SerializeField] AudioClip finalStageBGM;
     [SerializeField] AudioClip finalStageBGMAlter;
+
+    [Header("Game Jingle")]
+    [SerializeField] AudioClip gameStart;
+    [SerializeField] AudioClip gameEnd1;
+    [SerializeField] AudioClip gameEnd2;
+    [SerializeField] AudioClip gameEnd3;
 
     [Header("Music SetUp")]
     [SerializeField] AudioMixer bgmMixer;

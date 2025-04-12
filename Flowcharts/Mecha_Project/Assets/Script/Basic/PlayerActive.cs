@@ -780,8 +780,8 @@ public class PlayerActive : MonoBehaviour
     {
         Mecha.PlayerPosition = playerPosition;
     }
-    public void ToLoseCG()
-    {
-        GameMaster.LosingScreen();
-    }
+    //public void ToLoseCG()
+    //{
+    //    GameMaster.LosingScreen();
+    //}
 }
