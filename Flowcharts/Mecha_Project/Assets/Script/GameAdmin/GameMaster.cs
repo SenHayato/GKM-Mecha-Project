@@ -125,6 +125,7 @@ public class GameMaster : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
             fadeOut.SetActive(true);
+            //LosingScreen();
         }
     }
     public void LosingScreen()
