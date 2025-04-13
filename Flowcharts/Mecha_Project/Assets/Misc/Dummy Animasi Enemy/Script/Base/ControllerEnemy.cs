@@ -16,6 +16,7 @@ public class ControllerEnemy : MonoBehaviour
     private Transform playerTransform;
     private EnemyModel model;
     private EnemyActive active;
+    Animator anim;
 
     [SerializeField]
     private Transform[] wayPoints;
@@ -31,6 +32,7 @@ public class ControllerEnemy : MonoBehaviour
         model = GetComponent<EnemyModel>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         currentWaypoints = -1;
+        anim = GetComponent<Animator>();
 
         GoToNexPoint();
 
@@ -38,6 +40,7 @@ public class ControllerEnemy : MonoBehaviour
 
     private void Update()
     {
+        anim.SetFloat("Speed", agent.velocity.magnitude);
         float distance = Vector3.Distance(playerTransform.position, transform.position);
         // Patrolling
         if (agent.remainingDistance < 0.5f)
