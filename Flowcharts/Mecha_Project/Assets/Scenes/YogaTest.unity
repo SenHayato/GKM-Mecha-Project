@@ -31047,7 +31047,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6457158700785582227}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: c4a6a6fc6f468c945a85e4e77894487e, type: 3}
   m_Controller: {fileID: 9100000, guid: ad2ed5236e064d942b34ccccbe41a719, type: 2}
   m_CullingMode: 1
@@ -33301,6 +33301,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5969449893122906665}
+  - component: {fileID: 6457158700785582233}
   - component: {fileID: 6457158700785582230}
   - component: {fileID: 6457158700785582229}
   - component: {fileID: 6457158700785582228}
@@ -33449,6 +33450,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6457158700785582233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6457158700785582227}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7b09c5aa77403b46905f99644af2aad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransform: {fileID: 1174215414}
 --- !u!1 &6509960876991456200
 GameObject:
   m_ObjectHideFlags: 0
