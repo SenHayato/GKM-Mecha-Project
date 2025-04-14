@@ -19,6 +19,8 @@ public class WeaponRaycast : MonoBehaviour
     HashSet<string> enemyTags;
 
     [Header("Weapon Atribut")]
+    [SerializeField]Transform pointToShoot;
+    [SerializeField] Ray ray;
     [Range(0f, 10f)] public float recoilValueX;
     [Range(0f, 10f)] public float recoilValueY;
     [Range(0f, 10f)] public float recoilSpeed;
@@ -101,6 +103,22 @@ public class WeaponRaycast : MonoBehaviour
         mechaPlayer.Awakening = Mathf.Clamp(mechaPlayer.Awakening, mechaPlayer.MinAwakening, mechaPlayer.MaxAwakening);
     }
 
+    void RayChange()
+    {
+        Vector3 screenCenter = new(Screen.width / 2, Screen.height / 2, 0);
+        Ray centerRay = mainCamera.ScreenPointToRay(screenCenter);
+        Vector3 direction = (centerRay.direction).normalized;
+
+        if (mechaPlayer.isAiming)
+        {
+            ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        }
+        else
+        {
+            ray = new(pointToShoot.position, direction);
+        }
+    }
+
     public IEnumerator FireShoot()
     {
         if (!canShoot || isReloading || ammo <= 0) yield break;
@@ -108,14 +126,13 @@ public class WeaponRaycast : MonoBehaviour
         canShoot = false;
         ammo--;
 
-        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         StartCoroutine(cameraAct.RecoilEffect());
         Vector3 targetPoint;
+        //Debug.DrawRay(pointToShoot.position, pointToShoot.forward, Color.green);
 
         if (Physics.Raycast(ray, out RaycastHit hit, range, hitLayers))
         {
             targetPoint = hit.point;
-
             if (enemyTags.Contains(hit.collider.tag))
             {
                 if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
@@ -138,13 +155,11 @@ public class WeaponRaycast : MonoBehaviour
             if (hitEffect != null)
             {
                 Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                HUDManager.hitEffect.color = Color.white;
                 Debug.Log("Tembakan kena target!");
             }
         }
         else
         {
-            HUDManager.hitEffect.color = Color.white;
             targetPoint = ray.GetPoint(range);
         }
         StartCoroutine(BulletTrailEffect(targetPoint));
@@ -195,6 +210,7 @@ public class WeaponRaycast : MonoBehaviour
 
     private void Update()
     {
+        RayChange();
         SoundMonitor();
         RecoilAdjust();
         AwakeningMonitor();
