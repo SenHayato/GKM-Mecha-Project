@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -23,7 +20,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] AudioClip finalStageBGMAlter;
 
     [Header("Game Jingle")]
-    [SerializeField] AudioClip gameStart;
+    //[SerializeField] AudioClip gameStart;
     [SerializeField] AudioClip gameEnd1;
     [SerializeField] AudioClip gameEnd2;
     [SerializeField] AudioClip gameEnd3;
@@ -39,9 +36,11 @@ public class MusicManager : MonoBehaviour
 
     //check
     bool wasPlaying = false;
+    bool musicTransition = false;
     GameObject bossObj;
     EnemyModel bossModel;
-    [SerializeField] float timelerp = 0;
+    [SerializeField] float timelerp = 0f;
+    float musicLerp = 0f;
     void Awake()
     {
         gameMaster = GetComponent<GameMaster>();
@@ -76,23 +75,25 @@ public class MusicManager : MonoBehaviour
         if (!mechaPlayer.UsingAwakening)
         {
             awakeningActive = false;
-            timelerp += Time.deltaTime / 2f;
-            musicSource.volume = Mathf.Lerp(0f, 1f, timelerp);
             awakeningSource.volume = Mathf.Lerp(1f, 0f, timelerp);
+            if (!musicTransition)
+            {
+                timelerp += Time.deltaTime / 2f;
+                musicSource.volume = Mathf.Lerp(0f, 1f, timelerp);
+            }
         }
     }
-    void MusicWhenPause()
-    {
-        //if (gameMaster.isPaused)
-        //{
-        //    musicSource.volume = 0.5f;
-        //}
-        //else
-        //{
-        //    musicSource.volume = 1f;
-        //}
-    }
-
+    //void MusicWhenPause()
+    //{
+    //    //if (gameMaster.isPaused)
+    //    //{
+    //    //    musicSource.volume = 0.5f;
+    //    //}
+    //    //else
+    //    //{
+    //    //    musicSource.volume = 1f;
+    //    //}
+    //}
 
     void AudioMonitor()
     {
@@ -105,20 +106,31 @@ public class MusicManager : MonoBehaviour
                 musicSource.clip = cityStageBGM;
                 break;
             case StageType.Stage2: // Dessert Stage
-                //AudioClip newClip;
-                //if (gameMaster.timer < 60f)
-                //{
-                //    newClip = dessertStageBGMAlter;
-                //}
-                //else
-                //{
-                //    newClip = dessertStageBGM;
-                //}
+                if (gameMaster.timer <= 63f && gameMaster.timer >= 60f)
+                {
+                    Debug.Log("Asu");
+                    musicTransition = true;
+                    if (musicSource.volume > 0f)
+                    {
+                        musicLerp += Time.deltaTime / 2f;
+                        musicSource.volume = Mathf.Lerp(1f, 0f, musicLerp);
+                    }
+                }
+                else
+                {
+                    musicTransition = false;
+                }
+
                 AudioClip newClip = gameMaster.timer <= 60f ? dessertStageBGMAlter : dessertStageBGM;
+
                 if (musicSource.clip != newClip)
                 {
                     musicSource.clip = newClip;
                     musicSource.Play();
+                    if (!mechaPlayer.UsingAwakening)
+                    {
+                        musicSource.volume = 1f;
+                    }
                 }
                 break;
             case StageType.StageBoss: //Dessert Stage Final
@@ -138,6 +150,29 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    void GameFinish()
+    {
+        if (gameMaster.gameFinish)
+        {
+            switch (gameMaster.StageType)
+            {
+                case StageType.StageTutorial:
+                    jingleSource.clip = gameEnd1;
+                    break;
+                case StageType.Stage1:
+                    jingleSource.clip = gameEnd1;
+                    break;
+                case StageType.Stage2:
+                    jingleSource.clip = gameEnd2;
+                    break;
+                case StageType.StageBoss:
+                    jingleSource.clip = gameEnd3;
+                    break;
+            }
+            jingleSource.enabled = true;
+        }
+    }
+
     //void MusicPlay()
     //{
     //    if (isPlaying && !wasPlaying)
@@ -148,9 +183,10 @@ public class MusicManager : MonoBehaviour
 
     void Update()
     {
-        MusicWhenPause();
+        GameFinish();
         Invoke(nameof(AudioMonitor), (float)cutSceneManager.videoPlayer.clip.length - 4f);
         AwakeningMusicFlap();
+        //MusicWhenPause();
         //AudioMonitor();
         //MusicPlay();
     }

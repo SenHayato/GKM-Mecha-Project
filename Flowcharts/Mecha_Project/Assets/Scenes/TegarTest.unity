@@ -355,7 +355,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: 
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!64 &21968370
@@ -653,7 +652,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: 
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!82 &28285280
@@ -1268,7 +1266,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: 
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!82 &72811765
@@ -2807,7 +2804,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: Tutorial
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!82 &335384390
@@ -11891,7 +11887,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -12419,7 +12415,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: 
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!64 &874751371
@@ -12989,7 +12984,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: 
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!64 &924532612
@@ -13809,7 +13803,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: 
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!82 &1010405492
@@ -20481,7 +20474,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: 
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!64 &1256387433
@@ -20704,23 +20696,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31dac20fcfa9304695e71770e9bdc0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageType: 2
+  StageType: 3
   QuestText: 
   checkPointReach: 0
   PauseMenu: {fileID: 1605250513}
   playerInput: {fileID: 0}
   Player: {fileID: 0}
   HUDManager: {fileID: 0}
-  isPaused: 1
+  isPaused: 0
+  gameFinish: 0
   input: {fileID: 0}
+  NextScene: YogaTest
+  gameWin: 0
   WinScreen: OutroCG
+  gameLose: 0
   LoseScreen: LoseScreen
   MainMenu: TittleScreen
   fadeIn: {fileID: 64398751}
   fadeOut: {fileID: 470513228}
   KillCount: 0
   timer: 0
-  defaultTimer: 120
+  defaultTimer: 70
   timeFormat: 
   countdown: 0
   MechaData: {fileID: 0}
@@ -20800,7 +20796,6 @@ MonoBehaviour:
   dessertStageBGMAlter: {fileID: 8300000, guid: e74dce34d1d21344b902e11e16c548e1, type: 3}
   finalStageBGM: {fileID: 8300000, guid: a782012fa5880c8449a99f621dc1a116, type: 3}
   finalStageBGMAlter: {fileID: 8300000, guid: bf713d6ee39c43646a2cfa9729cf7091, type: 3}
-  gameStart: {fileID: 0}
   gameEnd1: {fileID: 0}
   gameEnd2: {fileID: 0}
   gameEnd3: {fileID: 0}
@@ -23185,7 +23180,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: 
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!82 &1477916642
@@ -30853,7 +30847,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: Tutorial
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!82 &1788211361
@@ -31223,7 +31216,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 127
+  Priority: 180
   DopplerLevel: 1
   MinDistance: 1.6001499
   MaxDistance: 500
@@ -31380,7 +31373,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 125
+  Priority: 20
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -31933,7 +31926,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: 
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!82 &1882560374
@@ -32748,7 +32740,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: 
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!64 &1976791001
@@ -33563,7 +33554,6 @@ MonoBehaviour:
   checkPointDuration: 1
   meshRenderer: {fileID: 0}
   pointCollider: {fileID: 0}
-  NextSceneName: 
   HUDManager: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!82 &2037235296

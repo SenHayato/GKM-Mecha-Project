@@ -16,9 +16,15 @@ public class GameMaster : MonoBehaviour
     public PlayerInput playerInput;
     public GameObject Player;
     public HUDGameManager HUDManager;
-    public bool isPaused;
+    public bool isPaused = false;
+    public bool gameFinish = false;
     public PlayerInput input;
+    public string NextScene;
+
+    [Header("GameFinish Condition")]
+    public bool gameWin = false;
     public string WinScreen;
+    public bool gameLose = false;
     public string LoseScreen;
     public string MainMenu;
 
@@ -45,6 +51,10 @@ public class GameMaster : MonoBehaviour
     [Header("Reference")]
     [SerializeField] CutSceneManager cutSceneManager;
 
+    //flag
+    GameObject bossObject;
+    EnemyModel bossModel;
+
     private void Awake()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -60,7 +70,6 @@ public class GameMaster : MonoBehaviour
     {
         fadeIn.SetActive(true);
         fadeOut.SetActive(false);
-        isPaused = false;
         PlayerHealth = MechaData.Health;
         timer = defaultTimer;
         HUDManager.questUIAnim.Play("QuestInfoIn");
@@ -84,6 +93,8 @@ public class GameMaster : MonoBehaviour
                 }
                 break;
             case StageType.StageBoss:
+                bossObject = GameObject.FindGameObjectWithTag("Boss");
+                bossModel = bossObject.GetComponent<EnemyModel>();
                 QuestText = "Ini stage Boss";
                 countdown = false;
                 break;
@@ -119,13 +130,26 @@ public class GameMaster : MonoBehaviour
     //    transform.position = Player.transform.position;
     //    Debug.Log("LoadData");
     //}
+
     IEnumerator TransitionManager()
     {
-        if (MechaData.isDeath)
+        if (gameFinish)
         {
-            yield return new WaitForSeconds(1f);
             fadeOut.SetActive(true);
-            //LosingScreen();
+            yield return new WaitForSeconds(7f);
+            if (NextScene != null && gameWin)
+            {
+                LoadNextStage(NextScene);
+            }
+            else
+            {
+                LoadNextStage(WinScreen);
+            }
+
+            if (gameLose)
+            {
+                LoadNextStage(LoseScreen);
+            }
         }
     }
     public void LosingScreen()
@@ -146,6 +170,27 @@ public class GameMaster : MonoBehaviour
     public void LoadNextStage(string SceneName)
     {
         SceneManager.LoadScene(SceneName);
+    }
+
+    void StageMonitor()
+    {
+        switch (StageType)
+        {
+            case StageType.Stage2:
+                if (timer <= 0 && !MechaData.isDeath)
+                {
+                    gameFinish = true;
+                    gameWin = true;
+                }
+                break;
+            case StageType.StageBoss:
+                if (bossModel.health <= 0)
+                {
+                    gameFinish = true;
+                    gameWin = true;
+                }
+                break;
+        }
     }
 
     public void Timer()
@@ -240,6 +285,7 @@ public class GameMaster : MonoBehaviour
         {
             playerInput.enabled = false;
         }
+        StageMonitor();
     }
 
 }
