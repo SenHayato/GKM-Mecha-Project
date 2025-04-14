@@ -13,7 +13,6 @@ public class Stage1CheckPointScript : MonoBehaviour
     [SerializeField] private float checkPointDuration; //Destroy Duration
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Collider pointCollider;
-    [SerializeField] private string NextSceneName;
     [SerializeField] private HUDGameManager HUDManager;
     [SerializeField] private AudioSource audioSource;
 
@@ -75,16 +74,9 @@ public class Stage1CheckPointScript : MonoBehaviour
         }
         else
         {
-            if (NextSceneName != null)
-            {
-                LoadNextStage();
-            }
+            gameMaster.gameFinish = true;
+            gameMaster.gameWin = true;
         }
-    }
-
-    private void LoadNextStage()
-    {
-        SceneManager.LoadScene(NextSceneName);
     }
 
     // Update is called once per frame

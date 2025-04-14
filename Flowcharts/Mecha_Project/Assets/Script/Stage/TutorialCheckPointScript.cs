@@ -14,7 +14,6 @@ public class TurotialCheckPointScript : MonoBehaviour
     [SerializeField] private float checkPointDuration; //Destroy Duration
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Collider pointCollider;
-    [SerializeField] private string NextSceneName;
     [SerializeField] private HUDGameManager HUDManager;
     [SerializeField] private AudioSource audioSource;
     //[SerializeField] private Material pointMaterial;
@@ -77,16 +76,9 @@ public class TurotialCheckPointScript : MonoBehaviour
         }
         else
         {
-            if (NextSceneName != null)
-            {
-                LoadNextStage();
-            }
+            gameMaster.gameFinish = true;
+            gameMaster.gameWin = true;
         }
-    }
-
-    private void LoadNextStage()
-    {
-        SceneManager.LoadScene(NextSceneName);
     }
 
     private void Update()

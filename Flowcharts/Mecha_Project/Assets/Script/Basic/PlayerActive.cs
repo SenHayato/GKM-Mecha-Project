@@ -624,6 +624,8 @@ public class PlayerActive : MonoBehaviour
                 Time.timeScale = 0.5f;
                 speed = 0f;
                 anim.SetBool("IsDeath", true);
+                GameMaster.gameLose = true;
+                GameMaster.gameFinish = true;
                 //Invoke(nameof(ToLoseCG), 5f);
             }
             else
