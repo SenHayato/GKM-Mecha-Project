@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -40,7 +41,7 @@ public class ControllerEnemy : MonoBehaviour
 
     private void Update()
     {
-        anim.SetFloat("Speed", agent.velocity.magnitude);
+        
         float distance = Vector3.Distance(playerTransform.position, transform.position);
         // Patrolling
         if (agent.remainingDistance < 0.5f)
@@ -62,6 +63,7 @@ public class ControllerEnemy : MonoBehaviour
         // Memaksa Enemy untuk menghadap player jika dalam keadaan mengejar
         if (distance <= model.detectionRange)
         {
+
             agent.SetDestination(playerTransform.position);
 
             if(distance <= agent.stoppingDistance)
@@ -74,6 +76,8 @@ public class ControllerEnemy : MonoBehaviour
         // Update timers
         if (model.attackTimer > 0)
             model.attackTimer -= Time.deltaTime;
+
+        anim.SetFloat("Speed", agent.velocity.magnitude);
     }
     
     void GoToNexPoint()
