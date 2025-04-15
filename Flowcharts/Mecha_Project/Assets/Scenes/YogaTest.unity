@@ -7298,6 +7298,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 189710522}
   cameraAct: {fileID: 0}
   HUDManager: {fileID: 0}
+  pointToShoot: {fileID: 0}
   recoilValueX: 1
   recoilValueY: 0.5
   recoilSpeed: 1
@@ -24258,8 +24259,12 @@ MonoBehaviour:
   Player: {fileID: 0}
   HUDManager: {fileID: 0}
   isPaused: 1
+  gameFinish: 0
   input: {fileID: 0}
+  NextScene: 
+  gameWin: 0
   WinScreen: OutroCG
+  gameLose: 0
   LoseScreen: LoseScreen
   MainMenu: TittleScreen
   fadeIn: {fileID: 0}
@@ -25924,6 +25929,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 698929847}
   cameraAct: {fileID: 0}
   HUDManager: {fileID: 0}
+  pointToShoot: {fileID: 0}
   recoilValueX: 1
   recoilValueY: 0.5
   recoilSpeed: 1
@@ -34010,7 +34016,7 @@ MonoBehaviour:
   deathCollider: {fileID: 0}
   UIHealth: {fileID: 5063763593428789038}
   speed: 3.5
-  stoppingDistance: 1.5
+  stoppingDistance: 5
   hitSound: {fileID: 0}
   isHit: 0
 --- !u!114 &6457158700785582230
