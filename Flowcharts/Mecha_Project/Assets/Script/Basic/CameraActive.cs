@@ -1,6 +1,5 @@
-﻿using Microsoft.Win32.SafeHandles;
-using System.Collections;
-using UnityEditor.Experimental.GraphView;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,19 +8,22 @@ public class CameraActive : MonoBehaviour
     public GameObject Player;
     //public GameObject Camera;
     public WeaponRaycast weaponSkrip;
+    [SerializeField] LayerMask collisionLayers;
 
     [Header("CameraPivotPost")]
-    public Transform cameraPivot;
+    public Transform cameraPivot; //posisi disamakan dengan player
     public Transform cameraAimPost;
     public Transform cameraMainPost;
-    public Transform cameraParent; //untuk akses player active saja
+    [SerializeField] Transform defaultMainPost;
+    //public Transform cameraParent; //untuk akses player active saja
 
     [Header("Reference")]
     public PlayerInput cameraControl;
     public PlayerActive PlayerAct;
     public GameObject MainCameraOBJ;
     public Camera MainCamera;
-    private MechaPlayer Mecha;
+    [SerializeField] MechaPlayer Mecha;
+    [SerializeField] GameObject collisionPoint;
     InputAction lookAction;
 
     [Header("ScopeCamera")]
@@ -32,6 +34,8 @@ public class CameraActive : MonoBehaviour
     public float rotationSpeed;
     Vector2 lookInput;
     public Quaternion defaultCamRot;
+    [SerializeField, Range(0f, 5f)] float collisionOffset;
+    [SerializeField, Range(0f, 20f)] float offsetSmooth;
     
     //Flag
     private Vector3 currentRecoil;
@@ -45,12 +49,32 @@ public class CameraActive : MonoBehaviour
         Mecha = FindAnyObjectByType<MechaPlayer>();
         cameraControl = FindAnyObjectByType<PlayerInput>();
         PlayerAct = Player.GetComponent<PlayerActive>();
+        collisionPoint = GameObject.FindGameObjectWithTag("CollisionPoint");
     }
     private void Start()
     {
         MainCamera = MainCameraOBJ.GetComponentInChildren<Camera>();
         lookAction = cameraControl.actions.FindAction("Look");
         MainCamera.transform.position = cameraMainPost.transform.position;
+    }
+
+    public void CameraCollision()
+    {
+        Vector3 targetPosition;
+        if (Physics.Linecast(defaultMainPost.transform.position, collisionPoint.transform.position, out RaycastHit hitinfo, collisionLayers))
+        {
+            Debug.DrawLine(defaultMainPost.transform.position, collisionPoint.transform.position, Color.green);
+            Debug.Log("Camera nabrak");
+
+            Vector3 offset = new(0f, 0f, collisionOffset); //Agar tidak terlalu masuk ke dalam
+            targetPosition = hitinfo.point + offset;
+            cameraMainPost.transform.position = targetPosition;
+        }
+        else
+        {
+            targetPosition = defaultMainPost.transform.position;
+        }
+        cameraMainPost.transform.position = Vector3.Lerp(cameraMainPost.transform.position, targetPosition, Time.deltaTime * offsetSmooth);
     }
 
     public void ScopeCamera()
@@ -76,6 +100,7 @@ public class CameraActive : MonoBehaviour
                 currentLerpTime = 0f;
                 isAiming = false;
             }
+
             currentLerpTime += Time.deltaTime / lerpDuration;
             currentLerpTime = Mathf.Clamp01(currentLerpTime);
             MainCamera.fieldOfView = Mathf.Lerp(scopeFOV, defaultFOV, Mathf.SmoothStep(0f, 1f, currentLerpTime));
@@ -120,7 +145,6 @@ public class CameraActive : MonoBehaviour
             yield return null;
         }
 
-        // Waktu turun (bisa dikurangi agar terasa lebih tajam)
         yield return new WaitForSeconds(1f);
         elapsedTime = 0f;
 
@@ -168,6 +192,7 @@ public class CameraActive : MonoBehaviour
 
     private void Update()
     {
+        CameraCollision();
         SamePosition();
         CameraRotation();
     }

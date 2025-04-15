@@ -91,7 +91,7 @@ public class PlayerActive : MonoBehaviour
     private void Start()
     {
         playerPosition = GetComponent<Transform>();
-        cameraPivot = CameraAct.cameraParent;
+        //cameraPivot = CameraAct.cameraParent;
         skill1HitBox.SetActive(false);
         skill2HitBox.SetActive(false);
         ultimateHitBox.SetActive(false);
