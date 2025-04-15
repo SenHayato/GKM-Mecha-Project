@@ -1583,7 +1583,7 @@ GameObject:
   - component: {fileID: 115393190}
   - component: {fileID: 115393189}
   - component: {fileID: 115393188}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: ScopeEfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8271,11 +8271,14 @@ MonoBehaviour:
   MainCameraOBJ: {fileID: 1183995289}
   MainCamera: {fileID: 0}
   Mecha: {fileID: 0}
+  collisionPoint: {fileID: 0}
   defaultFOV: 60
   scopeFOV: 55
   boostFOV: 75
   rotationSpeed: 80
   defaultCamRot: {x: 0.11320321, y: 0, z: 0, w: 0.9935719}
+  collisionOffset: 1.49
+  offsetSmooth: 3.6
 --- !u!114 &382303086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8505,7 +8508,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 8127
+    m_Bits: 16319
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -8944,7 +8947,7 @@ GameObject:
   - component: {fileID: 501867705}
   - component: {fileID: 501867704}
   - component: {fileID: 501867708}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: CriticalEfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9635,7 +9638,7 @@ GameObject:
   - component: {fileID: 573788135}
   - component: {fileID: 573788134}
   - component: {fileID: 573788138}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: HitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9774,7 +9777,7 @@ GameObject:
   - component: {fileID: 574204862}
   - component: {fileID: 574204861}
   - component: {fileID: 574204860}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: UltimateEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10603,7 +10606,7 @@ GameObject:
   - component: {fileID: 678722267}
   - component: {fileID: 678722268}
   - component: {fileID: 678722269}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: BoostEfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11046,7 +11049,7 @@ GameObject:
   - component: {fileID: 712281721}
   m_Layer: 3
   m_Name: ShootPoint
-  m_TagString: Untagged
+  m_TagString: ShootPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14545,7 +14548,7 @@ GameObject:
   - component: {fileID: 1113583144}
   - component: {fileID: 1113583143}
   - component: {fileID: 1113583142}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: AwakeningEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14935,7 +14938,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1183995289}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -22819,6 +22822,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1447547150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1447547151}
+  m_Layer: 3
+  m_Name: CollisionPoint
+  m_TagString: CollisionPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1447547151
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447547150}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.285, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4620144013182552013}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1457219500
 GameObject:
   m_ObjectHideFlags: 0
@@ -33021,7 +33055,7 @@ MonoBehaviour:
   lineRenderer: {fileID: 505289642}
   cameraAct: {fileID: 0}
   HUDManager: {fileID: 0}
-  pointToShoot: {fileID: 712281719}
+  pointToShoot: {fileID: 0}
   recoilValueX: 1
   recoilValueY: 0.5
   recoilSpeed: 1
@@ -36415,6 +36449,7 @@ Transform:
   - {fileID: 1815425197}
   - {fileID: 1224112664}
   - {fileID: 505751231}
+  - {fileID: 1447547151}
   - {fileID: 712281719}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

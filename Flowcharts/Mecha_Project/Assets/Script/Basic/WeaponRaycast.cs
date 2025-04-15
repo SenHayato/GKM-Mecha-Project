@@ -19,7 +19,7 @@ public class WeaponRaycast : MonoBehaviour
     HashSet<string> enemyTags;
 
     [Header("Weapon Atribut")]
-    [SerializeField]Transform pointToShoot;
+    [SerializeField] Transform pointToShoot;
     [SerializeField] Ray ray;
     [Range(0f, 10f)] public float recoilValueX;
     [Range(0f, 10f)] public float recoilValueY;
@@ -47,6 +47,7 @@ public class WeaponRaycast : MonoBehaviour
 
     private void Awake()
     {
+        pointToShoot = GameObject.FindGameObjectWithTag("ShootPoint").transform;
         mechaPlayer = GetComponentInParent<MechaPlayer>();
         playerSkrip = GetComponentInParent<PlayerActive>();
         mainCamera = Camera.main;

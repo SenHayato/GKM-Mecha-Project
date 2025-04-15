@@ -1,11 +1,7 @@
-﻿using Microsoft.Win32.SafeHandles;
-using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
+﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class CameraActive : MonoBehaviour
 {
@@ -27,6 +23,7 @@ public class CameraActive : MonoBehaviour
     public GameObject MainCameraOBJ;
     public Camera MainCamera;
     [SerializeField] MechaPlayer Mecha;
+    [SerializeField] GameObject collisionPoint;
     InputAction lookAction;
 
     [Header("ScopeCamera")]
@@ -37,6 +34,8 @@ public class CameraActive : MonoBehaviour
     public float rotationSpeed;
     Vector2 lookInput;
     public Quaternion defaultCamRot;
+    [SerializeField, Range(0f, 5f)] float collisionOffset;
+    [SerializeField, Range(0f, 20f)] float offsetSmooth;
     
     //Flag
     private Vector3 currentRecoil;
@@ -50,6 +49,7 @@ public class CameraActive : MonoBehaviour
         Mecha = FindAnyObjectByType<MechaPlayer>();
         cameraControl = FindAnyObjectByType<PlayerInput>();
         PlayerAct = Player.GetComponent<PlayerActive>();
+        collisionPoint = GameObject.FindGameObjectWithTag("CollisionPoint");
     }
     private void Start()
     {
@@ -60,20 +60,21 @@ public class CameraActive : MonoBehaviour
 
     public void CameraCollision()
     {
-        Vector3 direction = Player.transform.position - MainCamera.transform.position;
-        float distance = direction.magnitude;
-        Debug.DrawRay(Player.transform.position, direction, Color.yellow);
-
-        if (Physics.Raycast(MainCamera.transform.position, direction, out RaycastHit hit, distance, collisionLayers))
+        Vector3 targetPosition;
+        if (Physics.Linecast(defaultMainPost.transform.position, collisionPoint.transform.position, out RaycastHit hitinfo, collisionLayers))
         {
-            Debug.Log("Collision Aktif");
-            cameraMainPost.transform.position = hit.point + new Vector3(0f, 0f, 0f);
+            Debug.DrawLine(defaultMainPost.transform.position, collisionPoint.transform.position, Color.green);
+            Debug.Log("Camera nabrak");
+
+            Vector3 offset = new(0f, 0f, collisionOffset); //Agar tidak terlalu masuk ke dalam
+            targetPosition = hitinfo.point + offset;
+            cameraMainPost.transform.position = targetPosition;
         }
         else
         {
-            Debug.Log("Collision Deaktif");
-            cameraMainPost.transform.position = defaultMainPost.transform.position;
+            targetPosition = defaultMainPost.transform.position;
         }
+        cameraMainPost.transform.position = Vector3.Lerp(cameraMainPost.transform.position, targetPosition, Time.deltaTime * offsetSmooth);
     }
 
     public void ScopeCamera()
@@ -191,7 +192,7 @@ public class CameraActive : MonoBehaviour
 
     private void Update()
     {
-        //CameraCollision();
+        CameraCollision();
         SamePosition();
         CameraRotation();
     }
