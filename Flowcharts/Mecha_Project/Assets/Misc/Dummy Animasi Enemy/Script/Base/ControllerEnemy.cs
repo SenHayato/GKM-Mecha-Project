@@ -128,18 +128,39 @@ public class ControllerEnemy : MonoBehaviour
             {
                 //targetPoint = attackOrigin + (directionToPlayer * model.attackRange * 3);
             }
-           //StartCoroutine(ResetAttack());
+           StartCoroutine(ResetAttack());
         }
     }
 
-    void ResetAttack()
+    private IEnumerator ResetAttack()
     {
-
+        yield return new WaitForSeconds(0.5f);
+        model.isAttacking = false;
     }
 
+    public IEnumerator BulletTrailEffect(Vector3 targetPoint, Vector3 startPoint)
+    {
+        // Buat LineRenderer khusus untuk tembakan
+        LineRenderer bulletTrail = gameObject.AddComponent<LineRenderer>();
+        bulletTrail.startWidth = 0.05f;
+
+
+        // Tunggu beberapoa saat
+        yield return new WaitForSeconds(0.1f);
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, model.detectionRange);
+
+        if (model == null) return;
+
+        //Draw attack Range
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, model.attackRange);
+
+        // Draw detection Range
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere (transform.position, model.detectionRange);
     }
 }
