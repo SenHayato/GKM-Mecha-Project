@@ -68,13 +68,14 @@ public class CameraActive : MonoBehaviour
 
             Vector3 offset = new(0f, 0f, collisionOffset); //Agar tidak terlalu masuk ke dalam
             targetPosition = hitinfo.point + offset;
-            cameraMainPost.transform.position = targetPosition;
+            //cameraMainPost.transform.position = targetPosition;
+            cameraMainPost.transform.position = Vector3.Lerp(cameraMainPost.transform.position, targetPosition, Time.deltaTime * offsetSmooth);
         }
         else
         {
             targetPosition = defaultMainPost.transform.position;
+            cameraMainPost.transform.position = Vector3.Lerp(cameraMainPost.transform.position, targetPosition, Time.deltaTime * offsetSmooth);
         }
-        cameraMainPost.transform.position = Vector3.Lerp(cameraMainPost.transform.position, targetPosition, Time.deltaTime * offsetSmooth);
     }
 
     public void ScopeCamera()
