@@ -63,7 +63,7 @@ public class CameraActive : MonoBehaviour
         Vector3 targetPosition;
         if (Physics.Linecast(defaultMainPost.transform.position, collisionPoint.transform.position, out RaycastHit hitinfo, collisionLayers))
         {
-            Debug.DrawLine(defaultMainPost.transform.position, collisionPoint.transform.position, Color.green);
+            Debug.DrawLine(defaultMainPost.transform.position, collisionPoint.transform.position, Color.red);
             Debug.Log("Camera nabrak");
 
             Vector3 offset = new(0f, 0f, collisionOffset); //Agar tidak terlalu masuk ke dalam
