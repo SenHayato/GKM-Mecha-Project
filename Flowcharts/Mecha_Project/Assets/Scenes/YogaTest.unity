@@ -13060,19 +13060,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   weaponSkrip: {fileID: 0}
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 0
   cameraPivot: {fileID: 989654282}
   cameraAimPost: {fileID: 635515235}
   cameraMainPost: {fileID: 2024308646}
-  cameraParent: {fileID: 0}
+  defaultMainPost: {fileID: 0}
   cameraControl: {fileID: 0}
   PlayerAct: {fileID: 0}
   MainCameraOBJ: {fileID: 1641979820}
   MainCamera: {fileID: 0}
+  Mecha: {fileID: 0}
+  collisionPoint: {fileID: 0}
   defaultFOV: 60
   scopeFOV: 55
   boostFOV: 75
   rotationSpeed: 80
   defaultCamRot: {x: 0.11320321, y: 0, z: 0, w: 0.9935719}
+  collisionOffset: 0
+  offsetSmooth: 0
 --- !u!4 &989654282
 Transform:
   m_ObjectHideFlags: 0
@@ -33990,7 +33997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   wayPoints:
   - {fileID: 103997973}
   - {fileID: 62237031}

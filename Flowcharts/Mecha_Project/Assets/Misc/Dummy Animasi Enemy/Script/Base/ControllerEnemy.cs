@@ -69,6 +69,7 @@ public class ControllerEnemy : MonoBehaviour
             if(distance <= agent.stoppingDistance)
             {
                 // Attack the Target
+                AttackRanged();
                 // Face Target
                 FaceTarget();
             }
@@ -132,6 +133,75 @@ public class ControllerEnemy : MonoBehaviour
         }
     }
 
+    void AttackShort()
+    {
+        model.isAttacking = true;
+
+        Sword meleePattern = GetComponent<Sword>();
+        if (meleePattern != null)
+        {
+            meleePattern.PerformAttackShort();
+            return;
+        }
+        // For short enemies, use distance to attack
+        if (model.enemyType == EnemyType.EnemyShort)
+        {
+            // Use weapon point if available, otherwise default to a reasonable position
+            Vector3 attackOrigin;
+            if (model.weaponFirePoint != null)
+            {
+                attackOrigin = model.weaponFirePoint.position;
+            }
+            else
+            {
+                // Default to approximate weapon height
+                attackOrigin = transform.position + transform.forward * 0.5f + Vector3.up * 1.0f;
+            }
+
+            Vector3 directionToPlayer = (active.Player.position - attackOrigin).normalized;
+            float distanceToPlayer = Vector3.Distance(attackOrigin, active.Player.position);
+
+            if (distanceToPlayer <= model.attackRange)
+            {
+                RaycastHit hit;
+
+                // Debug visualization for melee attack
+                Debug.DrawRay(attackOrigin, directionToPlayer * model.attackRange, Color.red, 0.5f);
+
+                if (Physics.Raycast(attackOrigin, directionToPlayer, out hit, model.attackRange))
+                {
+                    // Check if we hit the player
+                    if (hit.collider.CompareTag("Player"))
+                    {
+                        // Apply damage to player
+                        if (hit.collider.gameObject.TryGetComponent<PlayerActive>(out var playerActive))
+                        {
+                            playerActive.TakeDamage(model.attackPower);
+                            Debug.Log($"Melee attack hit player for {model.attackPower} damage");
+
+                            // Create hit effect for player
+                            if (Resources.Load<GameObject>("Prefabs/HitEffect"))
+                            {
+                                Instantiate(Resources.Load<GameObject>("Prefabs/HitEffect"), hit.point, Quaternion.LookRotation(hit.normal));
+                            }
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Player hit but no PlayerHealth component found");
+                        }
+                    }
+                }
+            }
+
+            // Also call enemyActive.AttackPlayer() to trigger the animation
+            if (active != null)
+            {
+                active.AttackPlayer();
+            }
+        }
+
+        StartCoroutine(ResetAttack()); 
+    }
     private IEnumerator ResetAttack()
     {
         yield return new WaitForSeconds(0.5f);
