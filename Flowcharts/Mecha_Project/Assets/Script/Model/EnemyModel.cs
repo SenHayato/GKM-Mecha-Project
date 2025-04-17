@@ -44,6 +44,10 @@ public class EnemyModel : MonoBehaviour
     public float peripheralViewAngle = 45f;
     public float closeRangeAwareness = 2f;
 
+    [Header("Weapon")]
+    public bool isEquipping;
+    public bool isEquipped;
+
     [Header("Combat")]
     public float attackCooldown = 2f;
     public float attackTimer = 0f;
