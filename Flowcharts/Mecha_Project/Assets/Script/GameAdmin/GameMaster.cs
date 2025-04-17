@@ -68,6 +68,7 @@ public class GameMaster : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
         fadeIn.SetActive(true);
         fadeOut.SetActive(false);
         PlayerHealth = MechaData.Health;
@@ -135,6 +136,10 @@ public class GameMaster : MonoBehaviour
     {
         if (gameFinish)
         {
+            if (!isPaused)
+            {
+                Time.timeScale = 0.5f;
+            }
             fadeOut.SetActive(true);
             yield return new WaitForSeconds(7f);
             if (NextScene != null && gameWin)

@@ -152,24 +152,32 @@ public class MusicManager : MonoBehaviour
 
     void GameFinish()
     {
-        if (gameMaster.gameFinish)
+        switch (gameMaster.StageType)
         {
-            switch (gameMaster.StageType)
-            {
-                case StageType.StageTutorial:
-                    jingleSource.clip = gameEnd1;
-                    break;
-                case StageType.Stage1:
-                    jingleSource.clip = gameEnd1;
-                    break;
-                case StageType.Stage2:
-                    jingleSource.clip = gameEnd2;
-                    break;
-                case StageType.StageBoss:
-                    jingleSource.clip = gameEnd3;
-                    break;
-            }
+            case StageType.StageTutorial:
+                jingleSource.clip = gameEnd1;
+                break;
+            case StageType.Stage1:
+                jingleSource.clip = gameEnd1;
+                break;
+            case StageType.Stage2:
+                jingleSource.clip = gameEnd2;
+                break;
+            case StageType.StageBoss:
+                jingleSource.clip = gameEnd3;
+                break;
+        }
+        if (gameMaster.gameFinish && gameMaster.gameWin)
+        {
+           
             jingleSource.enabled = true;
+            musicSource.enabled = false;
+            Debug.Log("Jinggle Musik");
+        }
+        else
+        {
+            jingleSource.enabled = false;
+            musicSource.enabled = true;
         }
     }
 
