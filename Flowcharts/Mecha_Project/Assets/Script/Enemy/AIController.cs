@@ -25,7 +25,6 @@ public class AIController : MonoBehaviour
     private bool isObstacleInTheWay = false;
 
 
-
     void Awake()
     {
         enemyModel = GetComponent<EnemyModel>();
@@ -817,6 +816,11 @@ public class AIController : MonoBehaviour
         StartCoroutine(ResetAttackFlag()); ;
         StartCoroutine(ResetAttackFlag());
     }
+    void weaponActive()
+    {
+
+    }
+
     public IEnumerator BulletTrailEffect(Vector3 targetPoint, Vector3 startPoint)
     {
         // Buat LineRenderer khusus untuk efek tembakan
