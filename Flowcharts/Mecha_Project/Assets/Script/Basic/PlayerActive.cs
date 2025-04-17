@@ -243,17 +243,6 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
-    public void BoostDirectionSet()
-    {
-        if (Mecha.isBoosting)
-        {
-            boostDirectionLerp += Time.deltaTime * 1f;
-        }
-        else
-        {
-            boostDirectionLerp = 0f;
-        }
-    }
     public IEnumerator BoostOn()
     {
         float time = 0f;
@@ -484,8 +473,9 @@ public class PlayerActive : MonoBehaviour
     }
     public void PlayerJump()
     {
-        if (jumpAction.triggered && isGrounded)
+        if (jumpAction.triggered && isGrounded && !Mecha.isBoosting && !Mecha.isBlocking)
         {
+            Mecha.isJumping = true;
             Debug.Log("Jump");
             verticalVelocity = jumpForce;
             Vector3 jumpMovement = new Vector3(0, verticalVelocity, 0) * Time.deltaTime;
@@ -495,6 +485,7 @@ public class PlayerActive : MonoBehaviour
         }
         if (isGrounded)
         {
+            Mecha.isJumping = false;
             anim.SetBool("IsJump", false);
         }
     }
@@ -533,22 +524,6 @@ public class PlayerActive : MonoBehaviour
             anim.SetBool("IsBlocking", false);
             speed = defaultSpeed;
         }
-
-        //input control
-        if (blockAction.IsPressed())
-        {
-            dashAction.Disable();
-            scopeAction.Disable();
-            shootAction.Disable();
-            reloadAction.Disable();
-        }
-        else
-        {
-            dashAction.Enable();
-            shootAction.Enable();
-            scopeAction.Enable();
-            reloadAction.Enable();
-        }
     }
     public void SelectButtonPress()
     {
@@ -560,7 +535,7 @@ public class PlayerActive : MonoBehaviour
 
     public IEnumerator Skill1()
     {
-        if (skill1Action.triggered && Mecha.readySkill1 && !Mecha.isDeath && !Mecha.isReloading)
+        if (skill1Action.triggered && Mecha.readySkill1 && !Mecha.isDeath && !Mecha.isReloading && !Mecha.isBlocking)
         {
             Debug.Log("Skill 1 Aktif Korotine");
             skillBusy = true;
@@ -587,7 +562,7 @@ public class PlayerActive : MonoBehaviour
 
     public IEnumerator Skill2()
     {
-        if (skill2Action.triggered && Mecha.readySkill2 && !Mecha.isDeath && !Mecha.isReloading)
+        if (skill2Action.triggered && Mecha.readySkill2 && !Mecha.isDeath && !Mecha.isReloading && !Mecha.isBlocking)
         {
             Debug.Log("Skill 2 Aktif Korotine");
             skillBusy = true;
@@ -710,7 +685,7 @@ public class PlayerActive : MonoBehaviour
 
     public void SkillBusy()
     {
-        if (skillBusy)
+        if (skillBusy || Mecha.isBoosting || Mecha.isBlocking || Mecha.isJumping)
         {
             reloadAction.Disable();
             shootAction.Disable();
