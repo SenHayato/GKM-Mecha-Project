@@ -44,6 +44,47 @@ public class ControllerEnemy : MonoBehaviour
         
         float distance = Vector3.Distance(playerTransform.position, transform.position);
         // Patrolling
+        switch (currentState)
+        {
+            case AIState.Patrol:
+                HandlePatrol();
+                    if(distance < model.detectionRange)
+                {
+                    currentState = AIState.Chase;
+                }
+                break;
+            case AIState.Chase:
+                HandleChase(distance);
+                if(distance < agent.stoppingDistance)
+                {
+                    currentState = AIState.Attack;
+                }else if (distance > model.detectionRange + 2f)
+                {
+                    currentState = AIState.Patrol;
+                }
+                break;
+                case AIState.Attack:
+                HandleAttack(distance);
+                if (distance > agent.stoppingDistance)
+                {
+                    currentState = AIState.Chase;
+                }
+                else
+                {
+                    HandleAttack(distance);
+                }
+                break;
+                
+        }
+        // Update timers
+        if (model.attackTimer > 0)
+            model.attackTimer -= Time.deltaTime;
+
+        anim.SetFloat("Speed", agent.velocity.magnitude);
+    }
+    #region StateAI
+    void HandlePatrol()
+    {
         if (agent.remainingDistance < 0.5f)
         {
             if (model.maxWaitingTime == 0)
@@ -60,27 +101,30 @@ public class ControllerEnemy : MonoBehaviour
                 model.patrolWaitTime += Time.deltaTime;
             }
         }
-        // Memaksa Enemy untuk menghadap player jika dalam keadaan mengejar
-        if (distance <= model.detectionRange)
-        {
-
-            agent.SetDestination(playerTransform.position);
-
-            if(distance <= agent.stoppingDistance)
-            {
-                // Attack the Target
-                AttackRanged();
-                // Face Target
-                FaceTarget();
-            }
-        }
-        // Update timers
-        if (model.attackTimer > 0)
-            model.attackTimer -= Time.deltaTime;
-
-        anim.SetFloat("Speed", agent.velocity.magnitude);
     }
-    
+
+    void HandleChase(float distance)
+    {
+        if (model.isAttacking) return;
+
+        if (playerTransform.position != null)
+        {
+            agent.SetDestination(playerTransform.position);
+        }
+    }
+
+    void HandleAttack(float distance)
+    {
+        if (!model.isAttacking)
+        {
+            FaceTarget();
+            if (model.enemyType == EnemyType.EnemyRange)
+                AttackRanged();
+            if (model.enemyType == EnemyType.EnemyShort)
+                AttackShort();
+        }
+    }
+    #endregion
     void GoToNexPoint()
     {
         if (wayPoints.Length != 0 )
@@ -91,6 +135,7 @@ public class ControllerEnemy : MonoBehaviour
     }
     void FaceTarget()
     {
+        agent.updateRotation = false;
         Vector3 direction = (playerTransform.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
