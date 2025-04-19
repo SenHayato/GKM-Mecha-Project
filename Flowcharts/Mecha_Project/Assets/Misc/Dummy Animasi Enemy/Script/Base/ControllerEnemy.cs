@@ -4,12 +4,14 @@ using System.Linq;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ControllerEnemy : MonoBehaviour
 {
     // State Management
-    private enum AIState { Idle, Patrol, Chase, Attack}
+    private enum AIState { Idle, Patrol, Chase, Attack, Dead}
     private AIState currentState = AIState.Idle;
+    private AIState previousState;
 
     // Components
     public LayerMask hitLayer;
@@ -17,7 +19,8 @@ public class ControllerEnemy : MonoBehaviour
     private Transform playerTransform;
     private EnemyModel model;
     private EnemyActive active;
-    Animator anim;
+    private Animator anim;
+    
 
     [SerializeField]
     private Transform[] wayPoints;
@@ -41,7 +44,7 @@ public class ControllerEnemy : MonoBehaviour
 
     private void Update()
     {
-        
+        active.Equip();
         float distance = Vector3.Distance(playerTransform.position, transform.position);
         // Patrolling
         switch (currentState)
@@ -82,6 +85,8 @@ public class ControllerEnemy : MonoBehaviour
 
         anim.SetFloat("Speed", agent.velocity.magnitude);
     }
+
+   
     #region StateAI
     void HandlePatrol()
     {
@@ -89,7 +94,10 @@ public class ControllerEnemy : MonoBehaviour
         {
             if (model.maxWaitingTime == 0)
                 model.maxWaitingTime = 5f;
-
+            if (agent.radius <= model.alertRange)
+            {
+                active.Equip();
+            }
             if (model.patrolWaitTime >= model.maxWaitingTime)
             {
                 model.maxWaitingTime = 0;
@@ -105,9 +113,15 @@ public class ControllerEnemy : MonoBehaviour
 
     void HandleChase(float distance)
     {
+        if(playerTransform == null)
+        {
+            currentState= AIState.Patrol;
+            return;
+        }
+
         if (model.isAttacking) return;
 
-        if (playerTransform.position != null)
+        if(agent != null && agent.enabled)
         {
             agent.SetDestination(playerTransform.position);
         }
@@ -247,6 +261,7 @@ public class ControllerEnemy : MonoBehaviour
 
         StartCoroutine(ResetAttack()); 
     }
+
     private IEnumerator ResetAttack()
     {
         yield return new WaitForSeconds(0.5f);

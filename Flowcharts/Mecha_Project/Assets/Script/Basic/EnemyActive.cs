@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class EnemyActive : MonoBehaviour
 {
@@ -11,8 +12,15 @@ public class EnemyActive : MonoBehaviour
     public Transform Player;
     public EnemyModel enemyData;
     private AIController enemyAI;
+    private ControllerEnemy AI;
     public NavMeshAgent agent;
     public Animator anim;
+    //Components
+    [SerializeField]
+    private GameObject sword;
+    [SerializeField]
+    private GameObject swordOnLeg;
+
     public GameMaster gameManager;
     [SerializeField] private CharacterController charController;
     [SerializeField] private CapsuleCollider deathCollider;
@@ -88,7 +96,46 @@ public class EnemyActive : MonoBehaviour
             enemyData.isDeath = true;
         }
     }
+    void ActiveWeapon()
+    {
 
+    }
+    public void Equip()
+    {
+        float distanceToPlayer = Vector3.Distance(Player.position, transform.position);
+
+        if (distanceToPlayer <= enemyData.alertRange)
+        {
+            enemyData.isEquipping = true;
+            anim.SetTrigger("Equip");
+        }
+        else
+        {
+            enemyData.isEquipping = false;
+
+        }
+    }
+
+    public void ActiveWeapon()
+    {
+        if (!enemyData.isEquipped)
+        {
+            sword.SetActive(true);
+            swordOnLeg.SetActive(false);
+            enemyData.isEquipped = !enemyData.isEquipped;
+        }
+        else
+        {
+            sword.SetActive(false);
+            swordOnLeg.SetActive(true);
+            enemyData.isEquipped = !enemyData.isEquipped;
+        }
+    }
+
+    public void Equipped()
+    {
+        enemyData.isEquipping = false;
+    }
     IEnumerator HitSound()
     {
         if (isHit && wasHit)

@@ -38,7 +38,8 @@ public class EnemyModel : MonoBehaviour
     public float destinationChangeTimer = 0f;
 
     [Header("FieldOfView")]
-    public float detectionRange = 10f;
+    public float detectionRange = 11f;
+    public float alertRange = 15f;
     public float viewAngle = 90f;
     public bool useFieldOfView = true;
     public float peripheralViewAngle = 45f;
