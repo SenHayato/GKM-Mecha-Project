@@ -29,6 +29,7 @@ public class ControllerEnemy : MonoBehaviour
     private bool playerInSight = false;
     private bool playerInFieldOfView = false;
     private bool isObstacleInTheWay = false;
+    private bool isAlerted = false;
 
     private void Awake()
     {
@@ -50,37 +51,63 @@ public class ControllerEnemy : MonoBehaviour
     {
         float distance = Vector3.Distance(playerTransform.position, transform.position);
         // Patrolling
-        switch (currentState)
-        {
-            case AIState.Patrol:
-                HandlePatrol();
-                    if(distance < model.detectionRange)
-                {
-                    currentState = AIState.Chase;
-                }
-                break;
-            case AIState.Chase:
-                HandleChase(distance);
-                if(distance < agent.stoppingDistance)
-                {
-                    currentState = AIState.Attack;
-                }else if (distance > model.detectionRange + 2f)
-                {
-                    currentState = AIState.Patrol;
-                }
-                break;
-                case AIState.Attack:
-                HandleAttack(distance);
-                if (distance > agent.stoppingDistance)
-                {
-                    currentState = AIState.Chase;
-                }
-                else
-                {
-                    HandleAttack(distance);
-                }
-                break;
+        //switch (currentState)
+        //{
+        //    case AIState.Patrol:
+        //        HandlePatrol();
+        //            if(distance < model.detectionRange)
+        //        {
+        //            currentState = AIState.Chase;
+        //        }
+        //        break;
+        //    case AIState.Chase:
+        //        HandleChase(distance);
+        //        if(distance < agent.stoppingDistance)
+        //        {
+        //            currentState = AIState.Attack;
+        //        }else if (distance > model.detectionRange + 2f)
+        //        {
+        //            currentState = AIState.Patrol;
+        //        }
+        //        break;
+        //        case AIState.Attack:
+        //        HandleAttack(distance);
+        //        if (distance > agent.stoppingDistance)
+        //        {
+        //            currentState = AIState.Chase;
+        //        }
+        //        else
+        //        {
+        //            HandleAttack(distance);
+        //        }
+        //        break;
                 
+        //}
+        if (distance < model.alertRange)
+        {
+            if (!isAlerted)
+            {
+                isAlerted = true;
+                anim.SetTrigger("Equip");
+            }
+            
+            agent.isStopped = true;
+            agent.SetDestination(playerTransform.position);
+            anim.SetBool("isRunning", false);
+        }
+        else
+        {
+            if (isAlerted)
+            {
+                isAlerted = false;
+                GoToNexPoint();
+            }
+
+            if(!agent.pathPending && agent.remainingDistance < 0.5f)
+            {
+                GoToNexPoint();
+            }
+        
         }
         // Update timers
         if (model.attackTimer > 0)
@@ -144,11 +171,12 @@ public class ControllerEnemy : MonoBehaviour
     #endregion
     void GoToNexPoint()
     {
-        if (wayPoints.Length != 0 )
-        {
+        if (wayPoints.Length == 0) return;
+       
             currentWaypoints = (currentWaypoints + 1) % wayPoints.Length;
             agent.SetDestination(wayPoints[currentWaypoints].position);
-        }
+        anim.SetBool("isRunning", true);
+        
     }
     void FaceTarget()
     {
