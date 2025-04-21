@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43846726, g: 0.48655307, b: 0.5668256, a: 1}
+  m_IndirectSpecularColor: {r: 0.4384669, g: 0.48655242, b: 0.56682485, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -37066,7 +37066,7 @@ MonoBehaviour:
   currentDestination: {x: 0, y: 0, z: 0}
   destinationChangeTimer: 0
   detectionRange: 5
-  alertRange: 10
+  alertRange: 5
   viewAngle: 90
   useFieldOfView: 1
   peripheralViewAngle: 45
@@ -38550,7 +38550,7 @@ MonoBehaviour:
   mechaPlayer: {fileID: 0}
   attackVoice:
   - {fileID: 8300000, guid: cae5718cd3c266342a623c9180eb9fc9, type: 3}
-  - {fileID: 8300000, guid: 05f73e59e5ba2bb4ca6d60338199a0cf, type: 3}
+  - {fileID: 0}
   defenceVoice:
   - {fileID: 8300000, guid: 77abad41eb1513248b582d1f559154bb, type: 3}
   - {fileID: 8300000, guid: 573c94e2aaab15645a0e218cd73dffa8, type: 3}
