@@ -96,10 +96,7 @@ public class EnemyActive : MonoBehaviour
             enemyData.isDeath = true;
         }
     }
-    void ActiveWeapon()
-    {
 
-    }
     public void Equip()
     {
         float distanceToPlayer = Vector3.Distance(Player.position, transform.position);
