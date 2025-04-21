@@ -20,7 +20,7 @@ public class ControllerEnemy : MonoBehaviour
     private EnemyModel model;
     private EnemyActive active;
     private Animator anim;
-    
+    CharacterController enemy;
 
     [SerializeField]
     private Transform[] wayPoints;
@@ -30,6 +30,10 @@ public class ControllerEnemy : MonoBehaviour
     private bool playerInFieldOfView = false;
     private bool isObstacleInTheWay = false;
 
+    private void Awake()
+    {
+        active = GetComponent<EnemyActive>();
+    }
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -44,7 +48,6 @@ public class ControllerEnemy : MonoBehaviour
 
     private void Update()
     {
-        active.Equip();
         float distance = Vector3.Distance(playerTransform.position, transform.position);
         // Patrolling
         switch (currentState)
