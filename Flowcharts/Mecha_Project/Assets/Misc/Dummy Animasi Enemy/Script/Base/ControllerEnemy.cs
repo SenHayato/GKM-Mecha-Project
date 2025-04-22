@@ -23,6 +23,9 @@ public class ControllerEnemy : MonoBehaviour
     CharacterController enemy;
 
     [SerializeField]
+    private Transform targetSphere;
+
+    [SerializeField]
     private Transform[] wayPoints;
     private int currentWaypoints;
 
@@ -34,9 +37,6 @@ public class ControllerEnemy : MonoBehaviour
     private void Awake()
     {
         active = GetComponent<EnemyActive>();
-    }
-    private void Start()
-    {
         agent = GetComponent<NavMeshAgent>();
         model = GetComponent<EnemyModel>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -91,10 +91,33 @@ public class ControllerEnemy : MonoBehaviour
                 break;
             case AIState.Dead:
                 agent.isStopped = true;
+                model.isAttacking = false;
                 anim.SetBool("isRunning", false);
                 anim.SetTrigger("isDeath");
                 break;
 
+        }
+        if (agent != null && agent.enabled)
+        {
+            // If we have a NavMeshAgent, let it handle movement
+            model.isMoving = agent.velocity.magnitude > 0.1f;
+
+            // Sync character controller with NavMeshAgent
+            if (active != null)
+            {
+                Vector3 direction = agent.desiredVelocity.normalized;
+                float currentSpeed = agent.speed;
+
+                // Only apply movement through EnemyActive if we need to move
+                if (model.isMoving)
+                {
+                    active.ApplyMovement(direction, currentSpeed, true);
+                }
+                else
+                {
+                    active.ApplyMovement(Vector3.zero, 0, false);
+                }
+            }
         }
         // Update timers
         if (model.attackTimer > 0)
@@ -148,12 +171,13 @@ public class ControllerEnemy : MonoBehaviour
     {
         if (!model.isAttacking)
         {
-            FaceTarget();
+            //FaceTarget();
             if (model.enemyType == EnemyType.EnemyRange)
                 AttackRanged();
             if (model.enemyType == EnemyType.EnemyShort)
                 AttackShort();
         }
+        
     }
     #endregion
     void GoToNexPoint()
@@ -165,13 +189,13 @@ public class ControllerEnemy : MonoBehaviour
         anim.SetBool("isRunning", true);
         
     }
-    void FaceTarget()
-    {
-        agent.updateRotation = false;
-        Vector3 direction = (playerTransform.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-    }
+    //void FaceTarget()
+    //{
+    //    agent.updateRotation = false;
+    //    Vector3 direction = (playerTransform.position - transform.position).normalized;
+    //    Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+    //    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    //}
 
     void AttackRanged()
     {
@@ -180,12 +204,12 @@ public class ControllerEnemy : MonoBehaviour
         {
             Vector3 targetPoint;
             Vector3 attackOrigin = transform.position + Vector3.up * 1.5f;
-            Vector3 directionToPlayer = (playerTransform.position + Vector3.up * 1.0f - attackOrigin).normalized;
+            Vector3 directionToTarget = (targetSphere.position - attackOrigin).normalized;
             RaycastHit hit;
 
-            Debug.DrawRay(attackOrigin, 3 * model.attackRange * directionToPlayer, Color.magenta, 1.0f);
+            Debug.DrawRay(attackOrigin, 3 * model.attackRange * directionToTarget, Color.magenta, 1.0f);
 
-           if (Physics.Raycast(attackOrigin, directionToPlayer, out hit, model.attackRange * 8, hitLayer)){
+           if (Physics.Raycast(attackOrigin, directionToTarget, out hit, model.attackRange * 8, hitLayer)){
                 targetPoint = hit.point;
 
                 if (hit.collider.CompareTag("Player"))
@@ -204,7 +228,7 @@ public class ControllerEnemy : MonoBehaviour
             }
             else
             {
-                //targetPoint = attackOrigin + (directionToPlayer * model.attackRange * 3);
+                targetPoint = attackOrigin + (directionToTarget * model.attackRange * 3);
             }
            StartCoroutine(ResetAttack());
         }
