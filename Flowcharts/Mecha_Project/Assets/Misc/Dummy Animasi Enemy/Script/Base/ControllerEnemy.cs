@@ -51,63 +51,50 @@ public class ControllerEnemy : MonoBehaviour
     {
         float distance = Vector3.Distance(playerTransform.position, transform.position);
         // Patrolling
-        //switch (currentState)
-        //{
-        //    case AIState.Patrol:
-        //        HandlePatrol();
-        //            if(distance < model.detectionRange)
-        //        {
-        //            currentState = AIState.Chase;
-        //        }
-        //        break;
-        //    case AIState.Chase:
-        //        HandleChase(distance);
-        //        if(distance < agent.stoppingDistance)
-        //        {
-        //            currentState = AIState.Attack;
-        //        }else if (distance > model.detectionRange + 2f)
-        //        {
-        //            currentState = AIState.Patrol;
-        //        }
-        //        break;
-        //        case AIState.Attack:
-        //        HandleAttack(distance);
-        //        if (distance > agent.stoppingDistance)
-        //        {
-        //            currentState = AIState.Chase;
-        //        }
-        //        else
-        //        {
-        //            HandleAttack(distance);
-        //        }
-        //        break;
-                
-        //}
-        if (distance < model.alertRange)
+        switch (currentState)
         {
-            if (!isAlerted)
-            {
-                isAlerted = true;
-                anim.SetTrigger("Equip");
-            }
-            
-            agent.isStopped = true;
-            agent.SetDestination(playerTransform.position);
-            anim.SetBool("isRunning", false);
-        }
-        else
-        {
-            if (isAlerted)
-            {
-                isAlerted = false;
-                GoToNexPoint();
-            }
+            case AIState.Idle:
+                if(distance < model.detectionRange)
+                {
+                    currentState = AIState.Chase;
+                }
+                break;
+            case AIState.Patrol:
+                HandlePatrol();
+                if (distance < model.detectionRange)
+                {
+                    currentState = AIState.Chase;
+                }
+                break;
+            case AIState.Chase:
+                HandleChase(distance);
+                if (distance < model.attackRange)
+                {
+                    currentState = AIState.Attack;
+                }
+                else if (distance > model.detectionRange + 2f)
+                {
+                    currentState = AIState.Patrol;
+                    GoToNexPoint();
+                }
+                break;
+            case AIState.Attack:
+                HandleAttack(distance);
+                if (distance > model.attackRange)
+                {
+                    currentState = AIState.Chase;
+                }
+                else
+                {
+                    HandleAttack(distance);
+                }
+                break;
+            case AIState.Dead:
+                agent.isStopped = true;
+                anim.SetBool("isRunning", false);
+                anim.SetTrigger("isDeath");
+                break;
 
-            if(!agent.pathPending && agent.remainingDistance < 0.5f)
-            {
-                GoToNexPoint();
-            }
-        
         }
         // Update timers
         if (model.attackTimer > 0)
