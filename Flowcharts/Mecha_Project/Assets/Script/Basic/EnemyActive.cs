@@ -161,7 +161,7 @@ public class EnemyActive : MonoBehaviour
             {
                 if (anim != null)
                 {
-                    anim.SetTrigger("Death");
+                    anim.SetTrigger("isDeath");
                     Debug.Log("Death animation triggered");
                 }
 
