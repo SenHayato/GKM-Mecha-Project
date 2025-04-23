@@ -9,6 +9,7 @@ public class EnemyActive : MonoBehaviour
     public Transform Player;
     public EnemyModel enemyData;
     private AIController enemyAI;
+    private AILocomotion locomotion;
     private ControllerEnemy AI;
     public NavMeshAgent agent;
     public Animator anim;
@@ -41,6 +42,7 @@ public class EnemyActive : MonoBehaviour
         //Enemy
         enemyData = GetComponent<EnemyModel>();
         enemyAI = GetComponent<AIController>();
+        locomotion = GetComponent<AILocomotion>();
         //Enemy Model
         anim = GetComponent<Animator>();
         deathCollider = GetComponent<CapsuleCollider>();
