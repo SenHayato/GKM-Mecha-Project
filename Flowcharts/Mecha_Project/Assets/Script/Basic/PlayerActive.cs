@@ -106,6 +106,7 @@ public class PlayerActive : MonoBehaviour
         Mecha.UltimateRegen = false;
         Mecha.EnergyRegen = false;
         skillBusy = false;
+        Mecha.Health = Mecha.MaxHealth;
 
         moveAction = gameInput.actions.FindAction("Movement");
         jumpAction = gameInput.actions.FindAction("Jump");
