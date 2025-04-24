@@ -508,7 +508,7 @@ Transform:
   m_GameObject: {fileID: 4569463501529827256}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.46863, y: -0.03999424, z: -0.69512844}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -710,7 +710,6 @@ MonoBehaviour:
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
-  detectionRange: 10
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -721,13 +720,18 @@ MonoBehaviour:
   fieldOfViewColor: {r: 1, g: 1, b: 0, a: 0.2}
   patrolRadius: 10
   patrolWaitTime: 2
+  maxWaitingTime: 0
   startPosition: {x: 0, y: 0, z: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   destinationChangeTimer: 0
+  detectionRange: 10
+  alertRange: 15
   viewAngle: 90
   useFieldOfView: 1
   peripheralViewAngle: 45
   closeRangeAwareness: 2
+  isEquipping: 0
+  isEquipped: 0
   attackCooldown: 2
   attackTimer: 0
   attackDamageMin: 0
@@ -750,6 +754,8 @@ MonoBehaviour:
   enemyData: {fileID: 2849193741984559570}
   agent: {fileID: 6146755136576805288}
   anim: {fileID: 0}
+  sword: {fileID: 0}
+  swordOnLeg: {fileID: 0}
   gameManager: {fileID: 0}
   charController: {fileID: 6955877913921061351}
   deathCollider: {fileID: 5444647606316990954}

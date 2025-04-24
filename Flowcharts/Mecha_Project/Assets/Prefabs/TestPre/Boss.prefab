@@ -936,7 +936,6 @@ MonoBehaviour:
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
-  detectionRange: 10
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -947,13 +946,18 @@ MonoBehaviour:
   fieldOfViewColor: {r: 1, g: 1, b: 0, a: 0.2}
   patrolRadius: 10
   patrolWaitTime: 2
+  maxWaitingTime: 0
   startPosition: {x: 0, y: 0, z: 0}
   currentDestination: {x: 0, y: 0, z: 0}
   destinationChangeTimer: 0
+  detectionRange: 10
+  alertRange: 15
   viewAngle: 90
   useFieldOfView: 1
   peripheralViewAngle: 45
   closeRangeAwareness: 2
+  isEquipping: 0
+  isEquipped: 0
   attackCooldown: 2
   attackTimer: 0
   attackDamageMin: 0
@@ -976,6 +980,8 @@ MonoBehaviour:
   enemyData: {fileID: 2694016561321429658}
   agent: {fileID: 1547538780359302614}
   anim: {fileID: 0}
+  sword: {fileID: 0}
+  swordOnLeg: {fileID: 0}
   gameManager: {fileID: 0}
   charController: {fileID: 6873728332251201193}
   deathCollider: {fileID: 7440697911814004628}
