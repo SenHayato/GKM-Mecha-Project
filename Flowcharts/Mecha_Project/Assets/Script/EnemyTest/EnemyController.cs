@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
     void CheckingSight()
     {
         playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLayer);
-        playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
     }
 
     void Patrolling()
