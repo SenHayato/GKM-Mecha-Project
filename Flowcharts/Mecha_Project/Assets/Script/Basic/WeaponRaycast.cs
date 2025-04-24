@@ -171,7 +171,7 @@ public class WeaponRaycast : MonoBehaviour
     {
         lineRenderer.enabled = true;
         lineRenderer.SetPosition(0, bulletSpawn.transform.position);
-        lineRenderer.SetPosition(1, targetPoint);  
+        lineRenderer.SetPosition(1, targetPoint);
         yield return new WaitForSeconds(fireRate * 1.5f);
         lineRenderer.enabled = false;
     }
