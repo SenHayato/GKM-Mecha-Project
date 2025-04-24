@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +9,7 @@ public class EnemyController : MonoBehaviour
     [Header("EnemyProperties")]
     [SerializeField] EnemyData enemyData;
     [SerializeField] NavMeshAgent navAgent;
-    [SerializeField] Transform player;
+    [SerializeField] Transform player; //titik collision pada player, taruh di player
     [SerializeField] LayerMask playerLayer;
     [SerializeField] LayerMask groundLayer; //layer yang bisa diinjak enemy
 
@@ -30,7 +31,8 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        //player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.Find("CollisionPoint").transform;
         enemyData = GetComponent<EnemyData>();
         navAgent = GetComponent<NavMeshAgent>();
     }
