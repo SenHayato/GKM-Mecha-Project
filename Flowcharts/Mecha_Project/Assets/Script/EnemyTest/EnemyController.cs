@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Animations;
 
 public class EnemyController : MonoBehaviour
 {
@@ -21,13 +20,22 @@ public class EnemyController : MonoBehaviour
 
     [Header("Attacking")]
     [SerializeField] float timeBetweenAttack;
-    [SerializeField] bool wasAttack;
+    [SerializeField] bool isAttacking;
+    [SerializeField] float rotationSpeed;
 
     [Header("States")]
     [SerializeField] float sightRange;
     [SerializeField] float attackRange;
     [SerializeField] bool playerInSight;
     [SerializeField] bool playerInAttackRange;
+
+    [Header("RangeWeapon")]
+    [SerializeField] Transform weaponMaxRange;
+    [SerializeField] Transform bulletSpawn;
+    [SerializeField] LineRenderer bulletTrail;
+
+    //flag
+    bool isBulletSpawn = false;
 
     private void Awake()
     {
@@ -60,6 +68,7 @@ public class EnemyController : MonoBehaviour
         {
             Attacking();
         }
+        StartCoroutine(BulletTrailEffect());
     }
 
     void CheckingSight()
@@ -72,7 +81,6 @@ public class EnemyController : MonoBehaviour
     {
         if (!walkPointSet)
         {
-            //SearchWalkPoint();
             SearchWayPoint();
         }
 
@@ -96,18 +104,6 @@ public class EnemyController : MonoBehaviour
         walkPointSet = true;
     }
 
-    void SearchWalkPoint()
-    {
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
-
-        walkPoint = new(transform.position.x + randomX, transform.position.y + transform.position.z + randomZ);
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, groundLayer))
-        {
-            walkPointSet = true;
-        }
-    }
-
     void ChasingPlayer()
     {
         navAgent.SetDestination(player.position);
@@ -116,25 +112,45 @@ public class EnemyController : MonoBehaviour
     void Attacking()
     {
         navAgent.SetDestination(transform.position);
-        transform.LookAt(player.position);
+        //transform.LookAt(player.position);
+        Vector3 direction = player.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
-        if (!wasAttack)
+        if (!isAttacking)
         {
-            wasAttack = true;
+            //nembak raycast
+            Debug.Log("EnemyTembak");
+            isBulletSpawn = false;
+            isAttacking = true;
             Invoke(nameof(ResetAttack), timeBetweenAttack);
         }
     }
 
     void ResetAttack()
     {
-        wasAttack = false;
+        isAttacking = false;
+    }
+
+    IEnumerator BulletTrailEffect()
+    {
+        bulletTrail.SetPosition(0, bulletSpawn.position);
+        bulletTrail.SetPosition(1, weaponMaxRange.position);
+
+        if (isAttacking && !isBulletSpawn)
+        {
+            bulletTrail.enabled = true;
+            yield return new WaitForSeconds(0.05f);
+            bulletTrail.enabled = false;
+            isBulletSpawn = true;
+        }
     }
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-        Gizmos.color = Color.magenta;
+        Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 }
