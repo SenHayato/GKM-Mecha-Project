@@ -601,7 +601,7 @@ public class AIController : MonoBehaviour
         {
             if (enemyModel.attackTimer <= 0)
             {
-                PerformAttackShort();
+                //PerformAttackShort();
                 enemyModel.attackTimer = enemyModel.attackCooldown;
             }
         }
@@ -746,76 +746,76 @@ public class AIController : MonoBehaviour
         }
     }
 
-    public void PerformAttackShort()
-    {
-        enemyModel.isAttacking = true;
+    //public void PerformAttackShort()
+    //{
+    //    enemyModel.isAttacking = true;
         
-        Sword meleePattern = GetComponent<Sword>();
-        if (meleePattern != null)
-        {
-            meleePattern.PerformAttackShort();
-            return;
-        }
-        // For short enemies, use distance to attack
-        if (enemyModel.enemyType == EnemyType.EnemyShort)
-        {
-            // Use weapon point if available, otherwise default to a reasonable position
-            Vector3 attackOrigin;
-            if (enemyModel.weaponFirePoint != null)
-            {
-                attackOrigin = enemyModel.weaponFirePoint.position;
-            }
-            else
-            {
-                // Default to approximate weapon height
-                attackOrigin = transform.position + transform.forward * 0.5f + Vector3.up * 1.0f;
-            }
+    //    Sword meleePattern = GetComponent<Sword>();
+    //    if (meleePattern != null)
+    //    {
+    //        meleePattern.PerformAttackShort();
+    //        return;
+    //    }
+    //    // For short enemies, use distance to attack
+    //    if (enemyModel.enemyType == EnemyType.EnemyShort)
+    //    {
+    //        // Use weapon point if available, otherwise default to a reasonable position
+    //        Vector3 attackOrigin;
+    //        //if (enemyModel.weaponFirePoint != null)
+    //        //{
+    //        //    attackOrigin = enemyModel.weaponFirePoint.position;
+    //        //}
+    //        //else
+    //        //{
+    //        //    // Default to approximate weapon height
+    //        //    attackOrigin = transform.position + transform.forward * 0.5f + Vector3.up * 1.0f;
+    //        //}
 
-            Vector3 directionToPlayer = (enemyActive.Player.position - attackOrigin).normalized;
-            float distanceToPlayer = Vector3.Distance(attackOrigin, enemyActive.Player.position);
+    //        //Vector3 directionToPlayer = (enemyActive.Player.position - attackOrigin).normalized;
+    //        float distanceToPlayer = Vector3.Distance(attackOrigin, enemyActive.Player.position);
 
-            if (distanceToPlayer <= enemyModel.attackRange)
-            {
-                RaycastHit hit;
+    //        if (distanceToPlayer <= enemyModel.attackRange)
+    //        {
+    //            RaycastHit hit;
 
-                // Debug visualization for melee attack
-                Debug.DrawRay(attackOrigin, directionToPlayer * enemyModel.attackRange, Color.red, 0.5f);
+    //            // Debug visualization for melee attack
+    //            Debug.DrawRay(attackOrigin, directionToPlayer * enemyModel.attackRange, Color.red, 0.5f);
 
-                if (Physics.Raycast(attackOrigin, directionToPlayer, out hit, enemyModel.attackRange))
-                {
-                    // Check if we hit the player
-                    if (hit.collider.CompareTag("Player"))
-                    {
-                        // Apply damage to player
-                        if (hit.collider.gameObject.TryGetComponent<PlayerActive>(out var playerActive))
-                        {
-                            playerActive.TakeDamage(enemyModel.attackPower);
-                            Debug.Log($"Melee attack hit player for {enemyModel.attackPower} damage");
+    //            if (Physics.Raycast(attackOrigin, directionToPlayer, out hit, enemyModel.attackRange))
+    //            {
+    //                // Check if we hit the player
+    //                if (hit.collider.CompareTag("Player"))
+    //                {
+    //                    // Apply damage to player
+    //                    if (hit.collider.gameObject.TryGetComponent<PlayerActive>(out var playerActive))
+    //                    {
+    //                        playerActive.TakeDamage(enemyModel.attackPower);
+    //                        Debug.Log($"Melee attack hit player for {enemyModel.attackPower} damage");
 
-                            // Create hit effect for player
-                            if (Resources.Load<GameObject>("Prefabs/HitEffect"))
-                            {
-                                Instantiate(Resources.Load<GameObject>("Prefabs/HitEffect"), hit.point, Quaternion.LookRotation(hit.normal));
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogWarning("Player hit but no PlayerHealth component found");
-                        }
-                    }
-                }
-            }
+    //                        // Create hit effect for player
+    //                        if (Resources.Load<GameObject>("Prefabs/HitEffect"))
+    //                        {
+    //                            Instantiate(Resources.Load<GameObject>("Prefabs/HitEffect"), hit.point, Quaternion.LookRotation(hit.normal));
+    //                        }
+    //                    }
+    //                    else
+    //                    {
+    //                        Debug.LogWarning("Player hit but no PlayerHealth component found");
+    //                    }
+    //                }
+    //            }
+    //        }
 
-            // Also call enemyActive.AttackPlayer() to trigger the animation
-            if (enemyActive != null)
-            {
-                enemyActive.AttackPlayer();
-            }
-        }
+    //        // Also call enemyActive.AttackPlayer() to trigger the animation
+    //        if (enemyActive != null)
+    //        {
+    //            enemyActive.AttackPlayer();
+    //        }
+    //    }
 
-        StartCoroutine(ResetAttackFlag()); ;
-        StartCoroutine(ResetAttackFlag());
-    }
+    //    StartCoroutine(ResetAttackFlag()); ;
+    //    StartCoroutine(ResetAttackFlag());
+    //}
     void weaponActive()
     {
 

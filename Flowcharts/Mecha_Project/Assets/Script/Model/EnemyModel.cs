@@ -54,7 +54,6 @@ public class EnemyModel : MonoBehaviour
     public float attackTimer = 0f;
     public int attackDamageMin;
     public int attackDamageMax;
-    public Transform weaponFirePoint;
 }
 
 public enum EnemyType

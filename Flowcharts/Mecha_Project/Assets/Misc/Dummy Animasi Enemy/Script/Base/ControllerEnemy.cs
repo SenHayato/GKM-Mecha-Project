@@ -9,7 +9,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class ControllerEnemy : MonoBehaviour
 {
     // State Management
-    private enum AIState { Idle, Patrol, Chase, Attack, Dead}
+    private enum AIState { Idle, Patrol, Chase, Attack, Dead }
     private AIState currentState = AIState.Idle;
     private AIState previousState;
 
@@ -24,6 +24,8 @@ public class ControllerEnemy : MonoBehaviour
 
     [SerializeField]
     private Transform targetSphere;
+    [SerializeField]
+    private Transform weapon;
 
     [SerializeField]
     private Transform[] wayPoints;
@@ -54,7 +56,7 @@ public class ControllerEnemy : MonoBehaviour
         switch (currentState)
         {
             case AIState.Idle:
-                if(distance < model.detectionRange)
+                if (distance < model.detectionRange)
                 {
                     currentState = AIState.Chase;
                 }
@@ -80,7 +82,7 @@ public class ControllerEnemy : MonoBehaviour
                 break;
             case AIState.Attack:
                 HandleAttack(distance);
-                if (distance > model.attackRange)
+                if (distance <= model.attackRange)
                 {
                     currentState = AIState.Chase;
                 }
@@ -126,7 +128,7 @@ public class ControllerEnemy : MonoBehaviour
         anim.SetFloat("Speed", agent.velocity.magnitude);
     }
 
-   
+
     #region StateAI
     void HandlePatrol()
     {
@@ -153,15 +155,15 @@ public class ControllerEnemy : MonoBehaviour
 
     void HandleChase(float distance)
     {
-        if(playerTransform == null)
+        if (playerTransform == null)
         {
-            currentState= AIState.Patrol;
+            currentState = AIState.Patrol;
             return;
         }
 
         if (model.isAttacking) return;
 
-        if(agent != null && agent.enabled)
+        if (agent != null && agent.enabled)
         {
             agent.SetDestination(playerTransform.position);
         }
@@ -177,45 +179,46 @@ public class ControllerEnemy : MonoBehaviour
             if (model.enemyType == EnemyType.EnemyShort)
                 AttackShort();
         }
-        
+
     }
     #endregion
     void GoToNexPoint()
     {
         if (wayPoints.Length == 0) return;
-       
-            currentWaypoints = (currentWaypoints + 1) % wayPoints.Length;
-            agent.SetDestination(wayPoints[currentWaypoints].position);
+
+        currentWaypoints = (currentWaypoints + 1) % wayPoints.Length;
+        agent.SetDestination(wayPoints[currentWaypoints].position);
         anim.SetBool("isRunning", true);
-        
+
     }
-    //void FaceTarget()
-    //{
-    //    agent.updateRotation = false;
-    //    Vector3 direction = (playerTransform.position - transform.position).normalized;
-    //    Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-    //    transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-    //}
+    void FaceTarget()
+    {
+        agent.updateRotation = false;
+        Vector3 direction = (playerTransform.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
 
     void AttackRanged()
     {
         model.isAttacking = true;
-        if(model.enemyType == EnemyType.EnemyRange)
+        if (model.enemyType == EnemyType.EnemyRange)
         {
-            Vector3 targetPoint;
-            Vector3 attackOrigin = transform.position + Vector3.up * 1.5f;
-            Vector3 directionToTarget = (targetSphere.position - attackOrigin).normalized;
+            Vector3 weapon;
+            Vector3 shootOrigin = transform.position + Vector3.up * 1.5f;
+            Vector3 directionToTarget = (targetSphere.position - shootOrigin).normalized;
             RaycastHit hit;
 
-            Debug.DrawRay(attackOrigin, 3 * model.attackRange * directionToTarget, Color.magenta, 1.0f);
+            Debug.DrawRay(shootOrigin, 3 * model.attackRange * directionToTarget, Color.magenta, 1.0f);
 
-           if (Physics.Raycast(attackOrigin, directionToTarget, out hit, model.attackRange * 8, hitLayer)){
-                targetPoint = hit.point;
+            if (Physics.Raycast(shootOrigin, directionToTarget, out hit, model.attackRange * 8, hitLayer))
+            {
+                weapon = hit.point;
 
                 if (hit.collider.CompareTag("Player"))
                 {
                     hit.collider.gameObject.TryGetComponent<PlayerActive>(out var playerActive);
-                    if(playerActive != null)
+                    if (playerActive != null)
                     {
                         playerActive.TakeDamage(model.attackPower);
                         Debug.Log($"Range attack hit player for {model.attackPower} damage");
@@ -228,9 +231,9 @@ public class ControllerEnemy : MonoBehaviour
             }
             else
             {
-                targetPoint = attackOrigin + (directionToTarget * model.attackRange * 3);
+                weapon = shootOrigin + (directionToTarget * model.attackRange * 3);
             }
-           StartCoroutine(ResetAttack());
+            StartCoroutine(ResetAttack());
         }
     }
 
@@ -249,9 +252,9 @@ public class ControllerEnemy : MonoBehaviour
         {
             // Use weapon point if available, otherwise default to a reasonable position
             Vector3 attackOrigin;
-            if (model.weaponFirePoint != null)
+            if (weapon != null)
             {
-                attackOrigin = model.weaponFirePoint.position;
+                attackOrigin = weapon.position;
             }
             else
             {
@@ -301,12 +304,12 @@ public class ControllerEnemy : MonoBehaviour
             }
         }
 
-        StartCoroutine(ResetAttack()); 
+        StartCoroutine(ResetAttack());
     }
 
     private IEnumerator ResetAttack()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(model.attackCooldown);
         model.isAttacking = false;
     }
 
@@ -333,6 +336,6 @@ public class ControllerEnemy : MonoBehaviour
 
         // Draw detection Range
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere (transform.position, model.detectionRange);
+        Gizmos.DrawWireSphere(transform.position, model.detectionRange);
     }
 }
