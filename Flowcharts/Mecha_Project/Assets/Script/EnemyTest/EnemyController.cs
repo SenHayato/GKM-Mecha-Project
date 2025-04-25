@@ -2,6 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Animations;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.XR;
+using UnityEngine.InputSystem;
 
 public class EnemyController : MonoBehaviour
 {
@@ -34,7 +37,19 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Transform bulletSpawn;
     [SerializeField] LineRenderer bulletTrail;
 
-    
+    [Header("Komponen Enemy")]
+    [SerializeField]
+    private CharacterController characterController;
+    public GameMaster gameManager;
+    public GameObject UIHealth;
+    [SerializeField]
+    private CapsuleCollider deathCollider;
+    private Animator anim;
+
+    [Header("Komponen Player")]
+    private PlayerInput gameInput;
+
+
     //flag
     bool isBulletSpawn = false;
 
@@ -44,10 +59,18 @@ public class EnemyController : MonoBehaviour
         player = GameObject.Find("CollisionPoint").transform;
         enemyData = GetComponent<EnemyData>();
         navAgent = GetComponent<NavMeshAgent>();
+        anim = GetComponent<Animator>();
+
+        characterController = GetComponent<CharacterController>();
+        gameManager = GetComponent<GameMaster>();
+        deathCollider = GetComponent<CapsuleCollider>();
+        gameInput = FindAnyObjectByType<PlayerInput>();
+        gameManager = FindAnyObjectByType<GameMaster>();
     }
     void Start()
     {
         patrolPoints = GameObject.FindGameObjectsWithTag("EnemyWayPoint");
+        deathCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -70,7 +93,83 @@ public class EnemyController : MonoBehaviour
             Attacking();
         }
         StartCoroutine(BulletTrailEffect());
+
+        if (enemyData != null && enemyData.health <= enemyData.minHealth)
+        {
+            Death();
+            Damage();
+        }
+        UIHealthBar();
     }
+    void UIHealthBar()
+    {
+        if (enemyData.health < enemyData.maxHealth)
+        {
+            UIHealth.SetActive(true);
+        }
+    }
+    public void TakeDamage(int damage)
+    {
+        enemyData.isHit = true;
+        if (enemyData == null) return;
+
+        enemyData.health -= damage;
+        UIHealthBar();
+        Debug.Log(gameObject.name + " Kena Damage : " + damage.ToString());
+        if (anim != null)
+        {
+            anim.SetTrigger("Hit");
+        }
+
+        if (enemyData.health <= enemyData.minHealth)
+        {
+            enemyData.isDeath = true;
+        }
+    }
+
+    public void Damage()
+    {
+        InputAction inputAction = gameInput.actions.FindAction("TestKillEnemy");
+        InputAction testEnemy = inputAction;
+        if (testEnemy.triggered)
+        {
+            TakeDamage(100);
+        }
+    }
+
+    public void Death()
+    {
+        if (enemyData.health <= enemyData.minHealth)
+        {
+            enemyData.isDeath = true;
+            if (enemyData != null && enemyData.isDeath)
+            {
+                if (anim != null)
+                {
+                    anim.SetTrigger("isDeath");
+                    Debug.Log(" Death Animation Triggered ");
+                }
+                if (deathCollider != null)
+                {
+                    deathCollider.enabled = true;
+                }
+
+                if (characterController != null)
+                {
+                    characterController.enabled = false;
+                }
+
+                if (enemyData != null)
+                {
+                    enemyData.isMoving = false;
+                    enemyData.isAttacking = false;
+                }
+                Destroy(gameObject, 2f);
+            }
+        }
+    }
+
+    
 
     void CheckingSight()
     {
@@ -133,6 +232,7 @@ public class EnemyController : MonoBehaviour
         isAttacking = false;
     }
 
+
     IEnumerator BulletTrailEffect()
     {
         bulletTrail.SetPosition(0, bulletSpawn.position);
@@ -153,5 +253,10 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+    private void OnDestroy()
+    {
+        gameManager.KillCount++;
+        //Effect meledak
     }
 }

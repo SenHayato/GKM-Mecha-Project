@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnemyData : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class EnemyData : MonoBehaviour
     public bool isBlocking;
     public bool isHit;
     public bool wasHit = false;
+
+   
 }
 
 //public enum EnemyType //masih ada enemytype di enemy model yg lama

@@ -17,6 +17,9 @@ public class ActiveEnemy : MonoBehaviour
     [SerializeField]
     private CharacterController characterController;
     public GameMaster gameManager;
+    public GameObject UIHealth;
+    [SerializeField]
+    private CapsuleCollider deathCollider;
 
     [Header("Komponen Player")]
     private PlayerInput gameInput;
@@ -30,19 +33,37 @@ public class ActiveEnemy : MonoBehaviour
         controller = GetComponent<EnemyController>();
         characterController = GetComponent<CharacterController>();
         gameManager = GetComponent<GameMaster>();
+        deathCollider = GetComponent<CapsuleCollider>();
+        gameInput = FindAnyObjectByType<PlayerInput>();
+        gameManager = FindAnyObjectByType<GameMaster>();
     }
 
+    private void Start()
+    {
+        UIHealth.SetActive(false);
+        deathCollider.enabled = false;
+
+    }
+    public void UIHealthBar()
+    {
+        if (data.health < data.maxHealth)
+        {
+            UIHealth.SetActive(true);
+        }
+    }
     public void TakeDamage(int damage)
     {
         data.isHit = true;
         if (data == null) return;
+
         data.health -= damage;
-        // UIHealthBar();
+        UIHealthBar();
         Debug.Log(gameObject.name + " Kena Damage : " + damage.ToString());
-        if (!anim == null)
+        if (anim != null)
         {
-            anim.SetTrigger("isHit");
+            anim.SetTrigger("Hit");
         }
+
         if (data.health <= data.minHealth)
         {
             data.isDeath = true;
@@ -71,10 +92,16 @@ public class ActiveEnemy : MonoBehaviour
                     anim.SetTrigger("isDeath");
                     Debug.Log(" Death Animation Triggered ");
                 }
+                if (deathCollider != null)
+                {
+                    deathCollider.enabled = true;
+                }
+
                 if (characterController != null)
                 {
                     controller.enabled = false;
                 }
+
                 if(data != null)
                 {
                     data.isMoving = false;
@@ -83,5 +110,19 @@ public class ActiveEnemy : MonoBehaviour
                 Destroy(gameObject, 2f);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        gameManager.KillCount++;
+        //Effect meledak
+    }
+    private void Update()
+    {
+        if(data != null && data.health <= data.minHealth){
+            Death();
+            Damage();
+        }
+        UIHealthBar();
     }
 }
