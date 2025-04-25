@@ -75,5 +75,62 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d88838d744589424d926285987a3f730, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3176272251984095532}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d88838d744589424d926285987a3f730, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5833024511357474622}
   m_SourcePrefab: {fileID: 100100000, guid: d88838d744589424d926285987a3f730, type: 3}
+--- !u!23 &5621523986924791643 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: d88838d744589424d926285987a3f730, type: 3}
+  m_PrefabInstance: {fileID: 6467802288615324639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6125834716778251918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d88838d744589424d926285987a3f730, type: 3}
+  m_PrefabInstance: {fileID: 6467802288615324639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!205 &3176272251984095532
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6125834716778251918}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 0.6
+  m_FadeMode: 1
+  m_AnimateCrossFading: 1
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.5920977
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5621523986924791643}
+  m_Enabled: 1
+--- !u!64 &5833024511357474622
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6125834716778251918}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4444728127320036556, guid: d88838d744589424d926285987a3f730, type: 3}
