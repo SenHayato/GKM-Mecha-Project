@@ -64,7 +64,7 @@ public class EnemyActive : MonoBehaviour
             enemyAI.Initialize(this);
         }
 
-        deathCollider.enabled = false;
+        
     }
 
    
