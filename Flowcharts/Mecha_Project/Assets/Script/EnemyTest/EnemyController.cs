@@ -94,12 +94,9 @@ public class EnemyController : MonoBehaviour
         }
         StartCoroutine(BulletTrailEffect());
 
-        if (enemyData != null && enemyData.health <= enemyData.minHealth)
-        {
-            Death();
-            Damage();
-        }
+        Death();
         UIHealthBar();
+        Damage();
     }
     void UIHealthBar()
     {
