@@ -16,6 +16,7 @@ public class ControllerEnemy : MonoBehaviour
     // Components
     public LayerMask hitLayer;
     private NavMeshAgent agent;
+    [SerializeField]
     private Transform playerTransform;
     private EnemyModel model;
     private EnemyActive active;
@@ -206,12 +207,12 @@ public class ControllerEnemy : MonoBehaviour
         {
             Vector3 weapon;
             Vector3 shootOrigin = transform.position + Vector3.up * 1.5f;
-            Vector3 directionToTarget = (targetSphere.position - shootOrigin).normalized;
+            Vector3 directionToTarget = (playerTransform.position - shootOrigin).normalized;
             RaycastHit hit;
 
             Debug.DrawRay(shootOrigin, 3 * model.attackRange * directionToTarget, Color.magenta, 1.0f);
 
-            if (Physics.Raycast(shootOrigin, directionToTarget, out hit, model.attackRange * 8, hitLayer))
+            if (Physics.Linecast(shootOrigin, directionToTarget, out hit, hitLayer))
             {
                 weapon = hit.point;
 

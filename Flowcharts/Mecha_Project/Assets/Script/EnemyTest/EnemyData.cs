@@ -23,6 +23,8 @@ public class EnemyData : MonoBehaviour
     public bool isDeath;
     public bool isMoving;
     public bool isBlocking;
+    public bool isHit;
+    public bool wasHit = false;
 }
 
 //public enum EnemyType //masih ada enemytype di enemy model yg lama

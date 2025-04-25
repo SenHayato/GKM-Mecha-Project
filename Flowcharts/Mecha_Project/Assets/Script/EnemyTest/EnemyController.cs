@@ -34,6 +34,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] Transform bulletSpawn;
     [SerializeField] LineRenderer bulletTrail;
 
+    
     //flag
     bool isBulletSpawn = false;
 
