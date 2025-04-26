@@ -136,7 +136,7 @@ public class WeaponRaycast : MonoBehaviour
             targetPoint = hit.point;
             if (enemyTags.Contains(hit.collider.tag))
             {
-                if (hit.collider.TryGetComponent<EnemyController>(out var enemy))
+                if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
                 {
                     enemy.TakeDamage(mechaPlayer.AttackPow);
                     if (!mechaPlayer.UsingAwakening)

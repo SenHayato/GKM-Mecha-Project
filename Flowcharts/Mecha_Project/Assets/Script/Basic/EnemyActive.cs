@@ -5,145 +5,139 @@ using UnityEngine.InputSystem;
 
 public class EnemyActive : MonoBehaviour
 {
-    public GameObject PlayerObj;
-    public Transform Player;
-    public EnemyModel enemyData;
-    private AIController enemyAI;
-    private AILocomotion locomotion;
-    private ControllerEnemy AI;
-    public NavMeshAgent agent;
-    public Animator anim;
-    //Components
-    [SerializeField]
-    private GameObject sword;
-    [SerializeField]
-    private GameObject swordOnLeg;
+    [Header("EnemyProperties")]
+    [SerializeField] EnemyModel enemyModel;
+    [SerializeField] NavMeshAgent navAgent;
+    public Transform player; //titik collision pada player, taruh di player
+    [SerializeField] LayerMask playerLayer;
+    [SerializeField] LayerMask groundLayer; //layer yang bisa diinjak enemy
 
+    [Header("Patrolling")]
+    [SerializeField] Vector3 walkPoint;
+    [SerializeField] bool walkPointSet;
+    [SerializeField] float walkPointRange;
+    [SerializeField] GameObject[] patrolPoints; //jika waypoint disediakan
+
+    [Header("Attacking")]
+    [SerializeField] float timeBetweenAttack;
+    [SerializeField] bool isAttacking;
+    [SerializeField] float rotationSpeed;
+
+    [Header("States")]
+    [SerializeField] float sightRange;
+    [SerializeField] float attackRange;
+    [SerializeField] bool playerInSight;
+    [SerializeField] bool playerInAttackRange;
+
+    [Header("RangeWeapon")]
+    [SerializeField] Transform weaponMaxRange;
+    [SerializeField] Transform bulletSpawn;
+    [SerializeField] LineRenderer bulletTrail;
+
+    [Header("Komponen Enemy")]
+    [SerializeField]
+    private CharacterController characterController;
     public GameMaster gameManager;
-    [SerializeField] private CharacterController charController;
-    [SerializeField] private CapsuleCollider deathCollider;
     public GameObject UIHealth;
-
-    [Header("Atribut")]
-    public float speed = 3.5f;
-    public float stoppingDistance = 1.5f;
     public AudioSource hitSound;
-    public bool isHit;
+    [SerializeField]
+    private CapsuleCollider deathCollider;
+    private Animator anim;
+
+    [Header("Komponen Player")]
+    private PlayerInput gameInput;
+
 
     //flag
-    bool wasHit = false;
-    //test
-    private PlayerInput gameInput;
-    public void Awake()
+    bool isBulletSpawn = false;
+
+    private void Awake()
     {
-        //Player
-        PlayerObj = GameObject.FindGameObjectWithTag("Player");
-        Player = PlayerObj.GetComponent<Transform>();
-        //Enemy
-        enemyData = GetComponent<EnemyModel>();
-        enemyAI = GetComponent<AIController>();
-        locomotion = GetComponent<AILocomotion>();
-        //Enemy Model
+        //player = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.Find("CollisionPoint").transform;
+        enemyModel = GetComponent<EnemyModel>();
+        navAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+
+        characterController = GetComponent<CharacterController>();
+        gameManager = GetComponent<GameMaster>();
         deathCollider = GetComponent<CapsuleCollider>();
-        charController = GetComponent<CharacterController>();
-        agent = GetComponent<NavMeshAgent>();
-        //Game Manager
         gameInput = FindAnyObjectByType<PlayerInput>();
         gameManager = FindAnyObjectByType<GameMaster>();
     }
 
     private void Start()
     {
+        patrolPoints = GameObject.FindGameObjectsWithTag("EnemyWayPoint");
         hitSound = GetComponent<AudioSource>(); //hit sound
         UIHealth.SetActive(false);
-        enemyData.health = enemyData.maxHealth;
+        enemyModel.health = enemyModel.maxHealth;
         deathCollider.enabled = false;
-        if(enemyAI != null)
-        {
-            enemyAI.Initialize(this);
-        }
-
         
     }
 
-   
-    public void UIHealthBar()
+
+    void Update()
     {
-        if (enemyData.health < enemyData.maxHealth)
+        CheckingSight();
+
+        if (!playerInSight && !playerInAttackRange)
+        {
+            Patrolling();
+        }
+
+        if (playerInSight && !playerInAttackRange)
+        {
+            ChasingPlayer();
+        }
+
+        if (playerInSight && playerInAttackRange)
+        {
+            Attacking();
+        }
+        StartCoroutine(BulletTrailEffect());
+
+        Death();
+        UIHealthBar();
+        Damage();
+    }
+    #region Pengaturan
+    void UIHealthBar()
+    {
+        if (enemyModel.health < enemyModel.maxHealth)
         {
             UIHealth.SetActive(true);
         }
     }
-
     public void TakeDamage(int damage)
     {
-        isHit = true;
-        StartCoroutine(HitSound());
-        if (enemyData == null) return;
+        enemyModel.isHit = true;
+        if (enemyModel == null) return;
 
-        enemyData.health -= damage;
+        enemyModel.health -= damage;
         UIHealthBar();
-        Debug.Log(gameObject.name + " Kena Damage " + damage.ToString());
+        Debug.Log(gameObject.name + " Kena Damage : " + damage.ToString());
         if (anim != null)
         {
             anim.SetTrigger("Hit");
         }
 
-        if (enemyData.health <= enemyData.minHealth)
+        if (enemyModel.health <= enemyModel.minHealth)
         {
-            enemyData.isDeath = true;
+            enemyModel.isDeath = true;
         }
-    }
-    public void Equip()
-    {
-        float distanceToPlayer = Vector3.Distance(Player.position, transform.position);
-
-        if (distanceToPlayer <= enemyData.alertRange)
-        {
-            enemyData.isEquipping = true;
-            anim.SetTrigger("Equip");
-        }
-        else
-        {
-            enemyData.isEquipping = false;
-
-        }
-    }
-
-    public void ActiveWeapon()
-    {
-        if (!enemyData.isEquipped)
-        {
-            sword.SetActive(true);
-            swordOnLeg.SetActive(false);
-            enemyData.isEquipped = !enemyData.isEquipped;
-        }
-        else
-        {
-            sword.SetActive(false);
-            swordOnLeg.SetActive(true);
-            enemyData.isEquipped = !enemyData.isEquipped;
-        }
-    }
-
-    public void Equipped()
-    {
-        enemyData.isEquipping = false;
     }
     IEnumerator HitSound()
     {
-        if (isHit && wasHit)
+        if (enemyModel.isHit && enemyModel.wasHit)
         {
-            wasHit = false;
+            enemyModel.wasHit = false;
             hitSound.Play();
         }
         yield return new WaitForSeconds(0.5f);
-        wasHit = true;
-        isHit = false;
+        enemyModel.wasHit = true;
+        enemyModel.isHit = false;
     }
-
-    //test
     public void Damage()
     {
         InputAction inputAction = gameInput.actions.FindAction("TestKillEnemy");
@@ -156,144 +150,218 @@ public class EnemyActive : MonoBehaviour
 
     public void Death()
     {
-        if (enemyData.health <= enemyData.minHealth)
+        if (enemyModel.health <= enemyModel.minHealth)
         {
-            enemyData.isDeath = true;
-            if (enemyData != null && enemyData.isDeath)
+            enemyModel.isDeath = true;
+            if (enemyModel != null && enemyModel.isDeath)
             {
                 if (anim != null)
                 {
                     anim.SetTrigger("isDeath");
-                    Debug.Log("Death animation triggered");
+                    Debug.Log(" Death Animation Triggered ");
                 }
-
                 if (deathCollider != null)
                 {
                     deathCollider.enabled = true;
                 }
 
-                if (charController != null)
+                if (characterController != null)
                 {
-                    charController.enabled = false;
+                    characterController.enabled = false;
                 }
 
-                if (enemyData != null)
+                if (enemyModel != null)
                 {
-                    enemyData.isMoving = false;
-                    enemyData.isAttacking = false;
+                    enemyModel.isMoving = false;
+                    enemyModel.isAttacking = false;
                 }
-                Destroy(gameObject, 2f); // 2f is the duration of death animation
+                Destroy(gameObject, 2f);
             }
         }
     }
 
+    #endregion
+
+    void CheckingSight()
+    {
+        playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
+    }
+
+    void Patrolling()
+    {
+        if (!walkPointSet)
+        {
+            SearchWayPoint();
+        }
+
+        if (walkPointSet)
+        {
+            navAgent.SetDestination(walkPoint);
+        }
+
+        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+
+        if (distanceToWalkPoint.magnitude < 1f)
+        {
+            walkPointSet = false;
+        }
+    }
+
+    void SearchWayPoint()
+    {
+        int pointToWalk = Random.Range(0, patrolPoints.Length);
+        walkPoint = patrolPoints[pointToWalk].transform.position;
+        walkPointSet = true;
+    }
+
+    void ChasingPlayer()
+    {
+        navAgent.SetDestination(player.position);
+    }
+
+    void Attacking()
+    {
+        navAgent.SetDestination(transform.position);
+        //transform.LookAt(player.position);
+        Vector3 direction = player.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+
+        if (!isAttacking)
+        {
+            //nembak raycast
+            Debug.Log("EnemyTembak");
+            isBulletSpawn = false;
+            isAttacking = true;
+            Invoke(nameof(ResetAttack), timeBetweenAttack);
+        }
+    }
+
+    void ResetAttack()
+    {
+        isAttacking = false;
+    }
+
+
+    IEnumerator BulletTrailEffect()
+    {
+        bulletTrail.SetPosition(0, bulletSpawn.position);
+        bulletTrail.SetPosition(1, weaponMaxRange.position);
+
+        if (isAttacking && !isBulletSpawn)
+        {
+            bulletTrail.enabled = true;
+            yield return new WaitForSeconds(0.05f);
+            bulletTrail.enabled = false;
+            isBulletSpawn = true;
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
     private void OnDestroy()
     {
         gameManager.KillCount++;
+        //Effect meledak
     }
 
 
     public void OnAttackEnd()
     {
-        if (enemyData != null)
+        if (enemyModel != null)
         {
-            enemyData.isAttacking = false;
+            enemyModel.isAttacking = false;
         }
     }
 
-    public void AttackPlayer()
-    {
-        if (enemyData == null || enemyData.isDeath || Player == null) return;
+    //public void AttackPlayer()
+    //{
+    //    if (enemyData == null || enemyData.isDeath || Player == null) return;
 
-        // Calculate distance to player
-        float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
+    //    // Calculate distance to player
+    //    float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
 
-        // Check if within attack range
-        if (distanceToPlayer <= enemyData.attackRange && !enemyData.isAttacking)
-        {
-            // Face the player
-            Vector3 directionToPlayer = (Player.position - transform.position).normalized;
-            directionToPlayer.y = 0;
-            transform.rotation = Quaternion.LookRotation(directionToPlayer);
+    //    // Check if within attack range
+    //    if (distanceToPlayer <= enemyData.attackRange && !enemyData.isAttacking)
+    //    {
+    //        // Face the player
+    //        Vector3 directionToPlayer = (Player.position - transform.position).normalized;
+    //        directionToPlayer.y = 0;
+    //        transform.rotation = Quaternion.LookRotation(directionToPlayer);
 
-            // Trigger attack
-            enemyData.isAttacking = true;
-            if (anim != null)
-            {
-                anim.SetTrigger("Attack");
-                anim.SetBool("IsAttacking", true);
-            } 
-        }
-    }
+    //        // Trigger attack
+    //        enemyData.isAttacking = true;
+    //        if (anim != null)
+    //        {
+    //            anim.SetTrigger("Attack");
+    //            anim.SetBool("IsAttacking", true);
+    //        } 
+    //    }
+    //}
 
 
-    public void OnDrawGizmosSelected()
-    {
-        // Visualize attack range
-        if (enemyData != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, enemyData.attackRange);
+    //public void OnDrawGizmosSelected()
+    //{
+    //    // Visualize attack range
+    //    if (enemyData != null)
+    //    {
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawWireSphere(transform.position, enemyData.attackRange);
 
-            // Visualize detection range
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(transform.position, enemyData.detectionRange);
-        }
-    }
+    //        // Visualize detection range
+    //        Gizmos.color = Color.yellow;
+    //        Gizmos.DrawWireSphere(transform.position, enemyData.detectionRange);
+    //    }
+    //}
 
-    public void ApplyMovement(Vector3 direction, float currentSpeed, bool shouldRotate)
-    {
-        if (charController != null && enemyData != null && !enemyData.isDeath)
-        {
-            // Apply movement using character controller
-            charController.Move(currentSpeed * Time.deltaTime * direction);
+    //public void ApplyMovement(Vector3 direction, float currentSpeed, bool shouldRotate)
+    //{
+    //    if (charController != null && enemyData != null && !enemyData.isDeath)
+    //    {
+    //        // Apply movement using character controller
+    //        charController.Move(currentSpeed * Time.deltaTime * direction);
 
-            // Apply gravity
-            if (!charController.isGrounded)
-            {
-                charController.Move(9.8f * Time.deltaTime * Vector3.down);
-            }
+    //        // Apply gravity
+    //        if (!charController.isGrounded)
+    //        {
+    //            charController.Move(9.8f * Time.deltaTime * Vector3.down);
+    //        }
 
-            // Handle rotation
-            if (shouldRotate && direction != Vector3.zero)
-            {
-                // Ensure we only rotate around the y-axis
-                Vector3 horizontalDirection = direction;
-                horizontalDirection.y = 0;
+    //        // Handle rotation
+    //        if (shouldRotate && direction != Vector3.zero)
+    //        {
+    //            // Ensure we only rotate around the y-axis
+    //            Vector3 horizontalDirection = direction;
+    //            horizontalDirection.y = 0;
 
-                if (horizontalDirection != Vector3.zero)
-                {
-                    transform.rotation = Quaternion.Slerp(
-                        transform.rotation,
-                        Quaternion.LookRotation(horizontalDirection),
-                        10f * Time.deltaTime
-                    );
-                }
-            }
+    //            if (horizontalDirection != Vector3.zero)
+    //            {
+    //                transform.rotation = Quaternion.Slerp(
+    //                    transform.rotation,
+    //                    Quaternion.LookRotation(horizontalDirection),
+    //                    10f * Time.deltaTime
+    //                );
+    //            }
+    //        }
 
-            // Update animation
-            if (anim != null)
-            {
-                float moveSpeed = direction.magnitude > 0.1f ? 1f : 0f;
-                anim.SetFloat("Move", moveSpeed);
+    //        // Update animation
+    //        if (anim != null)
+    //        {
+    //            float moveSpeed = direction.magnitude > 0.1f ? 1f : 0f;
+    //            anim.SetFloat("Move", moveSpeed);
 
-                // Debug movement animation state
-                if (direction.magnitude > 0.1f && !anim.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
-                {
-                    Debug.Log("Setting move animation: " + moveSpeed);
-                }
-            }
-        }
-    }
-
-    void Update()
-    {
-        if (enemyData != null && enemyData.health <= enemyData.minHealth)
-        {
-            Death();
-            Damage();
-        }
-        //For AIController handle behavior
-        UIHealthBar();
-    }
+    //            // Debug movement animation state
+    //            if (direction.magnitude > 0.1f && !anim.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
+    //            {
+    //                Debug.Log("Setting move animation: " + moveSpeed);
+    //            }
+    //        }
+    //    }
+    //}
 }

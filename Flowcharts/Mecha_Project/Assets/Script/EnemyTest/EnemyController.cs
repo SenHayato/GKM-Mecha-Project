@@ -42,6 +42,7 @@ public class EnemyController : MonoBehaviour
     private CharacterController characterController;
     public GameMaster gameManager;
     public GameObject UIHealth;
+    public AudioSource hitSound;
     [SerializeField]
     private CapsuleCollider deathCollider;
     private Animator anim;
@@ -98,6 +99,7 @@ public class EnemyController : MonoBehaviour
         UIHealthBar();
         Damage();
     }
+    #region Pengaturan
     void UIHealthBar()
     {
         if (enemyData.health < enemyData.maxHealth)
@@ -123,7 +125,17 @@ public class EnemyController : MonoBehaviour
             enemyData.isDeath = true;
         }
     }
-
+    IEnumerator HitSound()
+    {
+        if (enemyData.isHit && enemyData.wasHit)
+        {
+            enemyData.wasHit = false;
+            hitSound.Play();
+        }
+        yield return new WaitForSeconds(0.5f);
+        enemyData.wasHit = true;
+        enemyData.isHit = false;
+    }
     public void Damage()
     {
         InputAction inputAction = gameInput.actions.FindAction("TestKillEnemy");
@@ -166,7 +178,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    
+    #endregion
 
     void CheckingSight()
     {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43846726, g: 0.48655307, b: 0.5668256, a: 1}
+  m_IndirectSpecularColor: {r: 0.4384669, g: 0.48655242, b: 0.56682485, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -13058,7 +13058,7 @@ RectTransform:
   m_Father: {fileID: 1808880633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13988,7 +13988,7 @@ RectTransform:
   m_Father: {fileID: 414955473}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -26692,9 +26692,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1448225983}
-  - component: {fileID: 1448225984}
-  - component: {fileID: 1448225982}
-  - component: {fileID: 1448225981}
+  - component: {fileID: 1448225985}
+  - component: {fileID: 1448225986}
   - component: {fileID: 1448225980}
   - component: {fileID: 1448225979}
   - component: {fileID: 1448225978}
@@ -26934,73 +26933,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1448225974}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1448225981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1448225974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acab347fe9378904686f12cb6f108a61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyData: {fileID: 0}
-  navAgent: {fileID: 0}
-  player: {fileID: 0}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 32769
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointSet: 0
-  walkPointRange: 10
-  patrolPoints:
-  - {fileID: 938803205}
-  - {fileID: 790182792}
-  timeBetweenAttack: 1
-  isAttacking: 0
-  rotationSpeed: 8
-  sightRange: 9
-  attackRange: 6
-  playerInSight: 0
-  playerInAttackRange: 0
-  weaponMaxRange: {fileID: 922182908}
-  bulletSpawn: {fileID: 1181525610}
-  bulletTrail: {fileID: 1449443823}
-  characterController: {fileID: 0}
-  gameManager: {fileID: 0}
-  UIHealth: {fileID: 1587272878}
-  deathCollider: {fileID: 0}
---- !u!114 &1448225982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1448225974}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de34e51a34b32944cb5b58b7b984767e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyType: 0
-  enemyName: Prototipe Enemy Baru
-  maxHealth: 2000
-  health: 2000
-  minHealth: 0
-  attackPower: 0
-  attackSpeed: 0
-  attackRange: 2
-  isAttacking: 0
-  isDeath: 0
-  isMoving: 0
-  isBlocking: 0
-  isHit: 0
-  wasHit: 0
 --- !u!4 &1448225983
 Transform:
   m_ObjectHideFlags: 0
@@ -27021,25 +26953,74 @@ Transform:
   - {fileID: 922182908}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1448225984
+--- !u!114 &1448225985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1448225974}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7debf22087d59249ba7380eb18dee94, type: 3}
+  m_Script: {fileID: 11500000, guid: e27cf4d291eac9941a4db26c0ee68d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
-  data: {fileID: 0}
-  controller: {fileID: 0}
+  enemyModel: {fileID: 0}
+  navAgent: {fileID: 0}
+  player: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 32769
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointSet: 0
+  walkPointRange: 0
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  timeBetweenAttack: 0
+  isAttacking: 1
+  rotationSpeed: 0
+  sightRange: 0
+  attackRange: 0
+  playerInSight: 0
+  playerInAttackRange: 0
+  weaponMaxRange: {fileID: 922182908}
+  bulletSpawn: {fileID: 1181525610}
+  bulletTrail: {fileID: 1449443823}
   characterController: {fileID: 0}
-  gameManager: {fileID: 976748711}
-  UIHealth: {fileID: 5063763593428789038}
+  gameManager: {fileID: 0}
+  UIHealth: {fileID: 1587272878}
+  hitSound: {fileID: 0}
   deathCollider: {fileID: 0}
+--- !u!114 &1448225986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448225974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32c75b41f9274b94ba4bcc352f9d24b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 0
+  enemyName: Enemy
+  maxHealth: 1000
+  health: 1000
+  minHealth: 0
+  attackPower: 5
+  attackSpeed: 2
+  attackRange: 2
+  isAttacking: 0
+  isDeath: 0
+  isMoving: 0
+  isBlocking: 0
+  isHit: 0
+  wasHit: 0
 --- !u!1 &1449443822
 GameObject:
   m_ObjectHideFlags: 0
@@ -29140,13 +29121,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1587272879}
+  - component: {fileID: 1587272880}
   m_Layer: 9
   m_Name: UIInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1587272879
 Transform:
   m_ObjectHideFlags: 0
@@ -29163,6 +29145,24 @@ Transform:
   - {fileID: 459013411}
   m_Father: {fileID: 1448225983}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1587272880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1587272878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78c166af05e52e145acc3dd4764b692b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBar: {fileID: 2127011704}
+  easeBar: {fileID: 996828633}
+  enemyNameTxt: {fileID: 628020069}
+  enemyData: {fileID: 0}
+  playerCamera: {fileID: 0}
+  uiInfo: {fileID: 1587272878}
 --- !u!1 &1593633935
 GameObject:
   m_ObjectHideFlags: 0
@@ -38044,21 +38044,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27cf4d291eac9941a4db26c0ee68d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerObj: {fileID: 0}
-  Player: {fileID: 0}
-  enemyData: {fileID: 0}
-  agent: {fileID: 1933122967}
-  anim: {fileID: 0}
-  sword: {fileID: 0}
-  swordOnLeg: {fileID: 0}
+  enemyModel: {fileID: 0}
+  navAgent: {fileID: 0}
+  player: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointSet: 0
+  walkPointRange: 0
+  patrolPoints: []
+  timeBetweenAttack: 0
+  isAttacking: 0
+  rotationSpeed: 0
+  sightRange: 0
+  attackRange: 0
+  playerInSight: 0
+  playerInAttackRange: 0
+  weaponMaxRange: {fileID: 0}
+  bulletSpawn: {fileID: 0}
+  bulletTrail: {fileID: 0}
+  characterController: {fileID: 0}
   gameManager: {fileID: 0}
-  charController: {fileID: 1933122969}
-  deathCollider: {fileID: 1933122968}
   UIHealth: {fileID: 2048059483}
-  speed: 0
-  stoppingDistance: 5
   hitSound: {fileID: 0}
-  isHit: 0
+  deathCollider: {fileID: 1933122968}
 --- !u!114 &1933122972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38071,13 +38084,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
+  previousState: 0
   hitLayer:
-    serializedVersion: 2
     m_Bits: 0
+  agent: {fileID: 0}
   playerTransform: {fileID: 0}
+  model: {fileID: 0}
+  active: {fileID: 0}
+  anim: {fileID: 0}
+  enemy: {fileID: 0}
   targetSphere: {fileID: 0}
   weapon: {fileID: 0}
   wayPoints: []
+  currentWaypoints: 0
+  playerInSight: 0
+  playerInFieldOfView: 0
+  isObstacleInTheWay: 0
+  isAlerted: 0
 --- !u!114 &1933122973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38091,12 +38115,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitLayer:
-    serializedVersion: 2
     m_Bits: 8
   obstacleLayer:
-    serializedVersion: 2
     m_Bits: 2048
+  enemyModel: {fileID: 0}
+  enemyActive: {fileID: 0}
+  navAgent: {fileID: 0}
   lineOfSight: {fileID: 0}
+  fovMesh: {fileID: 0}
+  currentState: 0
+  previousState: 0
+  playerTransform: {fileID: 0}
+  playerInSight: 0
+  playerInFieldOfView: 0
+  isObstacleInTheWay: 0
 --- !u!114 &1933122974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38121,28 +38153,8 @@ MonoBehaviour:
   isDeath: 0
   isMoving: 0
   isBlocking: 0
-  showLineOfSight: 1
-  lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
-  showFieldOfView: 1
-  fieldOfViewColor: {r: 1, g: 1, b: 0, a: 0.2}
-  patrolRadius: 10
-  patrolWaitTime: 2
-  maxWaitingTime: 0
-  startPosition: {x: 0, y: 0, z: 0}
-  currentDestination: {x: 0, y: 0, z: 0}
-  destinationChangeTimer: 0
-  detectionRange: 10
-  alertRange: 10
-  viewAngle: 90
-  useFieldOfView: 1
-  peripheralViewAngle: 45
-  closeRangeAwareness: 2
-  isEquipping: 0
-  isEquipped: 0
-  attackCooldown: 2
-  attackTimer: 0
-  attackDamageMin: 0
-  attackDamageMax: 0
+  isHit: 0
+  wasHit: 0
 --- !u!33 &1933122975
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -38758,6 +38770,7 @@ MonoBehaviour:
   characterController: {fileID: 0}
   gameManager: {fileID: 0}
   UIHealth: {fileID: 5063763593428789038}
+  hitSound: {fileID: 0}
   deathCollider: {fileID: 0}
 --- !u!114 &1990236304
 MonoBehaviour:
@@ -42294,12 +42307,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitLayer:
-    serializedVersion: 2
     m_Bits: 8
   obstacleLayer:
-    serializedVersion: 2
     m_Bits: 2048
+  enemyModel: {fileID: 0}
+  enemyActive: {fileID: 0}
+  navAgent: {fileID: 0}
   lineOfSight: {fileID: 7188445463655339916}
+  fovMesh: {fileID: 0}
+  currentState: 0
+  previousState: 0
+  playerTransform: {fileID: 0}
+  playerInSight: 0
+  playerInFieldOfView: 0
+  isObstacleInTheWay: 0
 --- !u!4 &3990658414605485151
 Transform:
   m_ObjectHideFlags: 0
@@ -42610,21 +42631,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27cf4d291eac9941a4db26c0ee68d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerObj: {fileID: 0}
-  Player: {fileID: 0}
-  enemyData: {fileID: 0}
-  agent: {fileID: 8976015907341135819}
-  anim: {fileID: 0}
-  sword: {fileID: 0}
-  swordOnLeg: {fileID: 0}
+  enemyModel: {fileID: 0}
+  navAgent: {fileID: 0}
+  player: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointSet: 0
+  walkPointRange: 0
+  patrolPoints: []
+  timeBetweenAttack: 0
+  isAttacking: 0
+  rotationSpeed: 0
+  sightRange: 0
+  attackRange: 0
+  playerInSight: 0
+  playerInAttackRange: 0
+  weaponMaxRange: {fileID: 0}
+  bulletSpawn: {fileID: 0}
+  bulletTrail: {fileID: 0}
+  characterController: {fileID: 0}
   gameManager: {fileID: 0}
-  charController: {fileID: 6144345313671938395}
-  deathCollider: {fileID: 7063371110442034387}
   UIHealth: {fileID: 5063763593428789038}
-  speed: 0
-  stoppingDistance: 15
   hitSound: {fileID: 0}
-  isHit: 0
+  deathCollider: {fileID: 7063371110442034387}
 --- !u!1 &4800127582083288393
 GameObject:
   m_ObjectHideFlags: 0
@@ -43346,13 +43380,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
+  previousState: 0
   hitLayer:
-    serializedVersion: 2
     m_Bits: 0
+  agent: {fileID: 0}
   playerTransform: {fileID: 0}
+  model: {fileID: 0}
+  active: {fileID: 0}
+  anim: {fileID: 0}
+  enemy: {fileID: 0}
   targetSphere: {fileID: 0}
   weapon: {fileID: 0}
   wayPoints: []
+  currentWaypoints: 0
+  playerInSight: 0
+  playerInFieldOfView: 0
+  isObstacleInTheWay: 0
+  isAlerted: 0
 --- !u!114 &6457158700785582229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43365,21 +43410,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27cf4d291eac9941a4db26c0ee68d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerObj: {fileID: 0}
-  Player: {fileID: 0}
-  enemyData: {fileID: 6457158700785582230}
-  agent: {fileID: 8976015907341135819}
-  anim: {fileID: 303874057494347859}
-  sword: {fileID: 0}
-  swordOnLeg: {fileID: 0}
+  enemyModel: {fileID: 0}
+  navAgent: {fileID: 0}
+  player: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointSet: 0
+  walkPointRange: 0
+  patrolPoints: []
+  timeBetweenAttack: 0
+  isAttacking: 0
+  rotationSpeed: 0
+  sightRange: 0
+  attackRange: 0
+  playerInSight: 0
+  playerInAttackRange: 0
+  weaponMaxRange: {fileID: 0}
+  bulletSpawn: {fileID: 0}
+  bulletTrail: {fileID: 0}
+  characterController: {fileID: 0}
   gameManager: {fileID: 0}
-  charController: {fileID: 1933122969}
-  deathCollider: {fileID: 0}
   UIHealth: {fileID: 5063763593428789038}
-  speed: 3.5
-  stoppingDistance: 5
   hitSound: {fileID: 0}
-  isHit: 0
+  deathCollider: {fileID: 0}
 --- !u!114 &6457158700785582230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43404,28 +43462,8 @@ MonoBehaviour:
   isDeath: 0
   isMoving: 0
   isBlocking: 0
-  showLineOfSight: 1
-  lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
-  showFieldOfView: 1
-  fieldOfViewColor: {r: 1, g: 1, b: 0, a: 0.2}
-  patrolRadius: 15
-  patrolWaitTime: 2
-  maxWaitingTime: 5
-  startPosition: {x: 0, y: 0, z: 0}
-  currentDestination: {x: 0, y: 0, z: 0}
-  destinationChangeTimer: 0
-  detectionRange: 5
-  alertRange: 10
-  viewAngle: 90
-  useFieldOfView: 1
-  peripheralViewAngle: 45
-  closeRangeAwareness: 2
-  isEquipping: 0
-  isEquipped: 0
-  attackCooldown: 2
-  attackTimer: 0
-  attackDamageMin: 0
-  attackDamageMax: 0
+  isHit: 0
+  wasHit: 0
 --- !u!143 &6457158700785582231
 CharacterController:
   m_ObjectHideFlags: 0
@@ -43486,9 +43524,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7b09c5aa77403b46905f99644af2aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
+  previousState: 0
   mechaPlayer: {fileID: 0}
   lookTarget: {fileID: 0}
+  agent: {fileID: 0}
+  model: {fileID: 0}
+  active: {fileID: 0}
   wayPoint: []
+  _currentWayPoint: 0
+  _speed: 2
 --- !u!114 &6457158700785582234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43502,12 +43547,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitLayer:
-    serializedVersion: 2
     m_Bits: 8
   obstacleLayer:
-    serializedVersion: 2
     m_Bits: 2048
+  enemyModel: {fileID: 0}
+  enemyActive: {fileID: 0}
+  navAgent: {fileID: 0}
   lineOfSight: {fileID: 0}
+  fovMesh: {fileID: 0}
+  currentState: 0
+  previousState: 0
+  playerTransform: {fileID: 0}
+  playerInSight: 0
+  playerInFieldOfView: 0
+  isObstacleInTheWay: 0
 --- !u!1 &6509960876991456200
 GameObject:
   m_ObjectHideFlags: 0
@@ -44606,13 +44659,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9b91e99e03fc354c8bfe648a3fc99d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
+  previousState: 0
   hitLayer:
-    serializedVersion: 2
     m_Bits: 0
+  agent: {fileID: 0}
   playerTransform: {fileID: 0}
+  model: {fileID: 0}
+  active: {fileID: 0}
+  anim: {fileID: 0}
+  enemy: {fileID: 0}
   targetSphere: {fileID: 0}
   weapon: {fileID: 0}
   wayPoints: []
+  currentWaypoints: 0
+  playerInSight: 0
+  playerInFieldOfView: 0
+  isObstacleInTheWay: 0
+  isAlerted: 0
 --- !u!114 &8976015907341135821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44637,28 +44701,8 @@ MonoBehaviour:
   isDeath: 0
   isMoving: 0
   isBlocking: 0
-  showLineOfSight: 1
-  lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
-  showFieldOfView: 1
-  fieldOfViewColor: {r: 1, g: 1, b: 0, a: 0.2}
-  patrolRadius: 10
-  patrolWaitTime: 2
-  maxWaitingTime: 0
-  startPosition: {x: 0, y: 0, z: 0}
-  currentDestination: {x: 0, y: 0, z: 0}
-  destinationChangeTimer: 0
-  detectionRange: 10
-  alertRange: 10
-  viewAngle: 90
-  useFieldOfView: 1
-  peripheralViewAngle: 45
-  closeRangeAwareness: 2
-  isEquipping: 0
-  isEquipped: 0
-  attackCooldown: 2
-  attackTimer: 0
-  attackDamageMin: 0
-  attackDamageMax: 0
+  isHit: 0
+  wasHit: 0
 --- !u!4 &9017538851607669610
 Transform:
   m_ObjectHideFlags: 0
