@@ -77,9 +77,9 @@ public class Sword : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         // Meng aplikasikan damage ke player jika di dalam range
-        if(enemyActive.Player != null)
+        if(enemyActive.player != null)
         {
-            float distanceToPlayer = Vector3.Distance(atackPoint.position, enemyActive.Player.position);
+            float distanceToPlayer = Vector3.Distance(atackPoint.position, enemyActive.player.position);    
 
             if(distanceToPlayer <= attackRadius)
             {
@@ -88,7 +88,7 @@ public class Sword : MonoBehaviour
                 if (currentComboIndex > 0) damage = Mathf.RoundToInt(damage * (1f + currentComboIndex * 0.2f));
 
                 // Aplikasikan damage
-                enemyActive.Player.GetComponent<PlayerActive>()?.TakeDamage(damage);
+                enemyActive.player.GetComponent<PlayerActive>()?.TakeDamage(damage);
 
                 Debug.Log($"Sword attack hit player for {damage} damage (combo: {currentComboIndex})");
             }
@@ -105,16 +105,16 @@ public class Sword : MonoBehaviour
 
     public void OnAttackHit()
     {
-        if(enemyActive.Player != null)
+        if(enemyActive.player != null)
         {
-            float distanceToPlayer = Vector3.Distance(atackPoint.position, enemyActive.Player.position);
+            float distanceToPlayer = Vector3.Distance(atackPoint.position, enemyActive.player.position);
             if(distanceToPlayer <= attackRadius)
             {
                 int damage = enemyModel.attackPower;
                 if (currentComboIndex > 0) damage = Mathf.RoundToInt(damage * (1f + currentComboIndex * 0.2f));
 
                 // Aplikasikan damage
-                enemyActive.Player.GetComponent<PlayerActive>()?.TakeDamage(damage);
+                enemyActive.player.GetComponent<PlayerActive>()?.TakeDamage(damage);
 
                 Debug.Log($"Sword attack hit player for {damage} damage (combo: {currentComboIndex})");
             }
