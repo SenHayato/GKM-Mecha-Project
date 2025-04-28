@@ -48229,10 +48229,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7354520077200214151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acab347fe9378904686f12cb6f108a61, type: 3}
+  m_Script: {fileID: 11500000, guid: e27cf4d291eac9941a4db26c0ee68d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyData: {fileID: 0}
+  enemyModel: {fileID: 0}
   navAgent: {fileID: 0}
   player: {fileID: 0}
   playerLayer:
@@ -48240,21 +48240,26 @@ MonoBehaviour:
     m_Bits: 8
   groundLayer:
     serializedVersion: 2
-    m_Bits: 32769
+    m_Bits: 149505
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
-  walkPointRange: 10
+  walkPointRange: 0
   patrolPoints: []
-  timeBetweenAttack: 1
+  timeBetweenAttack: 0
   isAttacking: 0
-  rotationSpeed: 8
-  sightRange: 9
-  attackRange: 6
+  rotationSpeed: 7
+  sightRange: 8.12
+  attackRange: 11.49
   playerInSight: 0
   playerInAttackRange: 0
   weaponMaxRange: {fileID: 527511663}
   bulletSpawn: {fileID: 4936194000946239358}
   bulletTrail: {fileID: 3330364534942138097}
+  characterController: {fileID: 0}
+  gameManager: {fileID: 0}
+  UIHealth: {fileID: 6187026408322252450}
+  hitSound: {fileID: 0}
+  deathCollider: {fileID: 0}
 --- !u!114 &8146703215838358514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48264,21 +48269,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7354520077200214151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de34e51a34b32944cb5b58b7b984767e, type: 3}
+  m_Script: {fileID: 11500000, guid: 32c75b41f9274b94ba4bcc352f9d24b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: 0
-  enemyName: Prototipe Enemy Baru
+  enemyName: TestPrototipe
   maxHealth: 1000
-  health: 0
+  health: 1000
   minHealth: 0
-  attackPower: 0
-  attackSpeed: 0
+  attackPower: 10
+  attackSpeed: 2
   attackRange: 2
   isAttacking: 0
   isDeath: 0
   isMoving: 0
   isBlocking: 0
+  isHit: 0
+  wasHit: 0
 --- !u!1001 &8163265220714638654
 PrefabInstance:
   m_ObjectHideFlags: 0
