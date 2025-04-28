@@ -10,27 +10,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 6695a61a0e912e542b92527f7a3ce043, type: 3}
       propertyPath: m_LocalScale.x
-      value: 87.045746
+      value: 64.15611
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6695a61a0e912e542b92527f7a3ce043, type: 3}
       propertyPath: m_LocalScale.y
-      value: 87.045746
+      value: 64.149345
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6695a61a0e912e542b92527f7a3ce043, type: 3}
       propertyPath: m_LocalScale.z
-      value: 21.418259
+      value: 15.784427
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6695a61a0e912e542b92527f7a3ce043, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -33.77
+      value: -33.7748
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6695a61a0e912e542b92527f7a3ce043, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.82
+      value: -0.9521
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6695a61a0e912e542b92527f7a3ce043, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11.67
+      value: 11.3201
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6695a61a0e912e542b92527f7a3ce043, type: 3}
       propertyPath: m_LocalRotation.w
@@ -75,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6695a61a0e912e542b92527f7a3ce043, type: 3}
       insertIndex: -1
       addedObject: {fileID: -2235993755582003030}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6695a61a0e912e542b92527f7a3ce043, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9009554397123577768}
   m_SourcePrefab: {fileID: 100100000, guid: 6695a61a0e912e542b92527f7a3ce043, type: 3}
 --- !u!1 &3442143707711596939 stripped
 GameObject:
@@ -104,3 +107,25 @@ LODGroup:
     renderers:
     - renderer: {fileID: 0}
   m_Enabled: 1
+--- !u!64 &9009554397123577768
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3442143707711596939}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2911736426955009642, guid: 6695a61a0e912e542b92527f7a3ce043, type: 3}
