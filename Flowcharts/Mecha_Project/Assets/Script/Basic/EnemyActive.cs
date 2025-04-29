@@ -19,7 +19,6 @@ public class EnemyActive : MonoBehaviour
     [SerializeField] GameObject[] patrolPoints; //jika waypoint disediakan
 
     [Header("Attacking")]
-    [SerializeField] float timeBetweenAttack;
     [SerializeField] bool isAttacking;
     [SerializeField] float rotationSpeed;
 
@@ -222,7 +221,6 @@ public class EnemyActive : MonoBehaviour
     void Attacking()
     {
         navAgent.SetDestination(transform.position);
-        //transform.LookAt(player.position);
         Vector3 direction = player.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
@@ -233,7 +231,7 @@ public class EnemyActive : MonoBehaviour
             Debug.Log("EnemyTembak");
             isBulletSpawn = false;
             isAttacking = true;
-            Invoke(nameof(ResetAttack), timeBetweenAttack);
+            Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
         }
     }
 

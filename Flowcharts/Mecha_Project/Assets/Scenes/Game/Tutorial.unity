@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 716f1083ef2c00d43804e18889c624c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameInput: {fileID: 0}
   moveAction:
     m_Name: Move
     m_Type: 0
@@ -570,11 +571,24 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  awakeningAction:
+    m_Name: Awakening
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: ef0e87f4-8cb3-4af0-8f0f-3a9a4c0ba009
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   Mecha: {fileID: 0}
   GameMaster: {fileID: 0}
   CameraAct: {fileID: 0}
+  combatVoiceAct: {fileID: 0}
+  musicManager: {fileID: 0}
+  cutSceneManager: {fileID: 0}
   cameraPivot: {fileID: 0}
   playerPosition: {fileID: 0}
+  cameraEffect: {fileID: 0}
   Weapon: {fileID: 0}
   thusterParticle: {fileID: 1587866835}
   windEffect: {fileID: 1515432295}
@@ -584,6 +598,9 @@ MonoBehaviour:
   normalBoostSpeed: 4
   fastBoostSpeed: 100
   dashBoostSpeed: 0
+  hitSound: {fileID: 0}
+  thrusterSound: {fileID: 0}
+  blockSound: {fileID: 0}
   speed: 4
   jumpForce: 15
   gravity: 9.8
@@ -591,11 +608,13 @@ MonoBehaviour:
   verticalVelocity: 0
   fallMultiplier: 5
   rotationSpeed: 0
-  boostDuration: 2
-  boostSpeedMultiplier: 10
   skillBusy: 0
   controller: {fileID: 0}
   anim: {fileID: 0}
+  boostDuration: 2
+  boostSpeedMultiplier: 10
+  boostDistance: 0
+  boostDirectionLerp: 0
 --- !u!114 &126675985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,7 +631,15 @@ MonoBehaviour:
   MaxHealth: 100000
   MinHealth: 0
   AttackPow: 25
-  AttackSpd: 0
+  isAttackUp: 0
+  Awakening: 0
+  MaxAwakening: 0
+  MinAwakening: 0
+  AwakeningRegen: 0
+  AwakeningDuration: 0
+  UsingAwakening: 0
+  awakeningReady: 0
+  awakeningAttack: 0
   Ultimate: 0
   MaxUltimate: 100
   MinUltimate: 0
@@ -630,14 +657,19 @@ MonoBehaviour:
   EnergyCost: 50
   EnergyRegen: 1
   readySkill1: 0
+  usingSkill1: 0
   skill1Time: 0
   cooldownSkill1: 5
   skill1Damage: 200
+  skill1Duration: 0
   readySkill2: 0
+  usingSkill2: 0
   skill2Time: 0
   cooldownSkill2: 5
   skill2Damage: 500
+  skill2Duration: 0
   Defence: 1000
+  isJumping: 0
   isDeath: 0
   isBlocking: 0
   isHovering: 0
@@ -646,6 +678,8 @@ MonoBehaviour:
   isDashing: 0
   isReloading: 0
   isBoosting: 0
+  isIdle: 0
+  defaultSpeed: 0
   PlayerPosition: {fileID: 126675986}
 --- !u!4 &126675986
 Transform:
@@ -2139,20 +2173,29 @@ MonoBehaviour:
   QuestText: 
   checkPointReach: 0
   PauseMenu: {fileID: 0}
+  playerInput: {fileID: 0}
   Player: {fileID: 0}
   HUDManager: {fileID: 0}
   isPaused: 1
+  gameFinish: 0
   input: {fileID: 0}
+  NextScene: 
+  gameWin: 0
   WinScreen: OutroCG
+  gameLose: 0
   LoseScreen: LoseScreen
   MainMenu: TittleScreen
+  fadeIn: {fileID: 0}
+  fadeOut: {fileID: 0}
   KillCount: 0
+  timer: 0
   defaultTimer: 60
   timeFormat: 
   countdown: 0
   MechaData: {fileID: 0}
   PlayerHealth: 0
   LastScene: 
+  cutSceneManager: {fileID: 0}
 --- !u!4 &758671872
 Transform:
   m_ObjectHideFlags: 0
@@ -2750,6 +2793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  playerActive: {fileID: 0}
 --- !u!4 &979355306
 Transform:
   m_ObjectHideFlags: 0
@@ -3255,6 +3299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  playerActive: {fileID: 0}
 --- !u!4 &1293499735
 Transform:
   m_ObjectHideFlags: 0
@@ -8739,23 +8784,28 @@ MonoBehaviour:
     m_Bits: 567
   hitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
   bulletSpawn: {fileID: 1724810518}
-  player: {fileID: 0}
+  mechaPlayer: {fileID: 0}
   playerSkrip: {fileID: 0}
   mainCamera: {fileID: 0}
   lineRenderer: {fileID: 470039919}
   cameraAct: {fileID: 0}
   HUDManager: {fileID: 0}
+  pointToShoot: {fileID: 0}
   recoilValueX: 1
   recoilValueY: 0.5
   recoilSpeed: 1
+  audioSource: {fileID: 0}
   fireRate: 0.05
   reloadSpeed: 3.3
   range: 100
-  bulletSpeed: 200
   canShoot: 1
   readytoShoot: 0
   ammo: 0
   maxAmmo: 60
+  fireSound: {fileID: 0}
+  rechargeSound: {fileID: 0}
+  fireActive: 0
+  rechargeActive: 0
 --- !u!1 &1545430377
 GameObject:
   m_ObjectHideFlags: 0
@@ -14064,6 +14114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
+  playerActive: {fileID: 0}
 --- !u!4 &1743040712
 Transform:
   m_ObjectHideFlags: 0
@@ -14303,6 +14354,9 @@ MonoBehaviour:
   boostEffect: {fileID: 1206590751}
   ultimateEffect: {fileID: 572536541}
   criticalEffect: {fileID: 573368018}
+  scopeEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
+  awakeningEffect: {fileID: 0}
   criticalVolume: {fileID: 0}
   boostVolume: {fileID: 0}
   mechaPlayer: {fileID: 0}
@@ -14320,17 +14374,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 0}
   weaponSkrip: {fileID: 0}
+  collisionLayers:
+    serializedVersion: 2
+    m_Bits: 0
   cameraPivot: {fileID: 1847038689}
   cameraAimPost: {fileID: 1885514136}
   cameraMainPost: {fileID: 573656686}
+  defaultMainPost: {fileID: 0}
   cameraControl: {fileID: 0}
   PlayerAct: {fileID: 0}
   MainCameraOBJ: {fileID: 901634879}
+  MainCamera: {fileID: 0}
+  Mecha: {fileID: 0}
+  collisionPoint: {fileID: 0}
   defaultFOV: 60
   scopeFOV: 55
   boostFOV: 75
   rotationSpeed: 80
   defaultCamRot: {x: 0.11320321, y: 0, z: 0, w: 0.9935719}
+  collisionOffset: 0
+  offsetSmooth: 0
 --- !u!4 &1847038689
 Transform:
   m_ObjectHideFlags: 0

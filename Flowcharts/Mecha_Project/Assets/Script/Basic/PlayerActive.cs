@@ -452,7 +452,7 @@ public class PlayerActive : MonoBehaviour
                 }
             }
 
-            if (boostAction.triggered && Mecha.Energy >= Mecha.EnergyCost && !Mecha.isBoosting)
+            if (boostAction.triggered && Mecha.Energy >= Mecha.EnergyCost && !Mecha.isBoosting && !Mecha.isReloading)
             {
                 Mecha.isBoosting = true;
                 anim.SetFloat("Move", 3f);

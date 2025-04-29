@@ -9,6 +9,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ef169e4170472604e9ad5faf1cb085ef, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 99.999985
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ef169e4170472604e9ad5faf1cb085ef, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 99.999985
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ef169e4170472604e9ad5faf1cb085ef, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.9205523
       objectReference: {fileID: 0}
@@ -30,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef169e4170472604e9ad5faf1cb085ef, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef169e4170472604e9ad5faf1cb085ef, type: 3}
       propertyPath: m_LocalRotation.z
@@ -107,9 +115,14 @@ LODGroup:
   - screenRelativeHeight: 0.81728965
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 0}
+    - renderer: {fileID: 3582234835499696707}
   - screenRelativeHeight: 0.49512026
     fadeTransitionWidth: 0
     renderers:
-    - renderer: {fileID: 0}
+    - renderer: {fileID: 3582234835499696707}
   m_Enabled: 1
+--- !u!23 &3582234835499696707 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: ef169e4170472604e9ad5faf1cb085ef, type: 3}
+  m_PrefabInstance: {fileID: 2771739327428812487}
+  m_PrefabAsset: {fileID: 0}
