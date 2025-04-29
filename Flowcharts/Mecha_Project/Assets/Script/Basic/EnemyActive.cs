@@ -60,7 +60,6 @@ public class EnemyActive : MonoBehaviour
         anim = GetComponent<Animator>();
 
         characterController = GetComponent<CharacterController>();
-        gameManager = GetComponent<GameMaster>();
         deathCollider = GetComponent<CapsuleCollider>();
         gameInput = FindAnyObjectByType<PlayerInput>();
         gameManager = FindAnyObjectByType<GameMaster>();
