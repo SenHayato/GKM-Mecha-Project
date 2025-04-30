@@ -31,14 +31,12 @@ public class EnemyActive : MonoBehaviour
     [SerializeField] LineRenderer bulletTrail;
 
     [Header("Komponen Enemy")]
-    [SerializeField]
-    private CharacterController characterController;
+    [SerializeField] CharacterController characterController;
     public GameMaster gameManager;
     public GameObject UIHealth;
     public AudioSource hitSound;
-    [SerializeField]
-    private CapsuleCollider deathCollider;
-    private Animator anim;
+    [SerializeField] CapsuleCollider deathCollider;
+    [SerializeField] Animator anim;
 
     [Header("Komponen Player")]
     private PlayerInput gameInput;
@@ -227,13 +225,27 @@ public class EnemyActive : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
-        if (!enemyModel.isAttacking)
+        if (enemyModel.enemyType == EnemyType.EnemyRange)
         {
-            //nembak raycast
-            Debug.Log("EnemyTembak");
-            isBulletSpawn = false;
-            enemyModel.isAttacking = true;
-            Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
+            if (!enemyModel.isAttacking)
+            {
+
+                Debug.Log("EnemyTembak");
+                isBulletSpawn = false;
+                enemyModel.isAttacking = true;
+                Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
+            }
+        }
+
+        if (enemyModel.enemyType == EnemyType.EnemyShort)
+        {
+            if (!enemyModel.isAttacking)
+            {
+                Debug.Log("EnemySword");
+                isBulletSpawn = false;
+                enemyModel.isAttacking = true;
+                Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
+            }
         }
     }
 
@@ -271,9 +283,4 @@ public class EnemyActive : MonoBehaviour
         gameManager.KillCount++;
         //Effect meledak
     }
-}
-
-public class ShortEnemy : EnemyActive
-{
-
 }
