@@ -9,7 +9,7 @@ public abstract class EnemyActive : MonoBehaviour
     public EnemyModel enemyModel;
     public NavMeshAgent navAgent;
     public Transform player; //titik collision pada player, taruh di player
-    [SerializeField] LayerMask playerLayer;
+    public LayerMask playerLayer;
     [SerializeField] LayerMask groundLayer; //layer yang bisa diinjak enemy
 
     [Header("Patrolling")]
@@ -25,11 +25,6 @@ public abstract class EnemyActive : MonoBehaviour
     [SerializeField] bool playerInSight;
     [SerializeField] bool playerInAttackRange;
 
-    [Header("RangeWeapon")]
-    [SerializeField] Transform weaponMaxRange;
-    [SerializeField] Transform bulletSpawn;
-    [SerializeField] LineRenderer bulletTrail;
-
     [Header("Komponen Enemy")]
     [SerializeField] CharacterController characterController;
     public GameMaster gameManager;
@@ -40,7 +35,6 @@ public abstract class EnemyActive : MonoBehaviour
 
     [Header("Komponen Player")]
     private PlayerInput gameInput;
-
 
     //flag
     public bool isBulletSpawn = false;
@@ -87,7 +81,6 @@ public abstract class EnemyActive : MonoBehaviour
         {
             Attacking();
         }
-        StartCoroutine(BulletTrailEffect());
         StartCoroutine(HitSound());
 
         Death();
@@ -218,20 +211,6 @@ public abstract class EnemyActive : MonoBehaviour
     public void ResetAttack()
     {
         enemyModel.isAttacking = false;
-    }
-
-    IEnumerator BulletTrailEffect()
-    {
-        bulletTrail.SetPosition(0, bulletSpawn.position);
-        bulletTrail.SetPosition(1, weaponMaxRange.position);
-
-        if (enemyModel.isAttacking && !isBulletSpawn)
-        {
-            bulletTrail.enabled = true;
-            yield return new WaitForSeconds(0.05f);
-            bulletTrail.enabled = false;
-            isBulletSpawn = true;
-        }
     }
 
     private void OnDrawGizmosSelected()
