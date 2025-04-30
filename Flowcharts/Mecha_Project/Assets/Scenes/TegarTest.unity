@@ -26920,7 +26920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31dac20fcfa9304695e71770e9bdc0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageType: 3
+  StageType: 0
   QuestText: 
   checkPointReach: 0
   PauseMenu: {fileID: 1605250513}
@@ -54351,9 +54351,6 @@ MonoBehaviour:
   attackRange: 5
   playerInSight: 0
   playerInAttackRange: 0
-  weaponMaxRange: {fileID: 527511663}
-  bulletSpawn: {fileID: 4936194000946239358}
-  bulletTrail: {fileID: 3330364534942138097}
   characterController: {fileID: 0}
   gameManager: {fileID: 0}
   UIHealth: {fileID: 6187026408322252450}
@@ -54361,6 +54358,10 @@ MonoBehaviour:
   deathCollider: {fileID: 0}
   anim: {fileID: 0}
   isBulletSpawn: 0
+  rayCastSpawn: {fileID: 292233952}
+  weaponMaxRange: {fileID: 527511663}
+  bulletSpawn: {fileID: 4936194000946239358}
+  bulletTrail: {fileID: 3330364534942138097}
 --- !u!4 &8158910276144383180
 Transform:
   m_ObjectHideFlags: 0
