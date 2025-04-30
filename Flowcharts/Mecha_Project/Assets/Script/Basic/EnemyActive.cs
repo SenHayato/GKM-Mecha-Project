@@ -3,11 +3,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-public class EnemyActive : MonoBehaviour
+public abstract class EnemyActive : MonoBehaviour
 {
     [Header("EnemyProperties")]
-    [SerializeField] EnemyModel enemyModel;
-    [SerializeField] NavMeshAgent navAgent;
+    public EnemyModel enemyModel;
+    public NavMeshAgent navAgent;
     public Transform player; //titik collision pada player, taruh di player
     [SerializeField] LayerMask playerLayer;
     [SerializeField] LayerMask groundLayer; //layer yang bisa diinjak enemy
@@ -18,11 +18,8 @@ public class EnemyActive : MonoBehaviour
     [SerializeField] float walkPointRange;
     [SerializeField] GameObject[] patrolPoints; //jika waypoint disediakan
 
-    [Header("Attacking")]
-    [SerializeField] bool isAttacking;
-    [SerializeField] float rotationSpeed;
-
     [Header("States")]
+    public float rotationSpeed;
     [SerializeField] float sightRange;
     [SerializeField] float attackRange;
     [SerializeField] bool playerInSight;
@@ -46,7 +43,7 @@ public class EnemyActive : MonoBehaviour
 
 
     //flag
-    bool isBulletSpawn = false;
+    public bool isBulletSpawn = false;
 
     private void Awake()
     {
@@ -72,7 +69,6 @@ public class EnemyActive : MonoBehaviour
         
     }
 
-
     void Update()
     {
         CheckingSight();
@@ -92,11 +88,13 @@ public class EnemyActive : MonoBehaviour
             Attacking();
         }
         StartCoroutine(BulletTrailEffect());
+        StartCoroutine(HitSound());
 
         Death();
         UIHealthBar();
         Damage();
     }
+
     #region Pengaturan
     void UIHealthBar()
     {
@@ -216,59 +214,18 @@ public class EnemyActive : MonoBehaviour
         navAgent.SetDestination(player.position);
     }
 
-    void Attacking()
+
+    public void ResetAttack()
     {
-        navAgent.SetDestination(transform.position);
-        Vector3 direction = player.position - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-
-<<<<<<< HEAD:Flowcharts/Mecha_Project/Assets/Script/Enemy/EnemyActive.cs
-        if (enemyModel.enemyType == EnemyType.EnemyRange)
-        {
-            if (!enemyModel.isAttacking)
-            {
-
-                Debug.Log("EnemyTembak");
-                isBulletSpawn = false;
-                enemyModel.isAttacking = true;
-                Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
-            }
-        }
-
-        if (enemyModel.enemyType == EnemyType.EnemyShort)
-        {
-            if (!enemyModel.isAttacking)
-            {
-                Debug.Log("EnemySword");
-                isBulletSpawn = false;
-                enemyModel.isAttacking = true;
-                Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
-            }
-=======
-        if (!isAttacking)
-        {
-            //nembak raycast
-            Debug.Log("EnemyTembak");
-            isBulletSpawn = false;
-            isAttacking = true;
-            Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
->>>>>>> parent of cf44abe (optimize skrip enemy active):Flowcharts/Mecha_Project/Assets/Script/Basic/EnemyActive.cs
-        }
+        enemyModel.isAttacking = false;
     }
-
-    void ResetAttack()
-    {
-        isAttacking = false;
-    }
-
 
     IEnumerator BulletTrailEffect()
     {
         bulletTrail.SetPosition(0, bulletSpawn.position);
         bulletTrail.SetPosition(1, weaponMaxRange.position);
 
-        if (isAttacking && !isBulletSpawn)
+        if (enemyModel.isAttacking && !isBulletSpawn)
         {
             bulletTrail.enabled = true;
             yield return new WaitForSeconds(0.05f);
@@ -289,101 +246,6 @@ public class EnemyActive : MonoBehaviour
         gameManager.KillCount++;
         //Effect meledak
     }
-<<<<<<< HEAD:Flowcharts/Mecha_Project/Assets/Script/Enemy/EnemyActive.cs
-=======
 
-
-    public void OnAttackEnd()
-    {
-        if (enemyModel != null)
-        {
-            enemyModel.isAttacking = false;
-        }
-    }
-
-    //public void AttackPlayer()
-    //{
-    //    if (enemyData == null || enemyData.isDeath || Player == null) return;
-
-    //    // Calculate distance to player
-    //    float distanceToPlayer = Vector3.Distance(transform.position, Player.position);
-
-    //    // Check if within attack range
-    //    if (distanceToPlayer <= enemyData.attackRange && !enemyData.isAttacking)
-    //    {
-    //        // Face the player
-    //        Vector3 directionToPlayer = (Player.position - transform.position).normalized;
-    //        directionToPlayer.y = 0;
-    //        transform.rotation = Quaternion.LookRotation(directionToPlayer);
-
-    //        // Trigger attack
-    //        enemyData.isAttacking = true;
-    //        if (anim != null)
-    //        {
-    //            anim.SetTrigger("Attack");
-    //            anim.SetBool("IsAttacking", true);
-    //        } 
-    //    }
-    //}
-
-
-    //public void OnDrawGizmosSelected()
-    //{
-    //    // Visualize attack range
-    //    if (enemyData != null)
-    //    {
-    //        Gizmos.color = Color.red;
-    //        Gizmos.DrawWireSphere(transform.position, enemyData.attackRange);
-
-    //        // Visualize detection range
-    //        Gizmos.color = Color.yellow;
-    //        Gizmos.DrawWireSphere(transform.position, enemyData.detectionRange);
-    //    }
-    //}
-
-    //public void ApplyMovement(Vector3 direction, float currentSpeed, bool shouldRotate)
-    //{
-    //    if (charController != null && enemyData != null && !enemyData.isDeath)
-    //    {
-    //        // Apply movement using character controller
-    //        charController.Move(currentSpeed * Time.deltaTime * direction);
-
-    //        // Apply gravity
-    //        if (!charController.isGrounded)
-    //        {
-    //            charController.Move(9.8f * Time.deltaTime * Vector3.down);
-    //        }
-
-    //        // Handle rotation
-    //        if (shouldRotate && direction != Vector3.zero)
-    //        {
-    //            // Ensure we only rotate around the y-axis
-    //            Vector3 horizontalDirection = direction;
-    //            horizontalDirection.y = 0;
-
-    //            if (horizontalDirection != Vector3.zero)
-    //            {
-    //                transform.rotation = Quaternion.Slerp(
-    //                    transform.rotation,
-    //                    Quaternion.LookRotation(horizontalDirection),
-    //                    10f * Time.deltaTime
-    //                );
-    //            }
-    //        }
-
-    //        // Update animation
-    //        if (anim != null)
-    //        {
-    //            float moveSpeed = direction.magnitude > 0.1f ? 1f : 0f;
-    //            anim.SetFloat("Move", moveSpeed);
-
-    //            // Debug movement animation state
-    //            if (direction.magnitude > 0.1f && !anim.GetCurrentAnimatorStateInfo(0).IsName("Walk"))
-    //            {
-    //                Debug.Log("Setting move animation: " + moveSpeed);
-    //            }
-    //        }
-    //    }
-    //}
->>>>>>> parent of cf44abe (optimize skrip enemy active):Flowcharts/Mecha_Project/Assets/Script/Basic/EnemyActive.cs
+    public abstract void Attacking();
 }
