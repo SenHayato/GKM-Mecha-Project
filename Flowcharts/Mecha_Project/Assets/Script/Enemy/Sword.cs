@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword : MonoBehaviour
+public abstract class Sword : MonoBehaviour
 {
+    [SerializeField] private Transform player;
     [SerializeField] private Animator anim;
     [SerializeField] private EnemyModel enemyModel;
     [SerializeField] private EnemyActive enemyActive;
@@ -24,9 +25,14 @@ public class Sword : MonoBehaviour
 
     private void Awake()
     {
+        anim = GetComponent<Animator>();
         if (anim == null) anim = GetComponent<Animator>();
         if (enemyModel == null) enemyModel = GetComponent<EnemyModel>();
         if (enemyActive == null) enemyActive = GetComponent<EnemyActive>();
+        
+        {
+            
+        }
 
         if (atackPoint == null)
         {
@@ -36,6 +42,10 @@ public class Sword : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+
+    }
     public void PerformAttackShort()
     {
         if (enemyModel.isAttacking || enemyModel.isDeath) return;

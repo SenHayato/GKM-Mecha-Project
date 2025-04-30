@@ -31,7 +31,7 @@ public abstract class EnemyActive : MonoBehaviour
     public GameObject UIHealth;
     public AudioSource hitSound;
     [SerializeField] CapsuleCollider deathCollider;
-    [SerializeField] Animator anim;
+    public Animator anim;
 
     [Header("Komponen Player")]
     private PlayerInput gameInput;
