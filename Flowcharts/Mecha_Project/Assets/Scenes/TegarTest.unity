@@ -48305,6 +48305,7 @@ MonoBehaviour:
   walkPointSet: 0
   walkPointRange: 0
   patrolPoints: []
+  isAttacking: 0
   rotationSpeed: 7
   sightRange: 14.08
   attackRange: 10.06
@@ -48316,7 +48317,7 @@ MonoBehaviour:
   characterController: {fileID: 0}
   gameManager: {fileID: 0}
   UIHealth: {fileID: 6187026408322252450}
-  hitSound: {fileID: 1889990717056415687}
+  hitSound: {fileID: 0}
   deathCollider: {fileID: 0}
 --- !u!114 &8146703215838358514
 MonoBehaviour:
