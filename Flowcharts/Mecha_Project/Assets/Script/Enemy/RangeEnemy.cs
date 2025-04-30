@@ -6,16 +6,14 @@ public class RangeEnemy : EnemyActive
 {
     [Header("Komponen Enemy Range")]
     [SerializeField] Transform rayCastSpawn;
-    [SerializeField] Ray ray;
    
     [Header("RangeWeapon")]
-    [SerializeField] Transform weaponMaxRange;
     [SerializeField] Transform bulletSpawn;
     [SerializeField] LineRenderer bulletTrail;
 
+
     public override void Attacking()
-    { 
-        StartCoroutine(BulletTrailEffect());
+    {
         navAgent.SetDestination(transform.position);
         Vector3 direction = player.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
@@ -26,18 +24,26 @@ public class RangeEnemy : EnemyActive
             Debug.Log("EnemyTembak");
             isBulletSpawn = false;
             enemyModel.isAttacking = true;
-            if (Physics.Raycast(ray, out RaycastHit hit, enemyModel.attackRange, playerLayer))
+            Vector3 targetPoint;
+            if (Physics.Raycast(rayCastSpawn.position, rayCastSpawn.forward, out RaycastHit hit, enemyModel.attackRange, playerLayer))
             {
-
+                targetPoint = hit.point;
+                //Debug.Log(hit.point);
+                //Debug.DrawRay(rayCastSpawn.position, rayCastSpawn.forward, Color.green);
+                if (hit.collider.TryGetComponent<PlayerActive>(out var playerActive))
+                {
+                    playerActive.TakeDamage(enemyModel.attackPower);
+                }
             }
             Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
+            StartCoroutine(BulletTrailEffect(hit.point));
         }
     }
 
-    IEnumerator BulletTrailEffect()
+    IEnumerator BulletTrailEffect(Vector3 targetHit)
     {
         bulletTrail.SetPosition(0, bulletSpawn.position);
-        bulletTrail.SetPosition(1, weaponMaxRange.position);
+        bulletTrail.SetPosition(1, targetHit);
 
         if (enemyModel.isAttacking && !isBulletSpawn)
         {
