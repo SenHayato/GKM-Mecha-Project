@@ -24,7 +24,6 @@ public class EnemyModel : MonoBehaviour
     public bool isBlocking;
     public bool isHit;
     public bool wasHit = false;
-
 }
 
 public enum EnemyType

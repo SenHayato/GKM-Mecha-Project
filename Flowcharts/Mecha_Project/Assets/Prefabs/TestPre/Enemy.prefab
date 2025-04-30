@@ -496,7 +496,6 @@ GameObject:
   - component: {fileID: 6025551826186418998}
   - component: {fileID: 6955877913921061351}
   - component: {fileID: 5444647606316990954}
-  - component: {fileID: 354952733431852514}
   - component: {fileID: 6146755136576805288}
   - component: {fileID: 4083481269440161566}
   m_Layer: 9
@@ -556,29 +555,8 @@ MonoBehaviour:
   isDeath: 0
   isMoving: 0
   isBlocking: 0
-  showLineOfSight: 1
-  lineOfSightColor: {r: 1, g: 0, b: 0, a: 1}
-  showFieldOfView: 1
-  fieldOfViewColor: {r: 1, g: 1, b: 0, a: 0.2}
-  patrolRadius: 10
-  patrolWaitTime: 2
-  maxWaitingTime: 0
-  startPosition: {x: 0, y: 0, z: 0}
-  currentDestination: {x: 0, y: 0, z: 0}
-  destinationChangeTimer: 0
-  detectionRange: 10
-  alertRange: 15
-  viewAngle: 90
-  useFieldOfView: 1
-  peripheralViewAngle: 45
-  closeRangeAwareness: 2
-  isEquipping: 0
-  isEquipped: 0
-  attackCooldown: 2
-  attackTimer: 0
-  attackDamageMin: 0
-  attackDamageMax: 0
-  weaponFirePoint: {fileID: 0}
+  isHit: 0
+  wasHit: 0
 --- !u!114 &6401576269163842454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,21 +569,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27cf4d291eac9941a4db26c0ee68d6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerObj: {fileID: 0}
-  Player: {fileID: 0}
-  enemyData: {fileID: 2849193741984559570}
-  agent: {fileID: 6146755136576805288}
-  anim: {fileID: 0}
-  sword: {fileID: 0}
-  swordOnLeg: {fileID: 0}
+  enemyModel: {fileID: 0}
+  navAgent: {fileID: 0}
+  player: {fileID: 0}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointSet: 0
+  walkPointRange: 0
+  patrolPoints: []
+  rotationSpeed: 0
+  sightRange: 0
+  attackRange: 0
+  playerInSight: 0
+  playerInAttackRange: 0
+  weaponMaxRange: {fileID: 0}
+  bulletSpawn: {fileID: 0}
+  bulletTrail: {fileID: 0}
+  characterController: {fileID: 0}
   gameManager: {fileID: 0}
-  charController: {fileID: 6955877913921061351}
-  deathCollider: {fileID: 5444647606316990954}
   UIHealth: {fileID: 8596619225900904059}
-  speed: 3
-  stoppingDistance: 15
   hitSound: {fileID: 0}
-  isHit: 0
+  deathCollider: {fileID: 5444647606316990954}
 --- !u!23 &6025551826186418998
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -697,25 +686,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &354952733431852514
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4936342202266720350}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ea4a4ab3f8c30341b894ae6721958af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  lineOfSight: {fileID: 0}
 --- !u!195 &6146755136576805288
 NavMeshAgent:
   m_ObjectHideFlags: 0
