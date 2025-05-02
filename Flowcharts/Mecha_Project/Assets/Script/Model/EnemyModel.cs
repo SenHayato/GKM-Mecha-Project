@@ -13,6 +13,7 @@ public class EnemyModel : MonoBehaviour
     public int minHealth;
 
     [Header("Attack")]
+    public float sightRange;
     public int attackPower;
     public int attackSpeed;
     public float attackRange;

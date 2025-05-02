@@ -20,8 +20,6 @@ public abstract class EnemyActive : MonoBehaviour
 
     [Header("States")]
     public float rotationSpeed;
-    [SerializeField] float sightRange;
-    [SerializeField] float attackRange;
     [SerializeField] bool playerInSight;
     [SerializeField] bool playerInAttackRange;
 
@@ -169,8 +167,8 @@ public abstract class EnemyActive : MonoBehaviour
 
     void CheckingSight()
     {
-        playerInSight = Physics.CheckSphere(transform.position, sightRange, playerLayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
+        playerInSight = Physics.CheckSphere(transform.position, enemyModel.sightRange, playerLayer);
+        playerInAttackRange = Physics.CheckSphere(transform.position, enemyModel.attackRange, playerLayer);
     }
 
     void Patrolling()
@@ -214,9 +212,9 @@ public abstract class EnemyActive : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, enemyModel.attackRange);
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.DrawWireSphere(transform.position, enemyModel.sightRange);
     }
     private void OnDestroy()
     {
