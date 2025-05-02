@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Sword : MonoBehaviour
+public class Sword : MonoBehaviour
 {
     [SerializeField] private Transform player;
     [SerializeField] private Animator anim;

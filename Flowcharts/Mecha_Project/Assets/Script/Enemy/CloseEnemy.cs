@@ -10,7 +10,7 @@ public class CloseEnemy : EnemyActive
 
     public override void Attacking()
     {
-        attackTime += Time.deltaTime;
+        //attackTime += Time.deltaTime;
         navAgent.SetDestination(transform.position);
         Vector3 direction = player.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
@@ -18,27 +18,44 @@ public class CloseEnemy : EnemyActive
 
         if (!enemyModel.isAttacking)
         {
-            float distance = Vector3.Distance(transform.position, player.position);
-            if (attackTime >= nextAttackTime)
-            {
-                attackTime = 0f;
-                Debug.Log("SwordAttack");
-                //enemyModel.nextAttackTime = Time.time + enemyModel.attackCooldown;
-                enemyModel.isAttacking = true;
-            }
+            //float distance = Vector3.Distance(transform.position, player.position);
+           
+            //attackTime = 0f;
+            Debug.Log("SwordAttack");
+            //enemyModel.nextAttackTime = Time.time + enemyModel.attackCooldown;
+            enemyModel.isAttacking = true;
+            
             Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
         }
     }
 
     public override void PlayAnimation()
     {
+        //patrolling
+        if (enemyModel.isPatrolling)
+        {
+            anim.SetFloat("Move", 1f);
+        }
+        else
+        {
+            anim.SetFloat("Move", 0f);
+        }
         if (enemyModel.isAttacking)
         {
-            anim.SetTrigger("Attack1");
+            anim.SetBool("Attack1", true);
         }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        
+        else
+        {
+            anim.SetBool("Attack1", false);
+            Debug.Log("ASDWA");
+        }
+        if (enemyModel.isDeath)
+        {
+            anim.SetBool("IsDeath", true);
+        }
+        else
+        {
+            anim.SetBool("IsDeath", false);
+        }
     }
 }
