@@ -42588,6 +42588,8 @@ MonoBehaviour:
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
+  attackCooldown: 3
+  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -46147,6 +46149,8 @@ MonoBehaviour:
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
+  attackCooldown: 3
+  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -46317,6 +46321,8 @@ MonoBehaviour:
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
+  attackCooldown: 3
+  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -48663,6 +48669,8 @@ MonoBehaviour:
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
+  attackCooldown: 3
+  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -54209,6 +54217,8 @@ MonoBehaviour:
   attackPower: 3000
   attackSpeed: 3
   attackRange: 5
+  attackCooldown: 3
+  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -54251,10 +54261,11 @@ MonoBehaviour:
   hitSound: {fileID: 1889990717056415687}
   deathCollider: {fileID: 0}
   anim: {fileID: 0}
-  isBulletSpawn: 0
   rayCastSpawn: {fileID: 292233952}
+  bulletHitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
   bulletSpawn: {fileID: 4936194000946239358}
   bulletTrail: {fileID: 3330364534942138097}
+  isBulletSpawn: 0
 --- !u!4 &8158910276144383180
 Transform:
   m_ObjectHideFlags: 0

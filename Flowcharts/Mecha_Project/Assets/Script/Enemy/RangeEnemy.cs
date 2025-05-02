@@ -6,11 +6,12 @@ public class RangeEnemy : EnemyActive
 {
     [Header("Komponen Enemy Range")]
     [SerializeField] Transform rayCastSpawn;
+    [SerializeField] GameObject bulletHitEffect;
    
     [Header("RangeWeapon")]
     [SerializeField] Transform bulletSpawn;
     [SerializeField] LineRenderer bulletTrail;
-
+    [SerializeField] bool isBulletSpawn = false;
 
     public override void Attacking()
     {
@@ -34,6 +35,7 @@ public class RangeEnemy : EnemyActive
                 {
                     playerActive.TakeDamage(enemyModel.attackPower);
                 }
+                Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
             }
             Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
             StartCoroutine(BulletTrailEffect(hit.point));
