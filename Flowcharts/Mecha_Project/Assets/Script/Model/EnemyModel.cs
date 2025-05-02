@@ -17,8 +17,7 @@ public class EnemyModel : MonoBehaviour
     public int attackPower;
     public int attackSpeed;
     public float attackRange;
-    public float attackCooldown = 3f;
-    public float nextAttackTime = 0f;
+    public float attackCooldown;
 
     [Header("Status")]
     public bool isAttacking;
