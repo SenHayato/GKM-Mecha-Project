@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class CloseEnemy : EnemyActive
 {
-    [Header("Komponen Enemy Range")]
-    [SerializeField] Transform rayCastSpawn;
     float attackTime = 0;
-    [SerializeField] Ray ray;
     [SerializeField] float nextAttackTime;
    
-    [Header("RangeWeapon")]
-    [SerializeField] Transform weaponMaxRange;
 
     public override void Attacking()
     {
@@ -28,7 +23,6 @@ public class CloseEnemy : EnemyActive
             {
                 attackTime = 0f;
                 Debug.Log("SwordAttack");
-                anim.SetTrigger("Attack1");
                 //enemyModel.nextAttackTime = Time.time + enemyModel.attackCooldown;
                 enemyModel.isAttacking = true;
             }
@@ -37,6 +31,13 @@ public class CloseEnemy : EnemyActive
     }
 
     public override void PlayAnimation()
+    {
+        if (enemyModel.isAttacking)
+        {
+            anim.SetTrigger("Attack1");
+        }
+    }
+    private void OnTriggerEnter(Collider other)
     {
         
     }

@@ -93,7 +93,7 @@ public abstract class EnemyActive : MonoBehaviour
         Damage();
     }
 
-    #region Pengaturan
+        #region Pengaturan
     void UIHealthBar()
     {
         if (enemyModel.health < enemyModel.maxHealth)
