@@ -167,6 +167,7 @@ public class WeaponRaycast : MonoBehaviour
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
     }
+
     private IEnumerator BulletTrailEffect(Vector3 targetPoint)
     {
         lineRenderer.enabled = true;
@@ -175,6 +176,7 @@ public class WeaponRaycast : MonoBehaviour
         yield return new WaitForSeconds(fireRate * 1.5f);
         lineRenderer.enabled = false;
     }
+
     public IEnumerator ReloadAmmo()
     {
         if (isReloading) yield break;
