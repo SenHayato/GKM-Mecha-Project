@@ -8,6 +8,7 @@ public class CloseEnemy : EnemyActive
     [SerializeField] Transform rayCastSpawn;
     float attackTime = 0;
     [SerializeField] Ray ray;
+    [SerializeField] float nextAttackTime;
    
     [Header("RangeWeapon")]
     [SerializeField] Transform weaponMaxRange;
@@ -23,7 +24,7 @@ public class CloseEnemy : EnemyActive
         if (!enemyModel.isAttacking)
         {
             float distance = Vector3.Distance(transform.position, player.position);
-            if (attackTime >= enemyModel.nextAttackTime)
+            if (attackTime >= nextAttackTime)
             {
                 attackTime = 0f;
                 Debug.Log("SwordAttack");
