@@ -24501,21 +24501,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638d00c80700f2d449cc18584a447a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1201742753}
-  enemyModel: {fileID: 1933122974}
-  enemyActive: {fileID: 0}
-  comboLength: 3
-  comboTimeWindow: 2
-  attackRadius: 1.5
-  atackPoint: {fileID: 1201742749}
-  useRandomPattern: 1
-  attackTriggers:
-  - Attack 1
-  - Attack 2
-  - Attack 3
-  currentComboIndex: 0
-  lastAttackTime: 0
-  isInCombo: 0
 --- !u!1 &1202838574
 GameObject:
   m_ObjectHideFlags: 0
@@ -24541,7 +24526,7 @@ Transform:
   m_GameObject: {fileID: 1202838574}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.285, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27369,14 +27354,14 @@ MonoBehaviour:
   maxHealth: 1000
   health: 1000
   minHealth: 0
+  sightRange: 0
   attackPower: 5
   attackSpeed: 2
   attackRange: 2
   attackCooldown: 3
-  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
-  isMoving: 0
+  isPatrolling: 0
   isBlocking: 0
   isHit: 0
   wasHit: 0
@@ -27950,7 +27935,8 @@ GameObject:
   - component: {fileID: 1509123481}
   - component: {fileID: 1509123484}
   - component: {fileID: 1509123483}
-  - component: {fileID: 1509123482}
+  - component: {fileID: 1509123485}
+  - component: {fileID: 1509123486}
   m_Layer: 9
   m_Name: WeaponSlot
   m_TagString: Untagged
@@ -27974,27 +27960,6 @@ Transform:
   - {fileID: 2053302132}
   m_Father: {fileID: 488334779}
   m_LocalEulerAnglesHint: {x: 2.556, y: 103.217, z: -90}
---- !u!65 &1509123482
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1509123480}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1509123483
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -28045,6 +28010,40 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1509123480}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1509123485
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509123480}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 13.44, y: 1.0000006, z: 1.44}
+  m_Center: {x: -2.58, y: 0, z: 0.22}
+--- !u!114 &1509123486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509123480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35f8335e03e769c4388607e18925e6c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  owner: {fileID: 1990236303}
 --- !u!1 &1510747512
 GameObject:
   m_ObjectHideFlags: 0
@@ -38657,14 +38656,14 @@ MonoBehaviour:
   maxHealth: 5000
   health: 1500
   minHealth: 0
+  sightRange: 0
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
   attackCooldown: 3
-  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
-  isMoving: 0
+  isPatrolling: 0
   isBlocking: 0
   isHit: 0
   wasHit: 0
@@ -39295,9 +39294,9 @@ GameObject:
   - component: {fileID: 1990236304}
   - component: {fileID: 1990236303}
   - component: {fileID: 1990236296}
-  - component: {fileID: 1990236295}
   - component: {fileID: 1990236294}
   - component: {fileID: 1990236305}
+  - component: {fileID: 1990236306}
   m_Layer: 9
   m_Name: EnemyShort
   m_TagString: Enemy
@@ -39327,32 +39326,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!143 &1990236295
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1990236293}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 1.69
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.8, z: 0}
 --- !u!95 &1990236296
 Animator:
   serializedVersion: 5
@@ -39421,19 +39394,15 @@ MonoBehaviour:
   walkPointRange: 5
   patrolPoints: []
   rotationSpeed: 5
-  sightRange: 5
-  attackRange: 2
   playerInSight: 0
   playerInAttackRange: 0
-  characterController: {fileID: 0}
   gameManager: {fileID: 0}
   UIHealth: {fileID: 5063763593428789038}
   hitSound: {fileID: 0}
-  deathCollider: {fileID: 1990236305}
-  anim: {fileID: 0}
-  isBulletSpawn: 0
-  rayCastSpawn: {fileID: 0}
-  weaponMaxRange: {fileID: 0}
+  hitCollider: {fileID: 1990236305}
+  deathCollider: {fileID: 1990236306}
+  anim: {fileID: 1990236296}
+  nextAttackTime: 3
 --- !u!114 &1990236304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39451,16 +39420,16 @@ MonoBehaviour:
   maxHealth: 1000
   health: 1000
   minHealth: 0
+  sightRange: 5
   attackPower: 5
-  attackSpeed: 3
-  attackRange: 2
+  attackSpeed: 2
+  attackRange: 1
   attackCooldown: 3
-  nextAttackTime: 2
   isAttacking: 0
   isDeath: 0
-  isMoving: 0
+  isPatrolling: 0
   isBlocking: 0
-  isHit: 1
+  isHit: 0
   wasHit: 0
 --- !u!136 &1990236305
 CapsuleCollider:
@@ -39481,10 +39450,31 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1.74
+  m_Radius: 0.26
+  m_Height: 1.91
   m_Direction: 1
-  m_Center: {x: 0, y: 0.77, z: 0}
+  m_Center: {x: 0, y: 0.91, z: 0}
+--- !u!65 &1990236306
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1990236293}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.53, z: 0}
 --- !u!1 &1998990993
 GameObject:
   m_ObjectHideFlags: 0
@@ -40317,7 +40307,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053302131}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -44088,14 +44078,14 @@ MonoBehaviour:
   maxHealth: 2500
   health: 2500
   minHealth: 0
+  sightRange: 0
   attackPower: 15
   attackSpeed: 2
   attackRange: 2
   attackCooldown: 3
-  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
-  isMoving: 0
+  isPatrolling: 0
   isBlocking: 0
   isHit: 0
   wasHit: 0
@@ -45286,14 +45276,14 @@ MonoBehaviour:
   maxHealth: 5000
   health: 1500
   minHealth: 0
+  sightRange: 0
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
   attackCooldown: 3
-  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
-  isMoving: 0
+  isPatrolling: 0
   isBlocking: 0
   isHit: 0
   wasHit: 0
