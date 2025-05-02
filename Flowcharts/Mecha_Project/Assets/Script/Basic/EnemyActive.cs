@@ -36,9 +36,6 @@ public abstract class EnemyActive : MonoBehaviour
     [Header("Komponen Player")]
     private PlayerInput gameInput;
 
-    //flag
-    public bool isBulletSpawn = false;
-
     private void Awake()
     {
         //player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -81,7 +78,7 @@ public abstract class EnemyActive : MonoBehaviour
         {
             Attacking();
         }
-        StartCoroutine(HitSound());
+        //StartCoroutine(HitSound());
 
         Death();
         UIHealthBar();
@@ -98,6 +95,7 @@ public abstract class EnemyActive : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        StartCoroutine(HitSound());
         enemyModel.isHit = true;
         if (enemyModel == null) return;
 
@@ -116,13 +114,13 @@ public abstract class EnemyActive : MonoBehaviour
     }
     IEnumerator HitSound()
     {
-        if (enemyModel.isHit && enemyModel.wasHit)
+        if (enemyModel.isHit && !enemyModel.wasHit)
         {
-            enemyModel.wasHit = false;
+            enemyModel.wasHit = true;
             hitSound.Play();
         }
-        yield return new WaitForSeconds(0.5f);
-        enemyModel.wasHit = true;
+        yield return new WaitForSeconds(0.2f);
+        enemyModel.wasHit = false;
         enemyModel.isHit = false;
     }
     public void Damage()
@@ -162,7 +160,7 @@ public abstract class EnemyActive : MonoBehaviour
                     enemyModel.isMoving = false;
                     enemyModel.isAttacking = false;
                 }
-                Destroy(gameObject, 2f);
+                Destroy(gameObject, 3f); //lama animasi + effect ledakan
             }
         }
     }
