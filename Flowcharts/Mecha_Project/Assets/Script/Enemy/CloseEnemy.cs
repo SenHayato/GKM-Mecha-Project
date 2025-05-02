@@ -35,4 +35,9 @@ public class CloseEnemy : EnemyActive
             Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
         }
     }
+
+    public override void PlayAnimation()
+    {
+        
+    }
 }

@@ -22,9 +22,9 @@ public class RangeEnemy : EnemyActive
 
         if (!enemyModel.isAttacking)
         {
+            enemyModel.isAttacking = true;
             Debug.Log("EnemyTembak");
             isBulletSpawn = false;
-            enemyModel.isAttacking = true;
             Vector3 targetPoint;
             if (Physics.Raycast(rayCastSpawn.position, rayCastSpawn.forward, out RaycastHit hit, enemyModel.attackRange, playerLayer))
             {
@@ -39,6 +39,18 @@ public class RangeEnemy : EnemyActive
             }
             Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
             StartCoroutine(BulletTrailEffect(hit.point));
+        }
+    }
+
+    public override void PlayAnimation()
+    {
+        if (enemyModel.isAttacking)
+        {
+            anim.SetBool("IsAiming", true);
+        }
+        else
+        {
+            anim.SetBool("IsAiming", false);
         }
     }
 
