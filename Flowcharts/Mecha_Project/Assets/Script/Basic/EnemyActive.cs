@@ -22,6 +22,7 @@ public abstract class EnemyActive : MonoBehaviour
     public float rotationSpeed;
     [SerializeField] bool playerInSight;
     [SerializeField] bool playerInAttackRange;
+    [SerializeField] float gravityPower;
 
     [Header("Komponen Enemy")]
     //[SerializeField] CharacterController characterController;
@@ -52,6 +53,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     private void Start()
     {
+        enemyModel.isFall = false;
         patrolPoints = GameObject.FindGameObjectsWithTag("EnemyWayPoint");
         hitSound = GetComponent<AudioSource>(); //hit sound
         UIHealth.SetActive(false);
@@ -62,21 +64,27 @@ public abstract class EnemyActive : MonoBehaviour
 
     void Update()
     {
+        ApplyGravity();
         CheckingSight();
-        if (!playerInSight && !playerInAttackRange)
-        {
-            Patrolling();
-        }
 
-        if (playerInSight && !playerInAttackRange)
+        if (!enemyModel.isDeath && enemyModel.isFall)
         {
-            ChasingPlayer();
-        }
+            if (!playerInSight && !playerInAttackRange)
+            {
+                Patrolling();
+            }
 
-        if (playerInSight && playerInAttackRange)
-        {
-            Attacking();
+            if (playerInSight && !playerInAttackRange)
+            {
+                ChasingPlayer();
+            }
+
+            if (playerInSight && playerInAttackRange)
+            {
+                Attacking();
+            }
         }
+        
         //StartCoroutine(HitSound());
 
         PlayAnimation();
@@ -93,6 +101,7 @@ public abstract class EnemyActive : MonoBehaviour
             UIHealth.SetActive(true);
         }
     }
+
     public void TakeDamage(int damage)
     {
         StartCoroutine(HitSound());
@@ -112,6 +121,24 @@ public abstract class EnemyActive : MonoBehaviour
             enemyModel.isDeath = true;
         }
     }
+
+    void ApplyGravity()
+    {
+        if (!enemyModel.isFall)
+        {
+            transform.position += gravityPower * Time.deltaTime * Vector3.down;
+        }
+        else
+        {
+            navAgent.enabled = true;
+        }
+
+        if (Physics.Raycast(transform.position, Vector3.down, 0.2f, groundLayer))
+        {
+            enemyModel.isFall = true;
+        }
+    }
+
     IEnumerator HitSound()
     {
         if (enemyModel.isHit && !enemyModel.wasHit)
@@ -123,6 +150,7 @@ public abstract class EnemyActive : MonoBehaviour
         enemyModel.wasHit = false;
         enemyModel.isHit = false;
     }
+
     public void Damage()
     {
         InputAction inputAction = gameInput.actions.FindAction("TestKillEnemy");
@@ -139,20 +167,25 @@ public abstract class EnemyActive : MonoBehaviour
         {
             enemyModel.health = enemyModel.minHealth;
             enemyModel.isDeath = true;
-            hitCollider.enabled = false;
-            if (enemyModel != null && enemyModel.isDeath)
-            {
-                if (anim != null)
-                {
-                    //anim.SetTrigger("isDeath");
-                    Debug.Log(" Death Animation Triggered ");
-                }
-                if (deathCollider != null)
-                {
-                    deathCollider.enabled = true;
-                }
 
-                Destroy(gameObject, 3f); //lama animasi + effect ledakan
+            if (enemyModel.isDeath)
+            {
+                navAgent.speed = 0f;
+                hitCollider.enabled = false;
+                if (enemyModel != null && enemyModel.isDeath)
+                {
+                    if (anim != null)
+                    {
+                        //anim.SetTrigger("isDeath");
+                        Debug.Log(" Death Animation Triggered ");
+                    }
+                    if (deathCollider != null)
+                    {
+                        deathCollider.enabled = true;
+                    }
+
+                    Destroy(gameObject, 7f); //lama animasi + effect ledakan
+                }
             }
         }
     }

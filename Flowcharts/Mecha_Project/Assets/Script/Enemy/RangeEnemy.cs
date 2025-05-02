@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RangeEnemy : EnemyActive
@@ -44,6 +43,15 @@ public class RangeEnemy : EnemyActive
 
     public override void PlayAnimation()
     {
+        if (enemyModel.isDeath)
+        {
+            anim.SetBool("IsDeath", true);
+        }
+        else
+        {
+            anim.SetBool("IsDeath", false);
+        }
+
         //attacking
         if (enemyModel.isAttacking)
         {
