@@ -22,7 +22,7 @@ public class EnemyModel : MonoBehaviour
     [Header("Status")]
     public bool isAttacking;
     public bool isDeath;
-    public bool isMoving;
+    public bool isPatrolling;
     public bool isBlocking;
     public bool isHit;
     public bool wasHit = false;

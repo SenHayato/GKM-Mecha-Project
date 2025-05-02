@@ -44,6 +44,7 @@ public class RangeEnemy : EnemyActive
 
     public override void PlayAnimation()
     {
+        //attacking
         if (enemyModel.isAttacking)
         {
             anim.SetBool("IsAiming", true);
@@ -51,6 +52,16 @@ public class RangeEnemy : EnemyActive
         else
         {
             anim.SetBool("IsAiming", false);
+        }
+
+        //patrolling
+        if (enemyModel.isPatrolling)
+        {
+            anim.SetFloat("Move", 1f);
+        }
+        else
+        {
+            anim.SetFloat("Move", 0f);
         }
     }
 

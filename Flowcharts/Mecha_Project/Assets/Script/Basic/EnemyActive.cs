@@ -24,11 +24,12 @@ public abstract class EnemyActive : MonoBehaviour
     [SerializeField] bool playerInAttackRange;
 
     [Header("Komponen Enemy")]
-    [SerializeField] CharacterController characterController;
+    //[SerializeField] CharacterController characterController;
     public GameMaster gameManager;
     public GameObject UIHealth;
     public AudioSource hitSound;
-    [SerializeField] CapsuleCollider deathCollider;
+    [SerializeField] CapsuleCollider hitCollider;
+    [SerializeField] BoxCollider deathCollider;
     public Animator anim;
 
     [Header("Komponen Player")]
@@ -42,8 +43,9 @@ public abstract class EnemyActive : MonoBehaviour
         navAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
 
-        characterController = GetComponent<CharacterController>();
-        deathCollider = GetComponent<CapsuleCollider>();
+        //characterController = GetComponent<CharacterController>();
+        hitCollider = GetComponent<CapsuleCollider>();
+        deathCollider = GetComponent<BoxCollider>();
         gameInput = FindAnyObjectByType<PlayerInput>();
         gameManager = FindAnyObjectByType<GameMaster>();
     }
@@ -61,26 +63,23 @@ public abstract class EnemyActive : MonoBehaviour
     void Update()
     {
         CheckingSight();
-        PlayAnimation();
-        if (!enemyModel.isDeath)
+        if (!playerInSight && !playerInAttackRange)
         {
-            if (!playerInSight && !playerInAttackRange)
-            {
-                Patrolling();
-            }
+            Patrolling();
+        }
 
-            if (playerInSight && !playerInAttackRange)
-            {
-                ChasingPlayer();
-            }
+        if (playerInSight && !playerInAttackRange)
+        {
+            ChasingPlayer();
+        }
 
-            if (playerInSight && playerInAttackRange)
-            {
-                Attacking();
-            }
+        if (playerInSight && playerInAttackRange)
+        {
+            Attacking();
         }
         //StartCoroutine(HitSound());
 
+        PlayAnimation();
         Death();
         UIHealthBar();
         Damage();
@@ -138,7 +137,9 @@ public abstract class EnemyActive : MonoBehaviour
     {
         if (enemyModel.health <= enemyModel.minHealth)
         {
+            enemyModel.health = enemyModel.minHealth;
             enemyModel.isDeath = true;
+            hitCollider.enabled = false;
             if (enemyModel != null && enemyModel.isDeath)
             {
                 if (anim != null)
@@ -151,10 +152,6 @@ public abstract class EnemyActive : MonoBehaviour
                     deathCollider.enabled = true;
                 }
 
-                if (characterController != null)
-                {
-                    characterController.enabled = false;
-                }
                 Destroy(gameObject, 3f); //lama animasi + effect ledakan
             }
         }
@@ -178,6 +175,7 @@ public abstract class EnemyActive : MonoBehaviour
         if (walkPointSet)
         {
             navAgent.SetDestination(walkPoint);
+            enemyModel.isPatrolling = true;
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
