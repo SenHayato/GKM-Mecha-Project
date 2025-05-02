@@ -62,19 +62,22 @@ public abstract class EnemyActive : MonoBehaviour
     {
         CheckingSight();
 
-        if (!playerInSight && !playerInAttackRange)
+        if (!enemyModel.isDeath)
         {
-            Patrolling();
-        }
+            if (!playerInSight && !playerInAttackRange)
+            {
+                Patrolling();
+            }
 
-        if (playerInSight && !playerInAttackRange)
-        {
-            ChasingPlayer();
-        }
+            if (playerInSight && !playerInAttackRange)
+            {
+                ChasingPlayer();
+            }
 
-        if (playerInSight && playerInAttackRange)
-        {
-            Attacking();
+            if (playerInSight && playerInAttackRange)
+            {
+                Attacking();
+            }
         }
         //StartCoroutine(HitSound());
 
