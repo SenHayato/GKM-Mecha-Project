@@ -42583,11 +42583,11 @@ MonoBehaviour:
   maxHealth: 1000
   health: 0
   minHealth: 0
+  sightRange: 0
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
   attackCooldown: 3
-  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -46144,11 +46144,11 @@ MonoBehaviour:
   maxHealth: 1000
   health: 0
   minHealth: 0
+  sightRange: 0
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
   attackCooldown: 3
-  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -46316,11 +46316,11 @@ MonoBehaviour:
   maxHealth: 8000
   health: 0
   minHealth: 0
+  sightRange: 0
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
   attackCooldown: 3
-  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -48664,11 +48664,11 @@ MonoBehaviour:
   maxHealth: 200000
   health: 200000
   minHealth: 0
+  sightRange: 0
   attackPower: 0
   attackSpeed: 0
   attackRange: 2
   attackCooldown: 3
-  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -54212,11 +54212,11 @@ MonoBehaviour:
   maxHealth: 1000
   health: 1000
   minHealth: 0
+  sightRange: 15
   attackPower: 3000
   attackSpeed: 3
-  attackRange: 5
+  attackRange: 10
   attackCooldown: 3
-  nextAttackTime: 0
   isAttacking: 0
   isDeath: 0
   isMoving: 0
@@ -54249,8 +54249,6 @@ MonoBehaviour:
   walkPointRange: 1
   patrolPoints: []
   rotationSpeed: 7
-  sightRange: 13.7
-  attackRange: 5
   playerInSight: 0
   playerInAttackRange: 0
   characterController: {fileID: 0}
