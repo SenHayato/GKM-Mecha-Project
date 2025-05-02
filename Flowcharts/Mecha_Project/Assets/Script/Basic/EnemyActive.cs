@@ -61,7 +61,7 @@ public abstract class EnemyActive : MonoBehaviour
     void Update()
     {
         CheckingSight();
-
+        PlayAnimation();
         if (!enemyModel.isDeath)
         {
             if (!playerInSight && !playerInAttackRange)
@@ -143,7 +143,7 @@ public abstract class EnemyActive : MonoBehaviour
             {
                 if (anim != null)
                 {
-                    anim.SetTrigger("isDeath");
+                    //anim.SetTrigger("isDeath");
                     Debug.Log(" Death Animation Triggered ");
                 }
                 if (deathCollider != null)
@@ -154,12 +154,6 @@ public abstract class EnemyActive : MonoBehaviour
                 if (characterController != null)
                 {
                     characterController.enabled = false;
-                }
-
-                if (enemyModel != null)
-                {
-                    enemyModel.isMoving = false;
-                    enemyModel.isAttacking = false;
                 }
                 Destroy(gameObject, 3f); //lama animasi + effect ledakan
             }
@@ -212,13 +206,13 @@ public abstract class EnemyActive : MonoBehaviour
         enemyModel.isAttacking = false;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, enemyModel.attackRange);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, enemyModel.sightRange);
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(transform.position, enemyModel.attackRange);
+    //    Gizmos.color = Color.blue;
+    //    Gizmos.DrawWireSphere(transform.position, enemyModel.sightRange);
+    //}
     private void OnDestroy()
     {
         gameManager.KillCount++;
@@ -226,4 +220,5 @@ public abstract class EnemyActive : MonoBehaviour
     }
 
     public abstract void Attacking();
+    public abstract void PlayAnimation();
 }
