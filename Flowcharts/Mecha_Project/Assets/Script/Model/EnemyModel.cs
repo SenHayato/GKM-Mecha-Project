@@ -24,7 +24,7 @@ public class EnemyModel : MonoBehaviour
     public bool isDeath;
     public bool isPatrolling;
     public bool isBlocking;
-    public bool isFall;
+    public bool isGrounded;
     public bool isHit;
     public bool wasHit = false;
 }

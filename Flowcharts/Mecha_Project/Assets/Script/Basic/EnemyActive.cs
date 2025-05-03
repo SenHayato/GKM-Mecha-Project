@@ -53,7 +53,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     private void Start()
     {
-        enemyModel.isFall = false;
+        enemyModel.isGrounded = false;
         patrolPoints = GameObject.FindGameObjectsWithTag("EnemyWayPoint");
         hitSound = GetComponent<AudioSource>(); //hit sound
         UIHealth.SetActive(false);
@@ -67,7 +67,7 @@ public abstract class EnemyActive : MonoBehaviour
         ApplyGravity();
         CheckingSight();
 
-        if (!enemyModel.isDeath && enemyModel.isFall)
+        if (!enemyModel.isDeath && enemyModel.isGrounded)
         {
             if (!playerInSight && !playerInAttackRange)
             {
@@ -124,7 +124,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     void ApplyGravity()
     {
-        if (!enemyModel.isFall)
+        if (!enemyModel.isGrounded)
         {
             transform.position += gravityPower * Time.deltaTime * Vector3.down;
         }
@@ -135,7 +135,7 @@ public abstract class EnemyActive : MonoBehaviour
 
         if (Physics.Raycast(transform.position, Vector3.down, 0.2f, groundLayer))
         {
-            enemyModel.isFall = true;
+            enemyModel.isGrounded = true;
         }
     }
 
