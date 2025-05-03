@@ -38,6 +38,7 @@ public class PlayerActive : MonoBehaviour
     private int defaultUltDamage;
 
     [Header("HitBox")]
+    public LayerMask enemyLayer;
     public GameObject skill1HitBox;
     public GameObject skill2HitBox;
     public GameObject ultimateHitBox;

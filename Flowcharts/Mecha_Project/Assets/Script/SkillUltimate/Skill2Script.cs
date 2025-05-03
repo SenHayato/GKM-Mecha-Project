@@ -7,7 +7,6 @@ public class Skill2Script : MonoBehaviour
 {
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
-    HashSet<string> enemyTags;
 
     private void Awake()
     {
@@ -15,14 +14,9 @@ public class Skill2Script : MonoBehaviour
         playerActive = GetComponentInParent<PlayerActive>();
     }
 
-    private void Start()
-    {
-        enemyTags = playerActive.enemyTags;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        if (enemyTags.Contains(other.tag))
+        if ((playerActive.enemyLayer.value & (1 << other.gameObject.layer)) != 0)
         {
             if (other.TryGetComponent<EnemyActive>(out var enemy))
             {

@@ -7,7 +7,6 @@ public class UltimateScript : MonoBehaviour
 {
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
-    HashSet<string> enemyTags;
     private float duration;
     private float interval;
 
@@ -19,16 +18,19 @@ public class UltimateScript : MonoBehaviour
 
     private void Start()
     {
-        enemyTags = playerActive.enemyTags;
         duration = playerData.UltDuration;
         interval = playerData.UltInterval;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (enemyTags.Contains(other.tag))
+        // Cek apakah layer dari objek 'other' termasuk dalam enemyLayerMask
+        if ((playerActive.enemyLayer.value & (1 << other.gameObject.layer)) != 0)
         {
-            StartCoroutine(ApplyDamageOverTime(other.GetComponent<EnemyActive>()));
+            if (other.TryGetComponent<EnemyActive>(out var enemy))
+            {
+                StartCoroutine(ApplyDamageOverTime(enemy));
+            }
         }
     }
 
