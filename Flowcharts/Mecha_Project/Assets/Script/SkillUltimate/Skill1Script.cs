@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Skill1Script : MonoBehaviour
 {
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
-    HashSet<string> enemyTags;
+
+    [SerializeField] float localScale;
+    [SerializeField] float maxDistance;
 
     private void Awake()
     {
@@ -15,19 +18,31 @@ public class Skill1Script : MonoBehaviour
         playerActive = GetComponentInParent<PlayerActive>();
     }
 
-    private void Start()
+    private void Update()
     {
-        enemyTags = playerActive.enemyTags;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (enemyTags.Contains(other.tag))
+        if (Physics.BoxCast(transform.position, transform.localScale * localScale, transform.forward, out RaycastHit hit, Quaternion.identity, maxDistance, playerActive.enemyLayer))
         {
-            if (other.TryGetComponent<EnemyActive>(out var enemy))
+            Debug.Log("Skill 1 Kena");
+            if (hit.collider.TryGetComponent<EnemyActive>(out var enemyActive))
             {
-                enemy.TakeDamage(playerData.skill1Damage);
+                enemyActive.TakeDamage(playerData.skill1Damage);
             }
         }
+    }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if ((playerActive.enemyLayer.value & (1 << other.gameObject.layer)) != 0)
+    //    {
+    //        if (other.TryGetComponent<EnemyActive>(out var enemy))
+    //        {
+    //            enemy.TakeDamage(playerData.skill1Damage);
+    //        }
+    //    }
+    //}
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireCube(transform.position + transform.forward * maxDistance, transform.localScale);
     }
 }

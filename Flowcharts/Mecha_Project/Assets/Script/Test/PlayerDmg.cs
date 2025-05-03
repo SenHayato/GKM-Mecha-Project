@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class PlayerDmg : MonoBehaviour
 {
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        if (other.TryGetComponent<PlayerActive>(out var playerActive))
+    //        {
+    //            playerActive.TakeDamage(5000);
+    //        }
+    //    }
+    //}
+    
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Enemy"))
         {
-            if (other.TryGetComponent<PlayerActive>(out var playerActive))
+            Debug.Log("Kena Damage Enemy");
+            if (other.TryGetComponent<EnemyActive>(out var enemyActive))
             {
-                playerActive.TakeDamage(5000);
+                Debug.Log("Enemy Damage " + 200);
+                enemyActive.TakeDamage(200);
             }
         }
     }

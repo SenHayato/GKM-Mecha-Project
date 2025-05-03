@@ -46,7 +46,6 @@ public abstract class EnemyActive : MonoBehaviour
 
         //characterController = GetComponent<CharacterController>();
         hitCollider = GetComponent<CapsuleCollider>();
-        deathCollider = GetComponent<BoxCollider>();
         gameInput = FindAnyObjectByType<PlayerInput>();
         gameManager = FindAnyObjectByType<GameMaster>();
     }
@@ -93,6 +92,25 @@ public abstract class EnemyActive : MonoBehaviour
         Damage();
     }
 
+    void ApplyGravity()
+    {
+        if (!enemyModel.isGrounded)
+        {
+            anim.SetBool("IsFalling", true);
+            transform.position += gravityPower * Time.deltaTime * Vector3.down;
+        }
+        else
+        {
+            anim.SetBool("IsFalling", false);
+            navAgent.enabled = true;
+        }
+
+        if (Physics.Raycast(transform.position, Vector3.down, 1f, groundLayer))
+        {
+            enemyModel.isGrounded = true;
+        }
+    }
+
         #region Pengaturan
     void UIHealthBar()
     {
@@ -119,23 +137,6 @@ public abstract class EnemyActive : MonoBehaviour
         if (enemyModel.health <= enemyModel.minHealth)
         {
             enemyModel.isDeath = true;
-        }
-    }
-
-    void ApplyGravity()
-    {
-        if (!enemyModel.isGrounded)
-        {
-            transform.position += gravityPower * Time.deltaTime * Vector3.down;
-        }
-        else
-        {
-            navAgent.enabled = true;
-        }
-
-        if (Physics.Raycast(transform.position, Vector3.down, 0.2f, groundLayer))
-        {
-            enemyModel.isGrounded = true;
         }
     }
 
@@ -207,7 +208,10 @@ public abstract class EnemyActive : MonoBehaviour
 
         if (walkPointSet)
         {
-            navAgent.SetDestination(walkPoint);
+            if (navAgent.enabled)
+            {
+                navAgent.SetDestination(walkPoint);
+            }
             enemyModel.isPatrolling = true;
         }
 
@@ -228,7 +232,10 @@ public abstract class EnemyActive : MonoBehaviour
 
     void ChasingPlayer()
     {
-        navAgent.SetDestination(player.position);
+        if (navAgent.enabled)
+        {
+            navAgent.SetDestination(player.position);
+        }
     }
 
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class RangeEnemy : EnemyActive
 {
@@ -14,13 +15,17 @@ public class RangeEnemy : EnemyActive
 
     public override void Attacking()
     {
-        navAgent.SetDestination(transform.position);
+        if (navAgent.enabled)
+        {
+            navAgent.SetDestination(transform.position);
+        }
+        
         Vector3 direction = player.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
          float angle = Quaternion.Angle(transform.rotation, targetRotation);
-        if (angle < 2f) //harus menghadap pemain
+        if (angle < 5f) //harus menghadap pemain
         {
             if (!enemyModel.isAttacking)
             {
