@@ -9,8 +9,7 @@ public class Skill1Script : MonoBehaviour
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
 
-    [SerializeField] float localScale;
-    [SerializeField] float maxDistance;
+    [SerializeField] Vector3 boxSize;
 
     private void Awake()
     {
@@ -18,31 +17,26 @@ public class Skill1Script : MonoBehaviour
         playerActive = GetComponentInParent<PlayerActive>();
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        if (Physics.BoxCast(transform.position, transform.localScale * localScale, transform.forward, out RaycastHit hit, Quaternion.identity, maxDistance, playerActive.enemyLayer))
+        // Deteksi semua collider dalam box
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, boxSize / 2f, transform.rotation, playerActive.enemyLayer);
+        
+        // Terapkan damage ke semua yang terdeteksi
+        foreach (var hitCollider in hitColliders)
         {
-            Debug.Log("Skill 1 Kena");
-            if (hit.collider.TryGetComponent<EnemyActive>(out var enemyActive))
+            if (hitCollider.TryGetComponent<EnemyActive>(out var enemy))
             {
-                enemyActive.TakeDamage(playerData.skill1Damage);
+                enemy.TakeDamage(playerData.skill1Damage);
             }
         }
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if ((playerActive.enemyLayer.value & (1 << other.gameObject.layer)) != 0)
-    //    {
-    //        if (other.TryGetComponent<EnemyActive>(out var enemy))
-    //        {
-    //            enemy.TakeDamage(playerData.skill1Damage);
-    //        }
-    //    }
-    //}
-
+    
     private void OnDrawGizmosSelected()
     {
-        Gizmos.DrawWireCube(transform.position + transform.forward * maxDistance, transform.localScale);
+        // Visualisasi area box
+        Gizmos.color = Color.red;
+        Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, boxSize);
     }
 }
