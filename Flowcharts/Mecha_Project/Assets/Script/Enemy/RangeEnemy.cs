@@ -19,25 +19,29 @@ public class RangeEnemy : EnemyActive
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
-        if (!enemyModel.isAttacking)
+         float angle = Quaternion.Angle(transform.rotation, targetRotation);
+        if (angle < 2f) //harus menghadap pemain
         {
-            enemyModel.isAttacking = true;
-            Debug.Log("EnemyTembak");
-            isBulletSpawn = false;
-            Vector3 targetPoint;
-            if (Physics.Raycast(rayCastSpawn.position, rayCastSpawn.forward, out RaycastHit hit, enemyModel.attackRange, playerLayer))
+            if (!enemyModel.isAttacking)
             {
-                targetPoint = hit.point;
-                //Debug.Log(hit.point);
-                //Debug.DrawRay(rayCastSpawn.position, rayCastSpawn.forward, Color.green);
-                if (hit.collider.TryGetComponent<PlayerActive>(out var playerActive))
+                enemyModel.isAttacking = true;
+                Debug.Log("EnemyTembak");
+                isBulletSpawn = false;
+                Vector3 targetPoint;
+                if (Physics.Raycast(rayCastSpawn.position, rayCastSpawn.forward, out RaycastHit hit, enemyModel.attackRange, playerLayer))
                 {
-                    playerActive.TakeDamage(enemyModel.attackPower);
+                    targetPoint = hit.point;
+                    //Debug.Log(hit.point);
+                    //Debug.DrawRay(rayCastSpawn.position, rayCastSpawn.forward, Color.green);
+                    if (hit.collider.TryGetComponent<PlayerActive>(out var playerActive))
+                    {
+                        playerActive.TakeDamage(enemyModel.attackPower);
+                    }
+                    Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 }
-                Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
+                StartCoroutine(BulletTrailEffect(hit.point));
             }
-            Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
-            StartCoroutine(BulletTrailEffect(hit.point));
         }
     }
 
