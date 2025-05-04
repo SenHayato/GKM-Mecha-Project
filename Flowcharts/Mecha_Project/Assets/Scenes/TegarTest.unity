@@ -17901,7 +17901,6 @@ GameObject:
   - component: {fileID: 855868060}
   - component: {fileID: 855868059}
   - component: {fileID: 855868058}
-  - component: {fileID: 855868057}
   m_Layer: 3
   m_Name: Skill1HitBox
   m_TagString: Untagged
@@ -17924,27 +17923,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4620144013182552013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &855868057
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 855868055}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &855868058
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -18847,7 +18825,6 @@ GameObject:
   - component: {fileID: 925321789}
   - component: {fileID: 925321787}
   - component: {fileID: 925321786}
-  - component: {fileID: 925321788}
   m_Layer: 3
   m_Name: UltimateHItBox
   m_TagString: Untagged
@@ -18920,27 +18897,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925321783}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!135 &925321788
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 925321783}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 10
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &925321789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18955,6 +18911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   playerActive: {fileID: 0}
+  damageRadius: 11.27
 --- !u!1001 &932588139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40416,7 +40373,6 @@ GameObject:
   - component: {fileID: 1977419922}
   - component: {fileID: 1977419921}
   - component: {fileID: 1977419920}
-  - component: {fileID: 1977419919}
   m_Layer: 3
   m_Name: Skill2HitBox
   m_TagString: Untagged
@@ -40433,33 +40389,12 @@ Transform:
   m_GameObject: {fileID: 1977419917}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.225, z: 0.714}
+  m_LocalPosition: {x: 0, y: 1.225, z: 0.823}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4620144013182552013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1977419919
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1977419917}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 8
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1977419920
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -40524,6 +40459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   playerActive: {fileID: 0}
+  boxSize: {x: 1.27, y: 0.73, z: 1.19}
 --- !u!1 &1979140986
 GameObject:
   m_ObjectHideFlags: 0
