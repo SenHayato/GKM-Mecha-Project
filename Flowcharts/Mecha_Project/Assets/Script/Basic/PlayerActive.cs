@@ -139,28 +139,31 @@ public class PlayerActive : MonoBehaviour
         //Hukum Fisika COY
         ApplyGravity();
         SelectButtonPress();
-
-        //Class untuk player
-        PlayerJump();
-        Reloading();
-        DashPlayer();
-        BlockPlayer();
-        ScopeMode();
-        Shooting();
-        //Hovering();
         Death();
-        RelativeMovement();
-        StartCoroutine(Skill1());
-        StartCoroutine(Skill2());
-        UpdatePosition();
-        SKillCooldown();
-        StartCoroutine(UseUltimate());
-        StartCoroutine(AwakeningActive());
-        AwakeningReady();
-        //StartCoroutine(BoostOn());
-        //Ultimate Energy Regen
-        if (!Mecha.UltimateRegen && Mecha.Ultimate < Mecha.MaxUltimate) _= StartCoroutine(UltimateRegen());
-        if (!Mecha.EnergyRegen && Mecha.Energy < Mecha.MaxEnergy) _= StartCoroutine(EnergyRegen());
+
+        if (!Mecha.isDeath)
+        {
+            //Class untuk player
+            PlayerJump();
+            Reloading();
+            DashPlayer();
+            BlockPlayer();
+            ScopeMode();
+            Shooting();
+            //Hovering();
+            RelativeMovement();
+            StartCoroutine(Skill1());
+            StartCoroutine(Skill2());
+            UpdatePosition();
+            SKillCooldown();
+            StartCoroutine(UseUltimate());
+            StartCoroutine(AwakeningActive());
+            AwakeningReady();
+            //StartCoroutine(BoostOn());
+            //Ultimate Energy Regen
+            if (!Mecha.UltimateRegen && Mecha.Ultimate < Mecha.MaxUltimate) _ = StartCoroutine(UltimateRegen());
+            if (!Mecha.EnergyRegen && Mecha.Energy < Mecha.MaxEnergy) _ = StartCoroutine(EnergyRegen());
+        }
 
         SkillBusy();
         ParticleSet();
@@ -596,19 +599,19 @@ public class PlayerActive : MonoBehaviour
             Mecha.Health = Mecha.MinHealth;
             Mecha.isDeath = true;
 
-            if (Mecha.isDeath)
-            {
-                Time.timeScale = 0.5f;
-                speed = 0f;
-                anim.SetBool("IsDeath", true);
-                GameMaster.gameLose = true;
-                GameMaster.gameFinish = true;
-                //Invoke(nameof(ToLoseCG), 5f);
-            }
-            else
-            {
-                anim.SetBool("IsDeath", false);
-            }
+            //if (Mecha.isDeath)
+            //{
+            //    Time.timeScale = 0.5f;
+            //    speed = 0f;
+            //    anim.SetBool("IsDeath", true);
+            //    GameMaster.gameLose = true;
+            //    GameMaster.gameFinish = true;
+            //    //Invoke(nameof(ToLoseCG), 5f);
+            //}
+            //else
+            //{
+            //    anim.SetBool("IsDeath", false);
+            //}
         }
     }
     public void SKillCooldown()

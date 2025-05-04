@@ -19,10 +19,8 @@ public class Skill1Script : MonoBehaviour
 
     private void OnEnable()
     {
-        // Deteksi semua collider dalam box
         Collider[] hitColliders = Physics.OverlapBox(transform.position, boxSize / 2f, transform.rotation, playerActive.enemyLayer);
         
-        // Terapkan damage ke semua yang terdeteksi
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.TryGetComponent<EnemyActive>(out var enemy))

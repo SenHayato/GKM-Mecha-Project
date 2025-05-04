@@ -7,6 +7,8 @@ public class UltimateScript : MonoBehaviour
 {
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
+    [SerializeField] float damageRadius;
+
     private float duration;
     private float interval;
 
@@ -22,16 +24,18 @@ public class UltimateScript : MonoBehaviour
         interval = playerData.UltInterval;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnEnable()
     {
-        // Cek apakah layer dari objek 'other' termasuk dalam enemyLayerMask
-        if ((playerActive.enemyLayer.value & (1 << other.gameObject.layer)) != 0)
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, damageRadius, playerActive.enemyLayer);
+
+        foreach (var hitCollider in hitColliders)
         {
-            if (other.TryGetComponent<EnemyActive>(out var enemy))
+            if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
             {
-                StartCoroutine(ApplyDamageOverTime(enemy));
+                StartCoroutine(ApplyDamageOverTime(enemyActive));
             }
         }
+
     }
 
     private IEnumerator ApplyDamageOverTime(EnemyActive enemy)
@@ -44,5 +48,12 @@ public class UltimateScript : MonoBehaviour
             }
             yield return new WaitForSeconds(interval);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Visualisasi area
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, damageRadius);
     }
 }
