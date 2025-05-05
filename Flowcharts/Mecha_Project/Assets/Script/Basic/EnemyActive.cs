@@ -119,7 +119,10 @@ public abstract class EnemyActive : MonoBehaviour
     {
         if (enemyModel.isStunt)
         {
-            navAgent.SetDestination(transform.position);
+            if (navAgent.enabled)
+            {
+                navAgent.SetDestination(transform.position);
+            }
             anim.SetBool("IsStunt", true);
         }
         else
@@ -186,7 +189,7 @@ public abstract class EnemyActive : MonoBehaviour
             enemyModel.health = enemyModel.minHealth;
             enemyModel.isDeath = true;
 
-            if (enemyModel.isDeath)
+            if (enemyModel.isDeath && enemyModel.isGrounded)
             {
                 navAgent.speed = 0f;
                 hitCollider.enabled = false;

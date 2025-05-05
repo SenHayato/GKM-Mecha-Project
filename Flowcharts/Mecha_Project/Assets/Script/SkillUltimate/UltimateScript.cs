@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class UltimateScript : MonoBehaviour
@@ -11,6 +11,7 @@ public class UltimateScript : MonoBehaviour
 
     private Collider[] enemyColliders;
 
+    private bool giveDamage = true;
     private float duration;
     private float interval;
 
@@ -26,46 +27,61 @@ public class UltimateScript : MonoBehaviour
         interval = playerData.UltInterval;
     }
 
-    private void OnEnable()
+    private void Update()
     {
-        enemyColliders = Physics.OverlapSphere(transform.position, damageRadius, playerActive.enemyLayer);
+        FindEnemy();
+        //GiveDamage();
+    }
 
-        foreach (var hitCollider in enemyColliders)
+    void FindEnemy()
+    {
+        if (giveDamage)
         {
-            if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
-            {
-                enemyActive.enemyModel.isStunt = true;
-                StartCoroutine(ApplyDamageOverTime(enemyActive));
-            }
+            giveDamage = false;
+            enemyColliders = Physics.OverlapSphere(transform.position, damageRadius, playerActive.enemyLayer);
+            GiveDamage();
+            Invoke(nameof(ResetDamage), interval);
         }
     }
 
-    private void OnDisable()
+    void GiveDamage()
     {
-        foreach (var hitCollider in enemyColliders)
+        if (enemyColliders != null)
         {
-            if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
+            foreach (var hitCollider in enemyColliders)
             {
-                StopCoroutine(ApplyDamageOverTime(enemyActive));
-                if (enemyActive != null)
+                if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
                 {
-                    enemyActive.enemyModel.isStunt = false;
+                    enemyActive.enemyModel.isStunt = true;
+                    enemyActive.TakeDamage(playerData.UltDamage);
                 }
             }
         }
     }
 
-    private IEnumerator ApplyDamageOverTime(EnemyActive enemy)
+    void ResetDamage()
     {
-        for (float t = 0; t < duration; t += interval)
+        giveDamage = true;
+    }
+
+    private void OnDisable()
+    {
+        giveDamage = true;
+
+        if (enemyColliders != null)
         {
-            if (enemy != null)
+            foreach (var hitCollider in enemyColliders)
             {
-                enemy.TakeDamage(playerData.UltDamage);
+                if (hitCollider != null && hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
+                {
+                    enemyActive.enemyModel.isStunt = false;
+                }
             }
-            yield return new WaitForSeconds(interval);
+
+            enemyColliders = null;
         }
     }
+
 
     private void OnDrawGizmosSelected()
     {

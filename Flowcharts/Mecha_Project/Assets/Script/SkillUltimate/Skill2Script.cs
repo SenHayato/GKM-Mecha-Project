@@ -8,6 +8,8 @@ public class Skill2Script : MonoBehaviour
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
 
+    private Collider[] enemyCollider;
+
     [SerializeField] Vector3 boxSize;
 
     private void Awake()
@@ -19,15 +21,20 @@ public class Skill2Script : MonoBehaviour
     private void OnEnable()
     {
         //buat collider manual dengan overlapbox
-        Collider[] hitColliders = Physics.OverlapBox(transform.position, boxSize / 2f, transform.rotation, playerActive.enemyLayer);
+        enemyCollider = Physics.OverlapBox(transform.position, boxSize / 2f, transform.rotation, playerActive.enemyLayer);
 
-        foreach (var hitCollider in hitColliders)
+        foreach (var hitCollider in enemyCollider)
         {
             if (hitCollider.TryGetComponent<EnemyActive>(out var enemy))
             {
                 enemy.TakeDamage(playerData.skill2Damage);
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        enemyCollider = null;
     }
 
     private void OnDrawGizmosSelected()
