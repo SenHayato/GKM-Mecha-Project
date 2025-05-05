@@ -20,6 +20,7 @@ public class EnemyModel : MonoBehaviour
     public float attackCooldown;
 
     [Header("Status")]
+    public bool isStunt;
     public bool isAttacking;
     public bool isDeath;
     public bool isPatrolling;
