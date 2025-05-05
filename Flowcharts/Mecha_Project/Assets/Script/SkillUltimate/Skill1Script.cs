@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Skill1Script : MonoBehaviour
 {
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
+
+    private Collider[] enemyCollider;
 
     [SerializeField] Vector3 boxSize;
 
@@ -19,9 +22,9 @@ public class Skill1Script : MonoBehaviour
 
     private void OnEnable()
     {
-        Collider[] hitColliders = Physics.OverlapBox(transform.position, boxSize / 2f, transform.rotation, playerActive.enemyLayer);
+        enemyCollider = Physics.OverlapBox(transform.position, boxSize / 2f, transform.rotation, playerActive.enemyLayer);
         
-        foreach (var hitCollider in hitColliders)
+        foreach (var hitCollider in enemyCollider)
         {
             if (hitCollider.TryGetComponent<EnemyActive>(out var enemy))
             {
@@ -29,7 +32,12 @@ public class Skill1Script : MonoBehaviour
             }
         }
     }
-    
+
+    private void OnDisable()
+    {
+        enemyCollider = null;
+    }
+
     private void OnDrawGizmosSelected()
     {
         // Visualisasi area box
