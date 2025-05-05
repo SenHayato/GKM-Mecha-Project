@@ -680,22 +680,31 @@ public class PlayerActive : MonoBehaviour
 
         if (Mecha.UsingUltimate)
         {
+            anim.SetBool("IsUltimate", true);
             Mecha.Ultimate = Mecha.MinUltimate;
+            StopCoroutine(UltimateRegen());
+        }
+        else
+        {
+            anim.SetBool("IsUltimate", false);
         }
     }
 
     public IEnumerator UltimateRegen()
     {
-        if (!Mecha.UsingUltimate)
+        Mecha.UltimateRegen = true;
+        while (Mecha.Ultimate <= Mecha.MaxUltimate)
         {
-            Mecha.UltimateRegen = true;
-            while (Mecha.Ultimate <= Mecha.MaxUltimate && !Mecha.UsingUltimate)
+            if (Mecha.UsingUltimate)
             {
-                yield return new WaitForSeconds(1f);
-                Mecha.Ultimate += Mecha.UltRegenValue;
-                Mecha.Ultimate = Mathf.Clamp(Mecha.Ultimate, Mecha.MinUltimate, Mecha.MaxUltimate);
+                Mecha.UltimateRegen = false;
+                yield break;
             }
+            yield return new WaitForSeconds(1f);
+            Mecha.Ultimate += Mecha.UltRegenValue;
+            Mecha.Ultimate = Mathf.Clamp(Mecha.Ultimate, Mecha.MinUltimate, Mecha.MaxUltimate);
         }
+        Mecha.UltimateRegen = false;
     }
 
     //Energy
@@ -767,7 +776,7 @@ public class PlayerActive : MonoBehaviour
     public void TakeDamage(int damage)
     {
         int damageCal = damage - Mecha.Defence;
-        if (!Mecha.isBlocking)
+        if (!Mecha.UsingUltimate)
         {
             combatVoiceAct.DamageVoice();
             Mecha.Health -= damageCal;

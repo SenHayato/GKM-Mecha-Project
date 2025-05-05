@@ -46,8 +46,11 @@ public class UltimateScript : MonoBehaviour
         {
             if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
             {
-                enemyActive.enemyModel.isStunt = false;
                 StopCoroutine(ApplyDamageOverTime(enemyActive));
+                if (enemyActive != null)
+                {
+                    enemyActive.enemyModel.isStunt = false;
+                }
             }
         }
     }
