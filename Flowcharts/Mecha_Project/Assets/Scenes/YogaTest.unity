@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.43846726, g: 0.48655307, b: 0.5668256, a: 1}
+  m_IndirectSpecularColor: {r: 0.4384669, g: 0.48655242, b: 0.56682485, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1237,6 +1237,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   playerActive: {fileID: 0}
+  boxSize: {x: 0, y: 0, z: 0}
 --- !u!4 &52261616
 Transform:
   m_ObjectHideFlags: 0
@@ -9569,6 +9570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   playerActive: {fileID: 0}
+  boxSize: {x: 0, y: 0, z: 0}
 --- !u!4 &359975382
 Transform:
   m_ObjectHideFlags: 0
@@ -28691,6 +28693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   playerActive: {fileID: 0}
+  damageRadius: 0
 --- !u!4 &1533541120
 Transform:
   m_ObjectHideFlags: 0
@@ -39420,6 +39423,8 @@ MonoBehaviour:
   deathCollider: {fileID: 1990236306}
   anim: {fileID: 1990236296}
   nextAttackTime: 3
+  weaponCollider: {fileID: 1509123485}
+  weaponActiveTime: 0.5
 --- !u!114 &1990236304
 MonoBehaviour:
   m_ObjectHideFlags: 0

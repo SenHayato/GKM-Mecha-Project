@@ -6,7 +6,9 @@ public class CloseEnemy : EnemyActive
 {
     float attackTime = 0;
     [SerializeField] float nextAttackTime;
-   
+    [SerializeField] private Collider weaponCollider;
+    [SerializeField] private float weaponActiveTime = 0.5f; // durasi collider aktif
+
 
     public override void Attacking()
     {
@@ -27,6 +29,21 @@ public class CloseEnemy : EnemyActive
             
             Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
         }
+    }
+
+    private void EnableWeaponCollider()
+    {
+        if (weaponCollider != null)
+        {
+            weaponCollider.enabled = true;
+            Invoke(nameof(DisableWeaponCollider), weaponActiveTime);
+        }
+    }
+
+    private void DisableWeaponCollider()
+    {
+        if (weaponCollider != null)
+            weaponCollider.enabled = false;
     }
 
     public override void PlayAnimation()
