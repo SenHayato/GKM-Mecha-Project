@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -134,37 +135,44 @@ public class PlayerActive : MonoBehaviour
     }
     void Update()
     {
+        UltimateSetting();
         PauseControl();
 
         //Hukum Fisika COY
         ApplyGravity();
         SelectButtonPress();
         Death();
+        UpdatePosition();
 
         if (!Mecha.isDeath)
         {
-            //Class untuk player
-            PlayerJump();
-            Reloading();
-            DashPlayer();
-            BlockPlayer();
-            ScopeMode();
-            Shooting();
-            //Hovering();
-            RelativeMovement();
-            StartCoroutine(Skill1());
-            StartCoroutine(Skill2());
-            UpdatePosition();
             SKillCooldown();
-            StartCoroutine(UseUltimate());
-            StartCoroutine(AwakeningActive());
             AwakeningReady();
+
+            if (!Mecha.UsingUltimate)
+            {
+                //Class untuk player
+                PlayerJump();
+                Reloading();
+                DashPlayer();
+                BlockPlayer();
+                ScopeMode();
+                Shooting();
+                StartCoroutine(Skill1());
+                StartCoroutine(Skill2());
+                RelativeMovement();
+                StartCoroutine(UseUltimate());
+                StartCoroutine(AwakeningActive());
+                //Ultimate Regen  
+                if (!Mecha.UltimateRegen && Mecha.Ultimate < Mecha.MaxUltimate && !Mecha.UltimateReady) _ = StartCoroutine(UltimateRegen());
+            }
             //StartCoroutine(BoostOn());
-            //Ultimate Energy Regen
-            if (!Mecha.UltimateRegen && Mecha.Ultimate < Mecha.MaxUltimate) _ = StartCoroutine(UltimateRegen());
+
+            //EnergyRegen         
             if (!Mecha.EnergyRegen && Mecha.Energy < Mecha.MaxEnergy) _ = StartCoroutine(EnergyRegen());
         }
-
+        
+        //Hovering();
         SkillBusy();
         ParticleSet();
         //BoostDirectionSet();
@@ -209,10 +217,6 @@ public class PlayerActive : MonoBehaviour
             {
                 Time.timeScale = 1f;
             }
-            //foreach (var materials in playerMaterial)
-            //{
-            //    materials.color = Color.blue;
-            //}
         }
         else
         {
@@ -221,10 +225,6 @@ public class PlayerActive : MonoBehaviour
                 Mecha.UltDamage = defaultUltDamage;
                 Mecha.AttackPow = defaultAttack;
             }
-            //foreach (var materials in playerMaterial)
-            //{
-            //    materials.color = Color.white;
-            //}
         }
     }
     public void DashPlayer()
@@ -655,27 +655,49 @@ public class PlayerActive : MonoBehaviour
         if (ultimateAction.triggered && Mecha.Ultimate == Mecha.MaxUltimate && !Mecha.isDeath)
         {
             Debug.Log("Ultimate jalan");
+            Mecha.UltimateRegen = false;
             Mecha.Ultimate = Mecha.MinUltimate;
             Mecha.UsingUltimate = true;
             ultimateHitBox.SetActive(true);
-
             yield return new WaitForSeconds(Mecha.UltDuration); //lama ultimate
+
             ultimateHitBox.SetActive(false);
-            Mecha.UltimateRegen = false;
             Mecha.UsingUltimate = false;
             Debug.Log("Ultimate berenti");
         }
     }
-    public IEnumerator UltimateRegen()
+
+    public void UltimateSetting()
     {
-        Mecha.UltimateRegen = true;
-        while (Mecha.Ultimate <= Mecha.MaxUltimate)
+        if (Mecha.Ultimate >= Mecha.MaxUltimate)
         {
-            yield return new WaitForSeconds(1f);
-            Mecha.Ultimate += Mecha.UltRegenValue;
-            Mecha.Ultimate = Mathf.Clamp(Mecha.Ultimate, Mecha.MinUltimate, Mecha.MaxUltimate);
+            Mecha.UltimateReady = true;
+        }
+        else
+        {
+            Mecha.UltimateReady = false;
+        }
+
+        if (Mecha.UsingUltimate)
+        {
+            Mecha.Ultimate = Mecha.MinUltimate;
         }
     }
+
+    public IEnumerator UltimateRegen()
+    {
+        if (!Mecha.UsingUltimate)
+        {
+            Mecha.UltimateRegen = true;
+            while (Mecha.Ultimate <= Mecha.MaxUltimate && !Mecha.UsingUltimate)
+            {
+                yield return new WaitForSeconds(1f);
+                Mecha.Ultimate += Mecha.UltRegenValue;
+                Mecha.Ultimate = Mathf.Clamp(Mecha.Ultimate, Mecha.MinUltimate, Mecha.MaxUltimate);
+            }
+        }
+    }
+
     //Energy
     public IEnumerator EnergyRegen()
     {

@@ -7,6 +7,7 @@ public class RangeEnemy : EnemyActive
     [Header("Komponen Enemy Range")]
     [SerializeField] Transform rayCastSpawn;
     [SerializeField] GameObject bulletHitEffect;
+    public bool test;
    
     [Header("RangeWeapon")]
     [SerializeField] Transform bulletSpawn;
