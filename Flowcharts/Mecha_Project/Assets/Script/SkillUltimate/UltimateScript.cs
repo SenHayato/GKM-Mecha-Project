@@ -9,6 +9,8 @@ public class UltimateScript : MonoBehaviour
     [SerializeField] PlayerActive playerActive;
     [SerializeField] float damageRadius;
 
+    private Collider[] enemyColliders;
+
     private float duration;
     private float interval;
 
@@ -26,16 +28,28 @@ public class UltimateScript : MonoBehaviour
 
     private void OnEnable()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, damageRadius, playerActive.enemyLayer);
+        enemyColliders = Physics.OverlapSphere(transform.position, damageRadius, playerActive.enemyLayer);
 
-        foreach (var hitCollider in hitColliders)
+        foreach (var hitCollider in enemyColliders)
         {
             if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
             {
+                enemyActive.enemyModel.isStunt = true;
                 StartCoroutine(ApplyDamageOverTime(enemyActive));
             }
         }
+    }
 
+    private void OnDisable()
+    {
+        foreach (var hitCollider in enemyColliders)
+        {
+            if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
+            {
+                enemyActive.enemyModel.isStunt = false;
+                StopCoroutine(ApplyDamageOverTime(enemyActive));
+            }
+        }
     }
 
     private IEnumerator ApplyDamageOverTime(EnemyActive enemy)

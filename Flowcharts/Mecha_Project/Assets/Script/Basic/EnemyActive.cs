@@ -66,21 +66,25 @@ public abstract class EnemyActive : MonoBehaviour
         ApplyGravity();
         CheckingSight();
 
-        if (!enemyModel.isDeath && enemyModel.isGrounded)
+        if (!enemyModel.isDeath)
         {
-            if (!playerInSight && !playerInAttackRange)
+            GettingStunt();
+            if (enemyModel.isGrounded && !enemyModel.isStunt)
             {
-                Patrolling();
-            }
+                if (!playerInSight && !playerInAttackRange)
+                {
+                    Patrolling();
+                }
 
-            if (playerInSight && !playerInAttackRange)
-            {
-                ChasingPlayer();
-            }
+                if (playerInSight && !playerInAttackRange)
+                {
+                    ChasingPlayer();
+                }
 
-            if (playerInSight && playerInAttackRange)
-            {
-                Attacking();
+                if (playerInSight && playerInAttackRange)
+                {
+                    Attacking();
+                }
             }
         }
         
@@ -111,7 +115,20 @@ public abstract class EnemyActive : MonoBehaviour
         }
     }
 
-        #region Pengaturan
+    void GettingStunt()
+    {
+        if (enemyModel.isStunt)
+        {
+            navAgent.SetDestination(transform.position);
+            anim.SetBool("IsStunt", true);
+        }
+        else
+        {
+            anim.SetBool("IsStunt", false);
+        }
+    }
+
+    #region Pengaturan
     void UIHealthBar()
     {
         if (enemyModel.health < enemyModel.maxHealth)
