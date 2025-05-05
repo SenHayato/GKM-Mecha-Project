@@ -6,8 +6,8 @@ public class CloseEnemy : EnemyActive
 {
     float attackTime = 0;
     [SerializeField] float nextAttackTime;
-    [SerializeField] private Collider weaponCollider;
-    [SerializeField] private float weaponActiveTime = 0.5f; // durasi collider aktif
+    [SerializeField] private BoxCollider weaponCollider;
+    [SerializeField] float weaponActiveTime = 0.05f;
 
 
     public override void Attacking()
@@ -21,29 +21,22 @@ public class CloseEnemy : EnemyActive
         if (!enemyModel.isAttacking)
         {
             //float distance = Vector3.Distance(transform.position, player.position);
-           
+
             //attackTime = 0f;
             Debug.Log("SwordAttack");
             //enemyModel.nextAttackTime = Time.time + enemyModel.attackCooldown;
             enemyModel.isAttacking = true;
-            
+
+            StartCoroutine(ActiveWeaponCollider());
             Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
         }
     }
 
-    private void EnableWeaponCollider()
+    private IEnumerator ActiveWeaponCollider()
     {
-        if (weaponCollider != null)
-        {
-            weaponCollider.enabled = true;
-            Invoke(nameof(DisableWeaponCollider), weaponActiveTime);
-        }
-    }
-
-    private void DisableWeaponCollider()
-    {
-        if (weaponCollider != null)
-            weaponCollider.enabled = false;
+        weaponCollider.enabled = true;
+        yield return new WaitForSeconds (weaponActiveTime);
+        weaponCollider.enabled = false;
     }
 
     public override void PlayAnimation()
