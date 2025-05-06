@@ -71,14 +71,21 @@ public abstract class EnemyActive : MonoBehaviour
             GettingStunt();
             if (enemyModel.isGrounded && !enemyModel.isStunt)
             {
-                if (!playerInSight && !playerInAttackRange)
+                if (enemyModel.isProvoke)
                 {
-                    Patrolling();
+                    AlwaysChasing();
                 }
-
-                if (playerInSight && !playerInAttackRange)
+                else
                 {
-                    ChasingPlayer();
+                    if (!playerInSight && !playerInAttackRange)
+                    {
+                        Patrolling();
+                    }
+
+                    if (playerInSight && !playerInAttackRange)
+                    {
+                        ChasingPlayer();
+                    }
                 }
 
                 if (playerInSight && playerInAttackRange)
@@ -258,19 +265,38 @@ public abstract class EnemyActive : MonoBehaviour
         }
     }
 
+    void AlwaysChasing()
+    {
+        if (enemyModel.isProvoke)
+        {
+            if (navAgent.enabled)
+            {
+                navAgent.SetDestination(player.position);
+            }
+        }
+    }
 
     public void ResetAttack()
     {
         enemyModel.isAttacking = false;
     }
 
-    //private void OnDrawGizmosSelected()
-    //{
-    //    Gizmos.color = Color.red;
-    //    Gizmos.DrawWireSphere(transform.position, enemyModel.attackRange);
-    //    Gizmos.color = Color.blue;
-    //    Gizmos.DrawWireSphere(transform.position, enemyModel.sightRange);
-    //}
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        if (enemyModel == null) return;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, enemyModel.attackRange);
+        UnityEditor.Handles.Label(transform.position + Vector3.forward * enemyModel.attackRange, "Attack Range");
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, enemyModel.sightRange);
+        UnityEditor.Handles.Label(transform.position + Vector3.forward * enemyModel.sightRange, "Sight Range");
+    }
+#endif
+
+
     private void OnDestroy()
     {
         gameManager.KillCount++;

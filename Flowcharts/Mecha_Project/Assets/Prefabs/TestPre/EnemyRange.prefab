@@ -2612,7 +2612,6 @@ Transform:
   - {fileID: 9026064662442806354}
   - {fileID: 3196157503599636245}
   - {fileID: 8963314755684435060}
-  - {fileID: 5669562684172774338}
   m_Father: {fileID: 5909663762035251352}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1263784999059425335
@@ -2900,12 +2899,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7133391715385381262}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.00000014901158, y: 0.000000089406946, z: -0.00000011920926, w: 1}
-  m_LocalPosition: {x: 0, y: -0, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.002566826, y: -0.9931087, z: -0.115055606, w: 0.02215471}
+  m_LocalPosition: {x: 0.7927537, y: 1.3760681, z: 0.012039661}
+  m_LocalScale: {x: 0.060000025, y: 0.060000043, z: 0.060000032}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 4159892385996297480}
+  m_Father: {fileID: 8621105532361449540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &7541630119764583128
 LineRenderer:
@@ -3185,6 +3184,7 @@ Transform:
   - {fileID: 4664731135214995794}
   - {fileID: 3132872247313647949}
   - {fileID: 1457121234723315683}
+  - {fileID: 5669562684172774338}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5966473389527827218
@@ -3205,15 +3205,17 @@ MonoBehaviour:
   health: 1000
   minHealth: 0
   sightRange: 15
-  attackPower: 3000
+  attackPower: 2500
   attackSpeed: 2
   attackRange: 9
   attackCooldown: 3
+  isStunt: 0
   isAttacking: 0
   isDeath: 0
   isPatrolling: 0
   isBlocking: 0
   isGrounded: 0
+  isProvoke: 0
   isHit: 0
   wasHit: 0
 --- !u!114 &8493679949321867030
@@ -3253,6 +3255,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   rayCastSpawn: {fileID: 8494362312622757698}
   bulletHitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
+  test: 0
   bulletSpawn: {fileID: 9026064662442806354}
   bulletTrail: {fileID: 7541630119764583128}
   isBulletSpawn: 0

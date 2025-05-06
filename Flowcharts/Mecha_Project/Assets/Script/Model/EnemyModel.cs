@@ -17,7 +17,7 @@ public class EnemyModel : MonoBehaviour
     public int attackPower;
     public int attackSpeed;
     public float attackRange;
-    public float attackCooldown;
+    public float attackCooldown; //untuk short atau melee enemy
 
     [Header("Status")]
     public bool isStunt;
@@ -26,6 +26,7 @@ public class EnemyModel : MonoBehaviour
     public bool isPatrolling;
     public bool isBlocking;
     public bool isGrounded;
+    public bool isProvoke;
     public bool isHit;
     public bool wasHit = false;
 }
