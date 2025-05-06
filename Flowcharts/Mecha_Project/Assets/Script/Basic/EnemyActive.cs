@@ -21,8 +21,8 @@ public abstract class EnemyActive : MonoBehaviour
 
     [Header("States")]
     public float rotationSpeed;
-    [SerializeField] bool playerInSight;
-    [SerializeField] bool playerInAttackRange;
+    public bool playerInSight;
+    public bool playerInAttackRange;
     [SerializeField] float gravityPower;
 
     [Header("Komponen Enemy")]
@@ -39,8 +39,8 @@ public abstract class EnemyActive : MonoBehaviour
 
     private void Awake()
     {
-        //player = GameObject.FindGameObjectWithTag("Player").transform;
-        player = GameObject.Find("CollisionPoint").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        //player = GameObject.Find("CollisionPoint").transform;
         enemyModel = GetComponent<EnemyModel>();
         navAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();

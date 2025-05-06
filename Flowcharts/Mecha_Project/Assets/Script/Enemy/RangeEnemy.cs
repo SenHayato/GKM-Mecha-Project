@@ -9,6 +9,7 @@ public class RangeEnemy : EnemyActive
     [SerializeField] GameObject bulletHitEffect;
     [SerializeField] float missChange;
     [SerializeField] float attackSlerpTollerance;
+    [SerializeField] float timeBeforeAttack;
     private Ray ray;
    
     [Header("RangeWeapon")]
@@ -17,6 +18,11 @@ public class RangeEnemy : EnemyActive
     [SerializeField] bool isBulletSpawn = false;
 
     public override void Attacking()
+    {
+        StartCoroutine(AttackFire());
+    }
+
+    IEnumerator AttackFire()
     {
         if (navAgent.enabled)
         {
@@ -37,6 +43,7 @@ public class RangeEnemy : EnemyActive
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
         if (angle < attackSlerpTollerance)
         {
+            yield return new WaitForSeconds(timeBeforeAttack);
             if (!enemyModel.isAttacking)
             {
                 enemyModel.isAttacking = true;
@@ -77,8 +84,8 @@ public class RangeEnemy : EnemyActive
             anim.SetBool("IsDeath", false);
         }
 
-        //attacking
-        if (enemyModel.isAttacking)
+        //aiming
+        if (playerInAttackRange && enemyModel.isGrounded)
         {
             anim.SetBool("IsAiming", true);
         }
@@ -86,6 +93,16 @@ public class RangeEnemy : EnemyActive
         {
             anim.SetBool("IsAiming", false);
         }
+
+        //attacking
+        //if (enemyModel.isAttacking)
+        //{
+        //    anim.SetBool("IsShooting", true);
+        //}
+        //else
+        //{
+        //    anim.SetBool("IsShooting", false);
+        //}
 
         //patrolling
         if (enemyModel.isPatrolling || enemyModel.isProvoke)

@@ -53,6 +53,7 @@ public class PowerUpSpawn : MonoBehaviour
             timerToSpawn = spawnerDuration;
         }
     }
+
     void Update()
     {
         SpawnPowerUp();

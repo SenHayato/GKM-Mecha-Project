@@ -3209,14 +3209,15 @@ MonoBehaviour:
   attackSpeed: 2
   attackRange: 9
   attackCooldown: 3
+  isGrounded: 0
   isStunt: 0
   isAttacking: 0
   isDeath: 0
   isPatrolling: 0
   isBlocking: 0
-  isGrounded: 0
   isProvoke: 0
   isHit: 0
+  isAiming: 0
   wasHit: 0
 --- !u!114 &8493679949321867030
 MonoBehaviour:
@@ -3258,8 +3259,9 @@ MonoBehaviour:
   anim: {fileID: 0}
   rayCastSpawn: {fileID: 8494362312622757698}
   bulletHitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
-  missChange: 0.045
+  missChange: 0.03
   attackSlerpTollerance: 15
+  timeBeforeAttack: 1
   bulletSpawn: {fileID: 9026064662442806354}
   bulletTrail: {fileID: 7541630119764583128}
   isBulletSpawn: 0

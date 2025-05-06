@@ -16654,7 +16654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &737564210
 Transform:
   m_ObjectHideFlags: 0
@@ -16733,9 +16733,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnerDuration: 2
-  maxEnemyInArea: 20
+  maxEnemyInArea: 10
   spawnPrefabs:
   - {fileID: 7446081693627446681, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
+  - {fileID: 8099662513607266669, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
   spawnerReady: 1
   gameMaster: {fileID: 0}
 --- !u!1 &746787328
@@ -29563,7 +29564,7 @@ Transform:
   m_GameObject: {fileID: 1447547150}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38737,6 +38738,7 @@ MonoBehaviour:
   bulletHitEffect: {fileID: 0}
   missChange: 0
   attackSlerpTollerance: 0
+  timeBeforeAttack: 0
   bulletSpawn: {fileID: 0}
   bulletTrail: {fileID: 0}
   isBulletSpawn: 0
@@ -45811,14 +45813,15 @@ MonoBehaviour:
   attackSpeed: 0
   attackRange: 2
   attackCooldown: 3
+  isGrounded: 0
   isStunt: 0
   isAttacking: 0
   isDeath: 0
   isPatrolling: 0
   isBlocking: 0
-  isGrounded: 0
   isProvoke: 0
   isHit: 0
+  isAiming: 0
   wasHit: 0
 --- !u!1 &4833973228471808178
 GameObject:
@@ -50028,6 +50031,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 234581519977433411, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 234581519977433411, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3942563416926423756, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3942563416926423756, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4304001400453917753, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.027742
