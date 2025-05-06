@@ -20,14 +20,15 @@ public class EnemyModel : MonoBehaviour
     public float attackCooldown; //untuk short atau melee enemy
 
     [Header("Status")]
+    public bool isGrounded;
     public bool isStunt;
     public bool isAttacking;
     public bool isDeath;
     public bool isPatrolling;
     public bool isBlocking;
-    public bool isGrounded;
     public bool isProvoke;
     public bool isHit;
+    public bool isAiming; //khusus untuk range
     public bool wasHit = false;
 }
 
