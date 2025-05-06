@@ -2973,7 +2973,7 @@ LineRenderer:
       serializedVersion: 2
       key0: {r: 0, g: 0, b: 0, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -2989,14 +2989,14 @@ LineRenderer:
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 65535
+      atime2: 0
       atime3: 0
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: 0
+      m_ColorSpace: -1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -3246,7 +3246,7 @@ MonoBehaviour:
   walkPointSet: 0
   walkPointRange: 1
   patrolPoints: []
-  rotationSpeed: 7
+  rotationSpeed: 20
   playerInSight: 0
   playerInAttackRange: 0
   gravityPower: 15
@@ -3258,7 +3258,8 @@ MonoBehaviour:
   anim: {fileID: 0}
   rayCastSpawn: {fileID: 8494362312622757698}
   bulletHitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
-  test: 0
+  missChange: 0.045
+  attackSlerpTollerance: 15
   bulletSpawn: {fileID: 9026064662442806354}
   bulletTrail: {fileID: 7541630119764583128}
   isBulletSpawn: 0

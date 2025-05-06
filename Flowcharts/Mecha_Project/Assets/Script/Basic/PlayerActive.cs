@@ -594,25 +594,25 @@ public class PlayerActive : MonoBehaviour
 
     public void Death()
     {
-        if (Mecha.Health <= Mecha.MinHealth)
-        {
-            Mecha.Health = Mecha.MinHealth;
-            Mecha.isDeath = true;
+        //if (Mecha.Health <= Mecha.MinHealth)
+        //{
+        //    Mecha.Health = Mecha.MinHealth;
+        //    Mecha.isDeath = true;
 
-            //if (Mecha.isDeath)
-            //{
-            //    Time.timeScale = 0.5f;
-            //    speed = 0f;
-            //    anim.SetBool("IsDeath", true);
-            //    GameMaster.gameLose = true;
-            //    GameMaster.gameFinish = true;
-            //    //Invoke(nameof(ToLoseCG), 5f);
-            //}
-            //else
-            //{
-            //    anim.SetBool("IsDeath", false);
-            //}
-        }
+        //    if (Mecha.isDeath)
+        //    {
+        //        Time.timeScale = 0.5f;
+        //        speed = 0f;
+        //        anim.SetBool("IsDeath", true);
+        //        GameMaster.gameLose = true;
+        //        GameMaster.gameFinish = true;
+        //        //Invoke(nameof(ToLoseCG), 5f);
+        //    }
+        //    else
+        //    {
+        //        anim.SetBool("IsDeath", false);
+        //    }
+        //}
     }
     public void SKillCooldown()
     {

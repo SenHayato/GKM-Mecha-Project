@@ -240,7 +240,15 @@ public abstract class EnemyActive : MonoBehaviour
             {
                 navAgent.SetDestination(walkPoint);
             }
-            enemyModel.isPatrolling = true;
+
+            if (playerInAttackRange)
+            {
+                enemyModel.isPatrolling = false;
+            }
+            else
+            {
+                enemyModel.isPatrolling = true;
+            }
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -270,6 +278,7 @@ public abstract class EnemyActive : MonoBehaviour
     {
         if (enemyModel.isProvoke)
         {
+            enemyModel.isPatrolling = false;
             if (navAgent.enabled)
             {
                 navAgent.SetDestination(player.position);
