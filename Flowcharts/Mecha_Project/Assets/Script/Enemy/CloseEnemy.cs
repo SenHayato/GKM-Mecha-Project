@@ -27,15 +27,25 @@ public class CloseEnemy : EnemyActive
             //enemyModel.nextAttackTime = Time.time + enemyModel.attackCooldown;
             enemyModel.isAttacking = true;
 
-            StartCoroutine(ActiveWeaponCollider());
+            //StartCoroutine(ActiveWeaponCollider());
             Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
         }
     }
 
-    private IEnumerator ActiveWeaponCollider()
+    //private IEnumerator ActiveWeaponCollider()
+    //{
+    //    weaponCollider.enabled = true;
+    //    yield return new WaitForSeconds (weaponActiveTime);
+    //    weaponCollider.enabled = false;
+    //}// Panggil dari Animation Event
+    public void EnableWeaponCollider()
     {
         weaponCollider.enabled = true;
-        yield return new WaitForSeconds (weaponActiveTime);
+    }
+
+    // Panggil dari Animation Event
+    public void DisableWeaponCollider()
+    {
         weaponCollider.enabled = false;
     }
 
