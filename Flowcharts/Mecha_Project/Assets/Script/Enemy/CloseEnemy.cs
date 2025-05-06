@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CloseEnemy : EnemyActive
@@ -8,6 +9,8 @@ public class CloseEnemy : EnemyActive
     [SerializeField] float nextAttackTime;
     [SerializeField] private BoxCollider weaponCollider;
     [SerializeField] float weaponActiveTime = 0.05f;
+
+    private Coroutine attackCoroutine;
 
 
     public override void Attacking()
@@ -62,11 +65,21 @@ public class CloseEnemy : EnemyActive
         }
         if (enemyModel.isAttacking)
         {
-            anim.SetBool("Attack1", true);
+            if(attackCoroutine == null)
+            {
+                attackCoroutine = StartCoroutine(Attack());
+            }
+            //anim.SetBool("Attack1", true);
+            Attack();
         }
         else
         {
-            anim.SetBool("Attack1", false);
+            if (attackCoroutine != null)
+            {
+                StopCoroutine(attackCoroutine);
+                attackCoroutine = null;
+            }
+            //anim.SetBool("Attack1", false);
             Debug.Log("ASDWA");
         }
         if (enemyModel.isDeath)
@@ -76,6 +89,17 @@ public class CloseEnemy : EnemyActive
         else
         {
             anim.SetBool("IsDeath", false);
+        }
+    }
+
+    IEnumerator Attack()
+    {
+        while (enemyModel.isAttacking)
+        {
+            anim.SetInteger("AttackIndex", Random.Range(0, 4));
+            anim.SetTrigger("Attack");
+            
+            yield return new WaitForSeconds(enemyModel.attackSpeed);
         }
     }
 }
