@@ -8,6 +8,7 @@ public class RangeEnemy : EnemyActive
     [SerializeField] Transform rayCastSpawn;
     [SerializeField] GameObject bulletHitEffect;
     public bool test;
+    private Ray ray;
    
     [Header("RangeWeapon")]
     [SerializeField] Transform bulletSpawn;
@@ -20,12 +21,13 @@ public class RangeEnemy : EnemyActive
         {
             navAgent.SetDestination(transform.position);
         }
-        
+
         Vector3 direction = player.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        rayCastSpawn.forward = transform.forward;
 
-         float angle = Quaternion.Angle(transform.rotation, targetRotation);
+        float angle = Quaternion.Angle(transform.rotation, targetRotation);
         if (angle < 5f) //harus menghadap pemain
         {
             if (!enemyModel.isAttacking)
@@ -34,7 +36,7 @@ public class RangeEnemy : EnemyActive
                 Debug.Log("EnemyTembak");
                 isBulletSpawn = false;
                 Vector3 targetPoint;
-                if (Physics.Raycast(rayCastSpawn.position, rayCastSpawn.forward, out RaycastHit hit, enemyModel.attackRange, playerLayer))
+                if (Physics.Raycast(rayCastSpawn.position, rayCastSpawn.forward, out RaycastHit hit, enemyModel.attackRange, hitLayer))
                 {
                     targetPoint = hit.point;
                     //Debug.Log(hit.point);
@@ -44,9 +46,10 @@ public class RangeEnemy : EnemyActive
                         playerActive.TakeDamage(enemyModel.attackPower);
                     }
                     Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                    StartCoroutine(BulletTrailEffect(hit.point));
+                    Debug.DrawRay(rayCastSpawn.position, rayCastSpawn.forward * enemyModel.attackRange, Color.red, 1f);
                 }
                 Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
-                StartCoroutine(BulletTrailEffect(hit.point));
             }
         }
     }

@@ -10,6 +10,7 @@ public abstract class EnemyActive : MonoBehaviour
     public NavMeshAgent navAgent;
     public Transform player; //titik collision pada player, taruh di player
     public LayerMask playerLayer;
+    public LayerMask hitLayer; //layer apa saja yang bisa dihit
     [SerializeField] LayerMask groundLayer; //layer yang bisa diinjak enemy
 
     [Header("Patrolling")]

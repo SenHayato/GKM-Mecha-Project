@@ -38664,6 +38664,9 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 0
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -45815,6 +45818,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyRange
       objectReference: {fileID: 0}
+    - target: {fileID: 8493679949321867030, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
+      propertyPath: hitLayer.m_Bits
+      value: 2060
+      objectReference: {fileID: 0}
     - target: {fileID: 8621105532361449540, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.027742
@@ -49823,6 +49830,10 @@ PrefabInstance:
     - target: {fileID: 4304001400453917753, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393515088680519459, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
+      propertyPath: hitLayer.m_Bits
+      value: 2060
       objectReference: {fileID: 0}
     - target: {fileID: 8099662513607266669, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
       propertyPath: m_Name
