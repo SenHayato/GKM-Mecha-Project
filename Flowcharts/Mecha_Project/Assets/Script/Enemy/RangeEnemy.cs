@@ -41,9 +41,9 @@ public class RangeEnemy : EnemyActive
         rayCastSpawn.forward = transform.forward;
 
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
+        yield return new WaitForSeconds(timeBeforeAttack);
         if (angle < attackSlerpTollerance)
         {
-            yield return new WaitForSeconds(timeBeforeAttack);
             if (!enemyModel.isAttacking)
             {
                 enemyModel.isAttacking = true;
