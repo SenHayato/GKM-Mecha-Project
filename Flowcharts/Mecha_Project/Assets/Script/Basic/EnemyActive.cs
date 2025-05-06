@@ -10,6 +10,7 @@ public abstract class EnemyActive : MonoBehaviour
     public NavMeshAgent navAgent;
     public Transform player; //titik collision pada player, taruh di player
     public LayerMask playerLayer;
+    public LayerMask hitLayer; //layer apa saja yang bisa dihit
     [SerializeField] LayerMask groundLayer; //layer yang bisa diinjak enemy
 
     [Header("Patrolling")]
@@ -239,7 +240,15 @@ public abstract class EnemyActive : MonoBehaviour
             {
                 navAgent.SetDestination(walkPoint);
             }
-            enemyModel.isPatrolling = true;
+
+            if (playerInAttackRange)
+            {
+                enemyModel.isPatrolling = false;
+            }
+            else
+            {
+                enemyModel.isPatrolling = true;
+            }
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -269,6 +278,7 @@ public abstract class EnemyActive : MonoBehaviour
     {
         if (enemyModel.isProvoke)
         {
+            enemyModel.isPatrolling = false;
             if (navAgent.enabled)
             {
                 navAgent.SetDestination(player.position);

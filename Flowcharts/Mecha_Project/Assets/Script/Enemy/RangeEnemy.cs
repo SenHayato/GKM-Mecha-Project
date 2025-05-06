@@ -7,7 +7,9 @@ public class RangeEnemy : EnemyActive
     [Header("Komponen Enemy Range")]
     [SerializeField] Transform rayCastSpawn;
     [SerializeField] GameObject bulletHitEffect;
-    public bool test;
+    [SerializeField] float missChange;
+    [SerializeField] float attackSlerpTollerance;
+    private Ray ray;
    
     [Header("RangeWeapon")]
     [SerializeField] Transform bulletSpawn;
@@ -20,33 +22,46 @@ public class RangeEnemy : EnemyActive
         {
             navAgent.SetDestination(transform.position);
         }
-        
-        Vector3 direction = player.position - transform.position;
+
+        Vector3 direction = (player.position - transform.position).normalized;
+
+        // Random spread untuk miss tembakan
+        float accuracyOffset = missChange; // makin besar makin meleset, untuk default 0.03f
+        direction += new Vector3(Random.Range(-accuracyOffset, accuracyOffset), Random.Range(-accuracyOffset, accuracyOffset), 0f);
+        direction.Normalize();
+
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        rayCastSpawn.forward = transform.forward;
 
-         float angle = Quaternion.Angle(transform.rotation, targetRotation);
-        if (angle < 5f) //harus menghadap pemain
+        float angle = Quaternion.Angle(transform.rotation, targetRotation);
+        if (angle < attackSlerpTollerance)
         {
             if (!enemyModel.isAttacking)
             {
                 enemyModel.isAttacking = true;
-                Debug.Log("EnemyTembak");
-                isBulletSpawn = false;
-                Vector3 targetPoint;
-                if (Physics.Raycast(rayCastSpawn.position, rayCastSpawn.forward, out RaycastHit hit, enemyModel.attackRange, playerLayer))
+                Debug.Log("Enemy Menembak");
+                Ray ray = new(rayCastSpawn.position, direction);
+                Vector3 targetPoint = ray.origin + 100f * enemyModel.attackRange * ray.direction;
+
+                if (Physics.Raycast(ray, out RaycastHit hit, enemyModel.attackRange * 100f, hitLayer))
                 {
                     targetPoint = hit.point;
-                    //Debug.Log(hit.point);
-                    //Debug.DrawRay(rayCastSpawn.position, rayCastSpawn.forward, Color.green);
                     if (hit.collider.TryGetComponent<PlayerActive>(out var playerActive))
                     {
                         playerActive.TakeDamage(enemyModel.attackPower);
                     }
                     Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 }
+                else
+                {
+                    Debug.Log("Tembakan Musuh Meleset");
+                }
+
+                isBulletSpawn = true;
+                StartCoroutine(BulletTrailEffect(targetPoint));
+                Debug.DrawRay(rayCastSpawn.position, direction * enemyModel.attackRange, Color.red, 1f);
                 Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
-                StartCoroutine(BulletTrailEffect(hit.point));
             }
         }
     }
@@ -73,7 +88,7 @@ public class RangeEnemy : EnemyActive
         }
 
         //patrolling
-        if (enemyModel.isPatrolling)
+        if (enemyModel.isPatrolling || enemyModel.isProvoke)
         {
             anim.SetFloat("Move", 1f);
         }
@@ -88,12 +103,13 @@ public class RangeEnemy : EnemyActive
         bulletTrail.SetPosition(0, bulletSpawn.position);
         bulletTrail.SetPosition(1, targetHit);
 
-        if (enemyModel.isAttacking && !isBulletSpawn)
+        if (enemyModel.isAttacking && isBulletSpawn)
         {
+            Debug.Log("BulletSpawn");
             bulletTrail.enabled = true;
             yield return new WaitForSeconds(0.05f);
             bulletTrail.enabled = false;
-            isBulletSpawn = true;
+            isBulletSpawn = false;
         }
     }
 }
