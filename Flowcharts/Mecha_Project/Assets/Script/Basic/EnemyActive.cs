@@ -289,6 +289,7 @@ public abstract class EnemyActive : MonoBehaviour
     public void ResetAttack()
     {
         enemyModel.isAttacking = false;
+        Debug.Log("Reset Attack");
     }
 
 #if UNITY_EDITOR
