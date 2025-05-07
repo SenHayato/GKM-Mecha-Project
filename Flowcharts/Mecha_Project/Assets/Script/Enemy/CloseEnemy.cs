@@ -70,7 +70,6 @@ public class CloseEnemy : EnemyActive
                 attackCoroutine = StartCoroutine(Attack());
             }
             //anim.SetBool("Attack1", true);
-            Attack();
         }
         else
         {
@@ -92,13 +91,28 @@ public class CloseEnemy : EnemyActive
         }
     }
 
+    //void Attack()
+    //{
+    //    if (enemyModel.isAttacking)
+    //    {
+    //        int AttackNum = Random.Range(1, 4); //angka 4 atau max tidak termasuk maka ini hanya 3 gerakan
+    //        Debug.Log("Attack ke " + AttackNum);
+    //        anim.SetFloat("AttackIndex", AttackNum);
+    //        anim.SetTrigger("Attack");
+
+    //        yield return new WaitForSeconds(enemyModel.attackSpeed);
+    //    }
+    //}
+
     IEnumerator Attack()
     {
-        while (enemyModel.isAttacking)
+        if (enemyModel.isAttacking)
         {
-            anim.SetInteger("AttackIndex", Random.Range(0, 4));
+            int AttackNum = Random.Range(1, 4); //angka 4 atau max tidak termasuk maka ini hanya 3 gerakan
+            Debug.Log("Attack ke " + AttackNum);
+            anim.SetFloat("AttackIndex", AttackNum);
             anim.SetTrigger("Attack");
-            
+
             yield return new WaitForSeconds(enemyModel.attackSpeed);
         }
     }
