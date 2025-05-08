@@ -592,6 +592,29 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
+//saklar switch (dipakai di animation event jika butuh)
+#region SkillHitBox Saklar
+    public void Skill1Enable()
+    {
+        skill1HitBox.SetActive(true);
+    }
+
+    public void Skill1Disable()
+    {
+        skill1HitBox.SetActive(false);
+    }
+    
+    public void Skill2Enable()
+    {
+        skill2HitBox.SetActive(true);
+    }
+
+    public void Skill2Disable()
+    {
+        skill2HitBox.SetActive(false);
+    }
+#endregion
+
     public void Death()
     {
         //if (Mecha.Health <= Mecha.MinHealth)
