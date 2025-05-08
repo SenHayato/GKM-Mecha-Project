@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CloseEnemy : EnemyActive
 {
-    float attackTime = 0;
     [SerializeField] float nextAttackTime;
     [SerializeField] private BoxCollider weaponCollider;
     [SerializeField] float weaponActiveTime = 0.05f;
