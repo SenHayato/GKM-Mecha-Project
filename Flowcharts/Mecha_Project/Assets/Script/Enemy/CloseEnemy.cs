@@ -10,6 +10,7 @@ public class CloseEnemy : EnemyActive
     [SerializeField] private BoxCollider weaponCollider;
     [SerializeField] float weaponActiveTime = 0.05f;
 
+    [SerializeField] bool prepareAttack;
 
     public override void Attacking()
     {
