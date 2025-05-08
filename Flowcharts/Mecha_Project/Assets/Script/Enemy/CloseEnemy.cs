@@ -10,8 +10,6 @@ public class CloseEnemy : EnemyActive
     [SerializeField] private BoxCollider weaponCollider;
     [SerializeField] float weaponActiveTime = 0.05f;
 
-    private Coroutine attackCoroutine;
-
 
     public override void Attacking()
     {
@@ -63,24 +61,21 @@ public class CloseEnemy : EnemyActive
         {
             anim.SetFloat("Move", 0f);
         }
+
+        //Attack
         if (enemyModel.isAttacking)
         {
-            if(attackCoroutine == null)
-            {
-                attackCoroutine = StartCoroutine(Attack());
-            }
+            StartCoroutine(AttackAnim());
             //anim.SetBool("Attack1", true);
         }
         else
         {
-            if (attackCoroutine != null)
-            {
-                StopCoroutine(attackCoroutine);
-                attackCoroutine = null;
-            }
+            StopCoroutine(AttackAnim());
             //anim.SetBool("Attack1", false);
             Debug.Log("ASDWA");
         }
+
+        //Death
         if (enemyModel.isDeath)
         {
             anim.SetBool("IsDeath", true);
@@ -104,7 +99,7 @@ public class CloseEnemy : EnemyActive
     //    }
     //}
 
-    IEnumerator Attack()
+    IEnumerator AttackAnim()
     {
         if (enemyModel.isAttacking)
         {
