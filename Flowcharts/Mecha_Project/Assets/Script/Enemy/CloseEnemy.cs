@@ -33,12 +33,6 @@ public class CloseEnemy : EnemyActive
         }
     }
 
-    //private IEnumerator ActiveWeaponCollider()
-    //{
-    //    weaponCollider.enabled = true;
-    //    yield return new WaitForSeconds (weaponActiveTime);
-    //    weaponCollider.enabled = false;
-    //}// Panggil dari Animation Event
     public void EnableWeaponCollider()
     {
         weaponCollider.enabled = true;
@@ -85,19 +79,6 @@ public class CloseEnemy : EnemyActive
             anim.SetBool("IsDeath", false);
         }
     }
-
-    //void Attack()
-    //{
-    //    if (enemyModel.isAttacking)
-    //    {
-    //        int AttackNum = Random.Range(1, 4); //angka 4 atau max tidak termasuk maka ini hanya 3 gerakan
-    //        Debug.Log("Attack ke " + AttackNum);
-    //        anim.SetFloat("AttackIndex", AttackNum);
-    //        anim.SetTrigger("Attack");
-
-    //        yield return new WaitForSeconds(enemyModel.attackSpeed);
-    //    }
-    //}
 
     IEnumerator AttackAnim()
     {
