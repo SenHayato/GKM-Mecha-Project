@@ -31,7 +31,9 @@ public class CameraActive : MonoBehaviour
     public float scopeFOV;
     public float boostFOV;
 
+    [Header("Camera Value")]
     public float rotationSpeed;
+    [SerializeField] float recoilLerp; //default 0.1f
     Vector2 lookInput;
     public Quaternion defaultCamRot;
     [SerializeField, Range(0f, 5f)] float collisionOffset;
@@ -138,11 +140,11 @@ public class CameraActive : MonoBehaviour
         currentRecoil += new Vector3(recoilSide, recoilUp, 0); // Tambahkan recoil baru
 
         // Recoil naik
-        while (elapsedTime < 0.1f)
+        while (elapsedTime < recoilLerp)
         {
             elapsedTime += Time.deltaTime * recoilSpeed;
             Quaternion targetRotation = Quaternion.Euler(-currentRecoil.y, currentRecoil.x, 0f);
-            MainCameraOBJ.transform.localRotation = Quaternion.Lerp(MainCameraOBJ.transform.localRotation, targetRotation, elapsedTime / 0.1f);
+            MainCameraOBJ.transform.localRotation = Quaternion.Lerp(MainCameraOBJ.transform.localRotation, targetRotation, elapsedTime / recoilLerp);
             yield return null;
         }
 
