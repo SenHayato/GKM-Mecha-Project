@@ -39,6 +39,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     //flag
     public float navDefaultSpeed;
+    public float beforeHitGround;
 
     private void Awake()
     {
@@ -121,7 +122,7 @@ public abstract class EnemyActive : MonoBehaviour
             navAgent.enabled = true;
         }
 
-        if (Physics.Raycast(transform.position, Vector3.down, 1f, groundLayer))
+        if (Physics.Raycast(transform.position, Vector3.down, beforeHitGround, groundLayer))
         {
             enemyModel.isGrounded = true;
         }
@@ -157,16 +158,20 @@ public abstract class EnemyActive : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        StartCoroutine(HitSound());
-        enemyModel.isHit = true;
-        if (enemyModel == null) return;
-
-        enemyModel.health -= damage;
-        UIHealthBar();
-        Debug.Log(gameObject.name + " Kena Damage : " + damage.ToString());
-        if (anim != null)
+        if (!enemyModel.isUnbeatable)
         {
-            anim.SetTrigger("Hit");
+            enemyModel.isProvoke = true;
+            StartCoroutine(HitSound());
+            enemyModel.isHit = true;
+            if (enemyModel == null) return;
+
+            enemyModel.health -= damage;
+            UIHealthBar();
+            Debug.Log(gameObject.name + " Kena Damage : " + damage.ToString());
+            if (anim != null)
+            {
+                anim.SetTrigger("Hit");
+            }
         }
 
         if (enemyModel.health <= enemyModel.minHealth)
