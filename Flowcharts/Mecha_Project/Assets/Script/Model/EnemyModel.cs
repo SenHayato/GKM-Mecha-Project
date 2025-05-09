@@ -20,6 +20,7 @@ public class EnemyModel : MonoBehaviour
     public float attackCooldown; //untuk short atau melee enemy
 
     [Header("Status")]
+    public bool isUnbeatable;
     public bool isGrounded;
     public bool isStunt;
     public bool isAttacking;

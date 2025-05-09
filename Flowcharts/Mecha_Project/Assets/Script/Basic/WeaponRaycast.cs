@@ -138,7 +138,6 @@ public class WeaponRaycast : MonoBehaviour
             {
                 if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
                 {
-                    enemy.enemyModel.isProvoke = true;
                     enemy.TakeDamage(mechaPlayer.AttackPow);
                     if (!mechaPlayer.UsingAwakening)
                     {

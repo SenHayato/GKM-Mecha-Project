@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BossActive : EnemyActive
 {
+    [Header("Boss Komponen")]
     [SerializeField] float rangeRadius;
     [SerializeField] float meleeRadius;
 
