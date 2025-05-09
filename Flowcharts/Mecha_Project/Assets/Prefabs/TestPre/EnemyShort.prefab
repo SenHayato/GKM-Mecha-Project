@@ -1716,11 +1716,12 @@ MonoBehaviour:
   playerInAttackRange: 0
   gravityPower: 15
   gameManager: {fileID: 0}
-  UIHealth: {fileID: 0}
+  UIHealth: {fileID: 4424505982807434824}
   hitSound: {fileID: 9190801948198392554}
   hitCollider: {fileID: 3881530190687605215}
   deathCollider: {fileID: 7213815450960064232}
   anim: {fileID: 6378847652766534419}
+  navDefaultSpeed: 0
   nextAttackTime: 3
   weaponCollider: {fileID: 7123303412300034844}
   weaponActiveTime: 3
@@ -1765,7 +1766,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: -0.1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!136 &3881530190687605215
