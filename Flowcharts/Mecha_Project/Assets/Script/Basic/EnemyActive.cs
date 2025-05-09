@@ -37,6 +37,9 @@ public abstract class EnemyActive : MonoBehaviour
     [Header("Komponen Player")]
     private PlayerInput gameInput;
 
+    //flag
+    public float navDefaultSpeed;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -53,6 +56,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     private void Start()
     {
+        navDefaultSpeed = navAgent.speed;
         enemyModel.isGrounded = false;
         patrolPoints = GameObject.FindGameObjectsWithTag("EnemyWayPoint");
         hitSound = GetComponent<AudioSource>(); //hit sound
@@ -142,9 +146,12 @@ public abstract class EnemyActive : MonoBehaviour
     #region Pengaturan
     void UIHealthBar()
     {
-        if (enemyModel.health < enemyModel.maxHealth)
+        if (UIHealth != null)
         {
-            UIHealth.SetActive(true);
+            if (enemyModel.health < enemyModel.maxHealth)
+            {
+                UIHealth.SetActive(true);
+            }
         }
     }
 
