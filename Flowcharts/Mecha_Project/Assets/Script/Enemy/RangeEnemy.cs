@@ -10,7 +10,7 @@ public class RangeEnemy : EnemyActive
     [SerializeField] float missChange;
     [SerializeField] float attackSlerpTollerance;
     [SerializeField] float timeBeforeAttack;
-    private Ray ray;
+    //private Ray ray;
    
     [Header("RangeWeapon")]
     [SerializeField] Transform bulletSpawn;
