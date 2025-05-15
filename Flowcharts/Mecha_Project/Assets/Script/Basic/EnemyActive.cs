@@ -316,6 +316,9 @@ public abstract class EnemyActive : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, enemyModel.sightRange);
         UnityEditor.Handles.Label(transform.position + Vector3.forward * enemyModel.sightRange, "Sight Range");
+
+        Gizmos.color= Color.red;
+        Gizmos.DrawLine(transform.position, Vector3.down * beforeHitGround);
     }
 #endif
 
