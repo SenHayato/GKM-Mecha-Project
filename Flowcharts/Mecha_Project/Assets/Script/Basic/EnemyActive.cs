@@ -40,6 +40,7 @@ public abstract class EnemyActive : MonoBehaviour
     //flag
     public float navDefaultSpeed;
     public float beforeHitGround;
+    public float defaultRotation;
 
     private void Awake()
     {
@@ -57,6 +58,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     private void Start()
     {
+        defaultRotation = rotationSpeed;
         navDefaultSpeed = navAgent.speed;
         enemyModel.isGrounded = false;
         patrolPoints = GameObject.FindGameObjectsWithTag("EnemyWayPoint");

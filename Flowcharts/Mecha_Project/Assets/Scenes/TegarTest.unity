@@ -51873,10 +51873,10 @@ MonoBehaviour:
   health: 1000000
   minHealth: 0
   sightRange: 50
-  attackPower: 1000
+  attackPower: 1250
   attackSpeed: 2
   attackRange: 40
-  attackCooldown: 0
+  attackCooldown: 5
   isUnbeatable: 0
   isGrounded: 0
   isStunt: 0
@@ -52069,9 +52069,11 @@ MonoBehaviour:
   anim: {fileID: 0}
   navDefaultSpeed: 0
   beforeHitGround: 2
+  defaultRotation: 0
   shootRange: 30
   meleeRadius: 6
   rayCastPosition: {fileID: 392064093}
+  rifleShoot: 0
   playerInMelee: 0
   playerInRange: 0
   meleeAttack1: {fileID: 0}
@@ -52079,12 +52081,14 @@ MonoBehaviour:
   meleeAttack3: {fileID: 0}
   meleeAttack4: {fileID: 0}
   ultimateObj: {fileID: 0}
-  missChange: 0.5
+  missChange: 0
   fireSlerpAngle: 15
   timeBeforeAttack: 1
   rifleFireRate: 0.06
   isBulletSpawn: 0
-  attackRangeTime: 5
+  attackRangeTime: 2
+  rifleAttackDuration: 3
+  gatlingAttackTime: 0
   bulletHitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
   muzzleRight: {fileID: 152457734}
   bulletRight: {fileID: 1757942709}
@@ -52094,8 +52098,8 @@ MonoBehaviour:
   meleeAttacking2: 0
   meleeAttacking3: 0
   meleeAttacking4: 0
-  rangeAttacking1: 0
-  rangeAttacking2: 0
+  rifleAttacking: 0
+  gatlingAttacking: 0
   ultimating: 0
 --- !u!224 &5882072166178266117
 RectTransform:

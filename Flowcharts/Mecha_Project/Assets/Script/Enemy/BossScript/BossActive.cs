@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BossActive : EnemyActive
@@ -8,6 +9,7 @@ public class BossActive : EnemyActive
     [SerializeField] float shootRange;
     [SerializeField] float meleeRadius;
     [SerializeField] Transform rayCastPosition;
+    [SerializeField] bool rifleShoot;
 
     [SerializeField] bool playerInMelee;
     [SerializeField] bool playerInRange;
@@ -24,8 +26,10 @@ public class BossActive : EnemyActive
     [SerializeField] float fireSlerpAngle;
     [SerializeField] float timeBeforeAttack; //preparing sebelum menembak
     [SerializeField] float rifleFireRate;
-    [SerializeField] bool isBulletSpawn;
     [SerializeField] float attackRangeTime;
+    [SerializeField] float rifleAttackDuration;
+    [SerializeField] float gatlingAttackTime;
+    [SerializeField] bool isBulletSpawn;
     [SerializeField] GameObject bulletHitEffect;
 
     [Header("Bullet Trail Dual Rifle")]
@@ -39,13 +43,14 @@ public class BossActive : EnemyActive
     [SerializeField] bool meleeAttacking2;
     [SerializeField] bool meleeAttacking3;
     [SerializeField] bool meleeAttacking4;
-    [SerializeField] bool rangeAttacking1;
-    [SerializeField] bool rangeAttacking2;
+    [SerializeField] bool rifleAttacking;
+    [SerializeField] bool gatlingAttacking;
     [SerializeField] bool ultimating;
 
     public override void Attacking()
     {
         CheckPlayer();
+        AttackCooldown();
         Debug.Log("Boss Attack");
         if (navAgent.enabled)
         {
@@ -53,7 +58,32 @@ public class BossActive : EnemyActive
         }
         if (playerInRange)
         {
-            StartCoroutine(FireRifle());
+            //StartCoroutine(FireRifle());
+            FireRifle();
+        }
+    }
+
+    public override void PlayAnimation()
+    {
+
+    }
+
+    void AttackCooldown()
+    {
+        if (!enemyModel.isAttacking)
+        {
+            enemyModel.attackCooldown = Mathf.Max(0f, enemyModel.attackCooldown - Time.deltaTime);
+        }
+        else
+        {
+            if (enemyModel.health >= 500000)
+            {
+                enemyModel.attackCooldown = 8f;
+            }
+            else
+            {
+                enemyModel.attackCooldown = 3f;
+            }
         }
     }
 
@@ -64,7 +94,7 @@ public class BossActive : EnemyActive
     }
 
     //Rifle
-    IEnumerator FireRifle()
+    void FireRifle()
     {
         if (navAgent.enabled)
         {
@@ -80,28 +110,35 @@ public class BossActive : EnemyActive
 
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
-        rayCastPosition.forward = transform.forward;
+        //rayCastPosition.forward = transform.forward;
 
-        float angle = Quaternion.Angle(transform.rotation, targetRotation);
-        yield return new WaitForSeconds(timeBeforeAttack);
-        if (angle < fireSlerpAngle)
+        if (enemyModel.attackCooldown <= 0)
         {
             if (!enemyModel.isAttacking)
             {
-                enemyModel.isAttacking = true; //buat saklar doang
-                Debug.Log("Enemy Menembak");
-                StartCoroutine(RifleWeapon(direction));
-                Invoke(nameof(ResetAttack), attackRangeTime);
+                enemyModel.isAttacking = true;
+                rifleAttacking = true;
+                StartCoroutine(WeaponRifle());
+
+                //reset flag
+                Invoke(nameof(ResetAttack), rifleAttackDuration);
+                Invoke(nameof(WeaponReset), rifleAttackDuration);
             }
         }
     }
 
-    IEnumerator RifleWeapon(Vector3 direction)
+    private void WeaponReset()
     {
-        while (true)
+        rifleAttacking = false;
+    }
+
+    IEnumerator WeaponRifle()
+    {
+        while (rifleAttacking)
         {
-            Ray ray = new(rayCastPosition.position, direction);
+            Ray ray = new(rayCastPosition.position, rayCastPosition.forward);
             Vector3 targetPoint = ray.origin + 100f * shootRange * ray.direction;
+            //Debug.DrawRay(ray.origin, ray.direction * shootRange * 100f, Color.blue);
 
             if (Physics.Raycast(ray, out RaycastHit hit, shootRange * 100f, hitLayer))
             {
@@ -112,31 +149,21 @@ public class BossActive : EnemyActive
                 }
                 Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
             }
-            else
-            {
-                Debug.Log("Tembakan Musuh Meleset");
-            }
-
             isBulletSpawn = true;
             StartCoroutine(BulletTrailRifle(targetPoint));
-            Debug.DrawRay(rayCastPosition.position, direction * shootRange, Color.red, 1f);
             yield return new WaitForSeconds(rifleFireRate);
         }
-    }
-
-    private void FireGatling()
-    {
 
     }
 
-    IEnumerator BulletTrailRifle(Vector3 targetHit)
+    IEnumerator BulletTrailRifle(Vector3 targetPoint)
     {
         //muzzle kanan
         bulletRight.SetPosition(0, muzzleRight.position);
-        bulletRight.SetPosition(1, targetHit);
+        bulletRight.SetPosition(1, targetPoint);
         //muzzle kiri
         bulletLeft.SetPosition(0, muzzleLeft.position);
-        bulletLeft.SetPosition(1, targetHit);
+        bulletLeft.SetPosition(1, targetPoint);
 
         //spawn peluru trail
         if (enemyModel.isAttacking && isBulletSpawn)
@@ -146,16 +173,17 @@ public class BossActive : EnemyActive
             bulletLeft.enabled = true;
             yield return new WaitForSeconds(rifleFireRate * 1.2f);
             bulletRight.enabled = false;
-            bulletLeft.enabled= false;
+            bulletLeft.enabled = false;
             isBulletSpawn = false;
         }
-    }
-    
-    public override void PlayAnimation()
-    {
-        
+
     }
 
+    //Gattling
+    private void FireGatling()
+    {
+
+    }
     private void OnDrawGizmosSelected()
     {
         if (enemyModel == null) return;
