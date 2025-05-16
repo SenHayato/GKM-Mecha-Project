@@ -59,10 +59,11 @@ public class BossActive : EnemyActive
         if (playerInRange)
         {
             //StartCoroutine(FireRifle());
-            FireRifle();
+            //FireRifle();
         }
     }
 
+    //Memakai state machine maka animation juga sebagai switch untuk mengaktifkan attack
     public override void PlayAnimation()
     {
 
