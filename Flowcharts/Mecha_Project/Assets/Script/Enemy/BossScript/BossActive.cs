@@ -6,51 +6,52 @@ using UnityEngine;
 public class BossActive : EnemyActive
 {
     [Header("Boss Komponen")]
-    [SerializeField] float shootRange;
-    [SerializeField] float meleeRadius;
-    [SerializeField] Transform rayCastPosition;
-    [SerializeField] bool rifleShoot;
+    public float shootRange;
+    public float meleeRadius;
+    public Transform rayCastPosition;
+    public bool rifleShoot;
 
-    [SerializeField] bool playerInMelee;
-    [SerializeField] bool playerInRange;
+    public bool playerInMelee;
+    public bool playerInRange;
 
     [Header("AttackMelee")]
-    [SerializeField] GameObject meleeAttack1;
-    [SerializeField] GameObject meleeAttack2;
-    [SerializeField] GameObject meleeAttack3;
-    [SerializeField] GameObject meleeAttack4;
-    [SerializeField] GameObject ultimateObj;
+    public GameObject meleeAttack1;
+    public GameObject meleeAttack2;
+    public GameObject meleeAttack3;
+    public GameObject meleeAttack4;
+    public GameObject ultimateObj;
 
     [Header("AttackRange")]
-    [SerializeField] float missChange;
-    [SerializeField] float fireSlerpAngle;
-    [SerializeField] float timeBeforeAttack; //preparing sebelum menembak
-    [SerializeField] float rifleFireRate;
-    [SerializeField] float attackRangeTime;
-    [SerializeField] float rifleAttackDuration;
-    [SerializeField] float gatlingAttackTime;
-    [SerializeField] bool isBulletSpawn;
-    [SerializeField] GameObject bulletHitEffect;
+    public float missChange;
+    public float fireSlerpAngle;
+    public float timeBeforeAttack; //preparing sebelum menembak
+    public float rifleFireRate;
+    public float attackRangeTime;
+    public float rifleAttackDuration;
+    public float gatlingAttackTime;
+    public bool isBulletSpawn;
+    public GameObject bulletHitEffect;
 
     [Header("Bullet Trail Dual Rifle")]
-    [SerializeField] Transform muzzleRight;
-    [SerializeField] LineRenderer bulletRight;
-    [SerializeField] Transform muzzleLeft;
-    [SerializeField] LineRenderer bulletLeft;
+    public Transform muzzleRight;
+    public LineRenderer bulletRight;
+    public Transform muzzleLeft;
+    public LineRenderer bulletLeft;
 
     [Header("AttackToggler")]
-    [SerializeField] bool meleeAttacking1;
-    [SerializeField] bool meleeAttacking2;
-    [SerializeField] bool meleeAttacking3;
-    [SerializeField] bool meleeAttacking4;
-    [SerializeField] bool rifleAttacking;
-    [SerializeField] bool gatlingAttacking;
-    [SerializeField] bool ultimating;
+    public bool meleeAttacking1;
+    public bool meleeAttacking2;
+    public bool meleeAttacking3;
+    public bool meleeAttacking4;
+    public bool rifleAttacking;
+    public bool gatlingAttacking;
+    public bool ultimating;
 
     public override void Attacking()
     {
         CheckPlayer();
         AttackCooldown();
+
         Debug.Log("Boss Attack");
         if (navAgent.enabled)
         {
@@ -58,9 +59,20 @@ public class BossActive : EnemyActive
         }
         if (playerInRange)
         {
-            //StartCoroutine(FireRifle());
-            //FireRifle();
+           //FireRifle();
+           anim.SetTrigger("StartAttack");
+           Invoke(nameof(FireRifle), 2f);
         }
+
+        //int AttackNum = Random.Range(0, 5);
+        //if (AttackNum <= 3)
+        //{
+        //    //range attack
+        //}
+        //else
+        //{
+        //    //melee attack
+        //}
     }
 
     //Memakai state machine maka animation juga sebagai switch untuk mengaktifkan attack
@@ -95,7 +107,7 @@ public class BossActive : EnemyActive
     }
 
     //Rifle
-    void FireRifle()
+    public void FireRifle()
     {
         if (navAgent.enabled)
         {
@@ -112,11 +124,13 @@ public class BossActive : EnemyActive
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         //rayCastPosition.forward = transform.forward;
-
+        Debug.Log("Arah " + direction);
         if (enemyModel.attackCooldown <= 0)
         {
+            //anim.SetTrigger("StartAttack");
             if (!enemyModel.isAttacking)
             {
+                anim.SetBool("RifleAttack", true);
                 enemyModel.isAttacking = true;
                 rifleAttacking = true;
                 StartCoroutine(WeaponRifle());
@@ -131,6 +145,7 @@ public class BossActive : EnemyActive
     private void WeaponReset()
     {
         rifleAttacking = false;
+        anim.SetBool("RifleAttack", false);
     }
 
     IEnumerator WeaponRifle()
@@ -154,7 +169,6 @@ public class BossActive : EnemyActive
             StartCoroutine(BulletTrailRifle(targetPoint));
             yield return new WaitForSeconds(rifleFireRate);
         }
-
     }
 
     IEnumerator BulletTrailRifle(Vector3 targetPoint)
