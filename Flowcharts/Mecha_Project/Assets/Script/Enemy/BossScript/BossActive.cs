@@ -158,6 +158,8 @@ public class BossActive : EnemyActive
 
     IEnumerator BulletTrailRifle(Vector3 targetPoint)
     {
+
+        Debug.Log("Bullet");
         //muzzle kanan
         bulletRight.SetPosition(0, muzzleRight.position);
         bulletRight.SetPosition(1, targetPoint);
