@@ -46,7 +46,7 @@ public class RangeEnemy : EnemyActive
         {
             if (!enemyModel.isAttacking)
             {
-                enemyModel.isAttacking = true;
+                enemyModel.isAttacking = true; //buat saklar doang
                 Debug.Log("Enemy Menembak");
                 Ray ray = new(rayCastSpawn.position, direction);
                 Vector3 targetPoint = ray.origin + 100f * enemyModel.attackRange * ray.direction;

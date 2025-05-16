@@ -16,7 +16,7 @@ public class EnemyModel : MonoBehaviour
     public float sightRange;
     public int attackPower;
     public int attackSpeed;
-    public float attackRange;
+    public float attackRange; //boss tidak pakai ini
     public float attackCooldown; //untuk short atau melee enemy
 
     [Header("Status")]
