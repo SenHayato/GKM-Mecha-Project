@@ -29,15 +29,17 @@ public class RangeEnemy : EnemyActive
             navAgent.SetDestination(transform.position);
         }
 
-        Vector3 direction = (player.position - transform.position).normalized;
+        Vector3 direction = (player.position - transform.position).normalized; //untuk muzzle
+        Vector3 lookPlayer = (player.position - transform.position).normalized; //untuk lihat player
 
         // Random spread untuk miss tembakan
         float accuracyOffset = missChange; // makin besar makin meleset, untuk default 0.03f
         direction += new Vector3(Random.Range(-accuracyOffset, accuracyOffset), Random.Range(-accuracyOffset, accuracyOffset), 0f);
         direction.Normalize();
 
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        Quaternion targetRotation = Quaternion.LookRotation(direction); //untuk muzzle
+        Quaternion lookAtPlayer = Quaternion.LookRotation(lookPlayer); //untuk lihat player
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookAtPlayer, Time.deltaTime * rotationSpeed);
         rayCastSpawn.forward = transform.forward;
 
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
@@ -46,7 +48,7 @@ public class RangeEnemy : EnemyActive
         {
             if (!enemyModel.isAttacking)
             {
-                enemyModel.isAttacking = true;
+                enemyModel.isAttacking = true; //buat saklar doang
                 Debug.Log("Enemy Menembak");
                 Ray ray = new(rayCastSpawn.position, direction);
                 Vector3 targetPoint = ray.origin + 100f * enemyModel.attackRange * ray.direction;
