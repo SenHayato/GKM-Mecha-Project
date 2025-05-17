@@ -11,8 +11,10 @@ public class BossActive : EnemyActive
     public Transform rayCastPosition;
     public bool rifleShoot;
 
+    [Header("AttackState")]
     public bool playerInMelee;
     public bool playerInRange;
+    public float preparingTime;
 
     [Header("AttackMelee")]
     public GameObject meleeAttack1;
@@ -24,20 +26,28 @@ public class BossActive : EnemyActive
     [Header("AttackRange")]
     public float missChange;
     public float fireSlerpAngle;
-    public float timeBeforeAttack; //preparing sebelum menembak
-    public float rifleFireRate;
-    public float attackRangeTime;
-    public float rifleAttackDuration;
-    public float gatlingAttackTime;
     public bool isBulletSpawn;
     public GameObject bulletHitEffect;
 
-    [Header("Bullet Trail Dual Rifle")]
+    [Header("RifleAttribut")]
+    public float rifleFireRate;
+    public float rifleAttackDuration;
     public Transform muzzleRight;
     public LineRenderer bulletRight;
     public Transform muzzleLeft;
     public LineRenderer bulletLeft;
 
+    [Header("GatlingAttribut")]
+    public float gatlingFireRate;
+    public float gatlingAttackDuration;
+    public Transform muzzleGatling;
+    public LineRenderer bulletGatling;
+
+    [Header("MissileBarrage")]
+    [SerializeField] GameObject missileObj;
+    [SerializeField] float missileDuration;
+    [SerializeField] float missileInterval;
+    
     [Header("AttackToggler")]
     public bool meleeAttacking1;
     public bool meleeAttacking2;
@@ -45,6 +55,7 @@ public class BossActive : EnemyActive
     public bool meleeAttacking4;
     public bool rifleAttacking;
     public bool gatlingAttacking;
+    public bool missileAttacking;
     public bool ultimating;
 
     public override void Attacking()
@@ -59,9 +70,11 @@ public class BossActive : EnemyActive
         }
         if (playerInRange)
         {
-           //FireRifle();
-           anim.SetTrigger("StartAttack");
-           Invoke(nameof(FireRifle), 2f);
+            //FireRifle();
+            anim.SetTrigger("StartAttack");
+            //Invoke(nameof(FireRifle), preparingTime);
+            //Invoke(nameof(FireGatling), preparingTime);
+            Invoke(nameof(LaunchMissile), preparingTime);
         }
 
         //int AttackNum = Random.Range(0, 5);
@@ -106,7 +119,7 @@ public class BossActive : EnemyActive
         playerInRange = Physics.CheckSphere(transform.position, shootRange, playerLayer);
     }
 
-    //Rifle
+    #region Rifle
     public void FireRifle()
     {
         if (navAgent.enabled)
@@ -124,7 +137,6 @@ public class BossActive : EnemyActive
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         //rayCastPosition.forward = transform.forward;
-        Debug.Log("Arah " + direction);
         if (enemyModel.attackCooldown <= 0)
         {
             //anim.SetTrigger("StartAttack");
@@ -137,12 +149,12 @@ public class BossActive : EnemyActive
 
                 //reset flag
                 Invoke(nameof(ResetAttack), rifleAttackDuration);
-                Invoke(nameof(WeaponReset), rifleAttackDuration);
+                Invoke(nameof(RifleReset), rifleAttackDuration);
             }
         }
     }
 
-    private void WeaponReset()
+    private void RifleReset()
     {
         rifleAttacking = false;
         anim.SetBool("RifleAttack", false);
@@ -153,10 +165,10 @@ public class BossActive : EnemyActive
         while (rifleAttacking)
         {
             Ray ray = new(rayCastPosition.position, rayCastPosition.forward);
-            Vector3 targetPoint = ray.origin + 100f * shootRange * ray.direction;
+            Vector3 targetPoint = ray.origin + 20f * shootRange * ray.direction;
             //Debug.DrawRay(ray.origin, ray.direction * shootRange * 100f, Color.blue);
 
-            if (Physics.Raycast(ray, out RaycastHit hit, shootRange * 100f, hitLayer))
+            if (Physics.Raycast(ray, out RaycastHit hit, shootRange * 20f, hitLayer))
             {
                 targetPoint = hit.point;
                 if (hit.collider.TryGetComponent<PlayerActive>(out var playerActive))
@@ -174,7 +186,7 @@ public class BossActive : EnemyActive
     IEnumerator BulletTrailRifle(Vector3 targetPoint)
     {
 
-        Debug.Log("Bullet");
+        Debug.Log("BulletRifle");
         //muzzle kanan
         bulletRight.SetPosition(0, muzzleRight.position);
         bulletRight.SetPosition(1, targetPoint);
@@ -193,14 +205,136 @@ public class BossActive : EnemyActive
             bulletLeft.enabled = false;
             isBulletSpawn = false;
         }
-
     }
 
-    //Gattling
+    #endregion
+
+    #region GatlingGun
     private void FireGatling()
     {
+        if (navAgent.enabled)
+        {
+            navAgent.SetDestination(transform.position);
+        }
 
+        Vector3 direction = (player.position - transform.position).normalized;
+
+        // Random spread untuk miss tembakan
+        float accuracyOffset = missChange; // makin besar makin meleset, untuk default 0.03f
+        direction += new Vector3(Random.Range(-accuracyOffset, accuracyOffset), Random.Range(-accuracyOffset, accuracyOffset), 0f);
+        direction.Normalize();
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        //rayCastPosition.forward = transform.forward;
+        if (enemyModel.attackCooldown <= 0)
+        {
+            //anim.SetTrigger("StartAttack");
+            if (!enemyModel.isAttacking)
+            {
+                anim.SetBool("GatlingAttack", true);
+                enemyModel.isAttacking = true;
+                gatlingAttacking = true;
+                StartCoroutine(WeaponGatling());
+
+                //reset flag
+                Invoke(nameof(ResetAttack), gatlingAttackDuration);
+                Invoke(nameof(GatlingReset), gatlingAttackDuration);
+            }
+        }
     }
+
+    void GatlingReset()
+    {
+        gatlingAttacking = false;
+        anim.SetBool("GatlingAttack", false);
+    }
+
+    IEnumerator WeaponGatling()
+    {
+        while (gatlingAttacking)
+        {
+            Ray ray = new(rayCastPosition.position, rayCastPosition.forward);
+            Vector3 targetPoint = ray.origin + 20f * shootRange * ray.direction;
+            //Debug.DrawRay(ray.origin, ray.direction * shootRange * 100f, Color.blue);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, shootRange * 20f, hitLayer))
+            {
+                targetPoint = hit.point;
+                if (hit.collider.TryGetComponent<PlayerActive>(out var playerActive))
+                {
+                    playerActive.TakeDamage(enemyModel.attackPower);
+                }
+                Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            }
+            isBulletSpawn = true;
+            StartCoroutine(BulletTrailGatling(targetPoint));
+            yield return new WaitForSeconds(gatlingFireRate);
+        }
+    }
+
+    IEnumerator BulletTrailGatling(Vector3 targetPoint)
+    {
+        Debug.Log("BulletGatling");
+        bulletGatling.SetPosition(0, muzzleGatling.position);
+        bulletGatling.SetPosition(1, targetPoint);
+
+        //spawn peluru trail
+        if (enemyModel.isAttacking && isBulletSpawn)
+        {
+            Debug.Log("BulletSpawn");
+            bulletGatling.enabled = true;
+            yield return new WaitForSeconds(rifleFireRate * 1.2f);
+            bulletGatling.enabled = false;
+            isBulletSpawn = false;
+        }
+    }
+
+    #endregion
+
+    #region MissileBarrage
+
+    void LaunchMissile()
+    {
+        if (navAgent.enabled)
+        {
+            navAgent.SetDestination(transform.position);
+        }
+
+        if (enemyModel.attackCooldown <= 0)
+        {
+            //anim.SetTrigger("StartAttack");
+            if (!enemyModel.isAttacking)
+            {
+                anim.SetBool("MissileAttack", true);
+                enemyModel.isAttacking = true;
+                missileAttacking = true;
+                StartCoroutine(MissileBarrage());
+
+                //reset flag
+                Invoke(nameof(ResetAttack), missileDuration);
+                Invoke(nameof(ResetMissile), missileDuration);
+
+            }
+        }
+    }
+
+    IEnumerator MissileBarrage()
+    {
+        while (missileAttacking)
+        {
+            Instantiate(missileObj, player.position, Quaternion.identity);
+            yield return new WaitForSeconds(missileInterval);
+        }
+    }
+
+    private void ResetMissile()
+    {
+        missileAttacking = false;
+        anim.SetBool("MissileAttack", false);
+    }
+
+    #endregion
     private void OnDrawGizmosSelected()
     {
         if (enemyModel == null) return;
