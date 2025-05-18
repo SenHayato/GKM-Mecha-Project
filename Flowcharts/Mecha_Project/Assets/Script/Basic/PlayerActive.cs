@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 public class PlayerActive : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class PlayerActive : MonoBehaviour
     //public WeaponScript weapon;
     public WeaponRaycast Weapon;
     public ParticleSystem thusterParticle;
+    public VisualEffect awakening;
     public GameObject windEffect;
     public HashSet<string> enemyTags = new() { "Enemy", "Boss", "MiniBoss" };
     //public Material[] playerMaterial; //Material yanhg bisa berubah warna
@@ -195,6 +197,7 @@ public class PlayerActive : MonoBehaviour
         if (awakeningAction.triggered && Mecha.awakeningReady)
         {
             Mecha.awakeningReady = false;
+            anim.SetTrigger("IsAwakening");
             Mecha.Awakening = Mecha.MinAwakening;
             Mecha.UsingAwakening = true;
             yield return new WaitForSeconds(Mecha.AwakeningDuration);
@@ -208,7 +211,10 @@ public class PlayerActive : MonoBehaviour
             Mecha.UltDamage = Mecha.awakeningAttack + 200;
             Time.timeScale = 0;
             yield return new WaitForSecondsRealtime(0.72f);
+
             Time.timeScale = 1;
+            if (awakening != null)
+                awakening.Play();
             if (GameMaster.isPaused)
             {
                 Time.timeScale = 0;
