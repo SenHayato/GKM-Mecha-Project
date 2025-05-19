@@ -43579,13 +43579,14 @@ MonoBehaviour:
   recoilValueY: 0.5
   recoilSpeed: 1
   audioSource: {fileID: 0}
-  fireRate: 0.06
+  weaponDamage: 250
+  fireRate: 0.116
   reloadSpeed: 2.8
   range: 100
   canShoot: 1
   readytoShoot: 0
   ammo: 0
-  maxAmmo: 60
+  maxAmmo: 40
   fireSound: {fileID: 8300000, guid: bbebd293bc637aa40927ad9ab8bca996, type: 3}
   rechargeSound: {fileID: 8300000, guid: 1c17d76dc47b0714ab2d17a839cb2644, type: 3}
   fireActive: 0
@@ -51099,6 +51100,7 @@ MonoBehaviour:
   cameraEffect: {fileID: 0}
   Weapon: {fileID: 0}
   thusterParticle: {fileID: 339491389}
+  awakening: {fileID: 0}
   windEffect: {fileID: 1224112663}
   enemyLayer:
     serializedVersion: 2
@@ -55678,19 +55680,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 234581519977433411, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 234581519977433411, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3942563416926423756, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3942563416926423756, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4304001400453917753, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
       propertyPath: m_LocalPosition.x
@@ -55738,7 +55740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8099662513607266669, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
