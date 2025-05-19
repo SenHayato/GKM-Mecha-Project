@@ -5998,6 +5998,7 @@ MonoBehaviour:
   recoilValueY: 0.5
   recoilSpeed: 1
   audioSource: {fileID: 0}
+  weaponDamage: 0
   fireRate: 0.06
   reloadSpeed: 2.8
   range: 100
@@ -6751,9 +6752,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 5d7987ecd0aa7204088183adcc2ec86b, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5d7987ecd0aa7204088183adcc2ec86b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a4eeb28608a05794997b837290b1825c, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 5d7987ecd0aa7204088183adcc2ec86b, type: 3}
       propertyPath: m_Name
       value: ThrusterFlame
@@ -10014,7 +10019,7 @@ GameObject:
   - component: {fileID: 1197486576}
   - component: {fileID: 1197486575}
   m_Layer: 0
-  m_Name: ThrusterEffect
+  m_Name: ShardThrusterEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
