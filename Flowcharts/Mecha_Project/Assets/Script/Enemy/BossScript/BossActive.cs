@@ -15,6 +15,7 @@ public class BossActive : EnemyActive
     public bool playerInMelee;
     public bool playerInRange;
     public float preparingTime;
+    public bool hasAttacked;
 
     [Header("AttackMelee")]
     public GameObject meleeAttack1;
@@ -47,7 +48,7 @@ public class BossActive : EnemyActive
     [SerializeField] GameObject missileObj;
     [SerializeField] float missileDuration;
     [SerializeField] float missileInterval;
-    
+
     [Header("AttackToggler")]
     public bool meleeAttacking1;
     public bool meleeAttacking2;
@@ -70,8 +71,12 @@ public class BossActive : EnemyActive
         }
         if (playerInRange)
         {
+            if (!hasAttacked)
+            {
+                anim.SetTrigger("StartAttack");
+                hasAttacked = true;
+            }
             //FireRifle();
-            anim.SetTrigger("StartAttack");
             //Invoke(nameof(FireRifle), preparingTime);
             //Invoke(nameof(FireGatling), preparingTime);
             Invoke(nameof(LaunchMissile), preparingTime);
@@ -306,6 +311,7 @@ public class BossActive : EnemyActive
             //anim.SetTrigger("StartAttack");
             if (!enemyModel.isAttacking)
             {
+                anim.ResetTrigger("StartAttack");
                 anim.SetBool("MissileAttack", true);
                 enemyModel.isAttacking = true;
                 missileAttacking = true;
