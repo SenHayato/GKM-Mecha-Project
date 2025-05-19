@@ -33135,6 +33135,74 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 401314425902317510, guid: 6c8c0c5e3b67f7b47a851eeaa1e11ba8, type: 3}
   m_PrefabInstance: {fileID: 1585782971}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1593308939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1593308941}
+  - component: {fileID: 1593308942}
+  - component: {fileID: 1593308940}
+  m_Layer: 0
+  m_Name: GroundSmash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!135 &1593308940
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593308939}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1593308941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593308939}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.8886576, y: 0.37, z: 27.319958}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1593308942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593308939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe123c190f11ec0479952e49ca8ff392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossActive: {fileID: 0}
+  smashDamage: 45000
 --- !u!1 &1593430528
 GameObject:
   m_ObjectHideFlags: 0
@@ -52189,6 +52257,7 @@ MonoBehaviour:
   playerInMelee: 0
   playerInRange: 0
   preparingTime: 2
+  hasAttacked: 0
   meleeAttack1: {fileID: 0}
   meleeAttack2: {fileID: 0}
   meleeAttack3: {fileID: 0}
@@ -56458,6 +56527,7 @@ SceneRoots:
   - {fileID: 8517494771737728050}
   - {fileID: 147618448}
   - {fileID: 543450653248943211}
+  - {fileID: 1593308941}
   - {fileID: 1274172581}
   - {fileID: 4620144013182552013}
   - {fileID: 382303084}
