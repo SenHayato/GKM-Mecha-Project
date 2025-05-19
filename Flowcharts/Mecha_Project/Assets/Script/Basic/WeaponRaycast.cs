@@ -25,6 +25,7 @@ public class WeaponRaycast : MonoBehaviour
     [Range(0f, 10f)] public float recoilValueY;
     [Range(0f, 10f)] public float recoilSpeed;
     public AudioSource audioSource;
+    [SerializeField] int weaponDamage;
     public float fireRate;
     public float reloadSpeed;
     public float range = 100f;
@@ -138,7 +139,7 @@ public class WeaponRaycast : MonoBehaviour
             {
                 if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
                 {
-                    enemy.TakeDamage(mechaPlayer.AttackPow);
+                    enemy.TakeDamage(mechaPlayer.AttackPow + weaponDamage);
                     if (!mechaPlayer.UsingAwakening)
                     {
                         mechaPlayer.Awakening += mechaPlayer.AwakeningRegen;
