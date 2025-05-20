@@ -50640,6 +50640,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7446081693627446681, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446081693627446681, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_Name
       value: EnemyRange
       objectReference: {fileID: 0}
@@ -52254,6 +52258,7 @@ MonoBehaviour:
   meleeRadius: 6
   rayCastPosition: {fileID: 392064093}
   rifleShoot: 0
+  SecondState: 0
   playerInMelee: 0
   playerInRange: 0
   preparingTime: 2
@@ -52280,10 +52285,11 @@ MonoBehaviour:
   missileObj: {fileID: 6120836210244272201, guid: 86f1b2a9d9b5aad4dadae4a020e3e1d2, type: 3}
   missileDuration: 10
   missileInterval: 2
-  meleeAttacking1: 0
-  meleeAttacking2: 0
-  meleeAttacking3: 0
-  meleeAttacking4: 0
+  attackNumber: 0
+  groundHitAttacking: 0
+  groundSlashAttacking: 0
+  rammingAttacking: 0
+  sweepingAttacking: 0
   rifleAttacking: 0
   gatlingAttacking: 0
   missileAttacking: 0

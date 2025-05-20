@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class BossActive : EnemyActive
@@ -51,6 +52,7 @@ public class BossActive : EnemyActive
     [SerializeField] float missileInterval;
 
     [Header("AttackToggler")]
+    [SerializeField] int attackNumber;
     public bool groundHitAttacking;
     public bool groundSlashAttacking;
     public bool rammingAttacking;
@@ -59,6 +61,9 @@ public class BossActive : EnemyActive
     public bool gatlingAttacking;
     public bool missileAttacking;
     public bool ultimating;
+
+    //flag
+    private int attackChance = 0;
 
     public override void Attacking()
     {
@@ -72,17 +77,63 @@ public class BossActive : EnemyActive
         {
             navAgent.SetDestination(player.position);
         }
-        if (playerInRange)
+
+        if (!hasAttacked)
         {
-            if (!hasAttacked)
-            {
-                anim.SetTrigger("StartAttack");
-                hasAttacked = true;
-            }
-            //Invoke(nameof(FireRifle), preparingTime);
-            //Invoke(nameof(FireGatling), preparingTime);
-            //Invoke(nameof(LaunchMissile), preparingTime);
+            attackChance = Random.Range(0, 6);
+            anim.SetTrigger("StartAttack");
+            hasAttacked = true;
         }
+
+        if (attackChance <= 2) //0.1.2
+        {
+            //Debug.Log("Attack Chance 1"+ attackChance);
+            int attackNum = Random.Range(0, 3);
+            if (attackNum == 0)
+            {
+                Invoke(nameof(FireRifle), preparingTime);
+            }
+            else if (attackNum == 1)
+            {
+                Invoke(nameof(FireGatling), preparingTime);
+            }
+            else //2
+            {
+                Invoke(nameof(LaunchMissile), preparingTime);
+            }
+        }
+        else if (attackChance >= 3 && attackChance <= 4) //3.4
+        {
+            //Debug.Log("Attack Chance 2"+ attackChance);
+            int attackNum = Random.Range(0, 4);
+            if (attackNum == 0)
+            {
+
+            }
+            else if (attackNum == 1)
+            {
+
+            }
+            else if (attackNum == 2)
+            {
+
+            }
+            else //3
+            {
+
+            }
+        }
+        else //5
+        {
+            //Debug.Log("Attack Chance 3"+ attackChance);
+        }
+
+        //Invoke(nameof(GroundHit), preparingTime);
+        //Invoke(nameof(GroundSlash), preparingTime);
+        //Invoke(nameof(RammingAttack), preparingTime);
+        //Invoke(nameof(SweepingAttack), preparingTime);
+        //Invoke(nameof(UltimateAttack), preparingTime);
+
     }
 
     void SecondStage()
@@ -91,7 +142,7 @@ public class BossActive : EnemyActive
         {
             SecondState = true;
             navDefaultSpeed = 12f;
-            //material berubah merahs
+            //material berubah merah
         }
     }
 
