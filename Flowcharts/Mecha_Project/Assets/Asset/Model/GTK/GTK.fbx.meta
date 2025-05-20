@@ -1,0 +1,596 @@
+fileFormatVersion: 2
+guid: c2b9e2eeb1e9dd54bba655c184460609
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Armature|HOVER LANDING
+      takeName: Armature|HOVER LANDING
+      internalID: 8356834434143718481
+      firstFrame: 0
+      lastFrame: 31
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|WALKING (2)
+      takeName: Armature|WALKING
+      internalID: 2876981554226286365
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|WALKING
+      takeName: Armature|WALKING
+      internalID: 3689653395864200229
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|HOVER
+      takeName: Armature|HOVER
+      internalID: -1662997217097600991
+      firstFrame: 0
+      lastFrame: 46
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Armature|WALKING LANDING
+      takeName: Armature|WALKING LANDING
+      internalID: 8841193271613368650
+      firstFrame: 0
+      lastFrame: 23
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone
+        weight: 0
+      - path: Bone/Bone.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Badan.002
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Bahu..001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan atas.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Lengan bawah.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Jempol1.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Jempol1.L/Jempol 1.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Jempol1.L/Jempol2.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Jempol1.L/Jempol2.L/Jempol 2.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Jempol1.L/Jempol2.L/Jempol3.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Jempol1.L/Jempol2.L/Jempol3.L/Jempol 3.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Kelingking1.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Kelingking1.L/Kelingking 1.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Kelingking1.L/Kelingking2.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Kelingking1.L/Kelingking2.L/Kelingking 2.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Kelingking1.L/Kelingking2.L/Kelingking3.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Kelingking1.L/Kelingking2.L/Kelingking3.L/Kelingking 3.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Manis1.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Manis1.L/Jari Manis 1.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Manis1.L/Manis2.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Manis1.L/Manis2.L/Jari Manis 2.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Manis1.L/Manis2.L/Tengah3.L.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Manis1.L/Manis2.L/Tengah3.L.001/Jari Manis 3.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Tangan.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Telunjuk1.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Telunjuk1.L/Telunjuk 1.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Telunjuk1.L/Telunjuk2.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Telunjuk1.L/Telunjuk2.L/Telunjuk 2.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Telunjuk1.L/Telunjuk2.L/Telunjuk3.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Telunjuk1.L/Telunjuk2.L/Telunjuk3.L/Telunjuk 3.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Tengah1.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Tengah1.L/Jari Tengah 1.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Tengah1.L/Tengah2.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Tengah1.L/Tengah2.L/Jari Tengah 2.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Tengah1.L/Tengah2.L/Tengah3.L
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Lengan Bawah.L/Tangan.L/Sendi
+          Tangan.L/Tengah1.L/Tengah2.L/Tengah3.L/Jari Tengah 3.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.L/Lengan Atas.L/Sendi lengan.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Bahu..002
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan atas.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Lengan bawah.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Cube
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Jempol1.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Jempol1.R/Jempol 1.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Jempol1.R/Jempol2.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Jempol1.R/Jempol2.R/Jempol 2.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Jempol1.R/Jempol2.R/Jempol3.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Jempol1.R/Jempol2.R/Jempol3.R/Jempol 3.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Kelingking1.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Kelingking1.R/Kelingking 1.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Kelingking1.R/Kelingking2.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Kelingking1.R/Kelingking2.R/Kelingking 2.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Kelingking1.R/Kelingking2.R/Kelingking3.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Kelingking1.R/Kelingking2.R/Kelingking3.R/Kelingking 3.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Manis1.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Manis1.R/Jari Manis 1.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Manis1.R/Manis2.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Manis1.R/Manis2.R/Jari Manis 2.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Manis1.R/Manis2.R/Tengah3.R.001
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Manis1.R/Manis2.R/Tengah3.R.001/Jari Manis 3.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Tangan.005
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Telunjuk1.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Telunjuk1.R/Telunjuk 1.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Telunjuk1.R/Telunjuk2.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Telunjuk1.R/Telunjuk2.R/Telunjuk 2.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Telunjuk1.R/Telunjuk2.R/Telunjuk3.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Telunjuk1.R/Telunjuk2.R/Telunjuk3.R/Telunjuk 3.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Tengah1.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Tengah1.R/Jari Tengah 1.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Tengah1.R/Tengah2.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Tengah1.R/Tengah2.R/Jari Tengah 2.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Tengah1.R/Tengah2.R/Tengah3.R
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Lengan Bawah.R/Tangan.R/Sendi
+          Tangan.R/Tengah1.R/Tengah2.R/Tengah3.R/Jari Tengah 3.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bahu.R/Lengan Atas.R/Sendi lengan.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bone.004
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bone.004/Bone.005
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bone.004/Bone.005/Kepala.003
+        weight: 1
+      - path: Bone/Bone.001/Bone.002/Bone.004/Neck.003
+        weight: 1
+      - path: Bone/Bone.001/Perut.003
+        weight: 1
+      - path: Bone/Ekor
+        weight: 1
+      - path: Bone/Ekor/Rok Belakang.003
+        weight: 1
+      - path: Bone/Paha.L
+        weight: 1
+      - path: Bone/Paha.L/Lutut.L
+        weight: 1
+      - path: Bone/Paha.L/Lutut.L/Betis.L
+        weight: 1
+      - path: Bone/Paha.L/Lutut.L/Betis.L/Betis.001
+        weight: 1
+      - path: Bone/Paha.L/Lutut.L/Betis.L/Kaki.L
+        weight: 1
+      - path: Bone/Paha.L/Lutut.L/Betis.L/Kaki.L/Sepatu 1.001
+        weight: 1
+      - path: Bone/Paha.L/Lutut.L/Betis.L/Kaki.L/Sepatu 2.001
+        weight: 1
+      - path: Bone/Paha.L/Lutut.L/Betis.L/Kaki.L/Telapak Kaki.L
+        weight: 1
+      - path: Bone/Paha.L/Lutut.L/Betis.L/Kaki.L/Telapak Kaki.L/Sepatu 3.001
+        weight: 1
+      - path: Bone/Paha.L/Lutut.L/Sendi Lutut.001
+        weight: 1
+      - path: Bone/Paha.L/Paha.001
+        weight: 1
+      - path: Bone/Paha.R
+        weight: 1
+      - path: Bone/Paha.R/Lutut.R
+        weight: 1
+      - path: Bone/Paha.R/Lutut.R/Betis.R
+        weight: 1
+      - path: Bone/Paha.R/Lutut.R/Betis.R/Betis.002
+        weight: 1
+      - path: Bone/Paha.R/Lutut.R/Betis.R/Kaki.R
+        weight: 1
+      - path: Bone/Paha.R/Lutut.R/Betis.R/Kaki.R/Sepatu 1.002
+        weight: 1
+      - path: Bone/Paha.R/Lutut.R/Betis.R/Kaki.R/Sepatu 2.002
+        weight: 1
+      - path: Bone/Paha.R/Lutut.R/Betis.R/Kaki.R/Telapak Kaki.R
+        weight: 1
+      - path: Bone/Paha.R/Lutut.R/Betis.R/Kaki.R/Telapak Kaki.R/Sepatu 3.002
+        weight: 1
+      - path: Bone/Paha.R/Lutut.R/Sendi Lutut.003
+        weight: 1
+      - path: Bone/Paha.R/Paha.003
+        weight: 1
+      - path: Bone/Pinggang.003
+        weight: 1
+      - path: Bone/Selempang Depan.L
+        weight: 1
+      - path: Bone/Selempang Depan.L/Rok Depan.001
+        weight: 1
+      - path: Bone/Selempang Depan.L/Tali Rok depan.001
+        weight: 1
+      - path: Bone/Selempang Depan.R
+        weight: 1
+      - path: Bone/Selempang Depan.R/Rok Depan.003
+        weight: 1
+      - path: Bone/Selempang Depan.R/Tali Rok depan.003
+        weight: 1
+      - path: Bone/Selempang Samping.L
+        weight: 1
+      - path: Bone/Selempang Samping.L/Rosk Samping.001
+        weight: 1
+      - path: Bone/Selempang Samping.R
+        weight: 1
+      - path: Bone/Selempang Samping.R/Rosk Samping.003
+        weight: 1
+      - path: Bone/Sendi Pinggang 1.001
+        weight: 1
+      - path: Bone/Sendi Pinggang 1.002
+        weight: 1
+      - path: IK ARM.L
+        weight: 0
+      - path: IK ARM.R
+        weight: 0
+      - path: IK LEG.L
+        weight: 1
+      - path: IK LEG.R
+        weight: 1
+      - path: POLE TARGET ARM.L
+        weight: 1
+      - path: POLE TARGET ARM.R
+        weight: 1
+      - path: POLE TARGET LEG.L
+        weight: 1
+      - path: POLE TARGET LEG.R
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
