@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class BossActive : EnemyActive
     public Transform rayCastPosition;
     public bool rifleShoot;
     public bool SecondState = false;
+    public float chaseSpeed = 12f;
 
     [Header("AttackState")]
     public bool playerInMelee;
@@ -85,55 +87,64 @@ public class BossActive : EnemyActive
             hasAttacked = true;
         }
 
-        if (attackChance <= 2) //0.1.2
-        {
-            //Debug.Log("Attack Chance 1"+ attackChance);
-            int attackNum = Random.Range(0, 3);
-            if (attackNum == 0)
-            {
-                Invoke(nameof(FireRifle), preparingTime);
-            }
-            else if (attackNum == 1)
-            {
-                Invoke(nameof(FireGatling), preparingTime);
-            }
-            else //2
-            {
-                Invoke(nameof(LaunchMissile), preparingTime);
-            }
-        }
-        else if (attackChance >= 3 && attackChance <= 4) //3.4
-        {
-            //Debug.Log("Attack Chance 2"+ attackChance);
-            int attackNum = Random.Range(0, 4);
-            if (attackNum == 0)
-            {
+        //Attack Generator
+        //if (attackChance <= 2) //0.1.2
+        //{
+        //    //Debug.Log("Attack Chance 1"+ attackChance);
+        //    int attackNum = Random.Range(0, 3);
+        //    if (attackNum == 0)
+        //    {
+        //        Invoke(nameof(FireRifle), preparingTime);
+        //    }
+        //    else if (attackNum == 1)
+        //    {
+        //        Invoke(nameof(FireGatling), preparingTime);
+        //    }
+        //    else //2
+        //    {
+        //        Invoke(nameof(LaunchMissile), preparingTime);
+        //    }
+        //}
+        //else if (attackChance >= 3 && attackChance <= 4) //3.4
+        //{
+        //    if (enemyModel.attackCooldown <= 0)
+        //    {
+        //        //Debug.Log("Attack Chance 2"+ attackChance);
+        //        int attackNum = Random.Range(0, 4);
+        //        if (attackNum == 0)
+        //        {
+                    
+        //        }
+        //        else if (attackNum == 1)
+        //        {
 
-            }
-            else if (attackNum == 1)
-            {
+        //        }
+        //        else if (attackNum == 2)
+        //        {
 
-            }
-            else if (attackNum == 2)
-            {
+        //        }
+        //        else //3
+        //        {
 
-            }
-            else //3
-            {
+        //        }
+        //    }
+        //}
+        //else //5
+        //{
+        //    if (enemyModel.attackCooldown <= 0)
+        //    {
 
-            }
-        }
-        else //5
-        {
-            //Debug.Log("Attack Chance 3"+ attackChance);
-        }
+        //    }
+        //}
 
-        //Invoke(nameof(GroundHit), preparingTime);
+        Invoke(nameof(GroundHit), preparingTime);
         //Invoke(nameof(GroundSlash), preparingTime);
         //Invoke(nameof(RammingAttack), preparingTime);
         //Invoke(nameof(SweepingAttack), preparingTime);
         //Invoke(nameof(UltimateAttack), preparingTime);
 
+        //GroundHit
+        GroundHitTeleport();
     }
 
     void SecondStage()
@@ -141,7 +152,9 @@ public class BossActive : EnemyActive
         if (enemyModel.health <= 500000)
         {
             SecondState = true;
+            enemyModel.attackPower = 2500;
             navDefaultSpeed = 12f;
+            chaseSpeed = 16f;
             //material berubah merah
         }
     }
@@ -159,14 +172,47 @@ public class BossActive : EnemyActive
 
     #region Melee Attack
 
+    public GameObject groundSmashCollider;
+    public bool hasTeleported = false;
+
     public void GroundHit()
     {
-        anim.SetTrigger("GroundHit");
+        if (enemyModel.attackCooldown <= 0)
+        {
+            anim.SetBool("GroundHit", true);
+        }
+    }
+
+    public void GroundHitTeleport()
+    {
+        if (hasTeleported)
+        {
+            transform.position = player.position;
+        }
+    }
+
+    public void GroundHitStateReset()
+    {
+        Invoke(nameof(GroundHitReset), 3f);
+    }
+
+    void GroundHitReset()
+    {
+        anim.SetBool("GroundHit",false);
     }
 
     public void GroundSlash()
     {
-        anim.SetTrigger("GroundSlash");
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (distance <= 20f)
+        {
+            anim.SetTrigger("GroundSlash");
+        }
+        else
+        {
+            navAgent.SetDestination(player.position);
+            navAgent.speed = chaseSpeed;
+        }
     }
 
     public void RammingAttack()
@@ -176,7 +222,16 @@ public class BossActive : EnemyActive
 
     public void SweepingAttack()
     {
-        anim.SetTrigger("SweepingAttack");
+        float distance = Vector3.Distance(transform.position, player.position);
+        if (distance <= 30f)
+        {
+            anim.SetTrigger("SweepingAttack");
+        }
+        else
+        {
+            navAgent.SetDestination(player.position);
+            navAgent.speed = chaseSpeed;
+        }
     }
 
     #endregion

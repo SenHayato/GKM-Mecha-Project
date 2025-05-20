@@ -7,9 +7,11 @@ public class GroundSmashScript : MonoBehaviour
     [SerializeField] BossActive bossActive;
     [SerializeField] int smashDamage;
 
+
+    //object tinggal dispawn saat boss mendarat
     private void Start()
     {
-        bossActive = FindFirstObjectByType<BossActive>();
+        bossActive = GetComponentInParent<BossActive>();
     }
 
     private void OnTriggerEnter(Collider other)

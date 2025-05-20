@@ -7,7 +7,7 @@ public class UltimateScript : MonoBehaviour
 {
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
-    [SerializeField] float damageRadius;
+    [SerializeField] Vector3 boxSize;
 
     private Collider[] enemyColliders;
 
@@ -38,7 +38,7 @@ public class UltimateScript : MonoBehaviour
         if (giveDamage)
         {
             giveDamage = false;
-            enemyColliders = Physics.OverlapSphere(transform.position, damageRadius, playerActive.enemyLayer);
+            enemyColliders = Physics.OverlapBox(transform.position, boxSize / 2f, transform.rotation, playerActive.enemyLayer);
             GiveDamage();
             Invoke(nameof(ResetDamage), interval);
         }
@@ -87,6 +87,7 @@ public class UltimateScript : MonoBehaviour
     {
         // Visualisasi area
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, damageRadius);
+        Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
+        Gizmos.DrawWireCube(Vector3.zero, boxSize);
     }
 }
