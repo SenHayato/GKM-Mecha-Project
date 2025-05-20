@@ -10,6 +10,7 @@ public class BossActive : EnemyActive
     public float meleeRadius;
     public Transform rayCastPosition;
     public bool rifleShoot;
+    public bool SecondState = false;
 
     [Header("AttackState")]
     public bool playerInMelee;
@@ -50,10 +51,10 @@ public class BossActive : EnemyActive
     [SerializeField] float missileInterval;
 
     [Header("AttackToggler")]
-    public bool meleeAttacking1;
-    public bool meleeAttacking2;
-    public bool meleeAttacking3;
-    public bool meleeAttacking4;
+    public bool groundHitAttacking;
+    public bool groundSlashAttacking;
+    public bool rammingAttacking;
+    public bool sweepingAttacking;
     public bool rifleAttacking;
     public bool gatlingAttacking;
     public bool missileAttacking;
@@ -61,10 +62,12 @@ public class BossActive : EnemyActive
 
     public override void Attacking()
     {
+        SecondStage();
         CheckPlayer();
         AttackCooldown();
 
         Debug.Log("Boss Attack");
+
         if (navAgent.enabled)
         {
             navAgent.SetDestination(player.position);
@@ -76,28 +79,56 @@ public class BossActive : EnemyActive
                 anim.SetTrigger("StartAttack");
                 hasAttacked = true;
             }
-            //FireRifle();
             //Invoke(nameof(FireRifle), preparingTime);
             //Invoke(nameof(FireGatling), preparingTime);
-            Invoke(nameof(LaunchMissile), preparingTime);
+            //Invoke(nameof(LaunchMissile), preparingTime);
         }
+    }
 
-        //int AttackNum = Random.Range(0, 5);
-        //if (AttackNum <= 3)
-        //{
-        //    //range attack
-        //}
-        //else
-        //{
-        //    //melee attack
-        //}
+    void SecondStage()
+    {
+        if (enemyModel.health <= 500000)
+        {
+            SecondState = true;
+            navDefaultSpeed = 12f;
+            //material berubah merahs
+        }
     }
 
     //Memakai state machine maka animation juga sebagai switch untuk mengaktifkan attack
     public override void PlayAnimation()
     {
+        return;
+    }
+
+    void UltimateAttack()
+    {
 
     }
+
+    #region Melee Attack
+
+    public void GroundHit()
+    {
+        anim.SetTrigger("GroundHit");
+    }
+
+    public void GroundSlash()
+    {
+        anim.SetTrigger("GroundSlash");
+    }
+
+    public void RammingAttack()
+    {
+        anim.SetTrigger("RammingAttack");
+    }
+
+    public void SweepingAttack()
+    {
+        anim.SetTrigger("SweepingAttack");
+    }
+
+    #endregion
 
     void AttackCooldown()
     {
