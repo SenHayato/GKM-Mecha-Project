@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
+using UnityEditor;
 using UnityEngine;
 
 public class BossActive : EnemyActive
@@ -71,7 +68,11 @@ public class BossActive : EnemyActive
     {
         SecondStage();
         CheckPlayer();
-        AttackCooldown();
+
+        if (enemyModel.isGrounded)
+        {
+            AttackCooldown();
+        }
 
         Debug.Log("Boss Attack");
 
@@ -88,63 +89,63 @@ public class BossActive : EnemyActive
         }
 
         //Attack Generator
-        //if (attackChance <= 2) //0.1.2
-        //{
-        //    //Debug.Log("Attack Chance 1"+ attackChance);
-        //    int attackNum = Random.Range(0, 3);
-        //    if (attackNum == 0)
-        //    {
-        //        Invoke(nameof(FireRifle), preparingTime);
-        //    }
-        //    else if (attackNum == 1)
-        //    {
-        //        Invoke(nameof(FireGatling), preparingTime);
-        //    }
-        //    else //2
-        //    {
-        //        Invoke(nameof(LaunchMissile), preparingTime);
-        //    }
-        //}
-        //else if (attackChance >= 3 && attackChance <= 4) //3.4
-        //{
-        //    if (enemyModel.attackCooldown <= 0)
-        //    {
-        //        //Debug.Log("Attack Chance 2"+ attackChance);
-        //        int attackNum = Random.Range(0, 4);
-        //        if (attackNum == 0)
-        //        {
-                    
-        //        }
-        //        else if (attackNum == 1)
-        //        {
-
-        //        }
-        //        else if (attackNum == 2)
-        //        {
-
-        //        }
-        //        else //3
-        //        {
-
-        //        }
-        //    }
-        //}
+        if (attackChance <= 2) //0.1.2
+        {
+            //Debug.Log("Attack Chance 1"+ attackChance);
+            int attackNum = Random.Range(0, 3);
+            if (attackNum == 0)
+            {
+                Invoke(nameof(FireRifle), preparingTime);
+            }
+            else if (attackNum == 1)
+            {
+                Invoke(nameof(FireGatling), preparingTime);
+            }
+            else //2
+            {
+                Invoke(nameof(LaunchMissile), preparingTime);
+            }
+        }
+        else if (attackChance >= 3 && attackChance <= 5) //3.4
+        {
+            if (enemyModel.attackCooldown <= 0)
+            {
+                //Debug.Log("Attack Chance 2"+ attackChance);
+                int attackNum = Random.Range(0, 4);
+                if (attackNum == 0)
+                {
+                    Invoke(nameof(GroundHit), preparingTime);
+                }
+                else if (attackNum == 1)
+                {
+                    Invoke(nameof(RammingAttack), preparingTime);
+                }
+                else if (attackNum == 2)
+                {
+                    Invoke(nameof(RammingAttack), preparingTime);
+                }
+                else //3
+                {
+                    Invoke(nameof(RammingAttack), preparingTime);
+                }
+            }
+        }
         //else //5
         //{
         //    if (enemyModel.attackCooldown <= 0)
         //    {
-
+        //         Invoke(nameof(RammingAttack), preparingTime);
         //    }
         //}
 
-        Invoke(nameof(GroundHit), preparingTime);
         //Invoke(nameof(GroundSlash), preparingTime);
-        //Invoke(nameof(RammingAttack), preparingTime);
         //Invoke(nameof(SweepingAttack), preparingTime);
         //Invoke(nameof(UltimateAttack), preparingTime);
 
         //GroundHit
         GroundHitTeleport();
+        //Ramming
+        RammingAtPlayer();
     }
 
     void SecondStage()
@@ -175,10 +176,12 @@ public class BossActive : EnemyActive
     public GameObject groundSmashCollider;
     public bool hasTeleported = false;
 
+    #region GroundHit
     public void GroundHit()
     {
         if (enemyModel.attackCooldown <= 0)
         {
+            enemyModel.isAttacking = true;
             anim.SetBool("GroundHit", true);
         }
     }
@@ -193,13 +196,17 @@ public class BossActive : EnemyActive
 
     public void GroundHitStateReset()
     {
-        Invoke(nameof(GroundHitReset), 3f);
+        Invoke(nameof(GroundHitReset), 3f); //waktu disesuaikan dengan lama durasi attack
     }
 
     void GroundHitReset()
     {
         anim.SetBool("GroundHit",false);
     }
+
+    #endregion
+
+    #region GroundSlash
 
     public void GroundSlash()
     {
@@ -215,10 +222,65 @@ public class BossActive : EnemyActive
         }
     }
 
+    #endregion
+
+    #region RammingAttack
+
+    public bool rammingLookAtPlayer = false;
+    [SerializeField] float rammingDistance;
+    public GameObject rammingCollider;
+
     public void RammingAttack()
     {
-        anim.SetTrigger("RammingAttack");
+        if (enemyModel.attackCooldown <= 0)
+        {
+            enemyModel.isAttacking = true;
+            anim.SetBool("RammingAttack", true);
+        }
     }
+
+    public void RammingAtPlayer()
+    {
+        if (rammingLookAtPlayer)
+        {
+            Vector3 direction = (player.position - transform.position).normalized;
+            direction.y = 0f;
+            if (direction != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(direction);
+                Debug.Log("Lihat Player");
+            }
+        }
+
+        RammingStart();
+    }
+
+    void RammingStart()
+    {
+        if (rammingAttacking)
+        {
+            rammingCollider.SetActive(true);
+            Vector3 direction = (player.position - transform.position).normalized;
+            navAgent.SetDestination(transform.position + direction * rammingDistance);
+            navAgent.speed = 20f;
+        }
+        else
+        {
+            rammingCollider.SetActive(false);
+        }
+    }
+
+    public void RammingAttackResetState()
+    {
+        Invoke(nameof(RammingReset), 3f);
+    }
+
+    void RammingReset()
+    {
+        anim.SetBool("RammingAttack", false);
+    }
+
+    #endregion
 
     public void SweepingAttack()
     {
