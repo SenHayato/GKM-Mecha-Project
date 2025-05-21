@@ -8,11 +8,13 @@ public class GroundHitState : StateMachineBehaviour
     [SerializeField] NavMeshAgent navAgent;
     [SerializeField] BossActive bossActive;
     [SerializeField] GameObject groundSmashEffect;
+    [SerializeField] EnemyModel enemyModel;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         animator.ResetTrigger("StartAttack");
 
+        enemyModel = animator.GetComponent<EnemyModel>();
         navAgent = animator.GetComponent<NavMeshAgent>();
         navAgent.speed = 0f;
 
@@ -32,5 +34,6 @@ public class GroundHitState : StateMachineBehaviour
         bossActive.groundSmashCollider.SetActive(false);
         navAgent.speed = bossActive.navDefaultSpeed;
         Instantiate(groundSmashEffect, animator.transform.position, Quaternion.Euler(90f, 0, 0f));
+        enemyModel.isAttacking = false;
     }
 }
