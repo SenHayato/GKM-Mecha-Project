@@ -219,7 +219,7 @@ public abstract class EnemyActive : MonoBehaviour
                 {
                     if (anim != null)
                     {
-                        //anim.SetTrigger("isDeath");
+                        anim.SetBool("IsDeath", true);
                         Debug.Log(" Death Animation Triggered ");
                     }
                     if (deathCollider != null)

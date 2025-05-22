@@ -172,7 +172,7 @@ public class BossActive : EnemyActive
 
     void UltimateAttack()
     {
-
+        anim.SetBool("UltimateAttack", true);
     }
 
     #endregion
