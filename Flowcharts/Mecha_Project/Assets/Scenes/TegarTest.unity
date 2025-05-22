@@ -733,7 +733,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &51623743
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29809,8 +29809,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 531271425}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.41, y: 0}
-  m_AnchorMax: {x: 0.41, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -31907,8 +31907,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1366504081}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.49, y: 0}
-  m_AnchorMax: {x: 0.49, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -33330,6 +33330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossActive: {fileID: 0}
   smashDamage: 45000
+  groundSmashEffect: {fileID: 8122305226423473090, guid: b683ea0f93d056848a1affd8c4e00409, type: 3}
 --- !u!1 &1593430528
 GameObject:
   m_ObjectHideFlags: 0
@@ -39656,7 +39657,7 @@ RectTransform:
   m_Father: {fileID: 1354383042}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.49, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -41821,7 +41822,7 @@ RectTransform:
   m_Father: {fileID: 45124187}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.41, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -52424,8 +52425,15 @@ MonoBehaviour:
   gatlingAttacking: 0
   missileAttacking: 0
   ultimating: 0
+  attackChance: 5
   groundSmashCollider: {fileID: 1593308939}
   hasTeleported: 0
+  spawnSlash: 0
+  groundSlashObj: {fileID: 3242620920545217861, guid: 24acde4488425c449b400d19211eb611, type: 3}
+  slashSpawner:
+  - {fileID: 340716431}
+  - {fileID: 1234350439}
+  - {fileID: 1529759243}
   rammingLookAtPlayer: 0
   rammingDistance: 30
   rammingCollider: {fileID: 1608562897}
