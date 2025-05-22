@@ -213,6 +213,7 @@ public abstract class EnemyActive : MonoBehaviour
 
             if (enemyModel.isDeath && enemyModel.isGrounded)
             {
+                anim.SetBool("IsStunt", false);
                 navAgent.speed = 0f;
                 hitCollider.enabled = false;
                 if (enemyModel != null && enemyModel.isDeath)
