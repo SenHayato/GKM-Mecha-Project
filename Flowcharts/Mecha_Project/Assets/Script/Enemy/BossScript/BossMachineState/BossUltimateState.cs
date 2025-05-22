@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SweepingAreaState : StateMachineBehaviour
+public class BossUltimateState : StateMachineBehaviour
 {
     [SerializeField] NavMeshAgent navAgent;
     [SerializeField] BossActive bossActive;
@@ -16,22 +16,26 @@ public class SweepingAreaState : StateMachineBehaviour
         bossActive = animator.GetComponent<BossActive>();
         enemyModel = animator.GetComponent<EnemyModel>();
 
+        bossActive.ultimating = true;
+        bossActive.ultimateLookAtPlayer = true;
         navAgent.speed = 0;
-        bossActive.SweepingAttackResetState();
-        bossActive.sweepingAttacking = true;
+        bossActive.UltimateResetState();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        bossActive.ultimateLookAtPlayer = false;
+        bossActive.enableLaserUltimate = true;
         navAgent.speed = 0;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        bossActive.sweepingAttacking = false;
-        enemyModel.isAttacking = false;
         navAgent.speed = bossActive.navDefaultSpeed;
+        bossActive.enableLaserUltimate = false;
+        bossActive.ultimating = false;
+        enemyModel.isAttacking = false;
     }
 }

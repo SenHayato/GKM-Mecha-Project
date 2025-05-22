@@ -126,7 +126,7 @@ public class BossActive : EnemyActive
                 }
                 else //3
                 {
-                    Invoke(nameof(RammingAttack), preparingTime);
+                    Invoke(nameof(SweepingAttack), preparingTime);
                 }
             }
         }
@@ -134,7 +134,14 @@ public class BossActive : EnemyActive
         {
             if (enemyModel.attackCooldown <= 0)
             {
-                Invoke(nameof(GroundSlash), preparingTime);
+                if (SecondState)
+                {
+                    Invoke(nameof(UltimateAttack), preparingTime);
+                }
+                else
+                {
+                    Invoke(nameof(FireRifle), preparingTime);
+                }
             }
         }
 
@@ -148,6 +155,10 @@ public class BossActive : EnemyActive
         RammingAtPlayer();
         //GroundSlash
         GroundSlashStart();
+        //SweepingAttack
+        SweepingLaserEnable();
+        //Ultimate
+        UltimateLookAtPlayer();
     }
 
     void SecondStage()
@@ -170,19 +181,66 @@ public class BossActive : EnemyActive
 
     #region Ultimate
 
+    [Header("Ultimate Atribut")]
+    [SerializeField] GameObject ultimateLaser;
+    public bool ultimateLookAtPlayer;
+    public bool enableLaserUltimate = false;
+
     void UltimateAttack()
     {
+        enemyModel.isAttacking = true;
+        anim.SetBool("UltimateAttack", true);
+    }
 
+    void UltimateLookAtPlayer()
+    {
+        UltimateEnable();
+
+        if (ultimateLookAtPlayer)
+        {
+            navAgent.SetDestination(transform.position);
+            Vector3 direction = (player.position - transform.position).normalized;
+            direction.y = 0f;
+            if (direction != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(direction);
+            }
+        }
+    }
+
+    //Bisa Diedit dengan animation event trigger pada saat animasi telah jadi
+    void UltimateEnable()
+    {
+        if (enableLaserUltimate)
+        {
+            ultimateLaser.SetActive(true);
+        }
+        else
+        {
+            ultimateLaser.SetActive(false);
+        }
+    }
+
+    public void UltimateResetState()
+    {
+        Invoke(nameof(UltimateReset), 10f);
+    }
+
+    void UltimateReset()
+    {
+        anim.SetBool("UltimateAttack", false);
     }
 
     #endregion
 
     #region Melee Attack
 
-    public GameObject groundSmashCollider;
-    public bool hasTeleported = false;
 
     #region GroundHit
+
+    [Header("Ground Smash Atribut")]
+    public GameObject groundSmashCollider;
+    public bool hasTeleported = false;
     public void GroundHit()
     {
         if (enemyModel.attackCooldown <= 0)
@@ -214,6 +272,7 @@ public class BossActive : EnemyActive
 
     #region GroundSlash
 
+    [Header("Ground Slash Atribut")]
     public bool spawnSlash = false;
     [SerializeField] GameObject groundSlashObj;
     [SerializeField] Transform[] slashSpawner;
@@ -273,6 +332,7 @@ public class BossActive : EnemyActive
 
     #region RammingAttack
 
+    [Header("Ramming Dash Atribut")]
     public bool rammingLookAtPlayer = false;
     [SerializeField] float rammingDistance;
     public GameObject rammingCollider;
@@ -329,12 +389,19 @@ public class BossActive : EnemyActive
 
     #endregion
 
+    #region SweepingAttack
+
+    [Header("Sweeping Attack Atribut")]
+    [SerializeField] GameObject[] sweepingLaser;
+
     public void SweepingAttack()
     {
         float distance = Vector3.Distance(transform.position, player.position);
-        if (distance <= 30f)
+        if (distance <= 35f)
         {
-            anim.SetTrigger("SweepingAttack");
+            navAgent.SetDestination(transform.position);
+            enemyModel.isAttacking = true;
+            anim.SetBool("SweepingAttack", true);
         }
         else
         {
@@ -342,6 +409,36 @@ public class BossActive : EnemyActive
             navAgent.speed = chaseSpeed;
         }
     }
+
+    public void SweepingLaserEnable()
+    {
+        if (sweepingAttacking)
+        {
+            foreach (GameObject laser in sweepingLaser)
+            {
+                laser.SetActive(true);
+            }
+        }
+        else
+        {
+            foreach (GameObject laser in sweepingLaser)
+            {
+                laser.SetActive(false);
+            }
+        }
+    }
+
+    public void SweepingAttackResetState()
+    {
+        Invoke(nameof(ResetSweepingAttack), 5f);
+    }
+
+    void ResetSweepingAttack()
+    {
+        anim.SetBool("SweepingAttack", false);
+    }
+
+    #endregion
 
     #endregion
 

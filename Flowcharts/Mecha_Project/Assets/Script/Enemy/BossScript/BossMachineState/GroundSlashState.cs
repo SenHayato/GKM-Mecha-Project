@@ -16,15 +16,15 @@ public class GroundSlashState : StateMachineBehaviour
         navAgent = animator.GetComponent<NavMeshAgent>();
         enemyModel = animator.GetComponent<EnemyModel>();
 
-        navAgent.speed = 0f;
         bossActive.GroundSlashResetState();
         bossActive.spawnSlash = true;
+        navAgent.speed = 0;
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
+        navAgent.speed = 0;
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
