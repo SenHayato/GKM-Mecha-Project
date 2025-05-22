@@ -62,7 +62,7 @@ public class BossActive : EnemyActive
     public bool ultimating;
 
     //flag
-    private int attackChance = 0;
+    [SerializeField] int attackChance = 0;
 
     public override void Attacking()
     {
@@ -83,8 +83,8 @@ public class BossActive : EnemyActive
 
         if (!hasAttacked)
         {
-            attackChance = Random.Range(0, 6);
             anim.SetTrigger("StartAttack");
+            //attackChance = Random.Range(0, 6);
             hasAttacked = true;
         }
 
@@ -106,7 +106,7 @@ public class BossActive : EnemyActive
                 Invoke(nameof(LaunchMissile), preparingTime);
             }
         }
-        else if (attackChance >= 3 && attackChance <= 5) //3.4
+        else if (attackChance >= 3 && attackChance <= 4) //3.4
         {
             if (enemyModel.attackCooldown <= 0)
             {
@@ -122,7 +122,7 @@ public class BossActive : EnemyActive
                 }
                 else if (attackNum == 2)
                 {
-                    Invoke(nameof(RammingAttack), preparingTime);
+                    Invoke(nameof(GroundSlash), preparingTime);
                 }
                 else //3
                 {
@@ -130,13 +130,13 @@ public class BossActive : EnemyActive
                 }
             }
         }
-        //else //5
-        //{
-        //    if (enemyModel.attackCooldown <= 0)
-        //    {
-        //         Invoke(nameof(RammingAttack), preparingTime);
-        //    }
-        //}
+        else //5
+        {
+            if (enemyModel.attackCooldown <= 0)
+            {
+                Invoke(nameof(GroundSlash), preparingTime);
+            }
+        }
 
         //Invoke(nameof(GroundSlash), preparingTime);
         //Invoke(nameof(SweepingAttack), preparingTime);
@@ -146,6 +146,8 @@ public class BossActive : EnemyActive
         GroundHitTeleport();
         //Ramming
         RammingAtPlayer();
+        //GroundSlash
+        GroundSlashStart();
     }
 
     void SecondStage()
@@ -166,10 +168,14 @@ public class BossActive : EnemyActive
         return;
     }
 
+    #region Ultimate
+
     void UltimateAttack()
     {
 
     }
+
+    #endregion
 
     #region Melee Attack
 
@@ -208,12 +214,23 @@ public class BossActive : EnemyActive
 
     #region GroundSlash
 
+    public bool spawnSlash = false;
+    [SerializeField] GameObject groundSlashObj;
+    [SerializeField] Transform[] slashSpawner;
+
     public void GroundSlash()
     {
         float distance = Vector3.Distance(transform.position, player.position);
         if (distance <= 20f)
         {
-            anim.SetTrigger("GroundSlash");
+            enemyModel.isAttacking = true;
+            anim.SetBool("GroundSlash", true);
+            Vector3 direction = (player.position - transform.position).normalized;
+            direction.y = 0f;
+            if (direction != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(direction);
+            }
         }
         else
         {
@@ -221,6 +238,36 @@ public class BossActive : EnemyActive
             navAgent.speed = chaseSpeed;
         }
     }
+
+    void GroundSlashStart()
+    {
+        if (spawnSlash)
+        {
+            if (!SecondState)
+            {
+                Instantiate(groundSlashObj, slashSpawner[0].transform.position, Quaternion.Euler(0f, slashSpawner[0].transform.eulerAngles.y, 0f));
+            }
+            else
+            {
+                foreach (Transform spawner in slashSpawner)
+                {
+                    Instantiate(groundSlashObj, spawner.transform.position, Quaternion.Euler(0f, spawner.transform.eulerAngles.y, 0f));
+                }
+            }
+            spawnSlash = false;
+        }
+    }
+
+    public void GroundSlashResetState()
+    {
+        Invoke(nameof(GroundSlashReset), 4f);
+    }
+
+    void GroundSlashReset()
+    {
+        anim.SetBool("GroundSlash", false);
+    }
+
 
     #endregion
 
