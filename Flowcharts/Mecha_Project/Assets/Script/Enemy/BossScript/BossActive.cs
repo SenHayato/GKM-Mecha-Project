@@ -108,10 +108,10 @@ public class BossActive : EnemyActive
         }
         else if (attackChance >= 3 && attackChance <= 4) //3.4
         {
+            //Debug.Log("Attack Chance 2"+ attackChance);
+            int attackNum = Random.Range(0, 4);
             if (enemyModel.attackCooldown <= 0)
             {
-                //Debug.Log("Attack Chance 2"+ attackChance);
-                int attackNum = Random.Range(0, 4);
                 if (attackNum == 0)
                 {
                     Invoke(nameof(GroundHit), preparingTime);
@@ -188,8 +188,11 @@ public class BossActive : EnemyActive
 
     void UltimateAttack()
     {
-        enemyModel.isAttacking = true;
-        anim.SetBool("UltimateAttack", true);
+        if (!enemyModel.isAttacking)
+        {
+            enemyModel.isAttacking = true;
+            anim.SetBool("UltimateAttack", true);
+        }
     }
 
     void UltimateLookAtPlayer()
@@ -243,7 +246,7 @@ public class BossActive : EnemyActive
     public bool hasTeleported = false;
     public void GroundHit()
     {
-        if (enemyModel.attackCooldown <= 0)
+        if (!enemyModel.isAttacking)
         {
             enemyModel.isAttacking = true;
             anim.SetBool("GroundHit", true);
@@ -282,13 +285,16 @@ public class BossActive : EnemyActive
         float distance = Vector3.Distance(transform.position, player.position);
         if (distance <= 20f)
         {
-            enemyModel.isAttacking = true;
-            anim.SetBool("GroundSlash", true);
-            Vector3 direction = (player.position - transform.position).normalized;
-            direction.y = 0f;
-            if (direction != Vector3.zero)
+            if (!enemyModel.isAttacking)
             {
-                transform.rotation = Quaternion.LookRotation(direction);
+                enemyModel.isAttacking = true;
+                anim.SetBool("GroundSlash", true);
+                Vector3 direction = (player.position - transform.position).normalized;
+                direction.y = 0f;
+                if (direction != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.LookRotation(direction);
+                }
             }
         }
         else
@@ -339,7 +345,7 @@ public class BossActive : EnemyActive
 
     public void RammingAttack()
     {
-        if (enemyModel.attackCooldown <= 0)
+        if (!enemyModel.isAttacking)
         {
             enemyModel.isAttacking = true;
             anim.SetBool("RammingAttack", true);
@@ -399,15 +405,19 @@ public class BossActive : EnemyActive
         float distance = Vector3.Distance(transform.position, player.position);
         if (distance <= 35f)
         {
-            navAgent.SetDestination(transform.position);
-            enemyModel.isAttacking = true;
-            anim.SetBool("SweepingAttack", true);
+            if (!enemyModel.isAttacking)
+            {
+                enemyModel.isAttacking = true;
+                navAgent.SetDestination(transform.position);
+                anim.SetBool("SweepingAttack", true);
+            }
         }
         else
         {
             navAgent.SetDestination(player.position);
             navAgent.speed = chaseSpeed;
         }
+
     }
 
     public void SweepingLaserEnable()
