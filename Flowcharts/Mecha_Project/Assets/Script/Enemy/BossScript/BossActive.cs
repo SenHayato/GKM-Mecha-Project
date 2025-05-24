@@ -84,66 +84,11 @@ public class BossActive : EnemyActive
         if (!hasAttacked)
         {
             anim.SetTrigger("StartAttack");
-            //attackChance = Random.Range(0, 6);
+            attackChance = Random.Range(0, 6);
             hasAttacked = true;
         }
-
-        //Attack Generator
-        if (attackChance <= 2) //0.1.2
-        {
-            //Debug.Log("Attack Chance 1"+ attackChance);
-            int attackNum = Random.Range(0, 3);
-            if (attackNum == 0)
-            {
-                Invoke(nameof(FireRifle), preparingTime);
-            }
-            else if (attackNum == 1)
-            {
-                Invoke(nameof(FireGatling), preparingTime);
-            }
-            else //2
-            {
-                Invoke(nameof(LaunchMissile), preparingTime);
-            }
-        }
-        else if (attackChance >= 3 && attackChance <= 4) //3.4
-        {
-            //Debug.Log("Attack Chance 2"+ attackChance);
-            int attackNum = Random.Range(0, 4);
-            if (enemyModel.attackCooldown <= 0)
-            {
-                if (attackNum == 0)
-                {
-                    Invoke(nameof(GroundHit), preparingTime);
-                }
-                else if (attackNum == 1)
-                {
-                    Invoke(nameof(RammingAttack), preparingTime);
-                }
-                else if (attackNum == 2)
-                {
-                    Invoke(nameof(GroundSlash), preparingTime);
-                }
-                else //3
-                {
-                    Invoke(nameof(SweepingAttack), preparingTime);
-                }
-            }
-        }
-        else //5
-        {
-            if (enemyModel.attackCooldown <= 0)
-            {
-                if (SecondState)
-                {
-                    Invoke(nameof(UltimateAttack), preparingTime);
-                }
-                else
-                {
-                    Invoke(nameof(FireRifle), preparingTime);
-                }
-            }
-        }
+        
+        SelectAttackPattern();
 
         //Invoke(nameof(GroundSlash), preparingTime);
         //Invoke(nameof(SweepingAttack), preparingTime);
@@ -160,6 +105,63 @@ public class BossActive : EnemyActive
         //Ultimate
         UltimateLookAtPlayer();
     }
+
+
+    #region Attack Pattern Generator
+    void SelectAttackPattern()
+    {
+        if (attackChance <= 2)
+        {
+            FireBasicWeapon();
+        }
+        else if (attackChance <= 4)
+        {
+            if (enemyModel.attackCooldown <= 0)
+                MeleeAttack();
+        }
+        else
+        {
+            if (enemyModel.attackCooldown <= 0)
+            {
+                if (SecondState)
+                    Invoke(nameof(UltimateAttack), preparingTime);
+                else
+                    Invoke(nameof(FireRifle), preparingTime);
+            }
+        }
+    }
+
+    void MeleeAttack()
+    {
+        int attackNum = Random.Range(0, 4);
+        switch (attackNum)
+        {
+            case 0: Invoke(nameof(GroundHit), preparingTime); break;
+            case 1: Invoke(nameof(RammingAttack), preparingTime); break;
+            case 2: Invoke(nameof(GroundSlash), preparingTime); break;
+            case 3: Invoke(nameof(SweepingAttack), preparingTime); break;
+        }
+    }
+
+    void FireBasicWeapon()
+    {
+        int attackNum = Random.Range(0, 3);
+        if (attackNum == 0)
+        {
+            Invoke(nameof(FireRifle), preparingTime);
+        }
+        else if (attackNum == 1)
+        {
+            Invoke(nameof(FireGatling), preparingTime);
+        }
+        else
+        {
+            Invoke(nameof(LaunchMissile), preparingTime);
+        }
+    }
+
+    #endregion
+
 
     void SecondStage()
     {
