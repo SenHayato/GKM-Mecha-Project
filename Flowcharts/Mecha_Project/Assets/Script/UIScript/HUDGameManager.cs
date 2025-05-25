@@ -16,10 +16,16 @@ public class HUDGameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI questInfo;
     [SerializeField] private TextMeshProUGUI killCounterTxt;
     public TextMeshProUGUI timerText;
+    [Header("HealthBar")]
     [SerializeField] private UnityEngine.UI.Image healthImage;
     [SerializeField] private UnityEngine.UI.Slider healthBar;
     [SerializeField] private UnityEngine.UI.Slider easeHealthBar;
+
+    [Header("UltimateBar")]
     [SerializeField] private UnityEngine.UI.Slider ultimateBar;
+    [SerializeField] UnityEngine.UI.Image ultimateBarImage;
+
+    [Header("Another Bar")]
     [SerializeField] private UnityEngine.UI.Slider energyBar;
     [SerializeField] private UnityEngine.UI.Slider ammoBar;
     [SerializeField] private UnityEngine.UI.Slider skill1Bar;
@@ -133,10 +139,18 @@ public class HUDGameManager : MonoBehaviour
         }
         else
         {
-            healthImage.color = Color.white;
+            healthImage.color = Color.green;
         }
         //UltimateBar
         ultimateBar.value = mechaScript.Ultimate;
+        if (mechaScript.UsingUltimate)
+        {
+            ultimateBarImage.enabled = false;
+        }
+        else
+        {
+            ultimateBarImage.enabled = true;
+        }
         //EnergyBar
         energyBar.value = mechaScript.Energy;
         //Skill1
@@ -147,9 +161,10 @@ public class HUDGameManager : MonoBehaviour
         awakeningBar.value = mechaScript.Awakening;
     }
 
+    [SerializeField] float speedEase;
     public void EaseHealthBar()
     {
-        float smoothSpeed = 0.005f; 
+        float smoothSpeed = speedEase; 
         if (easeHealthBar.value != healthBar.value)
         {
             easeHealthBar.value = Mathf.Lerp(easeHealthBar.value, healthBar.value, smoothSpeed);
