@@ -146,7 +146,7 @@ public class PlayerActive : MonoBehaviour
         Death();
         UpdatePosition();
 
-        if (!Mecha.isDeath)
+        if (!Mecha.isDeath && !GameMaster.isPaused)
         {
             SKillCooldown();
             AwakeningReady();
