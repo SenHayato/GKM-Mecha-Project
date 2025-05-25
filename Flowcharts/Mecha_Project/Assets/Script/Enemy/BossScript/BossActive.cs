@@ -90,10 +90,6 @@ public class BossActive : EnemyActive
         
         SelectAttackPattern();
 
-        //Invoke(nameof(GroundSlash), preparingTime);
-        //Invoke(nameof(SweepingAttack), preparingTime);
-        //Invoke(nameof(UltimateAttack), preparingTime);
-
         //GroundHit
         GroundHitTeleport();
         //Ramming
