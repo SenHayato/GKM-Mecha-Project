@@ -84,11 +84,12 @@ public class BossActive : EnemyActive
         if (!hasAttacked)
         {
             anim.SetTrigger("StartAttack");
-            attackChance = Random.Range(0, 6);
+            //attackChance = Random.Range(0, 6);
             hasAttacked = true;
         }
-        
-        SelectAttackPattern();
+        Invoke(nameof(GroundSlash), preparingTime);
+
+        //SelectAttackPattern();
 
         //GroundHit
         GroundHitTeleport();
@@ -266,7 +267,7 @@ public class BossActive : EnemyActive
 
     void GroundHitReset()
     {
-        anim.SetBool("GroundHit",false);
+        anim.SetBool("GroundHit", false);
     }
 
     #endregion
@@ -276,7 +277,7 @@ public class BossActive : EnemyActive
     [Header("Ground Slash Atribut")]
     public bool spawnSlash = false;
     [SerializeField] GameObject groundSlashObj;
-    [SerializeField] Transform[] slashSpawner;
+    [SerializeField] Transform[] slashSpawner; //tempat spawn
 
     public void GroundSlash()
     {
@@ -304,21 +305,20 @@ public class BossActive : EnemyActive
 
     void GroundSlashStart()
     {
-        if (spawnSlash)
+        if (!spawnSlash) return;
+
+        if (!SecondState)
         {
-            if (!SecondState)
-            {
-                Instantiate(groundSlashObj, slashSpawner[0].transform.position, Quaternion.Euler(0f, slashSpawner[0].transform.eulerAngles.y, 0f));
-            }
-            else
-            {
-                foreach (Transform spawner in slashSpawner)
-                {
-                    Instantiate(groundSlashObj, spawner.transform.position, Quaternion.Euler(0f, spawner.transform.eulerAngles.y, 0f));
-                }
-            }
-            spawnSlash = false;
+            Instantiate(groundSlashObj, slashSpawner[0].position, Quaternion.Euler(0f, slashSpawner[0].eulerAngles.y, 0f));
         }
+        else
+        {
+            foreach (Transform spawner in slashSpawner)
+            {
+                Instantiate(groundSlashObj, spawner.position, Quaternion.Euler(0f, spawner.eulerAngles.y, 0f));
+            }
+        }
+        spawnSlash = false;
     }
 
     public void GroundSlashResetState()
