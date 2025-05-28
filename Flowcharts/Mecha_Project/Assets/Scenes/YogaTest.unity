@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4384669, g: 0.48655242, b: 0.56682485, a: 1}
+  m_IndirectSpecularColor: {r: 0.43846726, g: 0.48655307, b: 0.5668256, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -29087,6 +29087,7 @@ MonoBehaviour:
   healthBar: {fileID: 1023187172}
   easeHealthBar: {fileID: 135116901}
   ultimateBar: {fileID: 1813751006}
+  ultimateBarImage: {fileID: 0}
   energyBar: {fileID: 1879444555}
   ammoBar: {fileID: 682079388}
   skill1Bar: {fileID: 236285651}
@@ -29108,6 +29109,7 @@ MonoBehaviour:
   playerObj: {fileID: 0}
   gameMaster: {fileID: 0}
   questUIAnim: {fileID: 611462641}
+  speedEase: 0
 --- !u!224 &1370602555
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30703,7 +30705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 0}
   playerActive: {fileID: 0}
-  damageRadius: 0
+  boxSize: {x: 0, y: 0, z: 0}
 --- !u!4 &1533541120
 Transform:
   m_ObjectHideFlags: 0
@@ -31092,6 +31094,7 @@ MonoBehaviour:
   recoilValueY: 0.5
   recoilSpeed: 1
   audioSource: {fileID: 0}
+  weaponDamage: 0
   fireRate: 0.06
   reloadSpeed: 2.8
   range: 100
@@ -39829,7 +39832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!73398921 &1915351914
 VFXRenderer:
   serializedVersion: 1
@@ -39838,7 +39841,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1915351913}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -40883,6 +40886,7 @@ MonoBehaviour:
   recoilValueY: 0.5
   recoilSpeed: 1
   audioSource: {fileID: 0}
+  weaponDamage: 0
   fireRate: 0.06
   reloadSpeed: 2.8
   range: 100
@@ -42090,6 +42094,7 @@ MonoBehaviour:
   cameraEffect: {fileID: 0}
   Weapon: {fileID: 0}
   thusterParticle: {fileID: 144856425}
+  awakening: {fileID: 0}
   windEffect: {fileID: 1602203835}
   enemyLayer:
     serializedVersion: 2
@@ -42775,6 +42780,7 @@ MonoBehaviour:
   recoilValueY: 0.5
   recoilSpeed: 1
   audioSource: {fileID: 0}
+  weaponDamage: 0
   fireRate: 0.06
   reloadSpeed: 2.8
   range: 100
@@ -43195,6 +43201,7 @@ MonoBehaviour:
   anim: {fileID: 7892866189752439287}
   navDefaultSpeed: 0
   beforeHitGround: 0
+  defaultRotation: 0
   nextAttackTime: 3
   weaponCollider: {fileID: 6328720113732282872}
   weaponActiveTime: 3
