@@ -20,7 +20,7 @@ public class BossHUDManager : MonoBehaviour
         healthBar.maxValue = enemyModel.maxHealth;
         easeBar.maxValue = healthBar.maxValue;
         healthBar.value = enemyModel.health;
-        easeBar.value = healthBar.value;
+        easeBar.value = easeBar.maxValue;
         enemyName.text = enemyModel.enemyName;
     }
 

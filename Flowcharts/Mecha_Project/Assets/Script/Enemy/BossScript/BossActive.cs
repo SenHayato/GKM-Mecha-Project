@@ -84,12 +84,12 @@ public class BossActive : EnemyActive
         if (!hasAttacked)
         {
             anim.SetTrigger("StartAttack");
-            //attackChance = Random.Range(0, 6);
+            attackChance = Random.Range(0, 6);
             hasAttacked = true;
         }
-        Invoke(nameof(GroundSlash), preparingTime);
+        //Invoke(nameof(GroundSlash), preparingTime);
 
-        //SelectAttackPattern();
+        SelectAttackPattern();
 
         //GroundHit
         GroundHitTeleport();
