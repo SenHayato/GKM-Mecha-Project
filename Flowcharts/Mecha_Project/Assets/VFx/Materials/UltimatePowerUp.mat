@@ -7,14 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AttackPowerUp
+  m_Name: UltimatePowerUp
   m_Shader: {fileID: -6465566751694194690, guid: 955f09786d6dac849ac131cb5139135d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -41,17 +41,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BotLine: 0.689
-    - _Metallic: 1
+    - _BotLine: 0.461
+    - _Metallic: 0.035
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 1
-    - _TopLine: 0.65
-    - _Transparency: 0.5
+    - _TopLine: 1
+    - _Transparency: 0.439
     m_Colors:
-    - _BaseColor: {r: 5.6229634, g: 0, b: 0, a: 1}
-    - _BotColor: {r: 14.189224, g: 16.94838, b: 0.47966826, a: 1}
-    - _TopColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 6.6005793, g: 3.60395, b: 1.3325697, a: 1}
+    - _BotColor: {r: 18.187319, g: 11.385544, b: 2.4364145, a: 1}
+    - _TopColor: {r: 1, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &2090939151315509817
 MonoBehaviour:
