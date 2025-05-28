@@ -1,21 +1,27 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Skill1Script : MonoBehaviour
+public class PlayerSkill : MonoBehaviour
 {
+    [SerializeField] int DamageValue;
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
+    [SerializeField] float skillDuration;
+
+    [SerializeField] float forwardSpeed;
 
     private Collider[] enemyCollider;
 
     [SerializeField] Vector3 boxSize;
 
-    private void Awake()
+    private void Start()
     {
-        playerData = GetComponentInParent<MechaPlayer>();
-        playerActive = GetComponentInParent<PlayerActive>();
+        DamageValue += playerData.AttackPow + playerData.skill1Damage;
     }
 
-    private void OnEnable()
+    void GiveDamage()
     {
         enemyCollider = Physics.OverlapBox(transform.position, boxSize / 2f, transform.rotation, playerActive.enemyLayer);
         
@@ -23,12 +29,19 @@ public class Skill1Script : MonoBehaviour
         {
             if (hitCollider.TryGetComponent<EnemyActive>(out var enemy))
             {
-                enemy.TakeDamage(playerData.skill1Damage);
+                enemy.TakeDamage(DamageValue);
             }
         }
     }
 
-    private void OnDisable()
+    private void FixedUpdate()
+    {
+        GiveDamage();
+        transform.position += forwardSpeed * Time.deltaTime * transform.forward;
+        Destroy(gameObject, skillDuration);
+    }
+
+    private void OnDestroy()
     {
         enemyCollider = null;
     }

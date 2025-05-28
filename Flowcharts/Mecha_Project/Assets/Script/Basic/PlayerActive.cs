@@ -40,11 +40,12 @@ public class PlayerActive : MonoBehaviour
     private int defaultAttack;
     private int defaultUltDamage;
 
-    [Header("HitBox")]
+    [Header("Skill dan Ultimate")]
     public LayerMask enemyLayer;
-    public GameObject skill1HitBox;
     public GameObject skill2HitBox;
-    public GameObject ultimateHitBox;
+    [SerializeField] GameObject playerSkillObj;
+    [SerializeField] Transform playerSkillSpawn;
+    [SerializeField] GameObject ultimateObj;
 
     [Header("BoostEffect")]
     [SerializeField] private float normalBoostSpeed;
@@ -96,9 +97,9 @@ public class PlayerActive : MonoBehaviour
     {
         playerPosition = GetComponent<Transform>();
         //cameraPivot = CameraAct.cameraParent;
-        skill1HitBox.SetActive(false);
+        //skill1HitBox.SetActive(false);
         skill2HitBox.SetActive(false);
-        ultimateHitBox.SetActive(false);
+        ultimateObj.SetActive(false);
         cameraPivot = CameraAct.cameraPivot;
         wasAiming = false;
         defaultSpeed = speed;
@@ -557,13 +558,14 @@ public class PlayerActive : MonoBehaviour
             anim.SetTrigger("IsSkill1");
 
             yield return new WaitForSeconds(1.1f);
-            skill1HitBox.SetActive(true);
+            Instantiate(playerSkillObj, playerSkillSpawn.position, Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
+            //skill1HitBox.SetActive(true);
 
             yield return new WaitForSeconds(Mecha.skill1Duration); //lama skill
             Mecha.usingSkill1 = false;
             skillBusy = false;
             skill2Action.Enable();
-            skill1HitBox.SetActive(false);
+            //skill1HitBox.SetActive(false);
         }
         else
         {
@@ -597,29 +599,6 @@ public class PlayerActive : MonoBehaviour
             yield break;
         }
     }
-
-//saklar switch (dipakai di animation event jika butuh)
-#region SkillHitBox Saklar
-    public void Skill1Enable()
-    {
-        skill1HitBox.SetActive(true);
-    }
-
-    public void Skill1Disable()
-    {
-        skill1HitBox.SetActive(false);
-    }
-    
-    public void Skill2Enable()
-    {
-        skill2HitBox.SetActive(true);
-    }
-
-    public void Skill2Disable()
-    {
-        skill2HitBox.SetActive(false);
-    }
-#endregion
 
     public void Death()
     {
@@ -687,10 +666,13 @@ public class PlayerActive : MonoBehaviour
             Mecha.UltimateRegen = false;
             Mecha.Ultimate = Mecha.MinUltimate;
             Mecha.UsingUltimate = true;
-            ultimateHitBox.SetActive(true);
+
+            yield return new WaitForSeconds(0.2f);
+            ultimateObj.SetActive(true);
+
             yield return new WaitForSeconds(Mecha.UltDuration); //lama ultimate
 
-            ultimateHitBox.SetActive(false);
+            ultimateObj.SetActive(false);
             Mecha.UsingUltimate = false;
             Debug.Log("Ultimate berenti");
         }
