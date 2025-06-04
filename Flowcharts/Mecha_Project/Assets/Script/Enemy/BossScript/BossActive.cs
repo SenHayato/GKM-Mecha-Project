@@ -131,6 +131,7 @@ public class BossActive : EnemyActive
     void MeleeAttack()
     {
         int attackNum = Random.Range(0, 4);
+        //int attackNum = 0;
         switch (attackNum)
         {
             case 0: Invoke(nameof(GroundHit), preparingTime); break;
@@ -159,10 +160,12 @@ public class BossActive : EnemyActive
 
     #endregion
 
+    private int SecondStageHealth;
 
     void SecondStage()
     {
-        if (enemyModel.health <= 500000)
+        SecondStageHealth = enemyModel.maxHealth / 2;
+        if (enemyModel.health <= SecondStageHealth)
         {
             SecondState = true;
             enemyModel.attackPower = 2500;

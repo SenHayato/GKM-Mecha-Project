@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossMissile : MonoBehaviour
 {
     [SerializeField] GameObject missileObj;
     [SerializeField] GameObject warningSign;
+    [SerializeField] GameObject explodeVisual;
 
     [Header("Referensi")]
     [SerializeField] MeshRenderer meshRenderer;
@@ -33,6 +32,7 @@ public class BossMissile : MonoBehaviour
         meshRenderer.enabled = false;
         missileDamage.SetActive(true);
         Destroy(missileObj, 2f);
+        Instantiate(explodeVisual, transform.position, Quaternion.identity);
     }
 
     private void OnDestroy()

@@ -16,18 +16,12 @@ MonoBehaviour:
   - title: GROUND FLARE
     position:
       serializedVersion: 2
-      x: 0
-      y: 0
-      width: 100
-      height: 100
+      x: 916
+      y: -244
+      width: 476
+      height: 1535
     contents:
     - model: {fileID: 8926484042661614558}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614580}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614620}
       id: 0
       isStickyNote: 0
     - model: {fileID: 8926484042661614583}
@@ -36,19 +30,7 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614555}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614606}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661614585}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614614}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614611}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614593}
       id: 0
       isStickyNote: 0
   - title: GOD RAYS
@@ -145,10 +127,10 @@ MonoBehaviour:
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: 916
-    y: -250
-    width: 4088
-    height: 2402
+    x: 917
+    y: -249
+    width: 4087
+    height: 2331
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -244,7 +226,7 @@ VisualEffectResource:
   m_Infos:
     m_RendererSettings:
       motionVectorGenerationMode: 0
-      shadowCastingMode: 1
+      shadowCastingMode: 0
       receiveShadows: 0
       reflectionProbeUsage: 0
       lightProbeUsage: 0
@@ -271,7 +253,7 @@ MonoBehaviour:
   m_Parent: {fileID: 114350483966674976}
   m_Children:
   - {fileID: 8926484042661614606}
-  m_UIPosition: {x: 941, y: -190}
+  m_UIPosition: {x: 942, y: -184}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -306,7 +288,7 @@ MonoBehaviour:
   m_Children:
   - {fileID: 8926484042661614580}
   - {fileID: 8926484042661614620}
-  m_UIPosition: {x: 941.3827, y: 114.57214}
+  m_UIPosition: {x: 942, y: 114}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
@@ -10662,7 +10644,7 @@ MonoBehaviour:
     - _QueueOffset
     - _QueueControl
     m_PropertyValues:
-    - 1
+    - 0
     - 1
     - 0
     - 0
@@ -12425,7 +12407,7 @@ MonoBehaviour:
       inputSlot: {fileID: 8926484042661614817}
     - outputSlot: {fileID: 8926484042661614980}
       inputSlot: {fileID: 8926484042661614745}
-    position: {x: 1826.3999, y: 2100}
+    position: {x: 1235.2, y: 1984.8}
     expandedSlots: []
     expanded: 0
 --- !u!114 &8926484042661614980
