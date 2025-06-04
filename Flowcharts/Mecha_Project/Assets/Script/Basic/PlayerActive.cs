@@ -76,6 +76,9 @@ public class PlayerActive : MonoBehaviour
     [SerializeField] float boostDistance;
     [SerializeField] float boostDirectionLerp = 0;
 
+    [Header("Attribut")]
+    [SerializeField] GameObject shieldObj;
+
     public void Awake()
     {
         musicManager = FindAnyObjectByType<MusicManager>();
@@ -535,6 +538,15 @@ public class PlayerActive : MonoBehaviour
             Mecha.isBlocking = false;
             anim.SetBool("IsBlocking", false);
             speed = defaultSpeed;
+        }
+
+        if (Mecha.isBlocking)
+        {
+            shieldObj.SetActive(true);
+        }
+        else
+        {
+            shieldObj.SetActive(false);
         }
     }
     public void SelectButtonPress()

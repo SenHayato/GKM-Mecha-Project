@@ -1345,7 +1345,7 @@ RectTransform:
   m_Father: {fileID: 7030502130277281354}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1572,7 +1572,7 @@ RectTransform:
   m_Father: {fileID: 7985881133503971833}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3163,7 +3163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8621105532361449540
 Transform:
   m_ObjectHideFlags: 0
@@ -3240,7 +3240,7 @@ MonoBehaviour:
     m_Bits: 8
   hitLayer:
     serializedVersion: 2
-    m_Bits: 2115596
+    m_Bits: 2148364
   groundLayer:
     serializedVersion: 2
     m_Bits: 2097152

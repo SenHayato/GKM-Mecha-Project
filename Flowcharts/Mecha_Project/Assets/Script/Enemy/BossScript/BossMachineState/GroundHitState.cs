@@ -33,7 +33,7 @@ public class GroundHitState : StateMachineBehaviour
     {
         bossActive.groundSmashCollider.SetActive(false);
         navAgent.speed = bossActive.navDefaultSpeed;
-        Instantiate(groundSmashEffect, animator.transform.position, Quaternion.Euler(90f, 0, 0f));
+        Instantiate(groundSmashEffect, animator.transform.position, Quaternion.identity);
         enemyModel.isAttacking = false;
     }
 }
