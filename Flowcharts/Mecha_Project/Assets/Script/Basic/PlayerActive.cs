@@ -76,8 +76,9 @@ public class PlayerActive : MonoBehaviour
     [SerializeField] float boostDistance;
     [SerializeField] float boostDirectionLerp = 0;
 
-    [Header("Attribut")]
+    [Header("Attribut & VFX")]
     [SerializeField] GameObject shieldObj;
+    [SerializeField] GameObject explodedVFX;
 
     public void Awake()
     {
@@ -613,6 +614,7 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
+
     public void Death()
     {
         //if (Mecha.Health <= Mecha.MinHealth)
@@ -623,6 +625,7 @@ public class PlayerActive : MonoBehaviour
         //    if (Mecha.isDeath)
         //    {
         //        Time.timeScale = 0.5f;
+        //        ExplodeDeath();
         //        speed = 0f;
         //        anim.SetBool("IsDeath", true);
         //        GameMaster.gameLose = true;
@@ -635,6 +638,16 @@ public class PlayerActive : MonoBehaviour
         //    }
         //}
     }
+
+    //bool exploded = false;
+    //void ExplodeDeath()
+    //{
+    //    if (!exploded)
+    //    {
+    //        exploded = true;
+    //        Instantiate(explodedVFX, transform.position, Quaternion.identity);
+    //    }
+    //}
 
     public void SKillCooldown()
     {

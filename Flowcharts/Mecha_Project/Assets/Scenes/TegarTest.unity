@@ -33204,7 +33204,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
+  m_Radius: 6.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1593308941
 Transform:
@@ -33234,7 +33234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossActive: {fileID: 0}
-  smashDamage: 45000
+  smashDamage: 30000
   groundSmashEffect: {fileID: 4912806830170122301, guid: a5a63c3874d5c0f49857d25f5ea7c90d, type: 3}
 --- !u!1 &1593430528
 GameObject:
@@ -42999,6 +42999,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shield
       objectReference: {fileID: 0}
+    - target: {fileID: 282167833674585694, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 621961338671287524, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -46687,6 +46691,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4521293848362069548, guid: 719fcf9db69cfa145a7dcf0fd400a46e, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6673509167054223950, guid: 719fcf9db69cfa145a7dcf0fd400a46e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.29
@@ -46911,6 +46919,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3317098850543198431, guid: fcffe4b914347b8429b45caecdd935a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6736221625437495469, guid: fcffe4b914347b8429b45caecdd935a6, type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -48562,6 +48574,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 71132196015853934, guid: 7dddae572c3a153408c8e751630ef946, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006995534698647363, guid: 7dddae572c3a153408c8e751630ef946, type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1754612159642961102, guid: 7dddae572c3a153408c8e751630ef946, type: 3}
@@ -50435,23 +50451,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4178108586260994388, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4178108586260994388, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6524354182872537966, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6524354182872537966, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7446081693627446681, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_Name
       value: EnemyRange
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446081693627446681, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8621105532361449540, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50872,6 +50892,7 @@ MonoBehaviour:
   boostDistance: 2
   boostDirectionLerp: 1
   shieldObj: {fileID: 1907435352}
+  explodedVFX: {fileID: 2112769824686486772, guid: 24b8fd77d1f43d94299a5ff3605d6252, type: 3}
 --- !u!95 &5428487010729106811
 Animator:
   serializedVersion: 5
@@ -51482,7 +51503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 3
   enemyName: LEAC
-  maxHealth: 1000000
+  maxHealth: 100000
   health: 20000
   minHealth: 0
   sightRange: 50
@@ -51716,7 +51737,7 @@ MonoBehaviour:
   missileObj: {fileID: 6120836210244272201, guid: 86f1b2a9d9b5aad4dadae4a020e3e1d2, type: 3}
   missileDuration: 10
   missileInterval: 2
-  attackNumber: 0
+  attackNumber: 2
   groundHitAttacking: 0
   groundSlashAttacking: 0
   rammingAttacking: 0
@@ -51725,7 +51746,7 @@ MonoBehaviour:
   gatlingAttacking: 0
   missileAttacking: 0
   ultimating: 0
-  attackChance: 4
+  attackChance: 2
   ultimateLaser: {fileID: 1113547162}
   ultimateLookAtPlayer: 0
   enableLaserUltimate: 0
@@ -53067,6 +53088,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2271624085635948449, guid: 4d7d6c213a1a1dc448e1b758b349a101, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6432224175175257934, guid: 4d7d6c213a1a1dc448e1b758b349a101, type: 3}
       propertyPath: m_Name
       value: UltimateRegen
@@ -54123,6 +54148,10 @@ PrefabInstance:
     - target: {fileID: 4714999036502419996, guid: e6a74c56b8349fe4084ac1df4d70d72d, type: 3}
       propertyPath: m_Name
       value: Repair
+      objectReference: {fileID: 0}
+    - target: {fileID: 6509616683899955347, guid: e6a74c56b8349fe4084ac1df4d70d72d, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8154059413527602025, guid: e6a74c56b8349fe4084ac1df4d70d72d, type: 3}
       propertyPath: m_LocalPosition.x
