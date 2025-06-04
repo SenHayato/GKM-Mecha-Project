@@ -44157,7 +44157,7 @@ GameObject:
   - component: {fileID: 1989991548}
   - component: {fileID: 1989991549}
   m_Layer: 3
-  m_Name: Weapon
+  m_Name: WeaponPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50849,8 +50849,8 @@ MonoBehaviour:
   skill1Duration: 2.2
   readySkill2: 0
   usingSkill2: 0
-  skill2Time: 0
-  cooldownSkill2: 5
+  skill2MaxBar: 10
+  skill2Bar: 0
   skill2Damage: 500
   skill2Duration: 4.11
   Defence: 1000
