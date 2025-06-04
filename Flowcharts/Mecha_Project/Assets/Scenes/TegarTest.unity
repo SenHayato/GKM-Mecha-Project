@@ -1944,14 +1944,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1805190004508588824, guid: f2fdfdd86922b134b8165af4c3145a50, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1805190004508588824, guid: f2fdfdd86922b134b8165af4c3145a50, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1981873186546720967, guid: f2fdfdd86922b134b8165af4c3145a50, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.9174407
@@ -1995,18 +1987,6 @@ PrefabInstance:
     - target: {fileID: 3819589272642304982, guid: f2fdfdd86922b134b8165af4c3145a50, type: 3}
       propertyPath: m_Name
       value: EnemyShort
-      objectReference: {fileID: 0}
-    - target: {fileID: 3819589272642304982, guid: f2fdfdd86922b134b8165af4c3145a50, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8811092860405664352, guid: f2fdfdd86922b134b8165af4c3145a50, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8811092860405664352, guid: f2fdfdd86922b134b8165af4c3145a50, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30795,7 +30775,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346492702}
   m_Enabled: 1
-  m_Asset: {fileID: 0}
+  m_Asset: {fileID: 8926484042661614526, guid: b5e35a8c67de6784e83d6cda96b3fb6b, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
@@ -49149,6 +49129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5618244153180784498}
   - component: {fileID: 1351082086387488221}
+  - component: {fileID: 5618244153180784499}
   m_Layer: 3
   m_Name: Beta_Surface
   m_TagString: Untagged
@@ -50454,27 +50435,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4178108586260994388, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4178108586260994388, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6524354182872537966, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6524354182872537966, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7446081693627446681, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_Name
       value: EnemyRange
-      objectReference: {fileID: 0}
-    - target: {fileID: 7446081693627446681, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8621105532361449540, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
       propertyPath: m_LocalPosition.x
@@ -51187,6 +51164,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4620144013182552013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5618244153180784499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3096056277507481217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec01d2464cd8014c8ad67fe895a1b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mat: {fileID: 2100000, guid: 3d8bec266ab2f1741ba057122e319908, type: 2}
+  meshRefreshRate: 0.5
+  meshDestroyDelay: 0.5
+  positionToSpawn: {fileID: 0}
 --- !u!1 &5680486696811031901
 GameObject:
   m_ObjectHideFlags: 0
@@ -51687,6 +51680,7 @@ MonoBehaviour:
   hitCollider: {fileID: 0}
   deathCollider: {fileID: 192883845}
   anim: {fileID: 0}
+  deathExplode: {fileID: 2112769824686486772, guid: 24b8fd77d1f43d94299a5ff3605d6252, type: 3}
   navDefaultSpeed: 0
   beforeHitGround: 2
   defaultRotation: 0
@@ -54377,22 +54371,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 234581519977433411, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 234581519977433411, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3942563416926423756, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3942563416926423756, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4304001400453917753, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8.027742
@@ -54436,10 +54414,6 @@ PrefabInstance:
     - target: {fileID: 8099662513607266669, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
       propertyPath: m_Name
       value: EnemySniper
-      objectReference: {fileID: 0}
-    - target: {fileID: 8099662513607266669, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
