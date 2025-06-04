@@ -262,7 +262,7 @@ public class PlayerActive : MonoBehaviour
     public IEnumerator BoostOn()
     {
         float time = 0f;
-        Vector3 forward = cameraPivot.transform.forward;
+        Vector3 forward = playerPosition.transform.forward;
         forward.y = 0f;
         forward.Normalize();
         Vector3 moveDirection = (forward * boostDistance).normalized;
@@ -274,7 +274,7 @@ public class PlayerActive : MonoBehaviour
             anim.SetFloat("Move", 3f);
             speed = 14f;
             Mecha.Energy -= Mecha.EnergyCost;
-            while (time < 1f)
+            while (time < boostDuration)
             {
                 time += Time.deltaTime / boostDirectionLerp;
                 controller.Move(speed * Time.deltaTime * moveDirection); // Gerakan bertahap 
