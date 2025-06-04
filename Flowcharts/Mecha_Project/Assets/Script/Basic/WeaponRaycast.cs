@@ -1,9 +1,7 @@
 using UnityEngine;
 using System.Collections;
-using UnityEditor.UI;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.Mathematics;
+using UnityEngine.VFX;
 
 public class WeaponRaycast : MonoBehaviour
 {
@@ -41,6 +39,9 @@ public class WeaponRaycast : MonoBehaviour
     [SerializeField] bool fireActive = false;
     [SerializeField] bool rechargeActive = false;
 
+    [Header("Visual Effect")]
+    [SerializeField] VisualEffect fireBulletVFX;
+
     //flag
     private bool isReloading = false;
     private float defaultValueX; //default recoil x
@@ -57,6 +58,7 @@ public class WeaponRaycast : MonoBehaviour
 
     void Start()
     {
+        fireBulletVFX.enabled = false;
         audioSource = GetComponent<AudioSource>();
         cameraAct = mainCamera.GetComponentInParent<CameraActive>();
         ammo = maxAmmo;
@@ -213,8 +215,22 @@ public class WeaponRaycast : MonoBehaviour
         }
     }
 
+    void VisualEffectSet()
+    {
+        fireBulletVFX.SetFloat("SpawnRate", fireRate);
+        if (mechaPlayer.isShooting)
+        {
+            fireBulletVFX.enabled = true;
+        }
+        else
+        {
+            fireBulletVFX.enabled = false;
+        }
+    }
+
     private void Update()
     {
+        VisualEffectSet();
         RayChange();
         SoundMonitor();
         RecoilAdjust();
