@@ -37,6 +37,9 @@ public abstract class EnemyActive : MonoBehaviour
     [Header("Komponen Player")]
     private PlayerInput gameInput;
 
+    [Header("Visual Effect")]
+    [SerializeField] GameObject deathExplode;
+
     //flag
     public float navDefaultSpeed;
     public float beforeHitGround;
@@ -228,9 +231,20 @@ public abstract class EnemyActive : MonoBehaviour
                         deathCollider.enabled = true;
                     }
 
-                    Destroy(gameObject, 7f); //lama animasi + effect ledakan
+                    Destroy(gameObject, 4f); //lama animasi + effect ledakan
+                    Invoke(nameof(ExplodeVisual), 3.5f);
                 }
             }
+        }
+    }
+
+    private bool exploded = false;
+    void ExplodeVisual()
+    {
+        if (!exploded)
+        {
+            exploded = true;
+            Instantiate(deathExplode, transform.position, Quaternion.identity);
         }
     }
 
