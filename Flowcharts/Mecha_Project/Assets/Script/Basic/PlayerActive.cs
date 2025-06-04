@@ -108,7 +108,7 @@ public class PlayerActive : MonoBehaviour
         defaultSpeed = speed;
         //Mecha Skill dan Ultimate Condition
         Mecha.skill1Time = Mecha.cooldownSkill1;
-        Mecha.skill2Time = Mecha.cooldownSkill2;
+        Mecha.skill2Bar = 0;
         Mecha.Ultimate = Mecha.MinUltimate;
         //Mecha.Energy = Mecha.MaxEnergy;
         Mecha.UltimateRegen = false;
@@ -592,7 +592,8 @@ public class PlayerActive : MonoBehaviour
             Debug.Log("Skill 2 Aktif Korotine");
             skillBusy = true;
             Mecha.usingSkill2 = true;
-            Mecha.skill2Time = Mecha.cooldownSkill2;
+            //Mecha.skill2Time = Mecha.cooldownSkill2;
+            Mecha.skill2Bar = 0;
             skill1Action.Disable();
             Mecha.readySkill2 = false;
             anim.SetTrigger("IsSkill2");
@@ -634,21 +635,28 @@ public class PlayerActive : MonoBehaviour
         //    }
         //}
     }
+
     public void SKillCooldown()
     {
         Mecha.skill1Time -= (1 * Time.deltaTime);
-        Mecha.skill2Time -= (1 * Time.deltaTime);
+        //Mecha.skill2Time -= (1 * Time.deltaTime);
         if (Mecha.skill1Time <= 0)
         {
             Mecha.skill1Time = 0;
             Mecha.readySkill1 = true;
         }
 
-        if (Mecha.skill2Time <= 0)
+        if (Mecha.skill2Bar >= Mecha.skill2MaxBar)
         {
-            Mecha.skill2Time = 0;
+            Mecha.skill2Bar = Mecha.skill2MaxBar;
             Mecha.readySkill2 = true;
         }
+
+        //if (Mecha.skill2Time <= 0)
+        //{
+        //    Mecha.skill2Time = 0;
+        //    Mecha.readySkill2 = true;
+        //}
 
         //skill Overlap
         if (Mecha.usingSkill1)

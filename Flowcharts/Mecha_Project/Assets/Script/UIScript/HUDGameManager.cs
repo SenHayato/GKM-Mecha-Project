@@ -86,7 +86,7 @@ public class HUDGameManager : MonoBehaviour
         energyBar.maxValue = mechaScript.MaxEnergy;
         //skill
         skill1Bar.maxValue = mechaScript.cooldownSkill1;
-        skill2Bar.maxValue = mechaScript.cooldownSkill2;
+        skill2Bar.maxValue = mechaScript.skill2MaxBar;
         //ease
         easeHealthBar.maxValue = healthBar.maxValue;
         easeHealthBar.value = easeHealthBar.maxValue;
@@ -156,7 +156,7 @@ public class HUDGameManager : MonoBehaviour
         //Skill1
         skill1Bar.value = mechaScript.skill1Time;
         //Skill2
-        skill2Bar.value = mechaScript.skill2Time;
+        skill2Bar.value = mechaScript.skill2Bar;
         //Awakening
         awakeningBar.value = mechaScript.Awakening;
     }

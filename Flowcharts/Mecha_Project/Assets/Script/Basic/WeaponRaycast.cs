@@ -130,6 +130,7 @@ public class WeaponRaycast : MonoBehaviour
 
         StartCoroutine(cameraAct.RecoilEffect());
         Vector3 targetPoint;
+        mechaPlayer.skill2Bar++;
         //Debug.DrawRay(pointToShoot.position, pointToShoot.forward, Color.green);
 
         if (Physics.Raycast(ray, out RaycastHit hit, range, hitLayers))
