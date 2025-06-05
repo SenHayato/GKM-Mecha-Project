@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Testing
+  m_Name: JumpDust
   m_Shader: {fileID: -6465566751694194690, guid: 0d3ec48af1f41ef43a9db95668ec8d22, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -16,7 +16,7 @@ Material:
   m_InvalidKeywords:
   - _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
@@ -87,8 +87,8 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - _DarkColor: {r: 0.09433961, g: 0.09433961, b: 0.09433961, a: 0}
-    - _FireColor: {r: 8.882898, g: 2.592846, b: 0, a: 1}
+    - _DarkColor: {r: 0.6679245, g: 0.5567131, b: 0.225582, a: 0}
+    - _FireColor: {r: 0.6754716, g: 0.5442007, b: 0.5442007, a: 1}
     - _Offset: {r: 0, g: 0, b: 0, a: 0}
     - _Tiling: {r: 1, g: 1, b: 0, a: 0}
     - _TilingOffset: {r: 0, g: 0, b: 0, a: 0}
