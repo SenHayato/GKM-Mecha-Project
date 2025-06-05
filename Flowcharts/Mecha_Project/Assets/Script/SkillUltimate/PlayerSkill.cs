@@ -15,6 +15,7 @@ public class PlayerSkill : MonoBehaviour
     private Collider[] enemyCollider;
 
     [SerializeField] Vector3 boxSize;
+    [SerializeField] GameObject hitSlashEffect;
 
     private void Start()
     {
@@ -29,6 +30,9 @@ public class PlayerSkill : MonoBehaviour
         {
             if (hitCollider.TryGetComponent<EnemyActive>(out var enemy))
             {
+                Vector3 hitPosition = enemy.transform.position;
+                hitPosition.y = 1.2f;
+                Instantiate(hitSlashEffect, hitPosition, Quaternion.identity);
                 enemy.TakeDamage(DamageValue);
             }
         }

@@ -21,7 +21,6 @@ public class Sword : MonoBehaviour
 
     private int currentComboIndex = 0;
     private float lastAttackTime = 0f;
-    private bool isInCombo = false;
 
     private void Awake()
     {
@@ -54,7 +53,6 @@ public class Sword : MonoBehaviour
         if (Time.time - lastAttackTime > comboTimeWindow)
         {
             currentComboIndex = 0;
-            isInCombo = true;
         }
         else if (currentComboIndex > -comboLength - 1)
         {

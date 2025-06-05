@@ -13,6 +13,7 @@ public class GroundSlashObj : MonoBehaviour
 
     [Header("Ground Slash Attribut")]
     [SerializeField] int damageValue;
+    [SerializeField] GameObject slashHitEffect;
 
 
     // Start is called before the first frame update
@@ -23,6 +24,9 @@ public class GroundSlashObj : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Vector3 hitPost = other.transform.position;
+        hitPost.y = 1.2f;
+        Instantiate(slashHitEffect, hitPost, Quaternion.identity);
         if (other.CompareTag("Player"))
         {
             if (other.TryGetComponent<PlayerActive>(out var playerActive))

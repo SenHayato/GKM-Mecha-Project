@@ -6,6 +6,7 @@ public class RammingAttackScript : MonoBehaviour
 {
     [SerializeField] EnemyModel enemyModel;
     [SerializeField] int rammingDamage;
+    [SerializeField] GameObject hitEffect;
 
     void Start()
     {
@@ -14,6 +15,9 @@ public class RammingAttackScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Vector3 hitPost = other.transform.position;
+        hitPost.y = 1.2f;
+        Instantiate(hitEffect, hitPost, Quaternion.identity);
         if (other.CompareTag("Player"))
         {
             if (other.TryGetComponent<PlayerActive>(out var playerActive))

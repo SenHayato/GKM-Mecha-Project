@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VFX;
 
-public class NewBehaviourScript : MonoBehaviour
+public class VFXDestroy : MonoBehaviour
 {
     [SerializeField] float effectDuration;
 
