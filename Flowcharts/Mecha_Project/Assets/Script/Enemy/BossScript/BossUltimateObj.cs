@@ -7,6 +7,7 @@ public class BossUltimateObj : MonoBehaviour
 {
     [SerializeField] int ultimateDamage;
     [SerializeField] float ultimateInterval;
+    [SerializeField] GameObject hitEffect;
 
     private bool isDamaging = false;
 
@@ -35,6 +36,9 @@ public class BossUltimateObj : MonoBehaviour
 
         while (isDamaging)
         {
+            Vector3 hitPost = playerAct.transform.position;
+            hitPost.y = 1.2f;
+            Instantiate(hitEffect, hitPost, Quaternion.identity);
             playerAct.TakeDamage(ultimateDamage);
             yield return new WaitForSeconds(ultimateInterval);
         }

@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class ShortWeapon : MonoBehaviour
 {
-    [SerializeField] EnemyModel model;
+    [SerializeField] EnemyModel enemyModel;
+
+    [Header("Visual Effect")]
+    [SerializeField] GameObject slashEffect;
+    [SerializeField] GameObject hitSlashEffect;
 
     private void Start()
     {
-        model = GetComponentInParent<EnemyModel>();
+        enemyModel = GetComponentInParent<EnemyModel>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")){
-           if (other.TryGetComponent<PlayerActive>(out var player)){
-                player.TakeDamage(model.attackPower);
+        Vector3 hitPosition = other.transform.position;
+        hitPosition.y = 1.2f;
+        Instantiate(hitSlashEffect, hitPosition, Quaternion.identity);
+        if (other.CompareTag("Player"))
+        {
+            if (other.TryGetComponent<PlayerActive>(out var player))
+            {
+                player.TakeDamage(enemyModel.attackPower);
                 Debug.Log("SSS");
             }
         }

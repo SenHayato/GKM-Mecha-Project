@@ -10,6 +10,7 @@ public class CloseEnemy : EnemyActive
     [SerializeField] float weaponActiveTime = 0.05f;
 
     [SerializeField] bool prepareAttack;
+    [SerializeField] GameObject slashVisual;
 
     public override void Attacking()
     {
@@ -33,16 +34,25 @@ public class CloseEnemy : EnemyActive
         }
     }
 
+    #region Animation Event
+
+    // Panggil dari Animation Event
     public void EnableWeaponCollider()
     {
         weaponCollider.enabled = true;
     }
 
-    // Panggil dari Animation Event
     public void DisableWeaponCollider()
     {
         weaponCollider.enabled = false;
     }
+
+    public void SlashEffect()
+    {
+        Instantiate(slashVisual, weaponCollider.transform.position, weaponCollider.transform.rotation);
+    }
+
+    #endregion
 
     public override void PlayAnimation()
     {

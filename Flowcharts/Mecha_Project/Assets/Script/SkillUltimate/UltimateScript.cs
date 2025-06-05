@@ -8,6 +8,7 @@ public class UltimateScript : MonoBehaviour
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
     [SerializeField] Vector3 boxSize;
+    [SerializeField] GameObject hitEffect;
 
     private Collider[] enemyColliders;
 
@@ -52,6 +53,7 @@ public class UltimateScript : MonoBehaviour
             {
                 if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
                 {
+                    Instantiate(hitEffect, enemyActive.transform.position, Quaternion.identity);
                     enemyActive.enemyModel.isStunt = true;
                     enemyActive.TakeDamage(playerData.UltDamage);
                 }
