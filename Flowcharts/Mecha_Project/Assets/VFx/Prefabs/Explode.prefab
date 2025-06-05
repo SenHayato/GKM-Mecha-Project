@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3587636462853339139}
   - component: {fileID: 3926555091530928807}
   - component: {fileID: 3659131004547310264}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4920,7 +4920,7 @@ GameObject:
   - component: {fileID: 6915091050943191643}
   - component: {fileID: 1263144783646561436}
   - component: {fileID: 6439976982840585517}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Explode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8787,9 +8787,9 @@ ParticleSystem:
       properties: 0
       emitProbability: 1
   LightsModule:
-    enabled: 0
+    enabled: 1
     ratio: 0
-    light: {fileID: 0}
+    light: {fileID: 6915091050943191643}
     randomDistribution: 1
     color: 1
     range: 1
@@ -8850,7 +8850,7 @@ ParticleSystem:
     intensityCurve:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 2.79
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -9814,7 +9814,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2112769824686486772}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
@@ -9864,7 +9864,7 @@ Light:
   m_BounceIntensity: 18.68
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 1.02e-43, y: 7.4e-44, z: 4.4416e-41, w: 2.152e-42}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0

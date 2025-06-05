@@ -79,6 +79,8 @@ public class PlayerActive : MonoBehaviour
     [Header("Attribut & VFX")]
     [SerializeField] GameObject shieldObj;
     [SerializeField] GameObject explodedVFX;
+    [SerializeField] GameObject jumpDust;
+    [SerializeField] GameObject trailDust;
 
     public void Awake()
     {
@@ -427,6 +429,7 @@ public class PlayerActive : MonoBehaviour
         {
             if (moveInput != Vector2.zero && !Mecha.isBoosting)
             {
+                trailDust.SetActive(true);
                 Mecha.isIdle = false;
                 Vector3 forward = cameraPivot.transform.forward;  // Arah kamera
                 Vector3 right = cameraPivot.transform.right;
@@ -461,6 +464,7 @@ public class PlayerActive : MonoBehaviour
             else
             {
                 Mecha.isIdle = true;
+                trailDust.SetActive(false);
                 if (!Mecha.isBoosting)
                 {
                     anim.SetFloat("Move", 0f);
@@ -476,6 +480,7 @@ public class PlayerActive : MonoBehaviour
             }
         }
     }
+
     public void Hovering()
     {
         if (flyUp.IsPressed())
@@ -488,11 +493,15 @@ public class PlayerActive : MonoBehaviour
             Debug.Log("FlyDown");
         }
     }
+
+    private bool wasGrounded = false;
     public void PlayerJump()
     {
         if (jumpAction.triggered && isGrounded && !Mecha.isBoosting && !Mecha.isBlocking)
         {
             Mecha.isJumping = true;
+            wasGrounded = true;
+            Instantiate(jumpDust, transform.position, Quaternion.identity);
             Debug.Log("Jump");
             verticalVelocity = jumpForce;
             Vector3 jumpMovement = new Vector3(0, verticalVelocity, 0) * Time.deltaTime;
@@ -500,8 +509,10 @@ public class PlayerActive : MonoBehaviour
             isGrounded = false;
             anim.SetBool("IsJump", true);
         }
-        if (isGrounded)
+        if (isGrounded && wasGrounded)
         {
+            wasGrounded = false;
+            Instantiate(jumpDust, transform.position, Quaternion.identity);
             Mecha.isJumping = false;
             anim.SetBool("IsJump", false);
         }
