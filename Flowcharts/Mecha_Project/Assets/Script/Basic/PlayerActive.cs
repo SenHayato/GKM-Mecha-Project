@@ -214,6 +214,7 @@ public class PlayerActive : MonoBehaviour
         {
             Mecha.AttackPow = Mecha.awakeningAttack;
             Mecha.UltDamage = Mecha.awakeningAttack + 200;
+
             Time.timeScale = 0;
             yield return new WaitForSecondsRealtime(0.72f);
 
