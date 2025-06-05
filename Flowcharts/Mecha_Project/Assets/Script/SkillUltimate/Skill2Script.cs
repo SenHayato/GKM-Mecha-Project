@@ -11,6 +11,7 @@ public class Skill2Script : MonoBehaviour
     private Collider[] enemyCollider;
 
     [SerializeField] Vector3 boxSize;
+    [SerializeField] GameObject slashHitEffect;
 
     private void Awake()
     {
@@ -25,6 +26,10 @@ public class Skill2Script : MonoBehaviour
 
         foreach (var hitCollider in enemyCollider)
         {
+            Vector3 hitPosition = hitCollider.transform.position;
+            hitPosition.y = 1.2f;
+            Instantiate(slashHitEffect, hitPosition, Quaternion.identity);
+
             if (hitCollider.TryGetComponent<EnemyActive>(out var enemy))
             {
                 enemy.TakeDamage(playerData.skill2Damage);

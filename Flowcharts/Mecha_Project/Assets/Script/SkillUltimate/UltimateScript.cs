@@ -51,9 +51,12 @@ public class UltimateScript : MonoBehaviour
         {
             foreach (var hitCollider in enemyColliders)
             {
+                Vector3 hitPosition = hitCollider.transform.position;
+                hitPosition.y = 1.2f;
+                Instantiate(hitEffect, hitPosition, Quaternion.identity);
+
                 if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
                 {
-                    Instantiate(hitEffect, enemyActive.transform.position, Quaternion.identity);
                     enemyActive.enemyModel.isStunt = true;
                     enemyActive.TakeDamage(playerData.UltDamage);
                 }

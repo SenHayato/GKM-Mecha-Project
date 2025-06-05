@@ -25,14 +25,15 @@ public class PlayerSkill : MonoBehaviour
     void GiveDamage()
     {
         enemyCollider = Physics.OverlapBox(transform.position, boxSize / 2f, transform.rotation, playerActive.enemyLayer);
-        
+
         foreach (var hitCollider in enemyCollider)
         {
+            Vector3 hitPosition = hitCollider.transform.position;
+            hitPosition.y = 1.2f;
+            Instantiate(hitSlashEffect, hitPosition, Quaternion.identity);
+
             if (hitCollider.TryGetComponent<EnemyActive>(out var enemy))
             {
-                Vector3 hitPosition = enemy.transform.position;
-                hitPosition.y = 1.2f;
-                Instantiate(hitSlashEffect, hitPosition, Quaternion.identity);
                 enemy.TakeDamage(DamageValue);
             }
         }
