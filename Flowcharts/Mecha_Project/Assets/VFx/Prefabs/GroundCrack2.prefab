@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 907341143523535742}
   - component: {fileID: 8496819190409357852}
   - component: {fileID: 3250161307989352571}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4921,7 +4921,7 @@ GameObject:
   - component: {fileID: 5371492840293909196}
   - component: {fileID: 1602536137966875352}
   - component: {fileID: 7648568610670755978}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: SmokeDebris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9978,9 +9978,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6bec3587f48c92f46ba61a147efe6ac1, type: 2}
+    - target: {fileID: -5355382215799131726, guid: 8532b9aa1d0d1084280b7726c996160f, type: 3}
+      propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4645847781900787515, guid: 8532b9aa1d0d1084280b7726c996160f, type: 3}
+      propertyPath: m_Layer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8532b9aa1d0d1084280b7726c996160f, type: 3}
       propertyPath: m_Name
       value: GroundCrack2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8532b9aa1d0d1084280b7726c996160f, type: 3}
+      propertyPath: m_Layer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8532b9aa1d0d1084280b7726c996160f, type: 3}
       propertyPath: m_IsActive
@@ -9992,7 +10004,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7ce97082830320847a5e0107445f547e, type: 2}
     - target: {fileID: 4705690472552330582, guid: 8532b9aa1d0d1084280b7726c996160f, type: 3}
       propertyPath: m_Layer
-      value: 19
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

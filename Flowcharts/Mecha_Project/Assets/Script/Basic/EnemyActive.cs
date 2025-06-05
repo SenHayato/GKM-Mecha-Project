@@ -39,6 +39,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     [Header("Visual Effect")]
     [SerializeField] GameObject deathExplode;
+    public GameObject stuntVFX;
 
     //flag
     public float navDefaultSpeed;
@@ -61,6 +62,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     private void Start()
     {
+        stuntVFX.SetActive(false);
         defaultRotation = rotationSpeed;
         navDefaultSpeed = navAgent.speed;
         enemyModel.isGrounded = false;
