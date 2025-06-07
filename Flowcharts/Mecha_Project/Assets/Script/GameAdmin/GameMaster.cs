@@ -19,11 +19,10 @@ public class GameMaster : MonoBehaviour
     public bool isPaused = false;
     public bool gameFinish = false;
     public PlayerInput input;
-    public string NextScene;
+    public string NextScene; //untuk last boss next scene diisi Win Scene
 
     [Header("GameFinish Condition")]
     public bool gameWin = false;
-    public string WinScreen;
     public bool gameLose = false;
     public string LoseScreen;
     public string MainMenu;
@@ -146,10 +145,6 @@ public class GameMaster : MonoBehaviour
             {
                 LoadNextStage(NextScene);
             }
-            else
-            {
-                LoadNextStage(WinScreen);
-            }
 
             if (gameLose)
             {
@@ -160,11 +155,6 @@ public class GameMaster : MonoBehaviour
     public void LosingScreen()
     {
         SceneManager.LoadScene(LoseScreen);
-    }
-
-    public void WinningScreen()
-    {
-        SceneManager.LoadScene(WinScreen);
     }
 
     public void BacktoMenu()
@@ -221,6 +211,7 @@ public class GameMaster : MonoBehaviour
         if (isPaused)
         {
             Time.timeScale = 0f;
+            Debug.Log("Sudah di pause");
             PauseMenu.SetActive(true);
         }
         else
