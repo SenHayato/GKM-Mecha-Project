@@ -135,7 +135,7 @@ public class PlayerActive : MonoBehaviour
         reloadAction = gameInput.actions.FindAction("Reload");
         boostAction = gameInput.actions.FindAction("Boost");
         awakeningAction = gameInput.actions.FindAction("Awakening");
-        
+
         defaultUltDamage = Mecha.UltDamage;
         defaultAttack = Mecha.AttackPow;
         defaultSpeed = Mecha.defaultSpeed;
@@ -180,7 +180,7 @@ public class PlayerActive : MonoBehaviour
             //EnergyRegen         
             if (!Mecha.EnergyRegen && Mecha.Energy < Mecha.MaxEnergy) _ = StartCoroutine(EnergyRegen());
         }
-        
+
         //Hovering();
         SkillBusy();
         ParticleSet();
@@ -522,7 +522,8 @@ public class PlayerActive : MonoBehaviour
         if (!isGrounded)
         {
             verticalVelocity -= gravity * fallMultiplier * Time.deltaTime;
-        } else
+        }
+        else
         {
             verticalVelocity -= gravity * Time.deltaTime;
         }
@@ -530,12 +531,14 @@ public class PlayerActive : MonoBehaviour
         Vector3 gravityMovement = new Vector3(0, verticalVelocity, 0) * Time.deltaTime;
         controller.Move(gravityMovement);
 
-        if (controller.isGrounded && verticalVelocity < 0)
+        isGrounded = controller.isGrounded;
+
+        if (isGrounded && verticalVelocity < 0f)
         {
-            verticalVelocity = 0f;
-            isGrounded = true;
+            verticalVelocity = -2f;
         }
     }
+
     public void BlockPlayer()
     {
         if (blockAction.IsPressed() && !Mecha.isBlocking)
