@@ -30182,6 +30182,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324138044}
   m_CullTransparentMesh: 1
+--- !u!1 &1324747569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1324747570}
+  m_Layer: 3
+  m_Name: JetThuster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1324747570
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324747569}
+  serializedVersion: 2
+  m_LocalRotation: {x: 1, y: 8.881784e-16, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.5000021}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 1780034768239865706}
+  m_Father: {fileID: 1847377411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1336385734
 GameObject:
   m_ObjectHideFlags: 0
@@ -41634,6 +41666,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 339491387}
+  - {fileID: 1324747570}
   m_Father: {fileID: 886749861027424089}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1847377413
@@ -46599,6 +46632,48 @@ Transform:
   - {fileID: 2916570863842428200}
   m_Father: {fileID: 5477181764394818906}
   m_LocalEulerAnglesHint: {x: 62.27384, y: 1.673888, z: 8.391772}
+--- !u!23 &646505056746066949
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438940334627780048}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 7531428bda3549847a9488d16e88f131, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &666974133774409467
 GameObject:
   m_ObjectHideFlags: 0
@@ -47322,6 +47397,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7315775482493439566}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1438940334627780048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1780034768239865706}
+  - component: {fileID: 3394640607376253135}
+  - component: {fileID: 646505056746066949}
+  m_Layer: 0
+  m_Name: JetVFXMesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1001 &1459133797797123634
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47546,6 +47639,21 @@ Transform:
   - {fileID: 2397029458033483487}
   m_Father: {fileID: 7350715352522694866}
   m_LocalEulerAnglesHint: {x: 43.170506, y: -31.068476, z: -26.95939}
+--- !u!4 &1780034768239865706
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438940334627780048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.13, y: 0.27869955, z: 0.27869955}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1324747570}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &1820025083647621644
 Transform:
   m_ObjectHideFlags: 0
@@ -48638,6 +48746,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!33 &3394640607376253135
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438940334627780048}
+  m_Mesh: {fileID: 3113110884452838357, guid: 67112cca5185fb2439dead8a9f563eb6, type: 3}
 --- !u!1 &3404646045965465551
 GameObject:
   m_ObjectHideFlags: 0
@@ -50112,7 +50228,6 @@ MonoBehaviour:
   playerPosition: {fileID: 0}
   cameraEffect: {fileID: 0}
   Weapon: {fileID: 0}
-  thusterParticle: {fileID: 339491389}
   awakening: {fileID: 0}
   windEffect: {fileID: 1224112663}
   enemyLayer:
@@ -50146,6 +50261,8 @@ MonoBehaviour:
   explodedVFX: {fileID: 2112769824686486772, guid: 24b8fd77d1f43d94299a5ff3605d6252, type: 3}
   jumpDust: {fileID: 2112769824686486772, guid: f0f39c2551a13c0478af4bdcb0986554, type: 3}
   trailDust: {fileID: 1121890422}
+  thusterParticle: {fileID: 339491389}
+  thusterJetVFX: {fileID: 2100000, guid: 7531428bda3549847a9488d16e88f131, type: 2}
 --- !u!95 &5428487010729106811
 Animator:
   serializedVersion: 5
