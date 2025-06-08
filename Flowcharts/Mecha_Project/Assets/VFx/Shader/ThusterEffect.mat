@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_ThrusterShader
+  m_Name: ThusterEffect
   m_Shader: {fileID: -6465566751694194690, guid: 30fadd112db1ef54abba94d3d9165e5b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -65,15 +65,15 @@ Material:
     - _E: 0
     - _EnginePower: 1
     - _Float: 0
-    - _JiggleStrength: 0
-    - _NoiseSpeed: 0.95
+    - _JiggleStrength: 9
+    - _NoiseSpeed: 1.95
     - _NoiseTilling: 1.21
-    - _Pulses: 4
+    - _Pulses: 5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SrcBlend: 5
     - _Surface: 1
-    - _Thrust: 0.67
+    - _Thrust: 0.25
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0

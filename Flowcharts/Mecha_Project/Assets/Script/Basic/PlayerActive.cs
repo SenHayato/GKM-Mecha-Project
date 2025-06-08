@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
@@ -27,7 +25,6 @@ public class PlayerActive : MonoBehaviour
     public CameraEffect cameraEffect;
     //public WeaponScript weapon;
     public WeaponRaycast Weapon;
-    public ParticleSystem thusterParticle;
     public VisualEffect awakening;
     public GameObject windEffect;
     public HashSet<string> enemyTags = new() { "Enemy", "Boss", "MiniBoss" };
@@ -81,6 +78,8 @@ public class PlayerActive : MonoBehaviour
     [SerializeField] GameObject explodedVFX;
     [SerializeField] GameObject jumpDust;
     [SerializeField] GameObject trailDust;
+    [SerializeField] ParticleSystem thusterParticle;
+    [SerializeField] Material thusterJetVFX; //ambil dari asset file agar terpasang global
 
     public void Awake()
     {
@@ -185,7 +184,18 @@ public class PlayerActive : MonoBehaviour
         SkillBusy();
         ParticleSet();
         //BoostDirectionSet();
+        VisualEffect();
     }
+
+    void VisualEffect()
+    {
+        float thrustValue = 0.25f; // default
+        if (Mecha.isBoosting) thrustValue = 0.83f;
+        else if (Mecha.isDashing) thrustValue = 0.6f;
+
+        thusterJetVFX.SetFloat("_Thrust", thrustValue);
+    }
+
 
     void AwakeningReady()
     {
