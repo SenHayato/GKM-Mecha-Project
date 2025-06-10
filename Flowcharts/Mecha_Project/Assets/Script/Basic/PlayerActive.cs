@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
@@ -36,6 +38,7 @@ public class PlayerActive : MonoBehaviour
     private float dashSpeed;
     private int defaultAttack;
     private int defaultUltDamage;
+    private int defaultDefence;
 
     [Header("Skill dan Ultimate")]
     public LayerMask enemyLayer;
@@ -117,6 +120,7 @@ public class PlayerActive : MonoBehaviour
         Mecha.EnergyRegen = false;
         skillBusy = false;
         Mecha.Health = Mecha.MaxHealth;
+        defaultDefence = Mecha.Defence;
 
         moveAction = gameInput.actions.FindAction("Movement");
         jumpAction = gameInput.actions.FindAction("Jump");
@@ -226,11 +230,12 @@ public class PlayerActive : MonoBehaviour
         {
             Mecha.AttackPow = Mecha.awakeningAttack;
             Mecha.UltDamage = Mecha.awakeningAttack + 200;
+            Mecha.Defence = 3000;
 
-            Time.timeScale = 0;
+            Time.timeScale = 0f;
             yield return new WaitForSecondsRealtime(0.72f);
 
-            Time.timeScale = 1;
+            Time.timeScale = 1f;
             if (awakening != null)
                 awakening.Play();
             if (GameMaster.isPaused)
@@ -244,6 +249,7 @@ public class PlayerActive : MonoBehaviour
         }
         else
         {
+            Mecha.Defence = defaultDefence;
             if (!Mecha.isAttackUp)
             {
                 Mecha.UltDamage = defaultUltDamage;
