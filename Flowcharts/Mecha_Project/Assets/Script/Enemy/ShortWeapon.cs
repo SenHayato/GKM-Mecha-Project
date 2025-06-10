@@ -19,13 +19,16 @@ public class ShortWeapon : MonoBehaviour
     {
         Vector3 hitPosition = other.transform.position;
         hitPosition.y = 1.2f;
-        Instantiate(hitSlashEffect, hitPosition, Quaternion.identity);
         if (other.CompareTag("Player"))
         {
             if (other.TryGetComponent<PlayerActive>(out var player))
             {
-                player.TakeDamage(enemyModel.attackPower);
-                Debug.Log("SSS");
+                if (!player.Mecha.isBlocking)
+                {
+                    Instantiate(hitSlashEffect, hitPosition, Quaternion.identity);
+                    player.TakeDamage(enemyModel.attackPower);
+                    Debug.Log("SSS");
+                }
             }
         }
     }

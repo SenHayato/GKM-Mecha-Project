@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
@@ -25,7 +27,6 @@ public class PlayerActive : MonoBehaviour
     public CameraEffect cameraEffect;
     //public WeaponScript weapon;
     public WeaponRaycast Weapon;
-    public VisualEffect awakening;
     public GameObject windEffect;
     public HashSet<string> enemyTags = new() { "Enemy", "Boss", "MiniBoss" };
     //public Material[] playerMaterial; //Material yanhg bisa berubah warna
@@ -36,6 +37,7 @@ public class PlayerActive : MonoBehaviour
     private float dashSpeed;
     private int defaultAttack;
     private int defaultUltDamage;
+    private int defaultDefence;
 
     [Header("Skill dan Ultimate")]
     public LayerMask enemyLayer;
@@ -52,7 +54,6 @@ public class PlayerActive : MonoBehaviour
     [Header("Mecha Sound")]
     [SerializeField] AudioSource hitSound;
     public AudioSource thrusterSound;
-    [SerializeField] AudioSource blockSound;
 
     [Header("Player Status")]
     public float speed;
@@ -117,6 +118,7 @@ public class PlayerActive : MonoBehaviour
         Mecha.EnergyRegen = false;
         skillBusy = false;
         Mecha.Health = Mecha.MaxHealth;
+        defaultDefence = Mecha.Defence;
 
         moveAction = gameInput.actions.FindAction("Movement");
         jumpAction = gameInput.actions.FindAction("Jump");
@@ -226,13 +228,12 @@ public class PlayerActive : MonoBehaviour
         {
             Mecha.AttackPow = Mecha.awakeningAttack;
             Mecha.UltDamage = Mecha.awakeningAttack + 200;
+            Mecha.Defence = 3000;
 
-            Time.timeScale = 0;
+            Time.timeScale = 0f;
             yield return new WaitForSecondsRealtime(0.72f);
 
-            Time.timeScale = 1;
-            if (awakening != null)
-                awakening.Play();
+            Time.timeScale = 1f;
             if (GameMaster.isPaused)
             {
                 Time.timeScale = 0;
@@ -244,6 +245,7 @@ public class PlayerActive : MonoBehaviour
         }
         else
         {
+            Mecha.Defence = defaultDefence;
             if (!Mecha.isAttackUp)
             {
                 Mecha.UltDamage = defaultUltDamage;
@@ -845,17 +847,13 @@ public class PlayerActive : MonoBehaviour
     public void TakeDamage(int damage)
     {
         int damageCal = damage - Mecha.Defence;
-        if (!Mecha.UsingUltimate)
+        if (!Mecha.UsingUltimate || Mecha.undefeat)
         {
             combatVoiceAct.DamageVoice();
             Mecha.Health -= damageCal;
             hitSound.Play();
             StartCoroutine(cameraEffect.HitEffect());
             Debug.Log("Player Damage " + damageCal);
-        }
-        else
-        {
-            blockSound.Play();
         }
     }
     public void UpdatePosition()
