@@ -27,7 +27,6 @@ public class PlayerActive : MonoBehaviour
     public CameraEffect cameraEffect;
     //public WeaponScript weapon;
     public WeaponRaycast Weapon;
-    public VisualEffect awakening;
     public GameObject windEffect;
     public HashSet<string> enemyTags = new() { "Enemy", "Boss", "MiniBoss" };
     //public Material[] playerMaterial; //Material yanhg bisa berubah warna
@@ -55,7 +54,6 @@ public class PlayerActive : MonoBehaviour
     [Header("Mecha Sound")]
     [SerializeField] AudioSource hitSound;
     public AudioSource thrusterSound;
-    [SerializeField] AudioSource blockSound;
 
     [Header("Player Status")]
     public float speed;
@@ -236,8 +234,6 @@ public class PlayerActive : MonoBehaviour
             yield return new WaitForSecondsRealtime(0.72f);
 
             Time.timeScale = 1f;
-            if (awakening != null)
-                awakening.Play();
             if (GameMaster.isPaused)
             {
                 Time.timeScale = 0;
@@ -851,17 +847,13 @@ public class PlayerActive : MonoBehaviour
     public void TakeDamage(int damage)
     {
         int damageCal = damage - Mecha.Defence;
-        if (!Mecha.UsingUltimate)
+        if (!Mecha.UsingUltimate || Mecha.undefeat)
         {
             combatVoiceAct.DamageVoice();
             Mecha.Health -= damageCal;
             hitSound.Play();
             StartCoroutine(cameraEffect.HitEffect());
             Debug.Log("Player Damage " + damageCal);
-        }
-        else
-        {
-            blockSound.Play();
         }
     }
     public void UpdatePosition()
