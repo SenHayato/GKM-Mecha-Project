@@ -87,7 +87,6 @@ public class BossActive : EnemyActive
             attackChance = Random.Range(0, 6);
             hasAttacked = true;
         }
-        //Invoke(nameof(GroundSlash), preparingTime);
 
         SelectAttackPattern();
 

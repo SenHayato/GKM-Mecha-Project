@@ -227,15 +227,15 @@ public class HUDGameManager : MonoBehaviour
         {
             if (!mechaScript.isAiming)
             {
-                recoilCrossHair.sizeDelta = new Vector2(145f, 145f);
+                recoilCrossHair.sizeDelta = new Vector2(90f, 90f);
             }
             else
             {
-                recoilCrossHair.sizeDelta = new Vector2(115f, 115f);
+                recoilCrossHair.sizeDelta = new Vector2(75f, 75f);
             }
         } else
         {
-            recoilCrossHair.sizeDelta = new Vector2(88f, 88f);
+            recoilCrossHair.sizeDelta = new Vector2(50f, 50f);
         }
 
         if (mechaScript.isAiming)

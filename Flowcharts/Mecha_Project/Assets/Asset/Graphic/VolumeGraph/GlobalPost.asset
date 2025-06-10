@@ -21,13 +21,13 @@ MonoBehaviour:
     m_Value: 1.1
   intensity:
     m_OverrideState: 1
-    m_Value: 1.1
+    m_Value: 0.5
   scatter:
     m_OverrideState: 1
-    m_Value: 0.282
+    m_Value: 0.25
   clamp:
     m_OverrideState: 1
-    m_Value: 65472
+    m_Value: 164139
   tint:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -62,7 +62,7 @@ MonoBehaviour:
   active: 1
   mode:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 2
   neutralHDRRangeReductionMode:
     m_OverrideState: 0
     m_Value: 2
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
   m_Name: LiftGammaGain
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   lift:
     m_OverrideState: 1
     m_Value: {x: 0.9748092, y: 0.9496176, z: 1, w: 0}
@@ -127,6 +127,7 @@ MonoBehaviour:
   - {fileID: -2440339267190730156}
   - {fileID: -1966250957146190888}
   - {fileID: 1194684529015142381}
+  - {fileID: 4056978765704983829}
 --- !u!114 &1194684529015142381
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558a8e2b6826cf840aae193990ba9f2e, type: 3}
   m_Name: ShadowsMidtonesHighlights
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   shadows:
     m_OverrideState: 1
     m_Value: {x: 0.90343547, y: 0.95724607, z: 1, w: 0.08394544}
@@ -161,6 +162,34 @@ MonoBehaviour:
   highlightsEnd:
     m_OverrideState: 0
     m_Value: 1
+--- !u!114 &4056978765704983829
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  color:
+    m_OverrideState: 1
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  center:
+    m_OverrideState: 1
+    m_Value: {x: 0.5, y: 0.5}
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.1
+  smoothness:
+    m_OverrideState: 1
+    m_Value: 0.75
+  rounded:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &4629033801530715513
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -176,7 +205,7 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0.5
+    m_Value: 1.13
   contrast:
     m_OverrideState: 1
     m_Value: 32
