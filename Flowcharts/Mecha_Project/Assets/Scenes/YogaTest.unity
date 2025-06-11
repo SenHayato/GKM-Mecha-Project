@@ -20,13 +20,13 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
-  m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
-  m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientSkyColor: {r: 0.14509805, g: 0.23137255, b: 0.5411765, a: 1}
+  m_AmbientEquatorColor: {r: 0.19215687, g: 0.08235294, b: 0.09411765, a: 1}
+  m_AmbientGroundColor: {r: 0.3882353, g: 0.3882353, b: 0.3882353, a: 1}
+  m_AmbientIntensity: 0
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 32f3efef3dd85754b997103d19ba7570, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,8 +37,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4384669, g: 0.48655242, b: 0.56682485, a: 1}
+  m_Sun: {fileID: 824417032}
+  m_IndirectSpecularColor: {r: 0.111110955, g: 0.1339865, b: 0.27165845, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -581,7 +581,6 @@ MonoBehaviour:
   input: {fileID: 0}
   NextScene: YogaTest
   gameWin: 0
-  WinScreen: OutroCG
   gameLose: 0
   LoseScreen: LoseScreen
   MainMenu: TittleScreen
@@ -596,6 +595,8 @@ MonoBehaviour:
   PlayerHealth: 0
   LastScene: 
   cutSceneManager: {fileID: 0}
+  skyMaterial: {fileID: 0}
+  skyRotSpeed: 0
 --- !u!4 &22970434
 Transform:
   m_ObjectHideFlags: 0
@@ -3403,6 +3404,7 @@ MonoBehaviour:
   playerData: {fileID: 0}
   playerActive: {fileID: 0}
   boxSize: {x: 1.27, y: 0.73, z: 1.19}
+  slashHitEffect: {fileID: 0}
 --- !u!4 &206874298
 Transform:
   m_ObjectHideFlags: 0
@@ -3791,6 +3793,7 @@ MonoBehaviour:
   playerData: {fileID: 0}
   playerActive: {fileID: 0}
   boxSize: {x: 3.45, y: 2.55, z: 92.1}
+  hitEffect: {fileID: 0}
 --- !u!4 &255286489
 Transform:
   m_ObjectHideFlags: 0
@@ -9466,6 +9469,124 @@ Transform:
   - {fileID: 2109334710}
   m_Father: {fileID: 603213219}
   m_LocalEulerAnglesHint: {x: 15.34101, y: 0.7279046, z: -4.9276986}
+--- !u!1 &824417030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 824417033}
+  - component: {fileID: 824417032}
+  - component: {fileID: 824417031}
+  m_Layer: 13
+  m_Name: Directional Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &824417031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824417030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+--- !u!108 &824417032
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824417030}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 1
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &824417033
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824417030}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &829974762
 GameObject:
   m_ObjectHideFlags: 0
@@ -26452,6 +26573,7 @@ MonoBehaviour:
   rechargeSound: {fileID: 8300000, guid: 1c17d76dc47b0714ab2d17a839cb2644, type: 3}
   fireActive: 0
   rechargeActive: 0
+  fireBulletVFX: {fileID: 0}
 --- !u!1 &1497591604
 GameObject:
   m_ObjectHideFlags: 0
@@ -39586,8 +39708,6 @@ MonoBehaviour:
   playerPosition: {fileID: 0}
   cameraEffect: {fileID: 0}
   Weapon: {fileID: 0}
-  thusterParticle: {fileID: 1805632053}
-  awakening: {fileID: 0}
   windEffect: {fileID: 967868957}
   enemyLayer:
     serializedVersion: 2
@@ -39601,7 +39721,6 @@ MonoBehaviour:
   dashBoostSpeed: 0
   hitSound: {fileID: 439878249}
   thrusterSound: {fileID: 907542197}
-  blockSound: {fileID: 2024792893}
   speed: 4
   jumpForce: 15
   gravity: 9.8
@@ -39616,6 +39735,12 @@ MonoBehaviour:
   boostSpeedMultiplier: 10
   boostDistance: 2
   boostDirectionLerp: 1
+  shieldObj: {fileID: 0}
+  explodedVFX: {fileID: 0}
+  jumpDust: {fileID: 0}
+  trailDust: {fileID: 0}
+  thusterParticle: {fileID: 1805632053}
+  thusterJetVFX: {fileID: 0}
 --- !u!114 &1820852597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39665,11 +39790,12 @@ MonoBehaviour:
   skill1Duration: 2.2
   readySkill2: 0
   usingSkill2: 0
-  skill2Time: 0
-  cooldownSkill2: 5
+  skill2MaxBar: 0
+  skill2Bar: 0
   skill2Damage: 500
   skill2Duration: 4.11
   Defence: 1000
+  undefeat: 0
   isJumping: 0
   isDeath: 0
   isBlocking: 0
@@ -41416,6 +41542,7 @@ MonoBehaviour:
   rechargeSound: {fileID: 8300000, guid: 1c17d76dc47b0714ab2d17a839cb2644, type: 3}
   fireActive: 0
   rechargeActive: 0
+  fireBulletVFX: {fileID: 0}
 --- !u!1 &2018056860
 GameObject:
   m_ObjectHideFlags: 0
@@ -43050,6 +43177,7 @@ MonoBehaviour:
   rechargeSound: {fileID: 8300000, guid: 1c17d76dc47b0714ab2d17a839cb2644, type: 3}
   fireActive: 0
   rechargeActive: 0
+  fireBulletVFX: {fileID: 0}
 --- !u!95 &303874057494347859
 Animator:
   serializedVersion: 5
@@ -43457,6 +43585,8 @@ MonoBehaviour:
   hitCollider: {fileID: 59348319007853371}
   deathCollider: {fileID: 5842207967204324364}
   anim: {fileID: 7892866189752439287}
+  deathExplode: {fileID: 0}
+  stuntVFX: {fileID: 0}
   navDefaultSpeed: 0
   beforeHitGround: 0
   defaultRotation: 0
@@ -43464,6 +43594,7 @@ MonoBehaviour:
   weaponCollider: {fileID: 6328720113732282872}
   weaponActiveTime: 3
   prepareAttack: 0
+  slashVisual: {fileID: 0}
 --- !u!1 &576929819911761503
 GameObject:
   m_ObjectHideFlags: 0
@@ -43863,7 +43994,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c22ac03ee3ef034087bd17e67cf566c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  model: {fileID: 0}
+  enemyModel: {fileID: 0}
+  slashEffect: {fileID: 0}
+  hitSlashEffect: {fileID: 0}
 --- !u!4 &1023133530157359818
 Transform:
   m_ObjectHideFlags: 0
@@ -51045,6 +51178,7 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 824417033}
   - {fileID: 143198532}
   - {fileID: 723106120}
   - {fileID: 1119477763}
