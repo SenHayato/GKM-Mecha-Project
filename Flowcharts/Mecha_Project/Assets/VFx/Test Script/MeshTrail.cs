@@ -42,7 +42,10 @@ public class MeshTrail : MonoBehaviour
 
             for(int i = 0; i < skinnedMeshRenderers.Length; i++)
             {
-                GameObject gObj = new();
+                GameObject gObj = new()
+                {
+                    layer = 8
+                };
                 gObj.transform.SetPositionAndRotation(positionToSpawn.position, positionToSpawn.rotation);
 
                 MeshRenderer mr = gObj.AddComponent<MeshRenderer>();
