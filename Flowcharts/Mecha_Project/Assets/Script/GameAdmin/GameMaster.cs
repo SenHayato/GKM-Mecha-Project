@@ -51,11 +51,6 @@ public class GameMaster : MonoBehaviour
     [Header("Reference")]
     [SerializeField] CutSceneManager cutSceneManager;
 
-    [Header("SkyAsset")]
-    [SerializeField] Material skyMaterial;
-    [SerializeField] float skyRotSpeed;
-    private float skyCurrentRotation;
-
     //flag
     GameObject bossObject;
     EnemyModel bossModel;
@@ -273,15 +268,6 @@ public class GameMaster : MonoBehaviour
         }
     }
 
-    public void RotateSky()
-    {
-        if (skyMaterial != null)
-        {
-            skyCurrentRotation += skyRotSpeed * Time.deltaTime;
-            skyMaterial.SetFloat("_Rotation", skyCurrentRotation);
-        }
-    }
-
     public void Update()
     {
         BlockInput();
@@ -297,7 +283,6 @@ public class GameMaster : MonoBehaviour
             playerInput.enabled = false;
         }
         StageMonitor();
-        RotateSky();
     }
 
 }
