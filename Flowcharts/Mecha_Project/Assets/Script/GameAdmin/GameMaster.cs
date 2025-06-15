@@ -78,15 +78,15 @@ public class GameMaster : MonoBehaviour
         switch (StageType)
         {
             case StageType.StageTutorial:
-                QuestText = "Ini stage tutorial";
+                QuestText = "Tutorial : Keluar dari base musuh";
                 countdown = false;
                 break;
             case StageType.Stage1:
-                QuestText = "Ini stage 1";
+                QuestText = "Telusuri kota dan cari jalan keluar";
                 countdown = false;
                 break;
             case StageType.Stage2:
-                QuestText = "Ini stage 2";
+                QuestText = "Musuh menyerang dari segala arah, BERTAHAN!";
                 countdown = true;
                 if (countdown)
                 {
@@ -96,7 +96,7 @@ public class GameMaster : MonoBehaviour
             case StageType.StageBoss:
                 bossObject = GameObject.FindGameObjectWithTag("Boss");
                 bossModel = bossObject.GetComponent<EnemyModel>();
-                QuestText = "Ini stage Boss";
+                QuestText = "Musuh ELITE TYPE, HANCURKAN!";
                 countdown = false;
                 break;
         }
