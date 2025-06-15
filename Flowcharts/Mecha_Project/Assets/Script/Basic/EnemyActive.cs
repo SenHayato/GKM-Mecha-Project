@@ -26,7 +26,7 @@ public abstract class EnemyActive : MonoBehaviour
     [SerializeField] float gravityPower;
 
     [Header("Komponen Enemy")]
-    //[SerializeField] CharacterController characterController;
+    //[SerializeField] CharacterController characterController; // Tidak digunakan, bisa dihapus
     public GameMaster gameManager;
     public GameObject UIHealth;
     public AudioSource hitSound;
@@ -49,15 +49,12 @@ public abstract class EnemyActive : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        //player = GameObject.Find("CollisionPoint").transform;
         enemyModel = GetComponent<EnemyModel>();
         navAgent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
-
-        //characterController = GetComponent<CharacterController>();
         hitCollider = GetComponent<CapsuleCollider>();
-        gameInput = FindAnyObjectByType<PlayerInput>();
-        gameManager = FindAnyObjectByType<GameMaster>();
+        gameInput = FindObjectOfType<PlayerInput>(); // Lebih aman FindObjectOfType<PlayerInput>(); jika hanya ada satu
+        gameManager = FindObjectOfType<GameMaster>(); // Lebih aman FindObjectOfType<GameMaster>(); jika hanya ada satu
     }
 
     private void Start()
@@ -65,73 +62,91 @@ public abstract class EnemyActive : MonoBehaviour
         stuntVFX.SetActive(false);
         defaultRotation = rotationSpeed;
         navDefaultSpeed = navAgent.speed;
-        enemyModel.isGrounded = false;
+        enemyModel.isGrounded = false; // Ini akan diatur oleh ApplyGravity()
         patrolPoints = GameObject.FindGameObjectsWithTag("EnemyWayPoint");
-        hitSound = GetComponent<AudioSource>(); //hit sound
+        hitSound = GetComponent<AudioSource>(); 
+        
         UIHealth.SetActive(false);
         enemyModel.health = enemyModel.maxHealth;
         deathCollider.enabled = false;
-        
+        if (Physics.Raycast(transform.position, Vector3.down, beforeHitGround, groundLayer))
+        {
+            enemyModel.isGrounded = true;
+            navAgent.enabled = true;
+        } else {
+            navAgent.enabled = false; // Nonaktifkan NavMeshAgent jika tidak di tanah saat Start
+        }
     }
 
     void Update()
     {
+        UIHealthBar(); 
+        Damage(); 
         ApplyGravity();
         CheckingSight();
+        GettingStunt();
 
-        if (!enemyModel.isDeath)
+        
+        if (enemyModel.isDeath)
         {
-            GettingStunt();
-            if (enemyModel.isGrounded && !enemyModel.isStunt)
+            Death();
+            return;
+        }
+
+        
+        if (!enemyModel.isGrounded || enemyModel.isStunt)
+        {
+            if (navAgent.enabled) navAgent.SetDestination(transform.position); // Berhenti bergerak
+            navAgent.enabled = false;
+            PlayAnimation();
+            return;
+        }
+        if (!navAgent.enabled) navAgent.enabled = true;
+
+        if (playerInSight && playerInAttackRange)
+        {
+            anim.SetBool("Move", false);
+            Attacking();
+        }
+        else if (playerInSight && !playerInAttackRange)
+        {
+            anim.SetBool("Move", true);
+            ChasingPlayer();
+        }
+        else // Musuh Patrol jika kondisi diatas tidak terpenuhi
+        {
+            anim.SetBool("Move", true);
+            if (enemyModel.isProvoke)
             {
-                if (enemyModel.isProvoke)
-                {
-                    AlwaysChasing();
-                }
-                else
-                {
-                    if (!playerInSight && !playerInAttackRange)
-                    {
-                        Patrolling();
-                    }
-
-                    if (playerInSight && !playerInAttackRange)
-                    {
-                        ChasingPlayer();
-                    }
-                }
-
-                if (playerInSight && playerInAttackRange)
-                {
-                    Attacking();
-                }
+                AlwaysChasing();
+            }
+            else
+            {
+                Patrolling();
             }
         }
-        
-        //StartCoroutine(HitSound());
 
         PlayAnimation();
-        Death();
-        UIHealthBar();
-        Damage();
     }
+
 
     void ApplyGravity()
     {
+        enemyModel.isGrounded = Physics.Raycast(transform.position, Vector3.down, beforeHitGround, groundLayer);
+
         if (!enemyModel.isGrounded)
         {
             anim.SetBool("IsFalling", true);
             transform.position += gravityPower * Time.deltaTime * Vector3.down;
+            if (navAgent.enabled) navAgent.enabled = false; 
         }
         else
         {
             anim.SetBool("IsFalling", false);
-            navAgent.enabled = true;
-        }
-
-        if (Physics.Raycast(transform.position, Vector3.down, beforeHitGround, groundLayer))
-        {
-            enemyModel.isGrounded = true;
+            if (!enemyModel.isStunt && !enemyModel.isDeath && !navAgent.enabled)
+            {
+                navAgent.enabled = true;
+            }
         }
     }
 
@@ -142,38 +157,44 @@ public abstract class EnemyActive : MonoBehaviour
             if (navAgent.enabled)
             {
                 navAgent.SetDestination(transform.position);
+                navAgent.enabled = false;
             }
             anim.SetBool("IsStunt", true);
+            stuntVFX.SetActive(true);
         }
         else
         {
             anim.SetBool("IsStunt", false);
+            if (stuntVFX != null && stuntVFX.activeSelf) stuntVFX.SetActive(false);
+            if (enemyModel.isGrounded && !navAgent.enabled && !enemyModel.isDeath)
+            {
+                navAgent.enabled = true;
+            }
         }
     }
 
     #region Pengaturan
     void UIHealthBar()
     {
-        if (UIHealth != null)
+        if (enemyModel.health < enemyModel.maxHealth && enemyModel.health > enemyModel.minHealth)
         {
-            if (enemyModel.health < enemyModel.maxHealth)
-            {
-                UIHealth.SetActive(true);
-            }
+            UIHealth.SetActive(true);
+        }
+        else
+        {
+            UIHealth.SetActive(false);
         }
     }
 
     public void TakeDamage(int damage)
     {
-        if (!enemyModel.isUnbeatable)
+        if (!enemyModel.isUnbeatable && !enemyModel.isDeath)
         {
             enemyModel.isProvoke = true;
             StartCoroutine(HitSound());
             enemyModel.isHit = true;
-            if (enemyModel == null) return;
-
+            
             enemyModel.health -= damage;
-            UIHealthBar();
             Debug.Log(gameObject.name + " Kena Damage : " + damage.ToString());
             if (anim != null)
             {
@@ -202,8 +223,7 @@ public abstract class EnemyActive : MonoBehaviour
     public void Damage()
     {
         InputAction inputAction = gameInput.actions.FindAction("TestKillEnemy");
-        InputAction testEnemy = inputAction;
-        if (testEnemy.triggered)
+        if (inputAction != null && inputAction.triggered) // Cek inputAction tidak null juga
         {
             TakeDamage(100);
         }
@@ -211,34 +231,27 @@ public abstract class EnemyActive : MonoBehaviour
 
     public void Death()
     {
-        if (enemyModel.health <= enemyModel.minHealth)
+        enemyModel.health = enemyModel.minHealth;
+        enemyModel.isDeath = true;
+
+        // Hentikan pergerakan
+        if (navAgent.enabled)
         {
-            enemyModel.health = enemyModel.minHealth;
-            enemyModel.isDeath = true;
-
-            if (enemyModel.isDeath && enemyModel.isGrounded)
-            {
-                anim.SetBool("IsStunt", false);
-                navAgent.speed = 0f;
-                hitCollider.enabled = false;
-                if (enemyModel != null && enemyModel.isDeath)
-                {
-                    if (anim != null)
-                    {
-                        anim.SetBool("IsDeath", true);
-                        Debug.Log(" Death Animation Triggered ");
-                    }
-                    if (deathCollider != null)
-                    {
-                        deathCollider.enabled = true;
-                    }
-
-                    Destroy(gameObject, 4f); //lama animasi + effect ledakan
-                    Invoke(nameof(ExplodeVisual), 3.5f);
-                }
-            }
+            navAgent.SetDestination(transform.position);
+            navAgent.speed = 0f;
+            navAgent.enabled = false;
         }
+
+        hitCollider.enabled = false;
+
+        anim.SetBool("IsStunt", false);
+        anim.SetBool("IsDeath", true);
+        Debug.Log("Death Animation Triggered for " + gameObject.name);
+        deathCollider.enabled = true; // Aktifkan death collider jika diperlukan
+        Invoke(nameof(ExplodeVisual), 3.5f);
+        Destroy(gameObject, 4f);
     }
+    
 
     private bool exploded = false;
     void ExplodeVisual()
@@ -254,12 +267,17 @@ public abstract class EnemyActive : MonoBehaviour
 
     void CheckingSight()
     {
+        if (player == null) return;
+
         playerInSight = Physics.CheckSphere(transform.position, enemyModel.sightRange, playerLayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, enemyModel.attackRange, playerLayer);
     }
 
     void Patrolling()
     {
+        enemyModel.isPatrolling = true; 
+        navAgent.speed = navDefaultSpeed;
+
         if (!walkPointSet)
         {
             SearchWayPoint();
@@ -270,15 +288,6 @@ public abstract class EnemyActive : MonoBehaviour
             if (navAgent.enabled)
             {
                 navAgent.SetDestination(walkPoint);
-            }
-
-            if (playerInAttackRange)
-            {
-                enemyModel.isPatrolling = false;
-            }
-            else
-            {
-                enemyModel.isPatrolling = true;
             }
         }
 
@@ -292,6 +301,13 @@ public abstract class EnemyActive : MonoBehaviour
 
     void SearchWayPoint()
     {
+        if (patrolPoints.Length == 0)
+        {
+            Debug.LogWarning("No patrol points found for " + gameObject.name);
+            walkPointSet = false;
+            return;
+        }
+
         int pointToWalk = Random.Range(0, patrolPoints.Length);
         walkPoint = patrolPoints[pointToWalk].transform.position;
         walkPointSet = true;
@@ -299,6 +315,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     void ChasingPlayer()
     {
+        enemyModel.isPatrolling = false; // Berhenti patrolling saat chasing
         if (navAgent.enabled)
         {
             navAgent.SetDestination(player.position);
@@ -307,13 +324,10 @@ public abstract class EnemyActive : MonoBehaviour
 
     void AlwaysChasing()
     {
-        if (enemyModel.isProvoke)
+        enemyModel.isPatrolling = false;
+        if (navAgent.enabled)
         {
-            enemyModel.isPatrolling = false;
-            if (navAgent.enabled)
-            {
-                navAgent.SetDestination(player.position);
-            }
+            navAgent.SetDestination(player.position);
         }
     }
 
@@ -337,7 +351,7 @@ public abstract class EnemyActive : MonoBehaviour
         UnityEditor.Handles.Label(transform.position + Vector3.forward * enemyModel.sightRange, "Sight Range");
 
         Gizmos.color= Color.red;
-        Gizmos.DrawLine(transform.position, Vector3.down * beforeHitGround);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * beforeHitGround);
     }
 #endif
 
@@ -345,7 +359,6 @@ public abstract class EnemyActive : MonoBehaviour
     private void OnDestroy()
     {
         gameManager.KillCount++;
-        //Effect meledak
     }
 
     public abstract void Attacking();
