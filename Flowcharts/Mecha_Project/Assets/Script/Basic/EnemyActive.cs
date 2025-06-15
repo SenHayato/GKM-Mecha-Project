@@ -110,12 +110,10 @@ public abstract class EnemyActive : MonoBehaviour
         }
         else if (playerInSight && !playerInAttackRange)
         {
-            anim.SetBool("Move", true);
             ChasingPlayer();
         }
         else // Musuh Patrol jika kondisi diatas tidak terpenuhi
         {
-            anim.SetBool("Move", true);
             if (enemyModel.isProvoke)
             {
                 AlwaysChasing();
@@ -318,6 +316,7 @@ public abstract class EnemyActive : MonoBehaviour
         enemyModel.isPatrolling = false; // Berhenti patrolling saat chasing
         if (navAgent.enabled)
         {
+            anim.SetBool("Move", true);
             navAgent.SetDestination(player.position);
         }
     }
@@ -327,6 +326,7 @@ public abstract class EnemyActive : MonoBehaviour
         enemyModel.isPatrolling = false;
         if (navAgent.enabled)
         {
+            anim.SetBool("Move", true);
             navAgent.SetDestination(player.position);
         }
     }
