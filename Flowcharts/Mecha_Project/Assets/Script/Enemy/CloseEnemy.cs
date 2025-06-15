@@ -1,16 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CloseEnemy : EnemyActive
 {
     [SerializeField] float nextAttackTime;
-    [SerializeField] private BoxCollider weaponCollider;
-    [SerializeField] float weaponActiveTime = 0.05f;
+    [SerializeField] private GameObject normalAttackCollider;
+    [SerializeField] private GameObject heavyAttackCollider;
 
     [SerializeField] bool prepareAttack;
-    [SerializeField] GameObject slashVisual;
 
     public override void Attacking()
     {
@@ -37,19 +34,30 @@ public class CloseEnemy : EnemyActive
     #region Animation Event
 
     // Panggil dari Animation Event
-    public void EnableWeaponCollider()
+    public void EnableNormalAttack()
     {
-        weaponCollider.enabled = true;
+        normalAttackCollider.SetActive(true);
     }
 
-    public void DisableWeaponCollider()
+    public void DisableNormalAttack()
     {
-        weaponCollider.enabled = false;
+        normalAttackCollider.SetActive(false);
     }
 
-    public void SlashEffect()
+    public void EnableHeavyAttack()
     {
-        Instantiate(slashVisual, weaponCollider.transform.position, weaponCollider.transform.rotation);
+        heavyAttackCollider.SetActive(true);
+    }
+
+    public void DisableHeavyAttack()
+    {
+        heavyAttackCollider.SetActive(false);
+    }
+
+    int AttackNum;
+    public void RandomAttackGen()
+    {
+        AttackNum = Random.Range(0, 6);
     }
 
     #endregion
@@ -57,14 +65,14 @@ public class CloseEnemy : EnemyActive
     public override void PlayAnimation()
     {
         //patrolling
-        if (enemyModel.isPatrolling)
-        {
-            anim.SetFloat("Move", 1f);
-        }
-        else
-        {
-            anim.SetFloat("Move", 0f);
-        }
+        //if (enemyModel.isPatrolling)
+        //{
+        //    anim.SetBool("Move", true);
+        //}
+        //else
+        //{
+        //    anim.SetBool("Move", false);
+        //}
 
         //Attack
         if (enemyModel.isAttacking)
@@ -94,10 +102,9 @@ public class CloseEnemy : EnemyActive
     {
         if (enemyModel.isAttacking)
         {
-            int AttackNum = Random.Range(1, 4); //angka 4 atau max tidak termasuk maka ini hanya 3 gerakan
-            Debug.Log("Attack ke " + AttackNum);
-            anim.SetFloat("AttackIndex", AttackNum);
             anim.SetTrigger("Attack");
+            Debug.Log("Attack ke " + AttackNum);
+            anim.SetInteger("AttackIndex", AttackNum);
 
             yield return new WaitForSeconds(enemyModel.attackSpeed);
         }

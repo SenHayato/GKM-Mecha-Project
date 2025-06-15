@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ShortWeapon : MonoBehaviour
 {
     [SerializeField] EnemyModel enemyModel;
+    [SerializeField] int additionalAttackDMG;
+    [SerializeField] Transform enemyPost;
 
     [Header("Visual Effect")]
-    [SerializeField] GameObject slashEffect;
     [SerializeField] GameObject hitSlashEffect;
+    [SerializeField] GameObject clawSlashEffect;
 
-    private void Start()
+    private void Awake()
     {
         enemyModel = GetComponentInParent<EnemyModel>();
+    }
+
+    private void OnEnable()
+    {
+        Instantiate(clawSlashEffect, transform.position, transform.rotation);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,7 +34,7 @@ public class ShortWeapon : MonoBehaviour
                 if (!player.Mecha.isBlocking)
                 {
                     Instantiate(hitSlashEffect, hitPosition, Quaternion.identity);
-                    player.TakeDamage(enemyModel.attackPower);
+                    player.TakeDamage(enemyModel.attackPower + additionalAttackDMG);
                     Debug.Log("SSS");
                 }
             }
