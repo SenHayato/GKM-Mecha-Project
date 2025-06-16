@@ -12511,7 +12511,7 @@ MonoBehaviour:
   Awakening: 0
   MaxAwakening: 500
   MinAwakening: 0
-  AwakeningRegen: 20
+  AwakeningRegen: 100
   AwakeningDuration: 20
   UsingAwakening: 0
   awakeningReady: 0
@@ -12545,6 +12545,7 @@ MonoBehaviour:
   skill2Damage: 500
   skill2Duration: 4.11
   Defence: 1000
+  undefeat: 0
   isJumping: 0
   isDeath: 0
   isBlocking: 0
@@ -12724,7 +12725,6 @@ MonoBehaviour:
   playerPosition: {fileID: 0}
   cameraEffect: {fileID: 0}
   Weapon: {fileID: 0}
-  awakening: {fileID: 0}
   windEffect: {fileID: 8778223184868613229}
   enemyLayer:
     serializedVersion: 2
@@ -12738,7 +12738,6 @@ MonoBehaviour:
   dashBoostSpeed: 0
   hitSound: {fileID: 4640098630029590418}
   thrusterSound: {fileID: 4950345379881432731}
-  blockSound: {fileID: 6613486475185675935}
   speed: 4
   jumpForce: 15
   gravity: 9.8
@@ -19563,6 +19562,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4942377566499400995}
     m_Modifications:
+    - target: {fileID: 632691957320724986, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 799242003174243631, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
       propertyPath: playerData
       value: 
@@ -19614,6 +19617,42 @@ PrefabInstance:
     - target: {fileID: 2763525991989741337, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
       propertyPath: m_Name
       value: HorizontalSlashObj
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763525991989741337, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798625018421799639, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3788855105486837706, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3804020437432118754, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4431891054222051002, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6601651378176213838, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6867029094161969452, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8020093709312104392, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9058360106682621491, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
