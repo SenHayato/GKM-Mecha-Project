@@ -23947,7 +23947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1743169499
 Transform:
   m_ObjectHideFlags: 0
@@ -37205,6 +37205,7 @@ MonoBehaviour:
   attackRange: 40
   attackCooldown: 5
   isUnbeatable: 0
+  isStaggered: 0
   isGrounded: 0
   isStunt: 0
   isAttacking: 0
@@ -37380,6 +37381,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 2361344
+  enemyMesh: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
   walkPointRange: 0
@@ -39679,10 +39681,6 @@ PrefabInstance:
     - target: {fileID: 3753854791598934716, guid: 75534cbe90efb2843a56ee31d953d2ea, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5327374752709755699, guid: 75534cbe90efb2843a56ee31d953d2ea, type: 3}
-      propertyPath: maxHealth
-      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 7275971006914351186, guid: 75534cbe90efb2843a56ee31d953d2ea, type: 3}
       propertyPath: m_Name
@@ -42652,5 +42650,5 @@ SceneRoots:
   - {fileID: 313767421304781646}
   - {fileID: 821233526}
   - {fileID: 2436162687478757151}
-  - {fileID: 7515365842575469138}
   - {fileID: 1743169499}
+  - {fileID: 7515365842575469138}

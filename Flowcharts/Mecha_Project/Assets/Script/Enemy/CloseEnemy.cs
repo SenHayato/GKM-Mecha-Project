@@ -64,27 +64,14 @@ public class CloseEnemy : EnemyActive
 
     public override void PlayAnimation()
     {
-        //patrolling
-        //if (enemyModel.isPatrolling)
-        //{
-        //    anim.SetBool("Move", true);
-        //}
-        //else
-        //{
-        //    anim.SetBool("Move", false);
-        //}
-
         //Attack
         if (enemyModel.isAttacking)
         {
             StartCoroutine(AttackAnim());
-            //anim.SetBool("Attack1", true);
         }
         else
         {
             StopCoroutine(AttackAnim());
-            //anim.SetBool("Attack1", false);
-            Debug.Log("ASDWA");
         }
 
         //Death
