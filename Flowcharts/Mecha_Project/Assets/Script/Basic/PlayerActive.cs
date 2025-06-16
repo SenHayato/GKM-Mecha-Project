@@ -171,7 +171,10 @@ public class PlayerActive : MonoBehaviour
                 StartCoroutine(Skill1());
                 StartCoroutine(Skill2());
                 RelativeMovement();
-                StartCoroutine(UseUltimate());
+                if (!Mecha.isAiming)
+                {
+                    StartCoroutine(UseUltimate());
+                }
                 StartCoroutine(AwakeningActive());
                 //Ultimate Regen  
                 if (!Mecha.UltimateRegen && Mecha.Ultimate < Mecha.MaxUltimate && !Mecha.UltimateReady) _ = StartCoroutine(UltimateRegen());
