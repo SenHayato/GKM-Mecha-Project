@@ -13,32 +13,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   closeEnemy: {fileID: 0}
---- !u!1102 &-7810425613754585508
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: New State
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 32c6dffff2ce07446be1f5939b4a23a2, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
 --- !u!114 &-7089566524052381654
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,9 +74,6 @@ AnimatorStateMachine:
   - serializedVersion: 1
     m_State: {fileID: -2648801712885272716}
     m_Position: {x: 560, y: 230, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -7810425613754585508}
-    m_Position: {x: 660, y: 110, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: -5433033231260382482}
@@ -293,7 +264,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WalkJump
-  m_Speed: 2.1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7433069715902174712}
@@ -306,7 +277,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 6665837950214544879, guid: 75c72921fa13d0441ad0c0c194d9aeab, type: 3}
+  m_Motion: {fileID: 7400000, guid: 1f8634cce98811546aeb5df0c5dcbd37, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -463,7 +434,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 4eee3129f8eabf24cac4adda0c31eb00, type: 2}
+  m_Motion: {fileID: 7400000, guid: 1f8634cce98811546aeb5df0c5dcbd37, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
