@@ -94,7 +94,7 @@ public class PlayerActive : MonoBehaviour
         Weapon = GetComponentInChildren<WeaponRaycast>();
         Mecha = GetComponent<MechaPlayer>();
         controller = GetComponent<CharacterController>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         cameraEffect = FindAnyObjectByType<CameraEffect>();
         combatVoiceAct = GetComponent<CombatVoiceActive>();
         cutSceneManager = FindFirstObjectByType<CutSceneManager>();
@@ -412,6 +412,16 @@ public class PlayerActive : MonoBehaviour
     }
     public void Shooting()
     {
+        if (shootAction.IsPressed() || scopeAction.IsPressed())
+        {
+            anim.SetBool("ShootingStance", true);
+        }
+        else
+        {
+            anim.SetBool("ShootingStance", false);
+        }
+
+        //Shooting
         if (shootAction.IsPressed() && Weapon.ammo >= 0 && !Mecha.isDeath)
         {
             Mecha.isShooting = true;
@@ -468,8 +478,8 @@ public class PlayerActive : MonoBehaviour
                     transform.localEulerAngles = fixedRotation;
                 }
                 controller.Move(speed * Time.deltaTime * moveDirection); // Gerakkan player relatif terhadap kamera
-                anim.SetFloat("Move", 1f);
                 anim.SetBool("IsMove", true);
+                anim.SetFloat("Move", 1f);
 
                 if (Mecha.isDashing)
                 {
