@@ -1965,7 +1965,6 @@ MonoBehaviour:
   attackRange: 3.8
   attackCooldown: 3
   isUnbeatable: 0
-  isStaggered: 0
   isGrounded: 0
   isStunt: 0
   isAttacking: 0
@@ -2000,7 +1999,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 2097152
-  enemyMesh: {fileID: 8410859289136221922}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
   walkPointRange: 5
@@ -2035,7 +2033,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 725e62e3fac67b84795a816994b0354e, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
