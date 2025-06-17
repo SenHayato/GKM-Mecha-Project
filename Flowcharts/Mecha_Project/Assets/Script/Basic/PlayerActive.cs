@@ -525,6 +525,7 @@ public class PlayerActive : MonoBehaviour
         if (jumpAction.triggered && isGrounded && !Mecha.isBoosting && !Mecha.isBlocking)
         {
             Mecha.isJumping = true;
+            anim.SetBool("IsJump", true);
             wasGrounded = true;
             Instantiate(jumpDust, transform.position, Quaternion.identity);
             Debug.Log("Jump");
@@ -532,14 +533,13 @@ public class PlayerActive : MonoBehaviour
             Vector3 jumpMovement = new Vector3(0, verticalVelocity, 0) * Time.deltaTime;
             controller.Move(jumpMovement);
             isGrounded = false;
-            anim.SetBool("IsJump", true);
         }
         if (isGrounded && wasGrounded)
         {
+            anim.SetBool("IsJump", false);
             wasGrounded = false;
             Instantiate(jumpDust, transform.position, Quaternion.identity);
             Mecha.isJumping = false;
-            anim.SetBool("IsJump", false);
         }
     }
     public void ApplyGravity()
