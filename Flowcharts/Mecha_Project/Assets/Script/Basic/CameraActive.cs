@@ -55,6 +55,7 @@ public class CameraActive : MonoBehaviour
     }
     private void Start()
     {
+        cameraAimPost = GameObject.FindGameObjectWithTag("AimCameraPosition").transform;
         MainCamera = MainCameraOBJ.GetComponentInChildren<Camera>();
         lookAction = cameraControl.actions.FindAction("Look");
         MainCamera.transform.position = cameraMainPost.transform.position;
