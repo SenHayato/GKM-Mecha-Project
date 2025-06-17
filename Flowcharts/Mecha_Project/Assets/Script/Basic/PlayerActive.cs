@@ -33,6 +33,7 @@ public class PlayerActive : MonoBehaviour
     //private Color[] defaultColor;
 
     [Header("Default Parameter")]
+    [SerializeField] float walkRotValue;
     private float defaultSpeed;
     private float dashSpeed;
     private int defaultAttack;
@@ -446,6 +447,8 @@ public class PlayerActive : MonoBehaviour
             anim.SetBool("IsShooting", false);
         }
     }
+
+    private Vector3 currentMoveDirection = Vector3.zero;
     public void RelativeMovement()
     {
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
@@ -456,28 +459,32 @@ public class PlayerActive : MonoBehaviour
             {
                 trailDust.SetActive(true);
                 Mecha.isIdle = false;
-                Vector3 forward = cameraPivot.transform.forward;  // Arah kamera
+                Vector3 forward = cameraPivot.transform.forward;
                 Vector3 right = cameraPivot.transform.right;
-                forward.y = 0f; // Tetap Horizontal
+                forward.y = 0f;
                 right.y = 0f;
                 forward.Normalize();
                 right.Normalize();
-                Vector3 moveDirection = (forward * moveInput.y + right * moveInput.x).normalized; // Hitung arah pergerakan relatif terhadap kamera
+                Vector3 targetDirection = (forward * moveInput.y + right * moveInput.x).normalized;
 
-                if (!Mecha.isAiming)
+                // Interpolasi arah
+                currentMoveDirection = Vector3.Slerp(currentMoveDirection, targetDirection, Time.deltaTime * walkRotValue);
+
+                // Rotasi jika tidak sedang membidik
+                if (!Mecha.isAiming && currentMoveDirection.sqrMagnitude > 0.01f)
                 {
-                    // Rotasi player menghadap arah pergerakan
-                    Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                    Quaternion targetRotation = Quaternion.LookRotation(currentMoveDirection);
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 }
-                if (Mecha.isShooting && !Mecha.isAiming) //temp
+
+                if (Mecha.isShooting && !Mecha.isAiming || Mecha.isBlocking) //temp
                 {
                     CameraAct.SameRotation();
                     Vector3 fixedRotation = transform.localEulerAngles;
                     fixedRotation.x = 0f;
                     transform.localEulerAngles = fixedRotation;
                 }
-                controller.Move(speed * Time.deltaTime * moveDirection); // Gerakkan player relatif terhadap kamera
+                controller.Move(speed * Time.deltaTime * targetDirection); // Gerakkan player relatif terhadap kamera
                 anim.SetBool("IsMove", true);
                 anim.SetFloat("Move", 1f);
 
@@ -503,19 +510,6 @@ public class PlayerActive : MonoBehaviour
                 anim.SetFloat("Move", 3f);
                 StartCoroutine(BoostOn());
             }
-        }
-    }
-
-    public void Hovering()
-    {
-        if (flyUp.IsPressed())
-        {
-            Debug.Log("FlyUp");
-        }
-
-        if (flyDown.IsPressed())
-        {
-            Debug.Log("FlyDown");
         }
     }
 
@@ -546,10 +540,12 @@ public class PlayerActive : MonoBehaviour
     {
         if (!isGrounded)
         {
+            anim.SetBool("IsGrounded", false);
             verticalVelocity -= gravity * fallMultiplier * Time.deltaTime;
         }
         else
         {
+            anim.SetBool("IsGrounded", true);
             verticalVelocity -= gravity * Time.deltaTime;
         }
 
@@ -583,6 +579,7 @@ public class PlayerActive : MonoBehaviour
 
         if (Mecha.isBlocking)
         {
+            CameraAct.SameRotation();
             shieldObj.SetActive(true);
         }
         else
