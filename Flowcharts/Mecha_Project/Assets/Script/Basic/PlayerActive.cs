@@ -467,17 +467,14 @@ public class PlayerActive : MonoBehaviour
                 right.Normalize();
                 Vector3 targetDirection = (forward * moveInput.y + right * moveInput.x).normalized;
 
-                // Interpolasi arah
                 currentMoveDirection = Vector3.Slerp(currentMoveDirection, targetDirection, Time.deltaTime * walkRotValue);
-
-                // Rotasi jika tidak sedang membidik
                 if (!Mecha.isAiming && currentMoveDirection.sqrMagnitude > 0.01f)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(currentMoveDirection);
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 }
 
-                if (Mecha.isShooting && !Mecha.isAiming || Mecha.isBlocking) //temp
+                if (Mecha.isShooting && !Mecha.isAiming || Mecha.isBlocking)
                 {
                     CameraAct.SameRotation();
                     Vector3 fixedRotation = transform.localEulerAngles;

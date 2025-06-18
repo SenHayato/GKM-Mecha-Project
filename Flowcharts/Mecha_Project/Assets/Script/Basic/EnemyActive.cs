@@ -148,6 +148,16 @@ public abstract class EnemyActive : MonoBehaviour
         }
     }
 
+    public void DisableStuntFromPlayer(float timeStunt)
+    {
+        Invoke(nameof(DisableStunt), timeStunt);
+    }
+
+    void DisableStunt()
+    {
+        enemyModel.isStunt = false;
+    }
+
     void GettingStunt()
     {
         if (enemyModel.isStunt)
