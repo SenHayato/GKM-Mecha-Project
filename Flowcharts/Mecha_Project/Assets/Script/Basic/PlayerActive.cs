@@ -664,7 +664,6 @@ public class PlayerActive : MonoBehaviour
         //        anim.SetBool("IsDeath", true);
         //        GameMaster.gameLose = true;
         //        GameMaster.gameFinish = true;
-        //        //Invoke(nameof(ToLoseCG), 5f);
         //    }
         //    else
         //    {
@@ -867,8 +866,4 @@ public class PlayerActive : MonoBehaviour
     {
         Mecha.PlayerPosition = playerPosition;
     }
-    //public void ToLoseCG()
-    //{
-    //    GameMaster.LosingScreen();
-    //}
 }

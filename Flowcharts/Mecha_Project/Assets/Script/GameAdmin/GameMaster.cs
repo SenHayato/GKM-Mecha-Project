@@ -142,6 +142,7 @@ public class GameMaster : MonoBehaviour
             }
             fadeOut.SetActive(true);
             yield return new WaitForSeconds(7f);
+
             if (NextScene != null && gameWin)
             {
                 LoadNextStage(NextScene);
@@ -153,6 +154,7 @@ public class GameMaster : MonoBehaviour
             }
         }
     }
+
     public void LosingScreen()
     {
         SceneManager.LoadScene(LoseScreen);
