@@ -89,11 +89,11 @@ public class RangeEnemy : EnemyActive
         //aiming
         if (playerInAttackRange && enemyModel.isGrounded)
         {
-            anim.SetBool("IsAiming", true);
+            anim.SetBool("IsShooting", true);
         }
         else
         {
-            anim.SetBool("IsAiming", false);
+            anim.SetBool("IsShooting", false);
         }
 
         //attacking
