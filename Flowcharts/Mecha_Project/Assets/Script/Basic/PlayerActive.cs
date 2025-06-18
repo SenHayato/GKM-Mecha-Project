@@ -467,17 +467,14 @@ public class PlayerActive : MonoBehaviour
                 right.Normalize();
                 Vector3 targetDirection = (forward * moveInput.y + right * moveInput.x).normalized;
 
-                // Interpolasi arah
                 currentMoveDirection = Vector3.Slerp(currentMoveDirection, targetDirection, Time.deltaTime * walkRotValue);
-
-                // Rotasi jika tidak sedang membidik
                 if (!Mecha.isAiming && currentMoveDirection.sqrMagnitude > 0.01f)
                 {
                     Quaternion targetRotation = Quaternion.LookRotation(currentMoveDirection);
                     transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
                 }
 
-                if (Mecha.isShooting && !Mecha.isAiming || Mecha.isBlocking) //temp
+                if (Mecha.isShooting && !Mecha.isAiming || Mecha.isBlocking)
                 {
                     CameraAct.SameRotation();
                     Vector3 fixedRotation = transform.localEulerAngles;
@@ -667,7 +664,6 @@ public class PlayerActive : MonoBehaviour
         //        anim.SetBool("IsDeath", true);
         //        GameMaster.gameLose = true;
         //        GameMaster.gameFinish = true;
-        //        //Invoke(nameof(ToLoseCG), 5f);
         //    }
         //    else
         //    {
@@ -870,8 +866,4 @@ public class PlayerActive : MonoBehaviour
     {
         Mecha.PlayerPosition = playerPosition;
     }
-    //public void ToLoseCG()
-    //{
-    //    GameMaster.LosingScreen();
-    //}
 }

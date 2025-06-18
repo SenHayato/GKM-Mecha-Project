@@ -7,6 +7,7 @@ public class Skill2Script : MonoBehaviour
 {
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
+    [SerializeField] float timeStunt;
 
     private Collider[] enemyCollider;
 
@@ -32,6 +33,8 @@ public class Skill2Script : MonoBehaviour
 
             if (hitCollider.TryGetComponent<EnemyActive>(out var enemy))
             {
+                enemy.enemyModel.isStunt = true;
+                enemy.DisableStuntFromPlayer(timeStunt);
                 enemy.TakeDamage(playerData.skill2Damage);
             }
         }
