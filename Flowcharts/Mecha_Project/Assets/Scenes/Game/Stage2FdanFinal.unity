@@ -15729,9 +15729,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 0}
-  untilSpawn: 100
+  missileObj: {fileID: 6120836210244272201, guid: 86f1b2a9d9b5aad4dadae4a020e3e1d2, type: 3}
+  untilSpawn: 5
   spawnDuration: 0
   isSpawned: 0
+  spawnerReady: 0
 --- !u!1001 &2051096837
 PrefabInstance:
   m_ObjectHideFlags: 0
