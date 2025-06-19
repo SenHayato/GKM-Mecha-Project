@@ -106,15 +106,15 @@ public class RangeEnemy : EnemyActive
         //    anim.SetBool("IsShooting", false);
         //}
 
-        //patrolling
-        if (enemyModel.isPatrolling || enemyModel.isProvoke)
-        {
-            anim.SetFloat("Move", 1f);
-        }
-        else
-        {
-            anim.SetFloat("Move", 0f);
-        }
+        ////patrolling
+        //if (enemyModel.isPatrolling || enemyModel.isProvoke)
+        //{
+        //    anim.SetBool("Move", true);
+        //}
+        //else
+        //{
+        //    anim.SetBool("Move", false);
+        //}
     }
 
     IEnumerator BulletTrailEffect(Vector3 targetHit)

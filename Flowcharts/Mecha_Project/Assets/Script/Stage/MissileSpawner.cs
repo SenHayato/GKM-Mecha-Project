@@ -6,15 +6,13 @@ public class MissileSpawner : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] Transform playerPosition;
-    //[SerializeField] GameObject missileObj;
+    [SerializeField] GameObject missileObj;
     [SerializeField] float untilSpawn;
     [SerializeField] float spawnDuration;
 
     [Header("SpawnerStatus")]
     [SerializeField] bool isSpawned = false;
-
-    //flag
-    bool wasSpawned = false;
+    [SerializeField] bool spawnerReady = false;
 
     private void Awake()
     {
@@ -23,33 +21,32 @@ public class MissileSpawner : MonoBehaviour
 
     void Start()
     {
-        untilSpawn = spawnDuration;
+        spawnDuration = untilSpawn;
     }
 
     void TimeDuration()
     {
-        if (!wasSpawned)
+        if (!spawnerReady)
         {
-            spawnDuration -= Time.deltaTime;
-        }
-        else
-        {
-            untilSpawn = spawnDuration;
+            isSpawned = false;
+            spawnDuration -= 1f * Time.deltaTime;
         }
 
-        if (untilSpawn <= 0f)
+        if (spawnDuration <= 0f)
         {
+            spawnDuration = untilSpawn;
+            spawnerReady = true;
             isSpawned = true;
         }
     }
 
     void SpawningMissile()
     {
-        if (isSpawned && !wasSpawned)
+        if (isSpawned)
         {
-            isSpawned= false;
-            wasSpawned = true;
-            Debug.Log("TestMissile");
+            spawnerReady = false;
+            isSpawned = false;
+            Instantiate(missileObj, playerPosition.position, Quaternion.identity);
         }
     }
     
