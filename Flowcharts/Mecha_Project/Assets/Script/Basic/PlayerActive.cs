@@ -744,6 +744,17 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
+    //Ultimate Animation Trigger
+    public void EnableUltimateBox()
+    {
+        ultimateObj.SetActive(true);
+    }
+
+    public void DisableUltimateBox()
+    {
+        ultimateObj.SetActive(false);
+    }
+
     public void UltimateSetting()
     {
         if (Mecha.Ultimate >= Mecha.MaxUltimate)

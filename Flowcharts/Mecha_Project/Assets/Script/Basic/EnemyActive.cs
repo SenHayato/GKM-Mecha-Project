@@ -204,10 +204,10 @@ public abstract class EnemyActive : MonoBehaviour
             
             enemyModel.health -= damage;
             Debug.Log(gameObject.name + " Kena Damage : " + damage.ToString());
-            if (anim != null)
-            {
-                anim.SetTrigger("Hit");
-            }
+            //if (anim != null)
+            //{
+            //    anim.SetTrigger("Hit");
+            //}
         }
 
         if (enemyModel.health <= enemyModel.minHealth)
