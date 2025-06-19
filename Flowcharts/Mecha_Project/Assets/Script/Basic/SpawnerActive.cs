@@ -11,6 +11,10 @@ public class SpawnerActive : MonoBehaviour
     [SerializeField] private bool spawnerReady = true;
     [SerializeField] GameMaster gameMaster;
 
+    //flag
+    //private int MaxState1;
+    //private int MaxState2;
+    //private int MaxState3;
 
     private void Awake()
     {
