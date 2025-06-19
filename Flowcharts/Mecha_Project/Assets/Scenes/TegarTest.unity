@@ -36280,6 +36280,7 @@ MonoBehaviour:
   fireActive: 0
   rechargeActive: 0
   fireBulletVFX: {fileID: 7132950885823493603}
+  anim: {fileID: 8585421417130248164}
 --- !u!23 &133244419159416341
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -54472,6 +54473,7 @@ GameObject:
   - component: {fileID: 3502688478798304742}
   - component: {fileID: 4395187892555098348}
   - component: {fileID: 8585421417130248163}
+  - component: {fileID: 8585421417130248164}
   m_Layer: 3
   m_Name: Gun Model
   m_TagString: Untagged
@@ -62224,6 +62226,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!111 &8585421417130248164
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5965046457971866428}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 9ca96d09f59776c46b4974e3c31116a3, type: 2}
+  - {fileID: 7400000, guid: dfb27e978b31e9f4798815122228de37, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1001 &8590060919645698470
 PrefabInstance:
   m_ObjectHideFlags: 0

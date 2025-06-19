@@ -55,7 +55,7 @@ public class MechaPlayer : MonoBehaviour
     //skillWeapon (Heavy Skill)
     public bool readySkill2;
     public bool usingSkill2;
-    public int skill2MaxBar;
+    public int skill2MaxBar; //100f
     public int skill2Bar;
     public int skill2Damage;
     public float skill2Duration;

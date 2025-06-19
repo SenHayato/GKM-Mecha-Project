@@ -5,6 +5,7 @@ using UnityEngine.VFX;
 
 public class WeaponRaycast : MonoBehaviour
 {
+    [Header("Referensi")]
     public LayerMask hitLayers;
     public GameObject hitEffect;
     public Transform bulletSpawn;
@@ -41,6 +42,7 @@ public class WeaponRaycast : MonoBehaviour
 
     [Header("Visual Effect")]
     [SerializeField] VisualEffect fireBulletVFX;
+    [SerializeField] Animation anim;
 
     //flag
     private bool isReloading = false;
@@ -130,6 +132,7 @@ public class WeaponRaycast : MonoBehaviour
         canShoot = false;
         ammo--;
 
+        //emmisionAdjust = currentColor * 3f;
         StartCoroutine(cameraAct.RecoilEffect());
         Vector3 targetPoint;
         mechaPlayer.skill2Bar++;
@@ -168,6 +171,7 @@ public class WeaponRaycast : MonoBehaviour
             targetPoint = ray.GetPoint(range);
         }
         StartCoroutine(BulletTrailEffect(targetPoint));
+        //bladeMaterial.SetColor("_EmissionColor", emmisionAdjust);
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
     }
@@ -228,6 +232,22 @@ public class WeaponRaycast : MonoBehaviour
         }
     }
 
+    private bool isCoolingDown = true;
+    void BladeFlammingRed()
+    {
+        if (mechaPlayer.skill2Bar >= 8 && isCoolingDown)
+        {
+            isCoolingDown = false;
+            anim.Play("BladeHot");
+        }
+
+        if (mechaPlayer.usingSkill2 && !isCoolingDown)
+        {
+            isCoolingDown = true;
+            anim.Play("BladeCold");
+        }
+    }
+
     private void Update()
     {
         VisualEffectSet();
@@ -235,5 +255,6 @@ public class WeaponRaycast : MonoBehaviour
         SoundMonitor();
         RecoilAdjust();
         AwakeningMonitor();
+        BladeFlammingRed();
     }
 }
