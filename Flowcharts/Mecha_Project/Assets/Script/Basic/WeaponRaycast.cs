@@ -131,8 +131,6 @@ public class WeaponRaycast : MonoBehaviour
 
         canShoot = false;
         ammo--;
-
-        //emmisionAdjust = currentColor * 3f;
         StartCoroutine(cameraAct.RecoilEffect());
         Vector3 targetPoint;
         mechaPlayer.skill2Bar++;
@@ -143,6 +141,7 @@ public class WeaponRaycast : MonoBehaviour
             targetPoint = hit.point;
             if (enemyTags.Contains(hit.collider.tag))
             {
+                mechaPlayer.Ultimate += mechaPlayer.UltRegenValue;
                 if (hit.collider.TryGetComponent<EnemyActive>(out var enemy))
                 {
                     enemy.TakeDamage(mechaPlayer.AttackPow + weaponDamage);
@@ -171,7 +170,6 @@ public class WeaponRaycast : MonoBehaviour
             targetPoint = ray.GetPoint(range);
         }
         StartCoroutine(BulletTrailEffect(targetPoint));
-        //bladeMaterial.SetColor("_EmissionColor", emmisionAdjust);
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
     }

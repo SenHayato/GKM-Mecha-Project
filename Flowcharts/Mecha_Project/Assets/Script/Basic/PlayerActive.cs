@@ -167,10 +167,10 @@ public class PlayerActive : MonoBehaviour
                 Reloading();
                 DashPlayer();
                 BlockPlayer();
-                ScopeMode();
-                Shooting();
                 StartCoroutine(Skill1());
                 StartCoroutine(Skill2());
+                ScopeMode();
+                Shooting();
                 RelativeMovement();
                 if (!Mecha.isAiming)
                 {
@@ -178,7 +178,7 @@ public class PlayerActive : MonoBehaviour
                 }
                 StartCoroutine(AwakeningActive());
                 //Ultimate Regen  
-                if (!Mecha.UltimateRegen && Mecha.Ultimate < Mecha.MaxUltimate && !Mecha.UltimateReady) _ = StartCoroutine(UltimateRegen());
+                //if (!Mecha.UltimateRegen && Mecha.Ultimate < Mecha.MaxUltimate && !Mecha.UltimateReady) _ = StartCoroutine(UltimateRegen());
             }
             //StartCoroutine(BoostOn());
 
@@ -726,10 +726,10 @@ public class PlayerActive : MonoBehaviour
     //Ultimate
     public IEnumerator UseUltimate()
     {
-        if (ultimateAction.triggered && Mecha.Ultimate == Mecha.MaxUltimate && !Mecha.isDeath)
+        if (ultimateAction.triggered && Mecha.Ultimate >= Mecha.MaxUltimate && !Mecha.isDeath)
         {
             Debug.Log("Ultimate jalan");
-            Mecha.UltimateRegen = false;
+            //Mecha.UltimateRegen = false;
             Mecha.Ultimate = Mecha.MinUltimate;
             Mecha.UsingUltimate = true;
 
@@ -766,11 +766,16 @@ public class PlayerActive : MonoBehaviour
             Mecha.UltimateReady = false;
         }
 
+        if (Mecha.Ultimate >= Mecha.MaxUltimate)
+        {
+            Mecha.Ultimate = Mecha.MaxUltimate;
+        }
+
         if (Mecha.UsingUltimate)
         {
             anim.SetBool("IsUltimate", true);
             Mecha.Ultimate = Mecha.MinUltimate;
-            StopCoroutine(UltimateRegen());
+            //StopCoroutine(UltimateRegen());
         }
         else
         {
@@ -778,22 +783,22 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
-    public IEnumerator UltimateRegen()
-    {
-        Mecha.UltimateRegen = true;
-        while (Mecha.Ultimate <= Mecha.MaxUltimate)
-        {
-            if (Mecha.UsingUltimate)
-            {
-                Mecha.UltimateRegen = false;
-                yield break;
-            }
-            yield return new WaitForSeconds(1f);
-            Mecha.Ultimate += Mecha.UltRegenValue;
-            Mecha.Ultimate = Mathf.Clamp(Mecha.Ultimate, Mecha.MinUltimate, Mecha.MaxUltimate);
-        }
-        Mecha.UltimateRegen = false;
-    }
+    //public IEnumerator UltimateRegen()
+    //{
+    //    Mecha.UltimateRegen = true;
+    //    while (Mecha.Ultimate <= Mecha.MaxUltimate)
+    //    {
+    //        if (Mecha.UsingUltimate)
+    //        {
+    //            Mecha.UltimateRegen = false;
+    //            yield break;
+    //        }
+    //        yield return new WaitForSeconds(1f);
+    //        Mecha.Ultimate += Mecha.UltRegenValue;
+    //        Mecha.Ultimate = Mathf.Clamp(Mecha.Ultimate, Mecha.MinUltimate, Mecha.MaxUltimate);
+    //    }
+    //    Mecha.UltimateRegen = false;
+    //}
 
     //Energy
     public IEnumerator EnergyRegen()

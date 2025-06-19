@@ -31,9 +31,9 @@ public class MechaPlayer : MonoBehaviour
     public int UltDamage;
     public float UltInterval;
     public float UltDuration;
-    public bool UltimateRegen;
+    [HideInInspector] public bool UltimateRegen = false;
     public bool UltimateReady;
-    public bool UsingUltimate;
+    public bool UsingUltimate = false;
 
     [Header("Energy")]
     public int Energy;
@@ -46,7 +46,7 @@ public class MechaPlayer : MonoBehaviour
     [Header("Skill Condition")]
     //skillPlayer
     public bool readySkill1;
-    public bool usingSkill1;
+    public bool usingSkill1 = false;    
     public float skill1Time;
     public float cooldownSkill1;
     public int skill1Damage;
@@ -54,7 +54,7 @@ public class MechaPlayer : MonoBehaviour
 
     //skillWeapon (Heavy Skill)
     public bool readySkill2;
-    public bool usingSkill2;
+    public bool usingSkill2 = false;
     public int skill2MaxBar; //100f
     public int skill2Bar;
     public int skill2Damage;
