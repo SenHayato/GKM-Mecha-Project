@@ -12,6 +12,7 @@ public abstract class EnemyActive : MonoBehaviour
     public LayerMask playerLayer;
     public LayerMask hitLayer; //layer apa saja yang bisa dihit
     [SerializeField] LayerMask groundLayer; //layer yang bisa diinjak enemy
+    [SerializeField] Transform originPoint;
 
     [Header("Patrolling")]
     [SerializeField] Vector3 walkPoint;
@@ -101,7 +102,6 @@ public abstract class EnemyActive : MonoBehaviour
             PlayAnimation();
             return;
         }
-        if (!navAgent.enabled) navAgent.enabled = true;
 
         if (playerInSight && playerInAttackRange)
         {
@@ -127,23 +127,28 @@ public abstract class EnemyActive : MonoBehaviour
         PlayAnimation();
     }
 
+    private bool wasGrounded = false;
 
     void ApplyGravity()
     {
-        enemyModel.isGrounded = Physics.Raycast(transform.position, Vector3.down, beforeHitGround, groundLayer);
+        enemyModel.isGrounded = Physics.Raycast(originPoint.position, Vector3.down, beforeHitGround, groundLayer);
 
-        if (!enemyModel.isGrounded)
+        if (!wasGrounded)
         {
-            anim.SetBool("IsFalling", true);
-            transform.position += gravityPower * Time.deltaTime * Vector3.down;
-            if (navAgent.enabled) navAgent.enabled = false; 
-        }
-        else
-        {
-            anim.SetBool("IsFalling", false);
-            if (!enemyModel.isStunt && !enemyModel.isDeath && !navAgent.enabled)
+            if (!enemyModel.isGrounded)
             {
-                navAgent.enabled = true;
+                anim.SetBool("IsFalling", true);
+                transform.position += gravityPower * Time.deltaTime * Vector3.down;
+                if (navAgent.enabled) navAgent.enabled = false;
+            }
+            else
+            {
+                anim.SetBool("IsFalling", false);
+                if (!enemyModel.isStunt && !enemyModel.isDeath && !navAgent.enabled)
+                {
+                    navAgent.enabled = true;
+                    wasGrounded = true;
+                }
             }
         }
     }
@@ -361,7 +366,7 @@ public abstract class EnemyActive : MonoBehaviour
         UnityEditor.Handles.Label(transform.position + Vector3.forward * enemyModel.sightRange, "Sight Range");
 
         Gizmos.color= Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * beforeHitGround);
+        Gizmos.DrawLine(originPoint.position, originPoint.position + Vector3.down * beforeHitGround);
     }
 #endif
 

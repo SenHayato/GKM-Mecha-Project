@@ -348,7 +348,7 @@ RectTransform:
   m_Father: {fileID: 9078445276907610819}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1305,7 +1305,7 @@ RectTransform:
   m_Father: {fileID: 2092096044839249340}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1729,12 +1729,13 @@ Transform:
   m_GameObject: {fileID: 5839704776111436747}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.479183, y: 10.5, z: 3.0096464}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1.754386, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4771806733260294704}
   - {fileID: 4539948857842265895}
+  - {fileID: 2285601771469465569}
   - {fileID: 7573929845215018849}
   - {fileID: 2022659271537904608}
   - {fileID: 2758745905241161426}
@@ -1798,6 +1799,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 2099200
+  originPoint: {fileID: 2285601771469465569}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
   walkPointRange: 5
@@ -1815,7 +1817,7 @@ MonoBehaviour:
   deathExplode: {fileID: 2112769824686486772, guid: 24b8fd77d1f43d94299a5ff3605d6252, type: 3}
   stuntVFX: {fileID: 3415607861368316916}
   navDefaultSpeed: 0
-  beforeHitGround: 2
+  beforeHitGround: 3.3
   defaultRotation: 0
   rayCastSpawn: {fileID: 8144204614895785405}
   bulletHitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
@@ -1890,7 +1892,7 @@ CapsuleCollider:
   m_Radius: 0.9803784
   m_Height: 2.2270122
   m_Direction: 1
-  m_Center: {x: 0, y: 1.1278603, z: 0.69193006}
+  m_Center: {x: 0, y: 1.31, z: 0.69193006}
 --- !u!82 &8192773872108739187
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2007,7 +2009,7 @@ BoxCollider:
   m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.61, z: 0}
 --- !u!1 &6051144647044403965
 GameObject:
   m_ObjectHideFlags: 0
@@ -3117,6 +3119,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &8743813233259193565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2285601771469465569}
+  m_Layer: 9
+  m_Name: OriginPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2285601771469465569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8743813233259193565}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.16, z: 0.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 144129077528160782}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8783279976291047325
 GameObject:
   m_ObjectHideFlags: 0
