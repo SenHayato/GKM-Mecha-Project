@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class SpawnerActive : MonoBehaviour
 {
@@ -47,20 +45,9 @@ public class SpawnerActive : MonoBehaviour
         Debug.Log("MaxEnemySpawn menjadi " + maxEnemyInArea);
         if (gameMaster.StageType == StageType.Stage2)
         {
-            if (gameMaster.timer <= 120f) //waktu default 3 menit
-            {
-                maxEnemyInArea = 15;
-            }
-
-            if (gameMaster.timer <= 60f)
-            {
-                maxEnemyInArea = 20;
-            }
-
-            if (gameMaster.timer <= 30f)
-            {
-                maxEnemyInArea = 30;
-            }
+            if (gameMaster.timer <= 30) maxEnemyInArea = 30;
+            else if (gameMaster.timer <= 60) maxEnemyInArea = 20;
+            else if (gameMaster.timer <= 120) maxEnemyInArea = 15;
         }
     }
 
