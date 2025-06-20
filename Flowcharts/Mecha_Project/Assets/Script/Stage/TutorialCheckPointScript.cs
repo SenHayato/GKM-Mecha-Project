@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class TurotialCheckPointScript : MonoBehaviour
 {
@@ -7,10 +8,11 @@ public class TurotialCheckPointScript : MonoBehaviour
     [SerializeField] private string checkPointInfo;
     [SerializeField] private GameObject nextChekpoint;
     [SerializeField] private float checkPointDuration; //Destroy Duration
-    [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Collider pointCollider;
     [SerializeField] private HUDGameManager HUDManager;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private VisualEffect visualEffect;
+    [SerializeField] private GameObject uiMap;
     //[SerializeField] private Material pointMaterial;
 
     //Checker
@@ -25,8 +27,8 @@ public class TurotialCheckPointScript : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        meshRenderer = GetComponent<MeshRenderer>();
         pointCollider = GetComponent<Collider>();
+        visualEffect = GetComponent<VisualEffect>();
     }
 
     public void EnemyChecker()
@@ -34,12 +36,12 @@ public class TurotialCheckPointScript : MonoBehaviour
         int enemies = FindObjectsOfType<EnemyModel>().Length;
         if (enemies >= 1)
         {
-            meshRenderer.enabled = false;
+            visualEffect.enabled = false;
             pointCollider.enabled = false;
         }
         else
         {
-            meshRenderer.enabled = true;
+            visualEffect.enabled = true;
             pointCollider.enabled = true;
         }
     }
@@ -49,7 +51,7 @@ public class TurotialCheckPointScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             audioSource.Play();
-            meshRenderer.enabled = false;
+            visualEffect.enabled = false;
             gameMaster.QuestText = checkPointInfo;
             Destroy(gameObject, checkPointDuration);
             if (nextChekpoint != null)

@@ -11,10 +11,11 @@ public class Stage1CheckPointScript : MonoBehaviour
     [SerializeField] private string checkPointInfo;
     [SerializeField] private GameObject nextChekpoint;
     [SerializeField] private float checkPointDuration; //Destroy Duration
-    [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Collider pointCollider;
     [SerializeField] private HUDGameManager HUDManager;
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private VisualEffect visualEffect;
+    [SerializeField] private GameObject uiMap;
 
     //flag
     //GameObject[] enemies;
@@ -27,8 +28,8 @@ public class Stage1CheckPointScript : MonoBehaviour
 
     private void Start()
     {
+        visualEffect = GetComponent<VisualEffect>();
         audioSource = GetComponent<AudioSource>();
-        meshRenderer = GetComponent<MeshRenderer>();
         pointCollider = GetComponent<Collider>();
     }
 
@@ -37,12 +38,12 @@ public class Stage1CheckPointScript : MonoBehaviour
         int enemies = FindObjectsOfType<EnemyModel>().Length;
         if (enemies >= 1)
         {
-            meshRenderer.enabled = false;
+            visualEffect.enabled = false;
             pointCollider.enabled = false;
         }
         else
         {
-            meshRenderer.enabled = true;
+            visualEffect.enabled = true;
             pointCollider.enabled = true;
         }
     }
@@ -52,7 +53,7 @@ public class Stage1CheckPointScript : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             audioSource.Play();
-            meshRenderer.enabled = false;
+            visualEffect.enabled = false;
             gameMaster.QuestText = checkPointInfo;
             Destroy(gameObject, checkPointDuration);
             if (nextChekpoint != null)
