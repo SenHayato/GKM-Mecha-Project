@@ -36,7 +36,7 @@ Material:
   disabledShaderPasses:
   - DepthOnly
   - SHADOWCASTER
-  m_LockedProperties: :m_DoubleSidedGI
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -63,25 +63,28 @@ Material:
     - _Blend: 0
     - _CastShadows: 0
     - _ColorSpeed: 0
-    - _Cull: 2
+    - _Cull: 0
     - _DstBlend: 10
     - _E: 0
     - _EnginePower: 1
     - _Float: 0
     - _JiggleStrength: 0
-    - _NoiseSpeed: 4
+    - _NoiseSpeed: 2.98
     - _NoiseTilling: 5.57
     - _Pulses: 4
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SrcBlend: 5
     - _Surface: 1
-    - _Thrust: 0.25
+    - _Thrust: 0.7
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1.7207954, g: 0.09009397, b: 1.3238008, a: 0}
+    - _BoostCol: {r: 0.96862745, g: 0.20407498, b: 0, a: 1}
+    - _BoostColEdge: {r: 0.9271012, g: 0.9411765, b: 0.45098042, a: 1}
+    - _BoostCol_1: {r: 22.49327, g: 22.64469, b: 32.13324, a: 0}
     - _Vector0: {r: 1, g: 0.2, b: 0, a: 0}
     - _Vector2: {r: -0.3, g: -1, b: 0, a: 0}
     - _Vector3: {r: 0, g: 0, b: 0, a: 0}

@@ -1,4 +1,6 @@
 using System.Collections;
+using UnityEditor;
+using UnityEditor.SearchService;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -12,6 +14,7 @@ public class GameMaster : MonoBehaviour
     public string QuestText;
     public int checkPointReach;
     [SerializeField] int enemyInArea = 0;
+    [SerializeField] SceneAsset nextScene;
 
     [Header("GameAdmin")]
     public GameObject PauseMenu;
@@ -21,7 +24,6 @@ public class GameMaster : MonoBehaviour
     public bool isPaused = false;
     public bool gameFinish = false;
     public PlayerInput input;
-    public string NextScene; //untuk last boss next scene diisi Win Scene
 
     [Header("GameFinish Condition")]
     public bool gameWin = false;
@@ -144,9 +146,9 @@ public class GameMaster : MonoBehaviour
             fadeOut.SetActive(true);
             yield return new WaitForSeconds(7f);
 
-            if (NextScene != null && gameWin)
+            if (nextScene != null && gameWin)
             {
-                LoadNextStage(NextScene);
+                LoadNextStage(nextScene.name);
             }
 
             if (gameLose)

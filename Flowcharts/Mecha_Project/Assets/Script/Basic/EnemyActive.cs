@@ -209,10 +209,6 @@ public abstract class EnemyActive : MonoBehaviour
             
             enemyModel.health -= damage;
             Debug.Log(gameObject.name + " Kena Damage : " + damage.ToString());
-            //if (anim != null)
-            //{
-            //    anim.SetTrigger("Hit");
-            //}
         }
 
         if (enemyModel.health <= enemyModel.minHealth)
@@ -238,7 +234,7 @@ public abstract class EnemyActive : MonoBehaviour
         InputAction inputAction = gameInput.actions.FindAction("TestKillEnemy");
         if (inputAction != null && inputAction.triggered) // Cek inputAction tidak null juga
         {
-            TakeDamage(100);
+            TakeDamage(1000);
         }
     }
 
