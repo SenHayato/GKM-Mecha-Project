@@ -195,9 +195,19 @@ public class PlayerActive : MonoBehaviour
 
     void VisualEffect()
     {
-        float thrustValue = 0.25f; // default
-        if (Mecha.isBoosting) thrustValue = 0.83f;
-        else if (Mecha.isDashing) thrustValue = 0.6f;
+        float thrustValue = 0.7f; // default
+        if (Mecha.isDashing)
+        {
+            if (Mecha.isBoosting)
+            {
+                thrustValue = 0.25f;
+            }
+            else
+            {
+                thrustValue = 0.5f;
+            }
+        } 
+        else if (Mecha.isBoosting) thrustValue = 0.25f;
 
         thusterJetVFX.SetFloat("_Thrust", thrustValue);
     }
