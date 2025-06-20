@@ -11,6 +11,7 @@ public class GameMaster : MonoBehaviour
     public StageType StageType;
     public string QuestText;
     public int checkPointReach;
+    [SerializeField] int enemyInArea = 0;
 
     [Header("GameAdmin")]
     public GameObject PauseMenu;
@@ -270,8 +271,14 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+    void EnemyCounter()
+    {
+        enemyInArea = GameObject.FindGameObjectsWithTag("Enemy").Length;
+    }
+
     public void Update()
     {
+        EnemyCounter();
         BlockInput();
         PauseButton();
         HideCursor();

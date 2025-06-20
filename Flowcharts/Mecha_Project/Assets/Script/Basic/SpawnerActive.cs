@@ -49,17 +49,17 @@ public class SpawnerActive : MonoBehaviour
         {
             if (gameMaster.timer <= 120f) //waktu default 3 menit
             {
-                maxEnemyInArea = 20;
+                maxEnemyInArea = 15;
             }
 
             if (gameMaster.timer <= 60f)
             {
-                maxEnemyInArea = 25;
+                maxEnemyInArea = 20;
             }
 
             if (gameMaster.timer <= 30f)
             {
-                maxEnemyInArea = 35;
+                maxEnemyInArea = 30;
             }
         }
     }
