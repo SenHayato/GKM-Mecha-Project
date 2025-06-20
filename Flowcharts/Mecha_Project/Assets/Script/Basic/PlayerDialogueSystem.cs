@@ -43,6 +43,11 @@ public class PlayerDialogueSystem : MonoBehaviour
     bool wasActive = false;
     bool killWasActive = false;
 
+    private void Awake()
+    {
+        animationClip = GetComponent<Animation>();
+    }
+
     private void Start()
     {
         mechaPlayer = FindFirstObjectByType<MechaPlayer>();
