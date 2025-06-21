@@ -204,7 +204,7 @@ public class PlayerActive : MonoBehaviour
 
         if (Mecha.UsingAwakening)
         {
-            emmisionValue = 80f;
+            emmisionValue = 100f;
         }
 
         if (Mecha.isDashing)
