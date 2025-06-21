@@ -11328,7 +11328,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progressBar: {fileID: 72776213}
   loadingScreen: {fileID: 660779201}
-  sceneToLoad: YogaTest
+  sceneToLoad: {fileID: 0}
   isTipsScreen: 0
   pressEnterText: {fileID: 0}
 --- !u!1 &1274172580
@@ -14101,6 +14101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMaster: {fileID: 0}
   sceneName: 
+  menuScene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
 --- !u!1 &1608316217
 GameObject:
   m_ObjectHideFlags: 0

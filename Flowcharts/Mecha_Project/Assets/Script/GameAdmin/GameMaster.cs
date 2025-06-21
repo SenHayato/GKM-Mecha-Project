@@ -229,7 +229,7 @@ public class GameMaster : MonoBehaviour
 
     public void HideCursor()
     {
-        if (isPaused)
+        if (isPaused || gameFinish)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
