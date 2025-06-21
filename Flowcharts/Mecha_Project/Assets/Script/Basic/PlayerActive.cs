@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.VFX;
 
 public class PlayerActive : MonoBehaviour
@@ -25,12 +27,9 @@ public class PlayerActive : MonoBehaviour
     public Transform cameraPivot;
     public Transform playerPosition;
     public CameraEffect cameraEffect;
-    //public WeaponScript weapon;
     public WeaponRaycast Weapon;
     public GameObject windEffect;
     public HashSet<string> enemyTags = new() { "Enemy", "Boss", "MiniBoss" };
-    //public Material[] playerMaterial; //Material yanhg bisa berubah warna
-    //private Color[] defaultColor;
 
     [Header("Default Parameter")]
     [SerializeField] float walkRotValue;
@@ -105,18 +104,14 @@ public class PlayerActive : MonoBehaviour
     private void Start()
     {
         playerPosition = GetComponent<Transform>();
-        //cameraPivot = CameraAct.cameraParent;
-        //skill1HitBox.SetActive(false);
         skill2HitBox.SetActive(false);
         ultimateObj.SetActive(false);
         cameraPivot = CameraAct.cameraPivot;
         wasAiming = false;
         defaultSpeed = speed;
-        //Mecha Skill dan Ultimate Condition
         Mecha.skill1Time = Mecha.cooldownSkill1;
         Mecha.skill2Bar = 0;
         Mecha.Ultimate = Mecha.MinUltimate;
-        //Mecha.Energy = Mecha.MaxEnergy;
         Mecha.UltimateRegen = false;
         Mecha.EnergyRegen = false;
         skillBusy = false;
@@ -197,12 +192,20 @@ public class PlayerActive : MonoBehaviour
 
     private float currentThrustValue = 0f;
     private float currentMiniThrust = 0f;
-    //[SerializeField] float speedLerp;
+    private float currentEmmission = 0f;
+
+    [SerializeField] private Color baseEmissionColor;
+
     void VisualEffect()
     {
-        // default
         float targetThrust = 0.7f;
         float targetMiniThrust = 0.5f;
+        float emmisionValue = 0f;
+
+        if (Mecha.UsingAwakening)
+        {
+            emmisionValue = 80f;
+        }
 
         if (Mecha.isDashing)
         {
@@ -225,11 +228,15 @@ public class PlayerActive : MonoBehaviour
 
         currentThrustValue = Mathf.MoveTowards(currentThrustValue, targetThrust, Time.deltaTime * 0.5f);
         currentMiniThrust = Mathf.MoveTowards(currentMiniThrust, targetMiniThrust, Time.deltaTime * 0.5f);
+        currentEmmission = Mathf.MoveTowards(currentEmmission, emmisionValue, Time.deltaTime * 15f);
+
+        Color emission = baseEmissionColor * currentEmmission;
+        mechaMaterial.SetColor("_EmissionColor", emission);
+        mechaMaterial.EnableKeyword("_EMISSION");
 
         thusterJetVFX.SetFloat("_Thrust", currentThrustValue);
         miniThrusterVFX.SetFloat("_Thrust", currentMiniThrust);
     }
-
 
     void AwakeningReady()
     {
@@ -285,6 +292,7 @@ public class PlayerActive : MonoBehaviour
             }
         }
     }
+
     public void DashPlayer()
     {
         if (dashAction.IsPressed() && !Mecha.isDashing && !Mecha.isBoosting)
@@ -751,6 +759,7 @@ public class PlayerActive : MonoBehaviour
             skill1Action.Enable();
         }
     }
+
     //Ultimate
     public IEnumerator UseUltimate()
     {
