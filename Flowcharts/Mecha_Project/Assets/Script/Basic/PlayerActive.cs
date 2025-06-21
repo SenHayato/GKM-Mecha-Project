@@ -195,32 +195,39 @@ public class PlayerActive : MonoBehaviour
         VisualEffect();
     }
 
+    private float currentThrustValue = 0f;
+    private float currentMiniThrust = 0f;
+    //[SerializeField] float speedLerp;
     void VisualEffect()
     {
         // default
-        float thrustValue = 0.7f;
-        float miniThrustValue = 0.5f;
+        float targetThrust = 0.7f;
+        float targetMiniThrust = 0.5f;
+
         if (Mecha.isDashing)
         {
             if (Mecha.isBoosting)
             {
-                thrustValue = 0.25f;
-                miniThrustValue = 0.9f;
+                targetThrust = 0.25f;
+                targetMiniThrust = 0.9f;
             }
             else
             {
-                thrustValue = 0.5f;
-                miniThrustValue = 0.7f;
+                targetThrust = 0.5f;
+                targetMiniThrust = 0.7f;
             }
-        } 
+        }
         else if (Mecha.isBoosting)
         {
-            thrustValue = 0.25f;
-            miniThrustValue = 0.9f;
+            targetThrust = 0.25f;
+            targetMiniThrust = 0.9f;
         }
 
-        thusterJetVFX.SetFloat("_Thrust", thrustValue);
-        miniThrusterVFX.SetFloat("_Thrust", miniThrustValue);
+        currentThrustValue = Mathf.MoveTowards(currentThrustValue, targetThrust, Time.deltaTime * 0.5f);
+        currentMiniThrust = Mathf.MoveTowards(currentMiniThrust, targetMiniThrust, Time.deltaTime * 0.5f);
+
+        thusterJetVFX.SetFloat("_Thrust", currentThrustValue);
+        miniThrusterVFX.SetFloat("_Thrust", currentMiniThrust);
     }
 
 
