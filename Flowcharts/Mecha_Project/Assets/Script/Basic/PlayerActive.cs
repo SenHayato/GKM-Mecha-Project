@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -25,12 +26,9 @@ public class PlayerActive : MonoBehaviour
     public Transform cameraPivot;
     public Transform playerPosition;
     public CameraEffect cameraEffect;
-    //public WeaponScript weapon;
     public WeaponRaycast Weapon;
     public GameObject windEffect;
     public HashSet<string> enemyTags = new() { "Enemy", "Boss", "MiniBoss" };
-    //public Material[] playerMaterial; //Material yanhg bisa berubah warna
-    //private Color[] defaultColor;
 
     [Header("Default Parameter")]
     [SerializeField] float walkRotValue;
@@ -105,18 +103,14 @@ public class PlayerActive : MonoBehaviour
     private void Start()
     {
         playerPosition = GetComponent<Transform>();
-        //cameraPivot = CameraAct.cameraParent;
-        //skill1HitBox.SetActive(false);
         skill2HitBox.SetActive(false);
         ultimateObj.SetActive(false);
         cameraPivot = CameraAct.cameraPivot;
         wasAiming = false;
         defaultSpeed = speed;
-        //Mecha Skill dan Ultimate Condition
         Mecha.skill1Time = Mecha.cooldownSkill1;
         Mecha.skill2Bar = 0;
         Mecha.Ultimate = Mecha.MinUltimate;
-        //Mecha.Energy = Mecha.MaxEnergy;
         Mecha.UltimateRegen = false;
         Mecha.EnergyRegen = false;
         skillBusy = false;
@@ -230,7 +224,6 @@ public class PlayerActive : MonoBehaviour
         miniThrusterVFX.SetFloat("_Thrust", currentMiniThrust);
     }
 
-
     void AwakeningReady()
     {
         if (Mecha.Awakening >= Mecha.MaxAwakening)
@@ -285,6 +278,7 @@ public class PlayerActive : MonoBehaviour
             }
         }
     }
+
     public void DashPlayer()
     {
         if (dashAction.IsPressed() && !Mecha.isDashing && !Mecha.isBoosting)
@@ -751,6 +745,7 @@ public class PlayerActive : MonoBehaviour
             skill1Action.Enable();
         }
     }
+
     //Ultimate
     public IEnumerator UseUltimate()
     {
