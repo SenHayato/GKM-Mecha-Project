@@ -77,6 +77,7 @@ public class PlayerActive : MonoBehaviour
     [Header("Attribut & VFX")]
     [SerializeField] GameObject shieldObj;
     [SerializeField] GameObject explodedVFX;
+    [SerializeField] GameObject smokeVFX;
     [SerializeField] GameObject jumpDust;
     [SerializeField] GameObject trailDust;
     [SerializeField] ParticleSystem thusterParticle;
@@ -103,6 +104,7 @@ public class PlayerActive : MonoBehaviour
     }
     private void Start()
     {
+        smokeVFX.SetActive(false);
         playerPosition = GetComponent<Transform>();
         skill2HitBox.SetActive(false);
         ultimateObj.SetActive(false);
@@ -687,36 +689,37 @@ public class PlayerActive : MonoBehaviour
 
     public void Death()
     {
-        //if (Mecha.Health <= Mecha.MinHealth)
-        //{
-        //    Mecha.Health = Mecha.MinHealth;
-        //    Mecha.isDeath = true;
+        if (Mecha.Health <= Mecha.MinHealth)
+        {
+            Mecha.Health = Mecha.MinHealth;
+            Mecha.isDeath = true;
 
-        //    if (Mecha.isDeath)
-        //    {
-        //        Time.timeScale = 0.5f;
-        //        ExplodeDeath();
-        //        speed = 0f;
-        //        anim.SetBool("IsDeath", true);
-        //        GameMaster.gameLose = true;
-        //        GameMaster.gameFinish = true;
-        //    }
-        //    else
-        //    {
-        //        anim.SetBool("IsDeath", false);
-        //    }
-        //}
+            if (Mecha.isDeath)
+            {
+                Time.timeScale = 0.5f;
+                ExplodeDeath();
+                speed = 0f;
+                anim.SetBool("IsDeath", true);
+                GameMaster.gameLose = true;
+                GameMaster.gameFinish = true;
+            }
+            else
+            {
+                anim.SetBool("IsDeath", false);
+            }
+        }
     }
 
-    //bool exploded = false;
-    //void ExplodeDeath()
-    //{
-    //    if (!exploded)
-    //    {
-    //        exploded = true;
-    //        Instantiate(explodedVFX, transform.position, Quaternion.identity);
-    //    }
-    //}
+    bool exploded = false;
+    void ExplodeDeath()
+    {
+        if (!exploded)
+        {
+            exploded = true;
+            Instantiate(explodedVFX, transform.position, Quaternion.identity);
+            smokeVFX.SetActive(true);
+        }
+    }
 
     public void SKillCooldown()
     {

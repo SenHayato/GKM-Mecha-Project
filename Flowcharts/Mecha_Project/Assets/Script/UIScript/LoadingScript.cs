@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +7,7 @@ public class LoadingScript : MonoBehaviour
 {
     [SerializeField] UnityEngine.UI.Slider progressBar;
     [SerializeField] GameObject loadingScreen;
-    [SerializeField] string sceneToLoad;
+    [SerializeField] SceneAsset sceneToLoad;
     [SerializeField] bool isTipsScreen;
     [SerializeField] GameObject pressEnterText; //opsional jika ada button konfirmasi
 
@@ -22,7 +23,7 @@ public class LoadingScript : MonoBehaviour
     }
     IEnumerator LoadingToScene()
     {
-        AsyncOperation loading = SceneManager.LoadSceneAsync(sceneToLoad);
+        AsyncOperation loading = SceneManager.LoadSceneAsync(sceneToLoad.name);
         loadingScreen.SetActive(true);
 
         while(!loading.isDone) //kondisi loading belum selesai
