@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.VFX;
 
 public class PlayerActive : MonoBehaviour
@@ -191,12 +192,20 @@ public class PlayerActive : MonoBehaviour
 
     private float currentThrustValue = 0f;
     private float currentMiniThrust = 0f;
-    //[SerializeField] float speedLerp;
+    private float currentEmmission = 0f;
+
+    [SerializeField] private Color baseEmissionColor;
+
     void VisualEffect()
     {
-        // default
         float targetThrust = 0.7f;
         float targetMiniThrust = 0.5f;
+        float emmisionValue = 0f;
+
+        if (Mecha.UsingAwakening)
+        {
+            emmisionValue = 80f;
+        }
 
         if (Mecha.isDashing)
         {
@@ -219,6 +228,11 @@ public class PlayerActive : MonoBehaviour
 
         currentThrustValue = Mathf.MoveTowards(currentThrustValue, targetThrust, Time.deltaTime * 0.5f);
         currentMiniThrust = Mathf.MoveTowards(currentMiniThrust, targetMiniThrust, Time.deltaTime * 0.5f);
+        currentEmmission = Mathf.MoveTowards(currentEmmission, emmisionValue, Time.deltaTime * 15f);
+
+        Color emission = baseEmissionColor * currentEmmission;
+        mechaMaterial.SetColor("_EmissionColor", emission);
+        mechaMaterial.EnableKeyword("_EMISSION");
 
         thusterJetVFX.SetFloat("_Thrust", currentThrustValue);
         miniThrusterVFX.SetFloat("_Thrust", currentMiniThrust);
