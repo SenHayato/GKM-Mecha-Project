@@ -197,7 +197,8 @@ public class PlayerActive : MonoBehaviour
 
     void VisualEffect()
     {
-        float thrustValue = 0.7f; // default
+        // default
+        float thrustValue = 0.7f;
         float miniThrustValue = 0.5f;
         if (Mecha.isDashing)
         {
