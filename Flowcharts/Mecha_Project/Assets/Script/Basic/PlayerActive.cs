@@ -82,6 +82,8 @@ public class PlayerActive : MonoBehaviour
     [SerializeField] GameObject trailDust;
     [SerializeField] ParticleSystem thusterParticle;
     [SerializeField] Material thusterJetVFX; //ambil dari asset file agar terpasang global
+    [SerializeField] Material miniThrusterVFX; //ambil dari asset file agar terpasang global
+    [SerializeField] Material mechaMaterial; //ambil dari asset file agar terpasang global
 
     public void Awake()
     {
@@ -196,20 +198,28 @@ public class PlayerActive : MonoBehaviour
     void VisualEffect()
     {
         float thrustValue = 0.7f; // default
+        float miniThrustValue = 0.5f;
         if (Mecha.isDashing)
         {
             if (Mecha.isBoosting)
             {
                 thrustValue = 0.25f;
+                miniThrustValue = 0.9f;
             }
             else
             {
                 thrustValue = 0.5f;
+                miniThrustValue = 0.7f;
             }
         } 
-        else if (Mecha.isBoosting) thrustValue = 0.25f;
+        else if (Mecha.isBoosting)
+        {
+            thrustValue = 0.25f;
+            miniThrustValue = 0.9f;
+        }
 
         thusterJetVFX.SetFloat("_Thrust", thrustValue);
+        miniThrusterVFX.SetFloat("_Thrust", miniThrustValue);
     }
 
 
