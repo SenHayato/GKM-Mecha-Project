@@ -8110,8 +8110,7 @@ MonoBehaviour:
   input: {fileID: 0}
   gameWin: 0
   gameLose: 0
-  LoseScreen: LoseScreen
-  MainMenu: TittleScreen
+  loseScreen: {fileID: 0}
   fadeIn: {fileID: 64398751}
   fadeOut: {fileID: 470513228}
   KillCount: 0
@@ -8123,6 +8122,7 @@ MonoBehaviour:
   PlayerHealth: 0
   LastScene: 
   cutSceneManager: {fileID: 0}
+  loadingScript: {fileID: 0}
 --- !u!114 &1271183343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8240,6 +8240,7 @@ MonoBehaviour:
   sceneToLoad: {fileID: 0}
   isTipsScreen: 0
   pressEnterText: {fileID: 0}
+  isActive: 0
 --- !u!1 &1274172580
 GameObject:
   m_ObjectHideFlags: 0
@@ -10808,6 +10809,7 @@ MonoBehaviour:
   gameMaster: {fileID: 0}
   sceneName: 
   menuScene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
+  loadingScript: {fileID: 0}
 --- !u!1 &1608316217
 GameObject:
   m_ObjectHideFlags: 0

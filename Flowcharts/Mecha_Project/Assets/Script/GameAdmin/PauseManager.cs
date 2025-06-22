@@ -4,12 +4,14 @@ using UnityEditor;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] GameMaster gameMaster;
     [SerializeField] string sceneName;
     [SerializeField] SceneAsset menuScene;
+    [SerializeField] LoadingScript loadingScript;
 
     private void Awake()
     {

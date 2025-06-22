@@ -12,20 +12,14 @@ public class OptionManager : MonoBehaviour
     [SerializeField] Slider bgmSlider;
     [SerializeField] Slider sfxSlider;
 
-    private void Start()
+    void VolumeMonitor()
     {
-        bgmSlider.onValueChanged.AddListener(VolumeMonitor);
+        bgmMixer.SetFloat("MusicVolume", Mathf.Log10(bgmSlider.value) * 20f);
+        sfxMixer.SetFloat("SoundVolume", sfxSlider.value);
     }
 
-    void VolumeMonitor(float value)
+    private void Update()
     {
-        float dB = Mathf.Log10(Mathf.Clamp(value, 0.0001f, 1f)) * 20f;
-        bgmMixer.SetFloat("MasterVolume", dB);
+        VolumeMonitor();
     }
-
-    //private void Update()
-    //{
-    //    //VolumeMonitor();
-    //}
-
 }

@@ -12,7 +12,7 @@ public class LoadingScript : MonoBehaviour
     [SerializeField] GameObject pressEnterText; //opsional jika ada button konfirmasi
 
     //flag
-    //bool isActive = true;
+    public bool isActive = false;
     private void Start()
     {
         loadingScreen.SetActive(false);
@@ -21,9 +21,9 @@ public class LoadingScript : MonoBehaviour
             pressEnterText.SetActive(true);
         }
     }
-    IEnumerator LoadingToScene()
+    IEnumerator LoadingToScene(string SceneName)
     {
-        AsyncOperation loading = SceneManager.LoadSceneAsync(sceneToLoad.name);
+        AsyncOperation loading = SceneManager.LoadSceneAsync(SceneName);
         loadingScreen.SetActive(true);
 
         while(!loading.isDone) //kondisi loading belum selesai
@@ -37,17 +37,17 @@ public class LoadingScript : MonoBehaviour
 
     public void LoadingMonitorButton() //Bisa buat tipsScreen
     {
-        StartCoroutine(LoadingToScene());
+        StartCoroutine(LoadingToScene(sceneToLoad.name));
     }
 
-    //void LoadingMonitor()
-    //{
-    //    if (isActive)
-    //    {
-    //        isActive = false;
-    //        StartCoroutine(LoadingToScene());
-    //    }
-    //}
+    public void LoadScene(string NextScene)
+    {
+        if (!isActive)
+        {
+            isActive = true;
+            StartCoroutine(LoadingToScene(NextScene));
+        }
+    }
 
     private void Update()
     {

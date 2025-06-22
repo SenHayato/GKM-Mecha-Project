@@ -28,8 +28,7 @@ public class GameMaster : MonoBehaviour
     [Header("GameFinish Condition")]
     public bool gameWin = false;
     public bool gameLose = false;
-    public string LoseScreen;
-    public string MainMenu;
+    public SceneAsset loseScreen;
 
     [Header("Transition")]
     public GameObject fadeIn;
@@ -53,6 +52,7 @@ public class GameMaster : MonoBehaviour
 
     [Header("Reference")]
     [SerializeField] CutSceneManager cutSceneManager;
+    [SerializeField] LoadingScript loadingScript;
 
     //flag
     GameObject bossObject;
@@ -67,6 +67,7 @@ public class GameMaster : MonoBehaviour
         HUDManager = FindAnyObjectByType<HUDGameManager>();   
         playerInput = GetComponent<PlayerInput>();
         cutSceneManager = FindFirstObjectByType<CutSceneManager>();
+        loadingScript = FindObjectOfType<LoadingScript>();
     }
 
     private void Start()
@@ -81,15 +82,15 @@ public class GameMaster : MonoBehaviour
         switch (StageType)
         {
             case StageType.StageTutorial:
-                QuestText = "Tutorial : Keluar dari base musuh";
+                QuestText = "Tutorial : Escape from enemy base!";
                 countdown = false;
                 break;
             case StageType.Stage1:
-                QuestText = "Telusuri kota dan cari jalan keluar";
+                QuestText = "Go through the city, find a way out!";
                 countdown = false;
                 break;
             case StageType.Stage2:
-                QuestText = "Musuh menyerang dari segala arah, BERTAHAN!";
+                QuestText = "The enemy is attacking from all directions, HOLD ON!";
                 countdown = true;
                 if (countdown)
                 {
@@ -99,7 +100,7 @@ public class GameMaster : MonoBehaviour
             case StageType.StageBoss:
                 bossObject = GameObject.FindGameObjectWithTag("Boss");
                 bossModel = bossObject.GetComponent<EnemyModel>();
-                QuestText = "Musuh ELITE TYPE, HANCURKAN!";
+                QuestText = "ELITE-TYPE ENEMY INCOMING, DESTROY IT";
                 countdown = false;
                 break;
         }
@@ -148,24 +149,14 @@ public class GameMaster : MonoBehaviour
 
             if (nextScene != null && gameWin)
             {
-                LoadNextStage(nextScene.name);
+                loadingScript.LoadScene(nextScene.name);
             }
 
             if (gameLose)
             {
-                LoadNextStage(LoseScreen);
+                LoadNextStage(loseScreen.name);
             }
         }
-    }
-
-    public void LosingScreen()
-    {
-        SceneManager.LoadScene(LoseScreen);
-    }
-
-    public void BacktoMenu()
-    {
-        SceneManager.LoadScene(MainMenu);
     }
 
     public void LoadNextStage(string SceneName)

@@ -13,6 +13,7 @@ public class CGManager : MonoBehaviour
     [Header("VideoPlayer SetUp")]
     [SerializeField] GameObject videoPlayerCanvas;
     [SerializeField] VideoPlayer videoPlayer;
+    [SerializeField] AudioSource audioSource;
 
     //flag
     bool wasPlaying = false;
@@ -55,5 +56,9 @@ public class CGManager : MonoBehaviour
     private void Update()
     {
         VideoSetUp();
+        if  (videoPlayer.clip != null)
+        {
+            videoPlayer.SetTargetAudioSource(0, audioSource);
+        }
     }
 }
