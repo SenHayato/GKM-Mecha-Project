@@ -42,7 +42,7 @@ AudioSource:
   m_GameObject: {fileID: 300510902242930935}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b3797d3725de15d4eb855b3b0066cd2e, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -857,7 +857,7 @@ MonoBehaviour:
   defaultRotation: 0
   rayCastSpawn: {fileID: 1971037059433666861}
   bulletHitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
-  missChange: 0.05
+  missChange: 0.02
   attackSlerpTollerance: 15
   timeBeforeAttack: 1
   bulletSpawn: {fileID: 1971037059433666861}
@@ -938,7 +938,7 @@ AudioSource:
   m_GameObject: {fileID: 2266238480810091732}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b3797d3725de15d4eb855b3b0066cd2e, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

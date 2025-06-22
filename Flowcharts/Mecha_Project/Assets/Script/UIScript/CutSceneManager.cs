@@ -13,6 +13,7 @@ public class CutSceneManager : MonoBehaviour
     [SerializeField] VideoClip stage2CutScene;
     [SerializeField] VideoClip stageBossCutScene;
     [SerializeField] VideoClip outroCutScene;
+    [SerializeField] AudioSource videoAudio;
 
     [Header("Audio Monitor")]
     [SerializeField] AudioSource[] audioSources;
@@ -117,5 +118,9 @@ public class CutSceneManager : MonoBehaviour
         SkipButton();
         GameTimeManager();
         StartCoroutine(VideoMonitoring());
+        if (videoPlayer.clip != null)
+        {
+            videoPlayer.SetTargetAudioSource(0, videoAudio);
+        }
     }
 }
