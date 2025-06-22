@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -9,6 +10,7 @@ public class CGManager : MonoBehaviour
     [Header("CG Video SetUp")]
     [SerializeField] VideoClip[] CGClips;
     [SerializeField] bool isPlaying;
+    [SerializeField] KeyCode skipButton;
 
     [Header("VideoPlayer SetUp")]
     [SerializeField] GameObject videoPlayerCanvas;
@@ -42,19 +44,34 @@ public class CGManager : MonoBehaviour
 
     IEnumerator VideoPlaying()
     {
+        if (Input.GetKeyDown(skipButton)) yield break;
+
         if (isPlaying)
         {
             videoPlayer.Play();
             yield return new WaitForSeconds((float)videoPlayer.clip.length);
-            videoPlayerCanvas.SetActive(false);
             videoPlayer.clip = null;
             isPlaying = false;
             wasPlaying = false;
+            videoPlayerCanvas.SetActive(false);
+        }
+    }
+
+    void SkipCG()
+    {
+        if (isPlaying && Input.GetKeyDown(skipButton))
+        {
+            videoPlayer.Stop();
+            isPlaying = false;
+            wasPlaying = false;
+            videoPlayer.clip = null;
+            videoPlayerCanvas.SetActive(false);
         }
     }
 
     private void Update()
     {
+        SkipCG();
         VideoSetUp();
         if  (videoPlayer.clip != null)
         {
