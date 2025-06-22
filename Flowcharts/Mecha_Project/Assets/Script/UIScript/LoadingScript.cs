@@ -8,8 +8,8 @@ public class LoadingScript : MonoBehaviour
     [SerializeField] UnityEngine.UI.Slider progressBar;
     [SerializeField] GameObject loadingScreen;
     [SerializeField] SceneAsset sceneToLoad;
-    [SerializeField] bool isTipsScreen;
     [SerializeField] GameObject pressEnterText; //opsional jika ada button konfirmasi
+    public KeyCode pressToSkip;
 
     //flag
     public bool isActive = false;
@@ -48,19 +48,4 @@ public class LoadingScript : MonoBehaviour
             StartCoroutine(LoadingToScene(NextScene));
         }
     }
-
-    private void Update()
-    {
-        //LoadingMonitor();
-
-        if (Input.GetKeyDown(KeyCode.Keypad7)) //nanti ganti ke key return saat build dan ditambah bool
-        {
-            if (pressEnterText != null)
-            {
-                pressEnterText.SetActive(false);
-            }
-            LoadingMonitorButton();
-        }
-    }
-
 }

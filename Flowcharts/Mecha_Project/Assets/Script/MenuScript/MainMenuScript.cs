@@ -7,7 +7,9 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] Animation mainMenuAnim;
     [SerializeField] MenuMaster menuMaster;
     [SerializeField] Button[] menuButton;
+    [SerializeField] LoadingScript loadingScript;
     public AudioSource menuAudio;
+    public bool tipsScreenActive = false;
 
     //flag
     bool animPlay;
@@ -17,6 +19,7 @@ public class MainMenuScript : MonoBehaviour
         menuAudio = GetComponent<AudioSource>();
         menuMaster = FindFirstObjectByType<MenuMaster>();
         mainMenuAnim = GetComponent<Animation>();
+        loadingScript = FindObjectOfType<LoadingScript>();
     }
 
     private void Start()
@@ -70,6 +73,7 @@ public class MainMenuScript : MonoBehaviour
     public void NewGameButton()
     {
         menuMaster.newGameScreenActive = true;
+        tipsScreenActive = true;
         menuAudio.volume = Mathf.Lerp(1f, 0.2f, Time.deltaTime / 0.005f);
     }
 
@@ -96,8 +100,16 @@ public class MainMenuScript : MonoBehaviour
         Application.Quit();
     }
 
+    void TipsScreen()
+    {
+        if (Input.GetKeyDown(loadingScript.pressToSkip) && tipsScreenActive)
+        {
+            loadingScript.LoadScene(menuMaster.firstStage.name);
+        }
+    }
     private void Update()
     {
+        TipsScreen();
         AnimationManager();
         ButtonMonitoring();
         ButtonToggle();

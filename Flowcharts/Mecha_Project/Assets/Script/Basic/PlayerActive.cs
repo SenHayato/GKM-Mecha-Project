@@ -145,6 +145,7 @@ public class PlayerActive : MonoBehaviour
     }
     void Update()
     {
+        PlayerDataMonitor();
         UltimateSetting();
         PauseControl();
 
@@ -198,6 +199,13 @@ public class PlayerActive : MonoBehaviour
 
     [SerializeField] private Color baseEmissionColor;
 
+    void PlayerDataMonitor()
+    {
+        if (Mecha.Health >= Mecha.MaxHealth)
+        {
+            Mecha.Health = Mecha.MaxHealth;
+        }
+    }
     void VisualEffect()
     {
         float targetThrust = 0.7f;

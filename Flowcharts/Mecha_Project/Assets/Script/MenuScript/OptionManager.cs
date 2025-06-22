@@ -15,7 +15,7 @@ public class OptionManager : MonoBehaviour
     void VolumeMonitor()
     {
         bgmMixer.SetFloat("MusicVolume", Mathf.Log10(bgmSlider.value) * 20f);
-        sfxMixer.SetFloat("SoundVolume", sfxSlider.value);
+        sfxMixer.SetFloat("SoundVolume", Mathf.Log10(sfxSlider.value) * 20f);
     }
 
     private void Update()
