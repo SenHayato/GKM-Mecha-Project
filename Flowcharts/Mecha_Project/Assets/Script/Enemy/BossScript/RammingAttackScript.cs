@@ -8,7 +8,7 @@ public class RammingAttackScript : MonoBehaviour
     [SerializeField] int rammingDamage;
     [SerializeField] GameObject hitEffect;
 
-    void Start()
+    void Awake()
     {
         enemyModel = GetComponentInParent<EnemyModel>();
     }

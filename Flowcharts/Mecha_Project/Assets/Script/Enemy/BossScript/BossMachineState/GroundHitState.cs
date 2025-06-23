@@ -31,7 +31,9 @@ public class GroundHitState : StateMachineBehaviour
     
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Instantiate(groundSmashEffect, animator.transform.position, Quaternion.identity);
+        Vector3 targetGround = animator.transform.position;
+        targetGround.y = 0.25f;
+        Instantiate(groundSmashEffect, targetGround, Quaternion.identity);
         bossActive.groundSmashCollider.SetActive(false);
         navAgent.speed = bossActive.navDefaultSpeed;
         enemyModel.isAttacking = false;
