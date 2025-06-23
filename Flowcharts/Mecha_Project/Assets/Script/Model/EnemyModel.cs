@@ -32,6 +32,7 @@ public class EnemyModel : MonoBehaviour
     public bool isHit;
     public bool isAiming; //khusus untuk range
     public bool wasHit = false;
+    public bool canExplode;
 }
 
 public enum EnemyType

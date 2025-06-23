@@ -10,7 +10,6 @@ public class LaserSweepingObj : MonoBehaviour
 
     void Awake()
     {
-        enemyModel = GetComponentInParent<EnemyModel>();
         sweepingDamage += enemyModel.attackPower;
     }
 

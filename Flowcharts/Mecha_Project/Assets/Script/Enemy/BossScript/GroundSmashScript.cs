@@ -10,10 +10,6 @@ public class GroundSmashScript : MonoBehaviour
 
 
     //object tinggal dispawn saat boss mendarat
-    private void Awake()
-    {
-        bossActive = GetComponentInParent<BossActive>();
-    }
 
     private void OnTriggerEnter(Collider other)
     {

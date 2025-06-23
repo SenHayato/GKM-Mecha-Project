@@ -8,11 +8,6 @@ public class RammingAttackScript : MonoBehaviour
     [SerializeField] int rammingDamage;
     [SerializeField] GameObject hitEffect;
 
-    void Awake()
-    {
-        enemyModel = GetComponentInParent<EnemyModel>();
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         Vector3 hitPost = other.transform.position;

@@ -2047,7 +2047,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f8d95a10964b24bb77c8eb2f4f9eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyModel: {fileID: 0}
+  enemyModel: {fileID: 1989561964}
   sweepingDamage: 10000
   hitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
 --- !u!1 &232826145
@@ -2663,9 +2663,9 @@ MonoBehaviour:
   criticalVoiceClip:
   - {fileID: 8300000, guid: 0692f667c577fc34381c49ba656aa2e9, type: 3}
   - {fileID: 8300000, guid: a6849a07586478442b2c98c88b4ca05c, type: 3}
-  specialSprite: []
-  specialDialouge: []
-  specialVoiceClip: []
+  specialSprite: {fileID: 0}
+  specialDialouge: 
+  specialVoiceClip: {fileID: 0}
   killTrigger: 0
   ultimateTrigger: 0
   criticalTrigger: 0
@@ -11225,7 +11225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe123c190f11ec0479952e49ca8ff392, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossActive: {fileID: 0}
+  bossActive: {fileID: 1989561963}
   smashDamage: 30000
   groundSmashEffect: {fileID: 4912806830170122301, guid: a5a63c3874d5c0f49857d25f5ea7c90d, type: 3}
 --- !u!1001 &618541264
@@ -11456,7 +11456,7 @@ RectTransform:
   m_Father: {fileID: 402653889}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.41, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12802,7 +12802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8f8d95a10964b24bb77c8eb2f4f9eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyModel: {fileID: 0}
+  enemyModel: {fileID: 1989561964}
   sweepingDamage: 10000
   hitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
 --- !u!1 &728926852
@@ -15518,7 +15518,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 1034328617}
   speed: 10
-  enemyModel: {fileID: 0}
+  enemyModel: {fileID: 1989561964}
   destroyTime: 5
   damageValue: 3000
   slashHitEffect: {fileID: 9111725185115478459, guid: 00002b2d7c7647a49a9c1d51fe4937dc, type: 3}
@@ -16305,7 +16305,7 @@ RectTransform:
   m_Father: {fileID: 1090641230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -18952,7 +18952,7 @@ AudioSource:
   m_GameObject: {fileID: 1440067728}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b3797d3725de15d4eb855b3b0066cd2e, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -19515,7 +19515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8840b36ac31171a429ca3968bbf93dd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyModel: {fileID: 0}
+  enemyModel: {fileID: 1989561964}
   rammingDamage: 20000
   hitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
 --- !u!1 &1554611615
@@ -22360,7 +22360,7 @@ RectTransform:
   m_Father: {fileID: 1914848448}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -23655,7 +23655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1989561958
 Transform:
   m_ObjectHideFlags: 0
@@ -23872,6 +23872,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2361344
   originPoint: {fileID: 240181978}
+  bossHUD: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
   walkPointRange: 0
@@ -23886,7 +23887,7 @@ MonoBehaviour:
   hitCollider: {fileID: 0}
   deathCollider: {fileID: 2026783644}
   anim: {fileID: 0}
-  deathExplode: {fileID: 2112769824686486772, guid: 24b8fd77d1f43d94299a5ff3605d6252, type: 3}
+  deathExplode: {fileID: 4335738444487833704, guid: caec0e31c1c4942479c649972271247f, type: 3}
   stuntVFX: {fileID: 509310720}
   navDefaultSpeed: 0
   beforeHitGround: 5
@@ -23980,6 +23981,7 @@ MonoBehaviour:
   isHit: 0
   isAiming: 0
   wasHit: 0
+  canExplode: 0
 --- !u!1 &2020532789
 GameObject:
   m_ObjectHideFlags: 0
@@ -24247,7 +24249,7 @@ RectTransform:
   m_Father: {fileID: 1626666709}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.49, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
