@@ -5019,7 +5019,7 @@ AudioSource:
   m_GameObject: {fileID: 501867702}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b3797d3725de15d4eb855b3b0066cd2e, type: 2}
   m_audioClip: {fileID: 8300000, guid: aadb5ad3eb48f134f96ae8f10880dac4, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.55
@@ -12310,7 +12310,7 @@ AudioSource:
   m_GameObject: {fileID: 678722262}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b3797d3725de15d4eb855b3b0066cd2e, type: 2}
   m_audioClip: {fileID: 8300000, guid: 6fd9ffc3be76e3847a19874f42a04f16, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -32215,6 +32215,10 @@ PrefabInstance:
     - target: {fileID: 1815102799275566084, guid: dd5b43bc11bb37d49bdde79052170b6a, type: 3}
       propertyPath: m_Name
       value: Player_GTK
+      objectReference: {fileID: 0}
+    - target: {fileID: 8194293654345429436, guid: dd5b43bc11bb37d49bdde79052170b6a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8374242445890558254, guid: dd5b43bc11bb37d49bdde79052170b6a, type: 3}
       propertyPath: m_LocalPosition.x

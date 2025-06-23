@@ -1,12 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.SearchService;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LoseScreen : MonoBehaviour
 {
-    [SerializeField] string MainMenuScene;
+    [SerializeField] SceneAsset mainmenuScene;
     [SerializeField] UnityEngine.UI.Slider progressBar;
     [SerializeField] GameObject loadingScreen;
 
@@ -17,7 +16,7 @@ public class LoseScreen : MonoBehaviour
 
     IEnumerator LoadingToScene()
     {
-        AsyncOperation loading = SceneManager.LoadSceneAsync(MainMenuScene);
+        AsyncOperation loading = SceneManager.LoadSceneAsync(mainmenuScene.name);
         loadingScreen.SetActive(true);
 
         while(!loading.isDone) //kondisi loading belum selesai

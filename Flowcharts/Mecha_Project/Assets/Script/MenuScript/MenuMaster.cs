@@ -25,6 +25,13 @@ public class MenuMaster : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
     }
 
+    private void Start()
+    {
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
     void ScreenMonitor()
     {
         //tittleScreen

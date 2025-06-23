@@ -152,7 +152,7 @@ public class PlayerActive : MonoBehaviour
         //Hukum Fisika COY
         ApplyGravity();
         SelectButtonPress();
-        Death();
+        //Death();
         UpdatePosition();
 
         if (!Mecha.isDeath && !GameMaster.isPaused)

@@ -63,7 +63,7 @@ public class CameraEffect : MonoBehaviour
             while (mechaPlayer.Health <= 25000f)
             {
                 //elapsedTime += Time.deltaTime;
-                vignette.intensity.value = Mathf.PingPong(Time.time * 1f, 0.5f); // Berkedip antara 0 dan 0.5
+                vignette.intensity.value = Mathf.PingPong(Time.time * 1f, 0.3f); // Berkedip antara 0 dan 0.5
                 yield return null;
             }
             vignette.intensity.value = 0f; // Kembali ke normal setelah kedipan

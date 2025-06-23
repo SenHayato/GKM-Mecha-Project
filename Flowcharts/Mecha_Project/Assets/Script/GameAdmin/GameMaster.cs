@@ -284,6 +284,10 @@ public class GameMaster : MonoBehaviour
         {
             playerInput.enabled = false;
         }
+        else
+        {
+            playerInput.enabled = true;
+        }
         StageMonitor();
     }
 
