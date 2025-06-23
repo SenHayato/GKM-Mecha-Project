@@ -37,7 +37,10 @@ public class LoadingScript : MonoBehaviour
 
     public void LoadingMonitorButton() //Bisa buat tipsScreen
     {
-        StartCoroutine(LoadingToScene(sceneToLoad.name));
+        if (sceneToLoad != null)
+        {
+            StartCoroutine(LoadingToScene(sceneToLoad.name));
+        }
     }
 
     public void LoadScene(string NextScene)

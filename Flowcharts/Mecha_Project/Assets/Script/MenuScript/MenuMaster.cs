@@ -28,8 +28,6 @@ public class MenuMaster : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     void ScreenMonitor()
@@ -38,10 +36,14 @@ public class MenuMaster : MonoBehaviour
         if (tittleScreenActive)
         {
             tittleScreen.SetActive(true);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {
             tittleScreen.SetActive(false);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         //newGameScreen
