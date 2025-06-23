@@ -9,14 +9,14 @@ using UnityEngine.UIElements;
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] GameMaster gameMaster;
-    [SerializeField] string sceneName;
+    [SerializeField] string thisSceneName;
     [SerializeField] SceneAsset menuScene;
     [SerializeField] LoadingScript loadingScript;
-
     private void Awake()
     {
         gameMaster = FindFirstObjectByType<GameMaster>();
-        sceneName = SceneManager.GetActiveScene().name;
+        thisSceneName = SceneManager.GetActiveScene().name;
+        loadingScript = FindObjectOfType<LoadingScript>();
     }
 
     public void ContinueButton()
@@ -33,11 +33,12 @@ public class PauseManager : MonoBehaviour
 
     public void RestartButton()
     {
-        SceneManager.LoadSceneAsync(sceneName);
+        SceneManager.LoadSceneAsync(thisSceneName);
     }
 
     public void ExitToMenu()
     {
-        SceneManager.LoadSceneAsync(menuScene.name);
+        gameMaster.gameFinish = true;
+        StartCoroutine(loadingScript.LoadingToScene(menuScene.name));
     }
 }
