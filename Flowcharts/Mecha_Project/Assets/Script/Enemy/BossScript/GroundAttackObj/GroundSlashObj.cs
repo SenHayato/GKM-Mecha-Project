@@ -18,11 +18,6 @@ public class GroundSlashObj : MonoBehaviour
 
     // Start is called before the first frame update
 
-    private void Awake()
-    {
-        enemyModel = GetComponentInParent<EnemyModel>();
-    }
-
     void Start()
     {
         damageValue += enemyModel.attackPower;

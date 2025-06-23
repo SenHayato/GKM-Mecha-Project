@@ -1,10 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class PauseManager : MonoBehaviour
 {
@@ -14,7 +11,7 @@ public class PauseManager : MonoBehaviour
     [SerializeField] LoadingScript loadingScript;
     private void Awake()
     {
-        gameMaster = FindFirstObjectByType<GameMaster>();
+        gameMaster = FindObjectOfType<GameMaster>();
         thisSceneName = SceneManager.GetActiveScene().name;
         loadingScript = FindObjectOfType<LoadingScript>();
     }
@@ -36,9 +33,29 @@ public class PauseManager : MonoBehaviour
         SceneManager.LoadSceneAsync(thisSceneName);
     }
 
+    public IEnumerator LoadingToMenu(string SceneName)
+    {
+        AsyncOperation loading = SceneManager.LoadSceneAsync(SceneName);
+        loadingScript.loadingScreen.SetActive(true);
+
+        while (!loading.isDone) //kondisi loading belum selesai
+        {
+            float progressValue = Mathf.Clamp01(loading.progress / 0.9f);
+            loadingScript.progressBar.value = progressValue;
+            Debug.Log(progressValue);
+            yield return null;
+        }
+    }
+
+    void ExecuteMenu()
+    {
+        StartCoroutine(LoadingToMenu(menuScene.name));
+    }
+
     public void ExitToMenu()
     {
-        gameMaster.gameFinish = true;
-        StartCoroutine(loadingScript.LoadingToScene(menuScene.name));
+        gameMaster.isPaused = false;
+        Invoke(nameof(ExecuteMenu), 0.2f);
     }
+
 }

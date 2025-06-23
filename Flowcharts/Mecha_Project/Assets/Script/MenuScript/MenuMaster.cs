@@ -25,16 +25,25 @@ public class MenuMaster : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
     }
 
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
+
     void ScreenMonitor()
     {
         //tittleScreen
         if (tittleScreenActive)
         {
             tittleScreen.SetActive(true);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {
             tittleScreen.SetActive(false);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
 
         //newGameScreen

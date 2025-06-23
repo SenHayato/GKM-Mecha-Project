@@ -39,6 +39,9 @@ public class PlayerActive : MonoBehaviour
     private int defaultUltDamage;
     private int defaultDefence;
 
+    [Header("WeaponSlot")]
+    [SerializeField] Transform WeaponSlot;
+
     [Header("Skill dan Ultimate")]
     public LayerMask enemyLayer;
     public GameObject skill2HitBox;
@@ -64,7 +67,7 @@ public class PlayerActive : MonoBehaviour
     public float fallMultiplier;
     public float rotationSpeed;
     private bool wasAiming;
-    [SerializeField] bool skillBusy;
+    public bool skillBusy;
     public CharacterController controller;
     public Animator anim;
 
@@ -77,6 +80,7 @@ public class PlayerActive : MonoBehaviour
     [Header("Attribut & VFX")]
     [SerializeField] GameObject shieldObj;
     [SerializeField] GameObject explodedVFX;
+    [SerializeField] GameObject slashEffect;
     [SerializeField] GameObject smokeVFX;
     [SerializeField] GameObject jumpDust;
     [SerializeField] GameObject trailDust;
@@ -92,8 +96,6 @@ public class PlayerActive : MonoBehaviour
         GameMaster = FindAnyObjectByType<GameMaster>();
         CameraAct = FindAnyObjectByType<CameraActive>();
         rotationSpeed = CameraAct.rotationSpeed;
-        //skill1HitBox = GameObject.Find("Skill1HitBox");
-        //skill1HitBox = GameObject.Find("Skill2HitBox");
         Weapon = GetComponentInChildren<WeaponRaycast>();
         Mecha = GetComponent<MechaPlayer>();
         controller = GetComponent<CharacterController>();
@@ -152,7 +154,7 @@ public class PlayerActive : MonoBehaviour
         //Hukum Fisika COY
         ApplyGravity();
         SelectButtonPress();
-        Death();
+        //Death();
         UpdatePosition();
 
         if (!Mecha.isDeath && !GameMaster.isPaused)
@@ -163,15 +165,19 @@ public class PlayerActive : MonoBehaviour
             if (!Mecha.UsingUltimate)
             {
                 //Class untuk player
-                PlayerJump();
-                Reloading();
-                DashPlayer();
-                BlockPlayer();
-                StartCoroutine(Skill1());
+                if (!Mecha.usingSkill1 && !Mecha.usingSkill2)
+                {
+                    PlayerJump();
+                    Reloading();
+                    ScopeMode();
+                    Shooting();
+                    DashPlayer();
+                    BlockPlayer();
+                    RelativeMovement();
+                }
+                //StartCoroutine(Skill1());
+                Skill1();
                 StartCoroutine(Skill2());
-                ScopeMode();
-                Shooting();
-                RelativeMovement();
                 if (!Mecha.isAiming)
                 {
                     StartCoroutine(UseUltimate());
@@ -638,33 +644,32 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
-    public IEnumerator Skill1()
+    #region PlayerSkill
+    void Skill1()
     {
         if (skill1Action.triggered && Mecha.readySkill1 && !Mecha.isDeath && !Mecha.isReloading && !Mecha.isBlocking)
         {
-            Debug.Log("Skill 1 Aktif Korotine");
-            skillBusy = true;
-            Mecha.usingSkill1 = true;
+            anim.SetTrigger("IsSkill1");
+        }
+
+        if (Mecha.usingSkill1)
+        {
+            Mecha.readySkill1 = false;
             Mecha.skill1Time = Mecha.cooldownSkill1;
             skill2Action.Disable();
-            Mecha.readySkill1 = false;
-            anim.SetTrigger("IsSkill1");
-
-            yield return new WaitForSeconds(1.1f);
-            Instantiate(playerSkillObj, playerSkillSpawn.position, Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
-            //skill1HitBox.SetActive(true);
-
-            yield return new WaitForSeconds(Mecha.skill1Duration); //lama skill
-            Mecha.usingSkill1 = false;
-            skillBusy = false;
-            skill2Action.Enable();
-            //skill1HitBox.SetActive(false);
         }
         else
         {
-            yield break;
+            skill2Action.Enable();
         }
     }
+
+    public void SpawnSlashEffect()
+    {
+        Instantiate(slashEffect, WeaponSlot.position, Quaternion.Euler(0f, 180f, 0f));
+        Instantiate(playerSkillObj, playerSkillSpawn.position, Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
+    }
+    #endregion
 
     public IEnumerator Skill2()
     {

@@ -25,10 +25,11 @@ public class PlayerDialogueSystem : MonoBehaviour
     [SerializeField] string[] criticalDialogue;
     [SerializeField] AudioClip[] criticalVoiceClip;
 
+    //Setiap Stage Berbeda
     [Header("Special Event")]                       //sprite, text dan voice harus terurut
-    [SerializeField] Sprite[] specialSprite;
-    [SerializeField] string[] specialDialouge;
-    [SerializeField] AudioClip[] specialVoiceClip;
+    [SerializeField] Sprite specialSprite;
+    [SerializeField] string specialDialouge;
+    [SerializeField] AudioClip specialVoiceClip;
 
     [Header("Dialogue ON")]
     [SerializeField] bool killTrigger;
@@ -52,6 +53,7 @@ public class PlayerDialogueSystem : MonoBehaviour
     {
         mechaPlayer = FindFirstObjectByType<MechaPlayer>();
         StartCoroutine(HealthMonitor());
+        StartCoroutine(SpecialDialougue());
     }
 
     IEnumerator PlayerMonitoring()
@@ -153,6 +155,24 @@ public class PlayerDialogueSystem : MonoBehaviour
             animationClip.Play("DialogueOut");
             yield return new WaitForSeconds(0.8f);
             killTrigger = false;
+            wasActive = false;
+        }
+    }
+
+    IEnumerator SpecialDialougue()
+    {
+        if (!wasActive)
+        {
+            wasActive = true;
+            animationClip.Play("DialogueIn");
+            voiceSource.enabled = true;
+            voiceSource.clip = specialVoiceClip;
+            voiceSource.Play();
+            imageProfile.sprite = specialSprite;
+            dialogueText.text = specialDialouge;
+            yield return new WaitForSeconds(specialVoiceClip.length);
+            animationClip.Play("DialogueOut");
+            yield return new WaitForSeconds(0.8f);
             wasActive = false;
         }
     }

@@ -13,6 +13,7 @@ public abstract class EnemyActive : MonoBehaviour
     public LayerMask hitLayer; //layer apa saja yang bisa dihit
     [SerializeField] LayerMask groundLayer; //layer yang bisa diinjak enemy
     [SerializeField] Transform originPoint;
+    [SerializeField] GameObject bossHUD;
 
     [Header("Patrolling")]
     [SerializeField] Vector3 walkPoint;
@@ -77,6 +78,11 @@ public abstract class EnemyActive : MonoBehaviour
         } else {
             navAgent.enabled = false; // Nonaktifkan NavMeshAgent jika tidak di tanah saat Start
         }
+
+        if (bossHUD != null)
+        {
+            bossHUD.SetActive(true);
+        }
     }
 
     void Update()
@@ -86,6 +92,7 @@ public abstract class EnemyActive : MonoBehaviour
         ApplyGravity();
         CheckingSight();
         GettingStunt();
+        PlayAnimation();
 
         
         if (enemyModel.isDeath)
@@ -99,7 +106,7 @@ public abstract class EnemyActive : MonoBehaviour
         {
             if (navAgent.enabled) navAgent.SetDestination(transform.position); // Berhenti bergerak
             navAgent.enabled = false;
-            PlayAnimation();
+            //PlayAnimation();
             return;
         }
 
@@ -123,8 +130,6 @@ public abstract class EnemyActive : MonoBehaviour
                 Patrolling();
             }
         }
-
-        PlayAnimation();
     }
 
     private bool wasGrounded = false;
@@ -243,6 +248,10 @@ public abstract class EnemyActive : MonoBehaviour
         enemyModel.health = enemyModel.minHealth;
         enemyModel.isDeath = true;
 
+        if (bossHUD != null)
+        {
+            bossHUD.SetActive(false);
+        }
         // Hentikan pergerakan
         if (navAgent.enabled)
         {
@@ -258,7 +267,10 @@ public abstract class EnemyActive : MonoBehaviour
         Debug.Log("Death Animation Triggered for " + gameObject.name);
         deathCollider.enabled = true; // Aktifkan death collider jika diperlukan
         Invoke(nameof(ExplodeVisual), 3.5f);
-        Destroy(gameObject, 4f);
+        if (enemyModel.canExplode)
+        {
+            Destroy(gameObject, 4f);
+        }
     }
     
 

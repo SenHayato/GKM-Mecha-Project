@@ -791,10 +791,10 @@ RectTransform:
   - {fileID: 242275422}
   m_Father: {fileID: 660779208}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960, y: -1042}
-  m_SizeDelta: {x: 1868.1523, y: 25}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 23}
+  m_SizeDelta: {x: 1336.9425, y: 24.4682}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &121981675
 PrefabInstance:
@@ -2323,9 +2323,9 @@ MonoBehaviour:
   criticalVoiceClip:
   - {fileID: 8300000, guid: 0692f667c577fc34381c49ba656aa2e9, type: 3}
   - {fileID: 8300000, guid: a6849a07586478442b2c98c88b4ca05c, type: 3}
-  specialSprite: []
-  specialDialouge: []
-  specialVoiceClip: []
+  specialSprite: {fileID: 330377222, guid: 08fad0eadf9c8484a82e54765cd3b600, type: 3}
+  specialDialouge: jshduiahds
+  specialVoiceClip: {fileID: 8300000, guid: a0237556eec59e34caa143f063589327, type: 3}
   killTrigger: 0
   ultimateTrigger: 0
   criticalTrigger: 0
@@ -6473,7 +6473,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1605250518}
+      - m_Target: {fileID: 1271183348}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: RestartButton
         m_Mode: 1
@@ -8302,6 +8302,7 @@ GameObject:
   - component: {fileID: 1271183345}
   - component: {fileID: 1271183346}
   - component: {fileID: 1271183347}
+  - component: {fileID: 1271183348}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -8484,6 +8485,22 @@ MonoBehaviour:
   pressEnterText: {fileID: 0}
   pressToSkip: 0
   isActive: 0
+--- !u!114 &1271183348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1271183340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c5e7060469d5fb45810969ddb594cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameMaster: {fileID: 0}
+  thisSceneName: 
+  menuScene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
+  loadingScript: {fileID: 0}
 --- !u!1 &1274172580
 GameObject:
   m_ObjectHideFlags: 0
@@ -9083,7 +9100,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1605250518}
+      - m_Target: {fileID: 1271183348}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ContinueButton
         m_Mode: 1
@@ -9216,7 +9233,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1605250518}
+      - m_Target: {fileID: 1271183348}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: ExitToMenu
         m_Mode: 1
@@ -10939,7 +10956,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1605250517}
-  - component: {fileID: 1605250518}
   - component: {fileID: 1605250516}
   - component: {fileID: 1605250515}
   - component: {fileID: 1605250514}
@@ -11037,22 +11053,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1605250518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605250513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c5e7060469d5fb45810969ddb594cac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameMaster: {fileID: 0}
-  sceneName: 
-  menuScene: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
-  loadingScript: {fileID: 0}
 --- !u!1 &1608316217
 GameObject:
   m_ObjectHideFlags: 0

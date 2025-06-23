@@ -1571,6 +1571,7 @@ MonoBehaviour:
   isHit: 0
   isAiming: 0
   wasHit: 0
+  canExplode: 1
 --- !u!114 &6860005124483510123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1917,7 +1918,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6478536213147159724, guid: 75c72921fa13d0441ad0c0c194d9aeab, type: 3}
+  - {fileID: 2100000, guid: 6515c3f6e7920c348b81421df8155a42, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

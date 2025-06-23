@@ -98,8 +98,11 @@ public class GameMaster : MonoBehaviour
                 }
                 break;
             case StageType.StageBoss:
-                bossObject = GameObject.FindGameObjectWithTag("Boss");
-                bossModel = bossObject.GetComponent<EnemyModel>();
+                if (bossModel != null)
+                {
+                    bossObject = GameObject.FindGameObjectWithTag("Boss");
+                    bossModel = bossObject.GetComponent<EnemyModel>();
+                }
                 QuestText = "ELITE-TYPE ENEMY INCOMING, DESTROY IT";
                 countdown = false;
                 break;
@@ -283,6 +286,10 @@ public class GameMaster : MonoBehaviour
         if (MechaData.isDeath)
         {
             playerInput.enabled = false;
+        }
+        else
+        {
+            playerInput.enabled = true;
         }
         StageMonitor();
     }
