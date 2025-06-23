@@ -18,13 +18,6 @@ public class BossActive : EnemyActive
     public float preparingTime;
     public bool hasAttacked;
 
-    [Header("AttackMelee")]
-    public GameObject meleeAttack1;
-    public GameObject meleeAttack2;
-    public GameObject meleeAttack3;
-    public GameObject meleeAttack4;
-    public GameObject ultimateObj;
-
     [Header("AttackRange")]
     public float missChange;
     public float fireSlerpAngle;
@@ -42,8 +35,10 @@ public class BossActive : EnemyActive
     [Header("GatlingAttribut")]
     public float gatlingFireRate;
     public float gatlingAttackDuration;
-    public Transform muzzleGatling;
-    public LineRenderer bulletGatling;
+    public Transform muzzleGatRight;
+    public LineRenderer bulletGatRight; 
+    public Transform muzzleGatLeft;
+    public LineRenderer bulletGatLeft;
 
     [Header("MissileBarrage")]
     [SerializeField] GameObject missileObj;
@@ -633,17 +628,24 @@ public class BossActive : EnemyActive
 
     IEnumerator BulletTrailGatling(Vector3 targetPoint)
     {
+
         Debug.Log("BulletGatling");
-        bulletGatling.SetPosition(0, muzzleGatling.position);
-        bulletGatling.SetPosition(1, targetPoint);
+        //muzzle kanan
+        bulletRight.SetPosition(0, muzzleGatRight.position);
+        bulletRight.SetPosition(1, targetPoint);
+        //muzzle kiri
+        bulletLeft.SetPosition(0, muzzleGatLeft.position);
+        bulletLeft.SetPosition(1, targetPoint);
 
         //spawn peluru trail
         if (enemyModel.isAttacking && isBulletSpawn)
         {
             Debug.Log("BulletSpawn");
-            bulletGatling.enabled = true;
-            yield return new WaitForSeconds(rifleFireRate * 1.2f);
-            bulletGatling.enabled = false;
+            bulletGatRight.enabled = true;
+            bulletGatLeft.enabled = true;
+            yield return new WaitForSeconds(gatlingFireRate * 1.2f);
+            bulletGatRight.enabled = false;
+            bulletGatLeft.enabled = false;
             isBulletSpawn = false;
         }
     }

@@ -21,12 +21,12 @@ public class LoadingScript : MonoBehaviour
             pressEnterText.SetActive(true);
         }
     }
-    IEnumerator LoadingToScene(string SceneName)
+    public IEnumerator LoadingToScene(string SceneName)
     {
         AsyncOperation loading = SceneManager.LoadSceneAsync(SceneName);
         loadingScreen.SetActive(true);
 
-        while(!loading.isDone) //kondisi loading belum selesai
+        while (!loading.isDone) //kondisi loading belum selesai
         {
             float progressValue = Mathf.Clamp01(loading.progress / 0.9f);
             progressBar.value = progressValue;

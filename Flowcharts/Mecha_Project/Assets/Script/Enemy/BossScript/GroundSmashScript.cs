@@ -10,7 +10,7 @@ public class GroundSmashScript : MonoBehaviour
 
 
     //object tinggal dispawn saat boss mendarat
-    private void Start()
+    private void Awake()
     {
         bossActive = GetComponentInParent<BossActive>();
     }
