@@ -403,7 +403,10 @@ public class BossActive : EnemyActive
             if (!enemyModel.isAttacking)
             {
                 enemyModel.isAttacking = true;
-                navAgent.SetDestination(transform.position);
+                if (!navAgent.enabled)
+                {
+                    navAgent.SetDestination(transform.position);
+                }
                 anim.SetBool("SweepingAttack", true);
             }
         }
