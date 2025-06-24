@@ -178,7 +178,7 @@ public class PlayerActive : MonoBehaviour
                 }
                 //StartCoroutine(Skill1());
                 Skill1();
-                StartCoroutine(Skill2());
+                Skill2();
                 if (!Mecha.isAiming)
                 {
                     StartCoroutine(UseUltimate());
@@ -667,7 +667,7 @@ public class PlayerActive : MonoBehaviour
     }
 
     //panggil sekali di skill
-    public IEnumerator Skill1Dash()
+    IEnumerator Skill1Dash()
     {
         float dashSkillTime = 0.7f;
         float skill1Distance = 5f;
@@ -688,39 +688,64 @@ public class PlayerActive : MonoBehaviour
 
     public void SpawnSlashEffect()
     {
-        Instantiate(slashEffect, WeaponSlot.position, Quaternion.Euler(0f, 270f, 0f));
+        Instantiate(slashEffect, WeaponSlot.position, Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
         Instantiate(playerSkillObj, playerSkillSpawn.position, Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
     }
     #endregion
 
-    public IEnumerator Skill2()
+    #region WeaponSkill
+    void Skill2()
     {
         if (skill2Action.triggered && Mecha.readySkill2 && !Mecha.isDeath && !Mecha.isReloading && !Mecha.isBlocking)
         {
-            Debug.Log("Skill 2 Aktif Korotine");
-            skillBusy = true;
-            Mecha.usingSkill2 = true;
-            //Mecha.skill2Time = Mecha.cooldownSkill2;
+            anim.SetTrigger("IsSkill2");
+            StartCoroutine(Skill2Dash());
+        }
+
+        if (Mecha.usingSkill2)
+        {
+            Mecha.readySkill2 = false;
             Mecha.skill2Bar = 0;
             skill1Action.Disable();
-            Mecha.readySkill2 = false;
-            anim.SetTrigger("IsSkill2");
-
-            yield return new WaitForSeconds(2f);
-            skill2HitBox.SetActive(true);
-
-            yield return new WaitForSeconds(Mecha.skill2Duration); //lama skill
-            Mecha.usingSkill2 = false;
-            skillBusy = false;
-            skill1Action.Enable();
-            skill2HitBox.SetActive(false);
         }
         else
         {
-            yield break;
+            skill1Action.Enable();
         }
     }
 
+    //panggil sekali di skill
+    IEnumerator Skill2Dash()
+    {
+        float dashSkillTime = 0.7f;
+        float skill1Distance = 3f;
+        float speedDash = 10f;
+        //Proses
+        float time = 0f;
+        Vector3 forward = playerPosition.transform.forward;
+        forward.y = 0f;
+        forward.Normalize();
+        Vector3 moveDirection = (forward * skill1Distance).normalized;
+        while (time < dashSkillTime)
+        {
+            time += Time.deltaTime / 1f;
+            controller.Move(speedDash * Time.deltaTime * moveDirection);
+            yield return null;
+        }
+    }
+
+    //panggil di Animation State
+    public void EnableSkill2HitBox()
+    {
+        skill2HitBox.SetActive(true);
+    }
+
+    public void DisableSkill2HitBox()
+    {
+        skill2HitBox.SetActive(false);
+    }
+
+    #endregion
 
     public void Death()
     {
