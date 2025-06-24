@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.VFX;
@@ -650,6 +651,7 @@ public class PlayerActive : MonoBehaviour
         if (skill1Action.triggered && Mecha.readySkill1 && !Mecha.isDeath && !Mecha.isReloading && !Mecha.isBlocking)
         {
             anim.SetTrigger("IsSkill1");
+            StartCoroutine(Skill1Dash());
         }
 
         if (Mecha.usingSkill1)
@@ -664,9 +666,29 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
+    //panggil sekali di skill
+    public IEnumerator Skill1Dash()
+    {
+        float dashSkillTime = 0.7f;
+        float skill1Distance = 5f;
+        float speedDash = 30f;
+        //Proses
+        float time = 0f;
+        Vector3 forward = playerPosition.transform.forward;
+        forward.y = 0f;
+        forward.Normalize();
+        Vector3 moveDirection = (forward * skill1Distance).normalized;
+        while (time < dashSkillTime)
+        {
+            time += Time.deltaTime / 1f;
+            controller.Move(speedDash * Time.deltaTime * moveDirection);
+            yield return null;
+        }
+    }
+
     public void SpawnSlashEffect()
     {
-        Instantiate(slashEffect, WeaponSlot.position, Quaternion.Euler(0f, 180f, 0f));
+        Instantiate(slashEffect, WeaponSlot.position, Quaternion.Euler(0f, 270f, 0f));
         Instantiate(playerSkillObj, playerSkillSpawn.position, Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
     }
     #endregion
@@ -781,6 +803,10 @@ public class PlayerActive : MonoBehaviour
     {
         if (ultimateAction.triggered && Mecha.Ultimate >= Mecha.MaxUltimate && !Mecha.isDeath)
         {
+            Quaternion targetRotation = CameraAct.MainCameraOBJ.transform.rotation;
+            targetRotation.x = 0;
+            targetRotation.z = 0;
+            playerPosition.rotation = targetRotation;
             Debug.Log("Ultimate jalan");
             //Mecha.UltimateRegen = false;
             Mecha.Ultimate = Mecha.MinUltimate;

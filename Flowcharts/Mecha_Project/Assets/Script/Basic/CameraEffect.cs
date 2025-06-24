@@ -79,7 +79,7 @@ public class CameraEffect : MonoBehaviour
 
     public void BoostEffect()
     {
-        if (mechaPlayer.isBoosting)
+        if (mechaPlayer.isBoosting || mechaPlayer.usingSkill1)
         {
             boostEffect.SetActive(true);
             StartCoroutine(SmoothBoost());

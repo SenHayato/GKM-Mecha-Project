@@ -100,7 +100,6 @@ public abstract class EnemyActive : MonoBehaviour
             Death();
             return;
         }
-
         
         if (!enemyModel.isGrounded || enemyModel.isStunt)
         {
@@ -299,17 +298,16 @@ public abstract class EnemyActive : MonoBehaviour
         enemyModel.isPatrolling = true; 
         navAgent.speed = navDefaultSpeed;
 
-        if (!walkPointSet)
-        {
-            SearchWayPoint();
-        }
-
         if (walkPointSet)
         {
             if (navAgent.enabled)
             {
                 navAgent.SetDestination(walkPoint);
             }
+        }
+        else
+        {
+            SearchWayPoint();
         }
 
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
@@ -324,7 +322,7 @@ public abstract class EnemyActive : MonoBehaviour
     {
         if (patrolPoints.Length == 0)
         {
-            Debug.LogWarning("No patrol points found for " + gameObject.name);
+            enemyModel.isProvoke = true;
             walkPointSet = false;
             return;
         }
