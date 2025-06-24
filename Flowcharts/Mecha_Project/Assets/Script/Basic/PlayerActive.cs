@@ -680,7 +680,7 @@ public class PlayerActive : MonoBehaviour
         Vector3 moveDirection = (forward * skill1Distance).normalized;
         while (time < dashSkillTime)
         {
-            time += Time.deltaTime / 1f;
+            time += Time.deltaTime;
             controller.Move(speedDash * Time.deltaTime * moveDirection);
             yield return null;
         }
@@ -718,17 +718,17 @@ public class PlayerActive : MonoBehaviour
     IEnumerator Skill2Dash()
     {
         float dashSkillTime = 0.7f;
-        float skill1Distance = 3f;
+        float skill2Distance = 3f;
         float speedDash = 10f;
         //Proses
         float time = 0f;
         Vector3 forward = playerPosition.transform.forward;
         forward.y = 0f;
         forward.Normalize();
-        Vector3 moveDirection = (forward * skill1Distance).normalized;
+        Vector3 moveDirection = (forward * skill2Distance).normalized;
         while (time < dashSkillTime)
         {
-            time += Time.deltaTime / 1f;
+            time += Time.deltaTime;
             controller.Move(speedDash * Time.deltaTime * moveDirection);
             yield return null;
         }
@@ -823,6 +823,7 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
+    #region Ultimate
     //Ultimate
     public IEnumerator UseUltimate()
     {
@@ -832,23 +833,37 @@ public class PlayerActive : MonoBehaviour
             targetRotation.x = 0;
             targetRotation.z = 0;
             playerPosition.rotation = targetRotation;
-            Debug.Log("Ultimate jalan");
             //Mecha.UltimateRegen = false;
             Mecha.Ultimate = Mecha.MinUltimate;
             Mecha.UsingUltimate = true;
-
-            yield return new WaitForSeconds(0.2f);
-            ultimateObj.SetActive(true);
-
             yield return new WaitForSeconds(Mecha.UltDuration); //lama ultimate
 
-            ultimateObj.SetActive(false);
             Mecha.UsingUltimate = false;
-            Debug.Log("Ultimate berenti");
         }
     }
 
     //Ultimate Animation Trigger
+    public IEnumerator MoveBackUltimate()
+    {
+        float dashSkillTime = Mecha.UltDuration;
+        float distance = 5f;
+        float speedDash = 2f;
+        //Proses
+        float time = 0f;
+        Vector3 forward = playerPosition.transform.forward;
+        forward.y = 0f;
+        forward.Normalize();
+        Vector3 moveDirection = (-forward * distance).normalized;
+        while (time < dashSkillTime)
+        {
+            if (!Mecha.UsingUltimate) yield break;
+
+            time += Time.deltaTime;
+            controller.Move(speedDash * Time.deltaTime * moveDirection);
+            yield return null;
+        }
+    }
+
     public void EnableUltimateBox()
     {
         ultimateObj.SetActive(true);
@@ -886,6 +901,7 @@ public class PlayerActive : MonoBehaviour
             anim.SetBool("IsUltimate", false);
         }
     }
+    #endregion
 
     //public IEnumerator UltimateRegen()
     //{
