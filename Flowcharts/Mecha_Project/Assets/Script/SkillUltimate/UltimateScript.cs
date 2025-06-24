@@ -9,6 +9,7 @@ public class UltimateScript : MonoBehaviour
     [SerializeField] PlayerActive playerActive;
     [SerializeField] Vector3 boxSize;
     [SerializeField] GameObject hitEffect;
+    [SerializeField] float stuntTime;
 
     private Collider[] enemyColliders;
 
@@ -79,7 +80,7 @@ public class UltimateScript : MonoBehaviour
             {
                 if (hitCollider != null && hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
                 {
-                    enemyActive.enemyModel.isStunt = false;
+                    enemyActive.DisableStuntFromPlayer(stuntTime);
                 }
             }
 
