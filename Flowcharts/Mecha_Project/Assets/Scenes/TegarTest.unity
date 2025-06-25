@@ -10586,7 +10586,7 @@ RectTransform:
   m_Father: {fileID: 402653889}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.41, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -15075,7 +15075,7 @@ RectTransform:
   m_Father: {fileID: 1090641230}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -21085,7 +21085,7 @@ RectTransform:
   m_Father: {fileID: 1914848448}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -22380,7 +22380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1989561958
 Transform:
   m_ObjectHideFlags: 0
@@ -22974,7 +22974,7 @@ RectTransform:
   m_Father: {fileID: 1626666709}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.49, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -33752,6 +33752,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 363581456014632589, guid: 02dc27097a634824994e7a46279b55fe, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 982415748130534535, guid: 02dc27097a634824994e7a46279b55fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 14.583
+      objectReference: {fileID: 0}
+    - target: {fileID: 982415748130534535, guid: 02dc27097a634824994e7a46279b55fe, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -126.574
+      objectReference: {fileID: 0}
     - target: {fileID: 1281591607894845172, guid: 02dc27097a634824994e7a46279b55fe, type: 3}
       propertyPath: m_Name
       value: CameraObj
