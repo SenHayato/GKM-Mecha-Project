@@ -22,6 +22,7 @@ public class CameraActive : MonoBehaviour
     public PlayerActive PlayerAct;
     public GameObject MainCameraOBJ;
     public Camera MainCamera;
+    [SerializeField] Animation mainCameraAnimation;
     [SerializeField] MechaPlayer Mecha;
     [SerializeField] GameObject collisionPoint;
     InputAction lookAction;
@@ -43,6 +44,7 @@ public class CameraActive : MonoBehaviour
     private Vector3 currentRecoil;
     private float currentLerpTime = 0f;
     private bool isAiming = false;
+    public bool mechaInAwakenState = false;
 
     private void Awake()
     {
@@ -194,10 +196,28 @@ public class CameraActive : MonoBehaviour
         }
     }
 
+    bool wasAwaken = false;
+    public void AwakeningCameraPost()
+    {
+        cameraPivot.transform.localRotation = Quaternion.Euler(0f, Quaternion.identity.y, 0f);
+        if (!wasAwaken)
+        {
+            wasAwaken = true;
+            mainCameraAnimation.Play("AwakeningCameraPosition");
+        }
+    }
+
     private void Update()
     {
-        CameraCollision();
-        SamePosition();
-        CameraRotation();
+        if (!mechaInAwakenState)
+        {
+            wasAwaken = false;
+            CameraCollision();
+            SamePosition();
+            CameraRotation();
+        } else
+        {
+            AwakeningCameraPost();
+        }
     }
 }

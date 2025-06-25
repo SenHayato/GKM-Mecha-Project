@@ -311,6 +311,23 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
+    //panggil di animstate awaken / trigger event
+
+    public void EnableAwakenCamera()
+    {
+        Quaternion targetRotation = CameraAct.MainCameraOBJ.transform.localRotation;
+        targetRotation.z = 0f;
+        targetRotation.x = 0f;
+        playerPosition.localRotation = targetRotation;
+        CameraAct.mechaInAwakenState = true;
+    }
+
+    public void DisableAwakenCamera()
+    {
+        CameraAct.MainCamera.transform.SetLocalPositionAndRotation(new(1.29199994f,1.86699998f,-2.71099973f), Quaternion.Euler(0f, 0f, 0f));
+        CameraAct.mechaInAwakenState = false;
+    }
+
     public void DashPlayer()
     {
         if (dashAction.IsPressed() && !Mecha.isDashing && !Mecha.isBoosting)
