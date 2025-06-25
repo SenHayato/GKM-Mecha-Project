@@ -2090,7 +2090,7 @@ Transform:
   - {fileID: 6608395857155277473}
   - {fileID: 6816671393536749337}
   - {fileID: 1974862693139624196}
-  - {fileID: 185768067856314068}
+  - {fileID: 8268468506937986372}
   - {fileID: 1177665539757503275}
   - {fileID: 5450392938103724597}
   - {fileID: 7085885959029373677}
@@ -2121,7 +2121,7 @@ MonoBehaviour:
   MaxAwakening: 500
   MinAwakening: 0
   AwakeningRegen: 100
-  AwakeningDuration: 20
+  AwakeningDuration: 25
   UsingAwakening: 0
   awakeningReady: 0
   awakeningAttack: 400
@@ -2151,8 +2151,8 @@ MonoBehaviour:
   usingSkill2: 0
   skill2MaxBar: 10
   skill2Bar: 0
-  skill2Damage: 500
-  skill2Duration: 4.11
+  skill2Damage: 1000
+  skill2Duration: 1.15
   Defence: 1000
   undefeat: 0
   isJumping: 0
@@ -2340,6 +2340,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
+  weaponSkillObj: {fileID: 8510560251979936944}
   skill2HitBox: {fileID: 3683416430482379468}
   playerSkillObj: {fileID: 8048874098005709893}
   playerSkillSpawn: {fileID: 6816671393536749337}
@@ -7949,7 +7950,7 @@ Transform:
   m_GameObject: {fileID: 2371192399197544127}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.59, y: -0.84, z: -45.9}
+  m_LocalPosition: {x: 0.531, y: -0.288, z: -47.304}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9382,9 +9383,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 701619415207798343}
-  m_Father: {fileID: 8374242445890558254}
+  m_Children: []
+  m_Father: {fileID: 8268468506937986372}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &905112767492821803
 MonoBehaviour:
@@ -19438,6 +19438,39 @@ Transform:
   - {fileID: 1312789075225780571}
   m_Father: {fileID: 3781673478402830738}
   m_LocalEulerAnglesHint: {x: -21.985764, y: 0.37682378, z: -1.2012688}
+--- !u!1 &8510560251979936944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8268468506937986372}
+  m_Layer: 3
+  m_Name: WeaponSkill
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8268468506937986372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8510560251979936944}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 701619415207798343}
+  - {fileID: 185768067856314068}
+  m_Father: {fileID: 8374242445890558254}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8515445910142439881
 GameObject:
   m_ObjectHideFlags: 0
@@ -20416,7 +20449,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 185768067856314068}
+    m_TransformParent: {fileID: 8268468506937986372}
     m_Modifications:
     - target: {fileID: 1037030636279327246, guid: 99ff8d7467772bc4d9a1edf2b98a1db9, type: 3}
       propertyPath: m_Name
@@ -20508,7 +20541,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4031178364203218994, guid: 99ff8d7467772bc4d9a1edf2b98a1db9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.31499994
+      value: 1.765
       objectReference: {fileID: 0}
     - target: {fileID: 4031178364203218994, guid: 99ff8d7467772bc4d9a1edf2b98a1db9, type: 3}
       propertyPath: m_LocalPosition.z
