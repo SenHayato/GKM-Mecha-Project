@@ -199,7 +199,6 @@ public class CameraActive : MonoBehaviour
     bool wasAwaken = false;
     public void AwakeningCameraPost()
     {
-        cameraPivot.transform.localRotation = Quaternion.Euler(0f, Quaternion.identity.y, 0f);
         if (!wasAwaken)
         {
             wasAwaken = true;

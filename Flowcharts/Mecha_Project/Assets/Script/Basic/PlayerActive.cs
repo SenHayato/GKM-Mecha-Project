@@ -1,13 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.VFX;
 
 public class PlayerActive : MonoBehaviour
 {
@@ -315,10 +309,10 @@ public class PlayerActive : MonoBehaviour
 
     public void EnableAwakenCamera()
     {
-        Quaternion targetRotation = CameraAct.MainCameraOBJ.transform.localRotation;
-        targetRotation.z = 0f;
+        Quaternion targetRotation = playerPosition.rotation;
         targetRotation.x = 0f;
-        playerPosition.localRotation = targetRotation;
+        targetRotation.z = 0f;
+        CameraAct.cameraPivot.transform.rotation = targetRotation;
         CameraAct.mechaInAwakenState = true;
     }
 
