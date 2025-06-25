@@ -58,7 +58,7 @@ public class MechaPlayer : MonoBehaviour
     public int skill2MaxBar; //100f
     public int skill2Bar;
     public int skill2Damage;
-    public float skill2Duration;
+    public float skill2Duration; //sesuaikan sama animasi skill2
 
     [Header("Defence")]
     public int Defence;

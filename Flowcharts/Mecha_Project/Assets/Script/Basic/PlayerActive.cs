@@ -45,6 +45,7 @@ public class PlayerActive : MonoBehaviour
 
     [Header("Skill dan Ultimate")]
     public LayerMask enemyLayer;
+    public GameObject weaponSkillObj;
     public GameObject skill2HitBox;
     [SerializeField] GameObject playerSkillObj;
     [SerializeField] Transform playerSkillSpawn;
@@ -166,7 +167,7 @@ public class PlayerActive : MonoBehaviour
             if (!Mecha.UsingUltimate)
             {
                 //Class untuk player
-                if (!Mecha.usingSkill1 && !Mecha.usingSkill2)
+                if (!Mecha.usingSkill1 && !Mecha.usingSkill2 && !Mecha.undefeat)
                 {
                     PlayerJump();
                     Reloading();
@@ -735,6 +736,16 @@ public class PlayerActive : MonoBehaviour
     }
 
     //panggil di Animation State
+    public void Skill2EnableVFX()
+    {
+        weaponSkillObj.SetActive(true);
+    }
+
+    public void Skill2DisableVFX()
+    {
+        weaponSkillObj.SetActive(false);
+    }
+
     public void EnableSkill2HitBox()
     {
         skill2HitBox.SetActive(true);
@@ -845,8 +856,8 @@ public class PlayerActive : MonoBehaviour
     //Ultimate Animation Trigger
     public IEnumerator MoveBackUltimate()
     {
-        float dashSkillTime = Mecha.UltDuration;
-        float distance = 5f;
+        float dashSkillTime = 5f;
+        float distance = 2f;
         float speedDash = 2f;
         //Proses
         float time = 0f;
