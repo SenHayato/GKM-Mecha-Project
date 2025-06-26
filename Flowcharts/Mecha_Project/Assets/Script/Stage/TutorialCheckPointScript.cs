@@ -4,6 +4,7 @@ using UnityEngine.VFX;
 
 public class TurotialCheckPointScript : MonoBehaviour
 {
+    [Header("Attribut")]
     [SerializeField] private GameMaster gameMaster;
     [SerializeField] private CheckPointNumber checkPointNumber;
     [SerializeField] private string checkPointInfo;
@@ -14,6 +15,10 @@ public class TurotialCheckPointScript : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private VisualEffect visualEffect;
     [SerializeField] private GameObject uiMap;
+
+    [Header("CheckPoint Load")]
+    [SerializeField] TMP_SpriteAsset spriteAsset;
+    [SerializeField] TextMeshProUGUI questText;
     //[SerializeField] private Material pointMaterial;
 
     //Checker
@@ -76,6 +81,17 @@ public class TurotialCheckPointScript : MonoBehaviour
         {
             gameMaster.gameFinish = true;
             gameMaster.gameWin = true;
+        }
+    }
+    
+    void CheckPointText()
+    {
+        switch (checkPointNumber)
+        {
+            case CheckPointNumber.CheckPoint1:
+                questText.spriteAsset = spriteAsset;
+                questText.text = "Use <sprite name=\"L3\"> to move";
+                break;
         }
     }
 

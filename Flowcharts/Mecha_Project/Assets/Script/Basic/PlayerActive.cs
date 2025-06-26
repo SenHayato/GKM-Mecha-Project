@@ -9,7 +9,7 @@ public class PlayerActive : MonoBehaviour
 
     // Input
     public InputAction moveAction, jumpAction, flyUp, shootAction, scopeAction, skill1Action, skill2Action,
-        flyDown, blockAction, dashAction, selectButton, ultimateAction, interaction, reloadAction, boostAction, awakeningAction;
+        flyDown, blockAction, dashAction, selectButton, ultimateAction, interaction, reloadAction, boostAction, awakeningAction, resetCameraAction;
     [Header("Reference")]
     public MechaPlayer Mecha;
     public GameMaster GameMaster;
@@ -135,6 +135,7 @@ public class PlayerActive : MonoBehaviour
         reloadAction = gameInput.actions.FindAction("Reload");
         boostAction = gameInput.actions.FindAction("Boost");
         awakeningAction = gameInput.actions.FindAction("Awakening");
+        resetCameraAction = gameInput.actions.FindAction("CameraReset");
 
         defaultUltDamage = Mecha.UltDamage;
         defaultAttack = Mecha.AttackPow;
@@ -164,6 +165,7 @@ public class PlayerActive : MonoBehaviour
                 //Class untuk player
                 if (!Mecha.usingSkill1 && !Mecha.usingSkill2 && !Mecha.undefeat)
                 {
+                    StartCoroutine(ResetCameraTrigger());
                     PlayerJump();
                     Reloading();
                     ScopeMode();
@@ -321,6 +323,23 @@ public class PlayerActive : MonoBehaviour
     {
         CameraAct.MainCamera.transform.SetLocalPositionAndRotation(new(1.29199994f,1.86699998f,-2.71099973f), Quaternion.Euler(0f, 0f, 0f));
         mechaInAwakenState = false;
+    }
+
+    private float cameraResetSpeed = 40f;
+    float cameraResetTime = 0.2f;
+    IEnumerator ResetCameraTrigger()
+    {
+        float time = 0f;
+        Quaternion targetRotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
+        if (resetCameraAction.triggered)
+        {
+            while (time < cameraResetTime)
+            {
+                time += Time.deltaTime;
+                CameraAct.cameraPivot.transform.rotation = Quaternion.Slerp(CameraAct.cameraPivot.transform.rotation, targetRotation, cameraResetSpeed * Time.deltaTime);
+                yield return null;
+            }
+        }
     }
 
     public void DashPlayer()
