@@ -14,6 +14,7 @@ public abstract class EnemyActive : MonoBehaviour
     [SerializeField] LayerMask groundLayer; //layer yang bisa diinjak enemy
     [SerializeField] Transform originPoint;
     [SerializeField] GameObject bossHUD;
+    [SerializeField] PlayerActive playerActive;
 
     [Header("Patrolling")]
     [SerializeField] Vector3 walkPoint;
@@ -35,6 +36,7 @@ public abstract class EnemyActive : MonoBehaviour
     [SerializeField] CapsuleCollider hitCollider;
     [SerializeField] BoxCollider deathCollider;
     public Animator anim;
+    [SerializeField] float distanceFromPlayer;
 
     [Header("Komponen Player")]
     private PlayerInput gameInput;
@@ -57,6 +59,7 @@ public abstract class EnemyActive : MonoBehaviour
         hitCollider = GetComponent<CapsuleCollider>();
         gameInput = FindObjectOfType<PlayerInput>(); // Lebih aman FindObjectOfType<PlayerInput>(); jika hanya ada satu
         gameManager = FindObjectOfType<GameMaster>(); // Lebih aman FindObjectOfType<GameMaster>(); jika hanya ada satu
+        playerActive = player.GetComponent<PlayerActive>();
     }
 
     private void Start()
@@ -122,7 +125,7 @@ public abstract class EnemyActive : MonoBehaviour
         {
             if (enemyModel.isProvoke)
             {
-                AlwaysChasing();
+                ChasingPlayer();
             }
             else
             {
@@ -288,9 +291,10 @@ public abstract class EnemyActive : MonoBehaviour
     void CheckingSight()
     {
         if (player == null) return;
-
         playerInSight = Physics.CheckSphere(transform.position, enemyModel.sightRange, playerLayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, enemyModel.attackRange, playerLayer);
+
+        distanceFromPlayer = Vector3.Distance(transform.position, player.position);
     }
 
     void Patrolling()
@@ -338,19 +342,26 @@ public abstract class EnemyActive : MonoBehaviour
         if (navAgent.enabled)
         {
             anim.SetBool("Move", true);
-            navAgent.SetDestination(player.position);
+            if (distanceFromPlayer >= 2.2f || !playerActive.mechaInAwakenState)
+            {
+                navAgent.SetDestination(player.position);
+            }
+            else
+            {
+                navAgent.SetDestination(transform.position);
+            }
         }
     }
 
-    void AlwaysChasing()
-    {
-        enemyModel.isPatrolling = false;
-        if (navAgent.enabled)
-        {
-            anim.SetBool("Move", true);
-            navAgent.SetDestination(player.position);
-        }
-    }
+    //void AlwaysChasing()
+    //{
+    //    enemyModel.isPatrolling = false;
+    //    if (navAgent.enabled)
+    //    {
+    //        anim.SetBool("Move", true);
+    //        navAgent.SetDestination(player.position);
+    //    }
+    //}
 
     public void ResetAttack()
     {
@@ -359,7 +370,7 @@ public abstract class EnemyActive : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         if (enemyModel == null) return;
 

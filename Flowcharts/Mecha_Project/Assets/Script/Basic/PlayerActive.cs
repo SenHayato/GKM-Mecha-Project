@@ -38,6 +38,7 @@ public class PlayerActive : MonoBehaviour
     [SerializeField] Transform WeaponSlot;
 
     [Header("Skill dan Ultimate")]
+    public bool mechaInAwakenState = false;
     public LayerMask enemyLayer;
     public GameObject weaponSkillObj;
     public GameObject skill2HitBox;
@@ -313,13 +314,13 @@ public class PlayerActive : MonoBehaviour
         targetRotation.x = 0f;
         targetRotation.z = 0f;
         CameraAct.cameraPivot.transform.rotation = targetRotation;
-        CameraAct.mechaInAwakenState = true;
+        mechaInAwakenState = true;
     }
 
     public void DisableAwakenCamera()
     {
         CameraAct.MainCamera.transform.SetLocalPositionAndRotation(new(1.29199994f,1.86699998f,-2.71099973f), Quaternion.Euler(0f, 0f, 0f));
-        CameraAct.mechaInAwakenState = false;
+        mechaInAwakenState = false;
     }
 
     public void DashPlayer()

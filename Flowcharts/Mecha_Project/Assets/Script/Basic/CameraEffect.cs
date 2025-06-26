@@ -73,7 +73,7 @@ public class CameraEffect : MonoBehaviour
     public IEnumerator HitEffect() //Masih bug
     {
         hitEffect.SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         hitEffect.SetActive(false);
     }
 
