@@ -172,7 +172,7 @@ public class GameMaster : MonoBehaviour
         switch (StageType)
         {
             case StageType.Stage2:
-                if (timer <= 0 && !MechaData.isDeath)
+                if (timer <= 0.01f && !MechaData.isDeath)
                 {
                     gameFinish = true;
                     gameWin = true;
@@ -190,19 +190,26 @@ public class GameMaster : MonoBehaviour
 
     public void Timer()
     {
-        timer -= Time.deltaTime;
-        int minutes = Mathf.FloorToInt(timer / 60);
-        int seconds = Mathf.FloorToInt(timer % 60);
-        timeFormat = string.Format("{00:00}:{1:00}", minutes, seconds);
-        HUDManager.timerText.text = timeFormat;
-
-        if (timer <= 20f)
+        if (timer > 0.01f)
         {
-            HUDManager.timerText.color = Color.red;
+            timer -= Time.deltaTime;
+            int minutes = Mathf.FloorToInt(timer / 60);
+            int seconds = Mathf.FloorToInt(timer % 60);
+            timeFormat = string.Format("{00:00}:{1:00}", minutes, seconds);
+            HUDManager.timerText.text = timeFormat;
+
+            if (timer <= 20f)
+            {
+                HUDManager.timerText.color = Color.red;
+            }
+            else
+            {
+                HUDManager.timerText.color = Color.white;
+            }
         }
         else
         {
-            HUDManager.timerText.color = Color.white;
+            timer = 0;
         }
     }
 
