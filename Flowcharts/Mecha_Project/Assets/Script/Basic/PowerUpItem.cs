@@ -45,20 +45,21 @@ public class PowerUpItem : MonoBehaviour
         powerCollider.enabled = true;
         meshRenderer.enabled = true;
         triggerParticle.SetActive(false);
+
+        //set value
         defaultAtk = Player.AttackPow;
         defaultDef = Player.Defence;
-    }
-    public void Update()
-    {
+        EffectDuration = powerUpModel.EffectDuration;
+        spinSpeed = powerUpModel.spinSpeed;
         AtkPowerUp = powerUpModel.AtkPowerUp;
         DefPowerUp = powerUpModel.DefPowerUp;
         EngRegenUp = powerUpModel.EngRegenUp;
         HPRegenUp = powerUpModel.HPRegenUp;
         UltRegenUp = powerUpModel.UltRegenUp;
-        spinSpeed = powerUpModel.spinSpeed;
-        //rotationAxis = powerUpModel.rotationAxis;
-        EffectDuration = powerUpModel.EffectDuration;
+    }
 
+    public void Update()
+    {
         Muter();
     }
 

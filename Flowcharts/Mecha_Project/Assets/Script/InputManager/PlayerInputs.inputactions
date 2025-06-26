@@ -132,24 +132,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FlyUp",
-                    "type": "Button",
-                    "id": "0f374e07-5aa1-49cb-a6d8-699409283ca2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "FlyDown",
-                    "type": "Button",
-                    "id": "9857fecc-0a08-43c4-8e2d-ada5d9081bc6",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Boost",
                     "type": "Button",
                     "id": "42519ef8-c44b-4fe8-99b8-fd437bcc1a1c",
@@ -162,6 +144,15 @@
                     "name": "Interaction",
                     "type": "Button",
                     "id": "2782fa43-2511-42fb-a63e-3a4121316135",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Awakening",
+                    "type": "Button",
+                    "id": "94df8fb0-6af4-4efb-a9c7-6421cf2cd462",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -207,15 +198,6 @@
                     "name": "TestSpawn",
                     "type": "Button",
                     "id": "6f0cf9da-36ad-4e03-9866-e43aec46dab2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Awakening",
-                    "type": "Button",
-                    "id": "94df8fb0-6af4-4efb-a9c7-6421cf2cd462",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -424,7 +406,7 @@
                 {
                     "name": "",
                     "id": "d4ea5f92-84f2-42f0-8dac-82d40c54d4fb",
-                    "path": "<Keyboard>/r",
+                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "PC",
@@ -605,50 +587,6 @@
                     "processors": "",
                     "groups": "PC",
                     "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5384a0b9-0d77-458e-a5c5-ceabb06cda4b",
-                    "path": "<Gamepad>/dpad/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "FlyUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6eb72aa3-109d-456f-8558-1f2d99cbedff",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "FlyUp",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ff3e06ae-a6c4-43f2-a8f3-bd662ace48a2",
-                    "path": "<Gamepad>/dpad/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "FlyDown",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f226526d-0af4-4308-914b-317d80455337",
-                    "path": "<Keyboard>/c",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "FlyDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
