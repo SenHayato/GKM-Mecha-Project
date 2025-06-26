@@ -209,9 +209,6 @@ public class HUDGameManager : MonoBehaviour
 
     public void MiniMap()
     {
-        //float time = 0.5f;
-        //playerIcon.transform.position = playerObj.transform.position;
-        //playerIcon.transform.rotation = Quaternion.Euler(0f, playerObj.transform.eulerAngles.y, 0f);
         mapCamera.transform.SetPositionAndRotation(playerObj.transform.position, Quaternion.Euler(0f, mainCamera.transform.eulerAngles.y, 0f));
         Vector3 fixedRotation = playerIcon.transform.eulerAngles;
         fixedRotation.x = 90f;

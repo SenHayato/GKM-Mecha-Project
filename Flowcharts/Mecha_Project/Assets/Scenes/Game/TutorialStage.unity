@@ -481,7 +481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameMaster: {fileID: 0}
   checkPointNumber: 0
-  checkPointInfo: Movement shajdiahisodjoasjdoiajdiajsdiojasodjaosjdoajdoiajdiojasodjaoisjdoaisjdoiasjdoiasjdiosajdoaisdjasjd
+  checkPointInfo: Use "L" or WASD to Move
   nextChekpoint: {fileID: 1186057713}
   checkPointDuration: 1
   pointCollider: {fileID: 0}
@@ -489,6 +489,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   visualEffect: {fileID: 0}
   uiMap: {fileID: 1512267762}
+  spriteAsset: {fileID: 0}
 --- !u!73398921 &5718438
 VFXRenderer:
   serializedVersion: 1
@@ -3232,6 +3233,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   visualEffect: {fileID: 0}
   uiMap: {fileID: 1560639566}
+  spriteAsset: {fileID: 0}
 --- !u!73398921 &361615765
 VFXRenderer:
   serializedVersion: 1
@@ -9077,6 +9079,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   visualEffect: {fileID: 0}
   uiMap: {fileID: 713835026}
+  spriteAsset: {fileID: 0}
 --- !u!73398921 &1063971502
 VFXRenderer:
   serializedVersion: 1
@@ -9689,6 +9692,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   visualEffect: {fileID: 0}
   uiMap: {fileID: 621017422}
+  spriteAsset: {fileID: 0}
 --- !u!73398921 &1077688633
 VFXRenderer:
   serializedVersion: 1
@@ -10186,6 +10190,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   visualEffect: {fileID: 0}
   uiMap: {fileID: 1511523905}
+  spriteAsset: {fileID: 0}
 --- !u!73398921 &1186057720
 VFXRenderer:
   serializedVersion: 1
@@ -10448,6 +10453,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   visualEffect: {fileID: 0}
   uiMap: {fileID: 276758746}
+  spriteAsset: {fileID: 0}
 --- !u!73398921 &1199033024
 VFXRenderer:
   serializedVersion: 1
@@ -11256,6 +11262,8 @@ MonoBehaviour:
   LastScene: 
   cutSceneManager: {fileID: 0}
   loadingScript: {fileID: 0}
+  bossObject: {fileID: 0}
+  bossModel: {fileID: 0}
 --- !u!114 &1271183343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17143,6 +17151,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   visualEffect: {fileID: 0}
   uiMap: {fileID: 411901223}
+  spriteAsset: {fileID: 0}
 --- !u!73398921 &1888211361
 VFXRenderer:
   serializedVersion: 1

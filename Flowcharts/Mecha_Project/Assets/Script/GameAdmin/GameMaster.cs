@@ -53,10 +53,8 @@ public class GameMaster : MonoBehaviour
     [Header("Reference")]
     [SerializeField] CutSceneManager cutSceneManager;
     [SerializeField] LoadingScript loadingScript;
-
-    //flag
-    GameObject bossObject;
-    EnemyModel bossModel;
+    [SerializeField] GameObject bossObject;
+    [SerializeField] EnemyModel bossModel;
 
     private void Awake()
     {
@@ -92,17 +90,10 @@ public class GameMaster : MonoBehaviour
             case StageType.Stage2:
                 QuestText = "The enemy is attacking from all directions, HOLD ON!";
                 countdown = true;
-                if (countdown)
-                {
-                    Timer();
-                }
                 break;
             case StageType.StageBoss:
-                if (bossModel != null)
-                {
-                    bossObject = GameObject.FindGameObjectWithTag("Boss");
-                    bossModel = bossObject.GetComponent<EnemyModel>();
-                }
+                bossObject = GameObject.FindGameObjectWithTag("Boss");
+                bossModel = bossObject.GetComponent<EnemyModel>();
                 QuestText = "ELITE-TYPE ENEMY INCOMING, DESTROY IT";
                 countdown = false;
                 break;
@@ -172,7 +163,7 @@ public class GameMaster : MonoBehaviour
         switch (StageType)
         {
             case StageType.Stage2:
-                if (timer <= 0 && !MechaData.isDeath)
+                if (timer <= 0.01f && !MechaData.isDeath)
                 {
                     gameFinish = true;
                     gameWin = true;
@@ -190,19 +181,26 @@ public class GameMaster : MonoBehaviour
 
     public void Timer()
     {
-        timer -= Time.deltaTime;
-        int minutes = Mathf.FloorToInt(timer / 60);
-        int seconds = Mathf.FloorToInt(timer % 60);
-        timeFormat = string.Format("{00:00}:{1:00}", minutes, seconds);
-        HUDManager.timerText.text = timeFormat;
-
-        if (timer <= 20f)
+        if (timer > 0.01f)
         {
-            HUDManager.timerText.color = Color.red;
+            timer -= Time.deltaTime;
+            int minutes = Mathf.FloorToInt(timer / 60);
+            int seconds = Mathf.FloorToInt(timer % 60);
+            timeFormat = string.Format("{00:00}:{1:00}", minutes, seconds);
+            HUDManager.timerText.text = timeFormat;
+
+            if (timer <= 20f)
+            {
+                HUDManager.timerText.color = Color.red;
+            }
+            else
+            {
+                HUDManager.timerText.color = Color.white;
+            }
         }
         else
         {
-            HUDManager.timerText.color = Color.white;
+            timer = 0;
         }
     }
 
@@ -278,11 +276,13 @@ public class GameMaster : MonoBehaviour
         BlockInput();
         PauseButton();
         HideCursor();
+        StartCoroutine(TransitionManager());
+        StageMonitor();
+
         if (countdown)
         {
             Timer();
         }
-        StartCoroutine(TransitionManager());
         if (MechaData.isDeath)
         {
             playerInput.enabled = false;
@@ -291,7 +291,6 @@ public class GameMaster : MonoBehaviour
         {
             playerInput.enabled = true;
         }
-        StageMonitor();
     }
 
 }

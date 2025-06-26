@@ -44,7 +44,6 @@ public class CameraActive : MonoBehaviour
     private Vector3 currentRecoil;
     private float currentLerpTime = 0f;
     private bool isAiming = false;
-    public bool mechaInAwakenState = false;
 
     private void Awake()
     {
@@ -208,7 +207,7 @@ public class CameraActive : MonoBehaviour
 
     private void Update()
     {
-        if (!mechaInAwakenState)
+        if (!PlayerAct.mechaInAwakenState)
         {
             wasAwaken = false;
             CameraCollision();

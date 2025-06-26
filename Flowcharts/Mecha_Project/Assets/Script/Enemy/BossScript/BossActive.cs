@@ -61,6 +61,7 @@ public class BossActive : EnemyActive
 
     public override void Attacking()
     {
+        //LockRotation();
         SecondStage();
         CheckPlayer();
 
@@ -97,6 +98,13 @@ public class BossActive : EnemyActive
         UltimateLookAtPlayer();
     }
 
+    void LockRotation()
+    {
+        Quaternion lockRotate = transform.rotation;
+        lockRotate.x = 0;
+        lockRotate.z = 0;
+        transform.rotation = lockRotate;
+    }
 
     #region Attack Pattern Generator
     void SelectAttackPattern()
@@ -179,7 +187,7 @@ public class BossActive : EnemyActive
 
     [Header("Ultimate Atribut")]
     [SerializeField] GameObject ultimateLaser;
-    public bool ultimateLookAtPlayer;
+    public bool ultimateLookAtPlayer = false;
     public bool enableLaserUltimate = false;
 
     void UltimateAttack()
@@ -202,7 +210,7 @@ public class BossActive : EnemyActive
             direction.y = 0f;
             if (direction != Vector3.zero)
             {
-                transform.rotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.LookRotation(0.4f * Time.deltaTime * direction);
             }
         }
     }
@@ -699,7 +707,7 @@ public class BossActive : EnemyActive
     }
 
     #endregion
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         if (enemyModel == null) return;
 
