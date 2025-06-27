@@ -889,7 +889,7 @@ public class PlayerActive : MonoBehaviour
     {
         float dashSkillTime = 5f;
         float distance = 2f;
-        float speedDash = 2f;
+        float speedDash = 0.2f;
         //Proses
         float time = 0f;
         Vector3 forward = playerPosition.transform.forward;

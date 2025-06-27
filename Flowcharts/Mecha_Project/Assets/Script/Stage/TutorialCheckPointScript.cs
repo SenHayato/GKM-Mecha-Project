@@ -11,14 +11,16 @@ public class TurotialCheckPointScript : MonoBehaviour
     [SerializeField] private GameObject nextChekpoint;
     [SerializeField] private float checkPointDuration; //Destroy Duration
     [SerializeField] private Collider pointCollider;
-    [SerializeField] private HUDGameManager HUDManager;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private VisualEffect visualEffect;
     [SerializeField] private GameObject uiMap;
 
+    [Header("Reference")]
+    [SerializeField] HUDGameManager HUDManager;
+
     [Header("CheckPoint Load")]
     [SerializeField] TMP_SpriteAsset spriteAsset;
-    [SerializeField] TextMeshProUGUI questText;
+    //[SerializeField] TextMeshProUGUI questText;
     //[SerializeField] private Material pointMaterial;
 
     //Checker
@@ -84,16 +86,20 @@ public class TurotialCheckPointScript : MonoBehaviour
         }
     }
     
-    void CheckPointText()
-    {
-        switch (checkPointNumber)
-        {
-            case CheckPointNumber.CheckPoint1:
-                questText.spriteAsset = spriteAsset;
-                questText.text = "Use <sprite name=\"L3\"> to move";
-                break;
-        }
-    }
+    //void CheckPointText()
+    //{
+    //    switch (checkPointNumber)
+    //    {
+    //        case CheckPointNumber.CheckPoint1:
+    //            questText.spriteAsset = spriteAsset;
+    //            questText.text = "Use <spriteAsset name=\"L3\"> to move";
+    //            break;
+    //        case CheckPointNumber.CheckPoint2:
+    //            questText.spriteAsset = spriteAsset;
+    //            questText.text = "Use <spriteAsset name=\"L3\"> to move";
+    //            break;
+    //    }
+    //}
 
     private void Update()
     {
