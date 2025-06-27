@@ -6,7 +6,7 @@ public class GroundSlashObj : MonoBehaviour
 {
     //Object akan diduplicate bukan di instantiate
     [Header("Referensi")]
-    [SerializeField] Rigidbody rb;
+    [SerializeField] CharacterController charController;
     [SerializeField] float speed;
     [SerializeField] EnemyModel enemyModel;
     [SerializeField] float destroyTime;
@@ -14,6 +14,13 @@ public class GroundSlashObj : MonoBehaviour
     [Header("Ground Slash Attribut")]
     [SerializeField] int damageValue;
     [SerializeField] GameObject slashHitEffect;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float groundCheckDistance;
+    [SerializeField] private LayerMask groundMask;
+
+    private Vector3 velocity;
+    private bool isGrounded;
+
 
 
     // Start is called before the first frame update
@@ -39,7 +46,15 @@ public class GroundSlashObj : MonoBehaviour
 
     void MoveForward()
     {
-        rb.MovePosition(rb.position + speed * Time.fixedDeltaTime * transform.forward);
+        isGrounded = Physics.CheckSphere(transform.position + Vector3.down * 0.1f, groundCheckDistance, groundMask);
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+        }
+        Vector3 move = transform.forward * speed;
+        velocity.y += gravity * Time.deltaTime;
+        Vector3 totalMove = move * Time.deltaTime + velocity * Time.deltaTime;
+        charController.Move(totalMove);
     }
         
     private void Update()
