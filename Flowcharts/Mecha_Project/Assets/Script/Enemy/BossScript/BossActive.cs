@@ -76,14 +76,6 @@ public class BossActive : EnemyActive
     {
         return;
     }
-    void LockRotation()
-    {
-        Quaternion lockRotate = transform.rotation;
-        lockRotate.x = 0;
-        lockRotate.z = 0;
-        transform.rotation = lockRotate;
-    }
-
 
     void SecondStage()
     {
@@ -135,4 +127,13 @@ public class BossActive : EnemyActive
         Gizmos.DrawWireSphere(transform.position, meleeRadius);
         UnityEditor.Handles.Label(transform.position + Vector3.forward * meleeRadius, "Melee Range");
     }
+
+      //void LockRotation()
+    //{
+    //    Quaternion lockRotate = transform.rotation;
+    //    lockRotate.x = 0;
+    //    lockRotate.z = 0;
+    //    transform.rotation = lockRotate;
+    //}
+
 }
