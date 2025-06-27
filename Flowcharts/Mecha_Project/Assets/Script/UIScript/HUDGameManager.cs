@@ -13,7 +13,7 @@ public class HUDGameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currentAmmo;
     [SerializeField] private TextMeshProUGUI maxAmmo;
     [SerializeField] private TextMeshProUGUI healthPoint;
-    [SerializeField] private TextMeshProUGUI questInfo;
+    public TextMeshProUGUI questInfo;
     [SerializeField] private TextMeshProUGUI killCounterTxt;
     public TextMeshProUGUI timerText;
     [Header("HealthBar")]
