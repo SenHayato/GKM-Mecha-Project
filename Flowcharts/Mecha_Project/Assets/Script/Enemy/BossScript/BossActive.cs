@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEditor;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class BossActive : EnemyActive
@@ -7,10 +8,9 @@ public class BossActive : EnemyActive
     [Header("Boss Komponen")]
     public float shootRange;
     public float meleeRadius;
-    public Transform rayCastPosition;
+    //public Transform rayCastPosition;
     public bool rifleShoot;
     public bool SecondState = false;
-    public float chaseSpeed = 12f;
     int SecondStageHealth;
 
     [Header("AttackState")]
@@ -19,49 +19,20 @@ public class BossActive : EnemyActive
     public float preparingTime;
     public bool hasAttacked;
 
-    [Header("AttackRange")]
-    public float missChange;
-    public float fireSlerpAngle;
-    public bool isBulletSpawn;
-    public GameObject bulletHitEffect;
-
-    [Header("RifleAttribut")]
-    public float rifleFireRate;
-    public float rifleAttackDuration;
-    public Transform muzzleRight;
-    public LineRenderer bulletRight;
-    public Transform muzzleLeft;
-    public LineRenderer bulletLeft;
-
-    [Header("GatlingAttribut")]
-    public float gatlingFireRate;
-    public float gatlingAttackDuration;
-    public Transform muzzleGatRight;
-    public LineRenderer bulletGatRight; 
-    public Transform muzzleGatLeft;
-    public LineRenderer bulletGatLeft;
-
-    [Header("MissileBarrage")]
-    [SerializeField] GameObject missileObj;
-    [SerializeField] float missileDuration;
-    [SerializeField] float missileInterval;
-
-    [Header("AttackToggler")]
+    [Header("Attack Generator")]
     [SerializeField] int attackNumber;
-    public bool groundHitAttacking;
-    public bool groundSlashAttacking;
-    public bool rammingAttacking;
-    public bool sweepingAttacking;
-    public bool rifleAttacking;
-    public bool gatlingAttacking;
-    public bool missileAttacking;
-    public bool ultimating;
 
-    //flag
-    [SerializeField] int attackChance = 0;
+    [Header("Visual Effect")]
+    [SerializeField] GameObject bulletHitEffect;
 
     public override void Attacking()
     {
+        if (navAgent.enabled)
+        {
+            navAgent.stoppingDistance = 6f;
+            navAgent.SetDestination(player.position);
+        }
+
         //LockRotation();
         SecondStage();
         CheckPlayer();
@@ -69,7 +40,26 @@ public class BossActive : EnemyActive
         if (enemyModel.isGrounded)
         {
             AttackCooldown();
+
+            if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
+            {
+                anim.SetTrigger("StartAttack");
+            }
         }
+    }
+
+    public void RandomRangeAttack()
+    {
+        if (!SecondState)
+        {
+            attackNumber = Random.Range(0, 7) + 1;
+        }
+        else
+        {
+            attackNumber = Random.Range(0, 8) + 1;
+        }
+        Debug.Log("Attack ke " + attackNumber);
+        anim.SetInteger("AttackIndex", attackNumber);
     }
 
     public override void PlayAnimation()
@@ -84,13 +74,12 @@ public class BossActive : EnemyActive
         {
             SecondState = true;
             enemyModel.attackPower = 2500;
-            navDefaultSpeed = 12f;
-            chaseSpeed = 16f;
-            //material berubah merah
+            //navDefaultSpeed = 8f;
+            navAgent.speed = 8f;
         }
     }
 
-     void AttackCooldown()
+    void AttackCooldown()
     {
         if (!enemyModel.isAttacking)
         {
@@ -104,7 +93,7 @@ public class BossActive : EnemyActive
             }
             else
             {
-                enemyModel.attackCooldown = 3f;
+                enemyModel.attackCooldown = 5f;
             }
         }
     }
@@ -114,6 +103,230 @@ public class BossActive : EnemyActive
         playerInMelee = Physics.CheckSphere(transform.position, meleeRadius, playerLayer);
         playerInRange = Physics.CheckSphere(transform.position, shootRange, playerLayer);
     }
+
+    #region GatlingAttack dan RifleAttack------------------------------------------------------------------------------------
+
+    [Header("Range Weapon Atribut")]
+    [SerializeField] Transform[] muzzleWeapon;
+    [SerializeField] LineRenderer[] bulletLaser;
+    [SerializeField] Transform rayCastSpawn;
+    public bool rifleAttacking;
+    public bool gatlingAttacking;
+    [SerializeField] float rangeRotationSpeed;
+
+    [Header("Attack Duration")]
+    [SerializeField] float rifleAttackDuration;
+    [SerializeField] float gatlingAttackDuration;
+
+    [Header("Weapon")]
+    [SerializeField] float rifleInterval;
+    [SerializeField] float gatlingInterval;
+    [SerializeField] float missChange;
+
+    //flag
+    //bool isBulletSpawn;
+    bool isFiring = false;
+
+    public void RifleAttackStart()
+    {
+        StartCoroutine(RifleAttack());
+    }
+
+    IEnumerator RifleAttack()
+    {
+        if (!rifleAttacking) yield break;
+
+        if (!isFiring)
+        {
+            isFiring = true;
+            StartCoroutine(RifleFire());
+            Invoke(nameof(RangeReset), rifleAttackDuration);
+        }
+
+        while (rifleAttacking)
+        {
+            if (navAgent.enabled)
+            {
+                navAgent.SetDestination(transform.position);
+            }
+
+            Vector3 direction = (player.position - transform.position).normalized;
+            Vector3 directionPlayer = (player.position - transform.position).normalized;
+            float accuracyOffset = missChange;
+            direction += new Vector3(Random.Range(-accuracyOffset, accuracyOffset), Random.Range(-accuracyOffset, accuracyOffset), 0f);
+            direction.Normalize();
+
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            Quaternion targetLookAt = Quaternion.LookRotation(directionPlayer);
+            rayCastSpawn.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * (rangeRotationSpeed - 2f));
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetLookAt, Time.deltaTime * rangeRotationSpeed);
+
+            yield return null;
+        }
+    }
+
+    IEnumerator RifleFire()
+    {
+        if (!rifleAttacking || rayCastSpawn == null) yield break;
+
+        while (rifleAttacking)
+        {
+            Ray ray = new(rayCastSpawn.position, rayCastSpawn.forward);
+            Vector3 targetPoint = ray.origin + shootRange * ray.direction;
+
+            if (Physics.Raycast(ray, out RaycastHit hit, shootRange, hitLayer))
+            {
+                targetPoint = hit.point;
+
+                if (hit.collider.TryGetComponent<PlayerActive>(out var playerActive))
+                {
+                    playerActive.TakeDamage(enemyModel.attackPower);
+                }
+
+                Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+            }
+
+            StartCoroutine(BulletTrailRifle(targetPoint));
+            yield return new WaitForSeconds(rifleInterval);
+        }
+    }
+
+    IEnumerator BulletTrailRifle(Vector3 targetPoint)
+    {
+        Debug.Log("BulletRifle");
+
+        for (int i = 0; i < Mathf.Min(bulletLaser.Length, muzzleWeapon.Length); i++)
+        {
+            if (bulletLaser[i] == null || muzzleWeapon[i] == null) continue;
+
+            bulletLaser[i].SetPosition(0, muzzleWeapon[i].position);
+            bulletLaser[i].SetPosition(1, targetPoint);
+            bulletLaser[i].enabled = true;
+        }
+
+        yield return new WaitForSeconds(rifleInterval);
+
+        for (int i = 0; i < Mathf.Min(bulletLaser.Length, muzzleWeapon.Length); i++)
+        {
+            if (bulletLaser[i] != null)
+                bulletLaser[i].enabled = false;
+        }
+    }
+
+
+    private void RangeReset()
+    {
+        anim.SetBool("Attacking", false);
+        rifleAttacking = false;
+        isFiring = false;
+        StopCoroutine(nameof(RifleFire));
+    }
+
+
+
+
+    #endregion
+    #region MissileLaunch-------------------------------------------------------
+
+    [Header("MissileAttack")]
+    [SerializeField] GameObject bossMissileObj;
+    [SerializeField] float missileInterval;
+    [SerializeField] float missileDuration;
+
+    public IEnumerator MissileAttacking()
+    {
+        float time = 0f;
+        while (time < missileDuration)
+        {
+            Instantiate(bossMissileObj, player.transform.position, Quaternion.identity);
+            float interval = 0f;
+            while (interval < missileInterval)
+            {
+                interval += Time.deltaTime;
+                time += Time.deltaTime;
+                yield return null;
+            }
+        }
+    }
+
+    #endregion
+
+    #region GroundSlash---------------------------------------------------------------
+
+    [Header("GroundSlash")]
+    [SerializeField] Transform[] objSpawnPost;
+    [SerializeField] GameObject groundSlashObj;
+    public bool groundSlash = false;
+
+    public void SpawningGroundSlash()
+    {
+        if (!SecondState)
+        {
+            Instantiate(groundSlashObj, objSpawnPost[0].position, objSpawnPost[0].rotation);
+        }
+        else
+        {
+            foreach(var spawner in objSpawnPost)
+            {
+                Instantiate(groundSlashObj, spawner.position, spawner.rotation);
+            }
+        }
+    }
+
+    #endregion
+
+    #region SweepingAttack--------------------------------------------------------------
+
+    [Header("SweepingLaser")]
+    [SerializeField] GameObject[] sweepingLaser;
+
+    public void SweepingLaserEnable()
+    {
+        foreach(var laser in sweepingLaser)
+        {
+            laser.SetActive(true);
+        }
+    }
+
+    public void SweepingLaserDisable()
+    {
+        foreach(var laser in sweepingLaser)
+        {
+            laser.SetActive(false);
+        }
+    }
+    #endregion
+
+    #region RammingAttack-------------------------------------------------------------
+    [Header("RammingAttack")]
+    [SerializeField] GameObject rammingCollider;
+
+    public void RammingEnable()
+    {
+        rammingCollider.SetActive(true);
+    }
+
+    public void RammingDisable()
+    {
+        rammingCollider.SetActive(false);
+    }
+
+    #endregion
+
+    #region UltimateAttack-----------------------------------------------------------------------------
+    [Header("UltimateAttack")]
+    [SerializeField] GameObject LaserObj;
+
+    public void UltimateEnable()
+    {
+        LaserObj.SetActive(true);
+    }
+
+    public void UltimateDisable()
+    {
+        LaserObj.SetActive(false);
+    }
+    #endregion
 
     private void OnDrawGizmos()
     {
@@ -127,13 +340,5 @@ public class BossActive : EnemyActive
         Gizmos.DrawWireSphere(transform.position, meleeRadius);
         UnityEditor.Handles.Label(transform.position + Vector3.forward * meleeRadius, "Melee Range");
     }
-
-      //void LockRotation()
-    //{
-    //    Quaternion lockRotate = transform.rotation;
-    //    lockRotate.x = 0;
-    //    lockRotate.z = 0;
-    //    transform.rotation = lockRotate;
-    //}
 
 }
