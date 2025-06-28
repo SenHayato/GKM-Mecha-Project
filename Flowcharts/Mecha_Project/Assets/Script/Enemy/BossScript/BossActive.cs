@@ -27,8 +27,12 @@ public class BossActive : EnemyActive
 
     public override void Attacking()
     {
-        navAgent.stoppingDistance = 6f;
-        navAgent.SetDestination(player.position);
+        if (navAgent.enabled)
+        {
+            navAgent.stoppingDistance = 6f;
+            navAgent.SetDestination(player.position);
+        }
+
         //LockRotation();
         SecondStage();
         CheckPlayer();
@@ -154,7 +158,7 @@ public class BossActive : EnemyActive
 
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             Quaternion targetLookAt = Quaternion.LookRotation(directionPlayer);
-            rayCastSpawn.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rangeRotationSpeed);
+            rayCastSpawn.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * (rangeRotationSpeed - 2f));
             transform.rotation = Quaternion.Slerp(transform.rotation, targetLookAt, Time.deltaTime * rangeRotationSpeed);
 
             yield return null;
