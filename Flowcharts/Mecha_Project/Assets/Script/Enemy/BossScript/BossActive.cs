@@ -74,6 +74,27 @@ public class BossActive : EnemyActive
         playerInRange = Physics.CheckSphere(transform.position, shootRange, playerLayer);
     }
 
+    #region MissileLaunch
+    [Header("MissileAttack")]
+    [SerializeField] GameObject bossMissileObj;
+    [SerializeField] float missileDuration;
+
+    //public void MissileAttackTrigger()
+    //{
+    //    StartCoroutine(MissileAttacking());
+    //}
+
+    public IEnumerator MissileAttacking()
+    {
+        float time = 0f;
+        while (time < missileDuration)
+        {
+            Instantiate(bossMissileObj, player.transform.position, Quaternion.identity);
+            yield return null;
+        }
+    }
+    #endregion
+
     #region GroundSlash
 
     [Header("GroundSlash")]
