@@ -79,6 +79,7 @@ public class BossActive : EnemyActive
     [Header("GroundSlash")]
     [SerializeField] Transform[] objSpawnPost;
     [SerializeField] GameObject groundSlashObj;
+    public bool groundSlash = false;
 
     public void SpawningGroundSlash()
     {
@@ -95,7 +96,60 @@ public class BossActive : EnemyActive
         }
     }
 
-#endregion
+    #endregion
+
+    #region SweepingAttack
+
+    [Header("SweepingLaser")]
+    [SerializeField] GameObject[] sweepingLaser;
+
+    public void SweepingLaserEnable()
+    {
+        foreach(var laser in sweepingLaser)
+        {
+            laser.SetActive(true);
+        }
+    }
+
+    public void SweepingLaserDisable()
+    {
+        foreach(var laser in sweepingLaser)
+        {
+            laser.SetActive(false);
+        }
+    }
+    #endregion
+
+    #region RammingAttack
+    [Header("RammingAttack")]
+    [SerializeField] GameObject rammingCollider;
+
+    public void RammingEnable()
+    {
+        rammingCollider.SetActive(true);
+    }
+
+    public void RammingDisable()
+    {
+        rammingCollider.SetActive(false);
+    }
+
+    #endregion
+
+    #region UltimateAttack
+    [Header("UltimateAttack")]
+    [SerializeField] GameObject LaserObj;
+
+    public void UltimateEnable()
+    {
+        LaserObj.SetActive(true);
+    }
+
+    public void UltimateDisable()
+    {
+        LaserObj.SetActive(false);
+    }
+    #endregion
 
     private void OnDrawGizmos()
     {
