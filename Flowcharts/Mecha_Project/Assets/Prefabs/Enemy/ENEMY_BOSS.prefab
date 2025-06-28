@@ -1460,7 +1460,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2361344
   originPoint: {fileID: 857490361549099703}
-  bossHUD: {fileID: 0}
+  bossHUD: {fileID: 1517836923832094639}
   playerActive: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
@@ -1521,23 +1521,6 @@ MonoBehaviour:
   missileAttacking: 0
   ultimating: 0
   attackChance: 0
-  ultimateLaser: {fileID: 8039048910650081}
-  ultimateLookAtPlayer: 0
-  enableLaserUltimate: 0
-  groundSmashCollider: {fileID: 7203758888402708598}
-  hasTeleported: 0
-  spawnSlash: 0
-  groundSlashObj: {fileID: 0}
-  slashSpawner:
-  - {fileID: 2098212783044432957}
-  - {fileID: 2152766265329052670}
-  - {fileID: 6622353330304155101}
-  rammingLookAtPlayer: 0
-  rammingDistance: 30
-  rammingCollider: {fileID: 3870344852550509034}
-  sweepingLaser:
-  - {fileID: 5748175871682366906}
-  - {fileID: 397293153187655163}
 --- !u!195 &5958875101343023709
 NavMeshAgent:
   m_ObjectHideFlags: 0

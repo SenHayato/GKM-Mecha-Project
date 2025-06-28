@@ -266,7 +266,6 @@ public abstract class EnemyActive : MonoBehaviour
 
         anim.SetBool("IsStunt", false);
         anim.SetBool("IsDeath", true);
-        Debug.Log("Death Animation Triggered for " + gameObject.name);
         deathCollider.enabled = true; // Aktifkan death collider jika diperlukan
         Invoke(nameof(ExplodeVisual), 3.5f);
         if (enemyModel.canExplode)

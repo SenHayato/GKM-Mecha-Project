@@ -19,47 +19,6 @@ public class BossActive : EnemyActive
     public float preparingTime;
     public bool hasAttacked;
 
-    [Header("AttackRange")]
-    public float missChange;
-    public float fireSlerpAngle;
-    public bool isBulletSpawn;
-    public GameObject bulletHitEffect;
-
-    [Header("RifleAttribut")]
-    public float rifleFireRate;
-    public float rifleAttackDuration;
-    public Transform muzzleRight;
-    public LineRenderer bulletRight;
-    public Transform muzzleLeft;
-    public LineRenderer bulletLeft;
-
-    [Header("GatlingAttribut")]
-    public float gatlingFireRate;
-    public float gatlingAttackDuration;
-    public Transform muzzleGatRight;
-    public LineRenderer bulletGatRight; 
-    public Transform muzzleGatLeft;
-    public LineRenderer bulletGatLeft;
-
-    [Header("MissileBarrage")]
-    [SerializeField] GameObject missileObj;
-    [SerializeField] float missileDuration;
-    [SerializeField] float missileInterval;
-
-    [Header("AttackToggler")]
-    [SerializeField] int attackNumber;
-    public bool groundHitAttacking;
-    public bool groundSlashAttacking;
-    public bool rammingAttacking;
-    public bool sweepingAttacking;
-    public bool rifleAttacking;
-    public bool gatlingAttacking;
-    public bool missileAttacking;
-    public bool ultimating;
-
-    //flag
-    [SerializeField] int attackChance = 0;
-
     public override void Attacking()
     {
         //LockRotation();
@@ -104,7 +63,7 @@ public class BossActive : EnemyActive
             }
             else
             {
-                enemyModel.attackCooldown = 3f;
+                enemyModel.attackCooldown = 5f;
             }
         }
     }
@@ -114,6 +73,29 @@ public class BossActive : EnemyActive
         playerInMelee = Physics.CheckSphere(transform.position, meleeRadius, playerLayer);
         playerInRange = Physics.CheckSphere(transform.position, shootRange, playerLayer);
     }
+
+    #region GroundSlash
+
+    [Header("GroundSlash")]
+    [SerializeField] Transform[] objSpawnPost;
+    [SerializeField] GameObject groundSlashObj;
+
+    public void SpawningGroundSlash()
+    {
+        if (!SecondState)
+        {
+            Instantiate(groundSlashObj, objSpawnPost[0].position, objSpawnPost[0].rotation);
+        }
+        else
+        {
+            foreach(var spawner in objSpawnPost)
+            {
+                Instantiate(groundSlashObj, spawner.position, spawner.rotation);
+            }
+        }
+    }
+
+#endregion
 
     private void OnDrawGizmos()
     {
@@ -127,13 +109,5 @@ public class BossActive : EnemyActive
         Gizmos.DrawWireSphere(transform.position, meleeRadius);
         UnityEditor.Handles.Label(transform.position + Vector3.forward * meleeRadius, "Melee Range");
     }
-
-      //void LockRotation()
-    //{
-    //    Quaternion lockRotate = transform.rotation;
-    //    lockRotate.x = 0;
-    //    lockRotate.z = 0;
-    //    transform.rotation = lockRotate;
-    //}
 
 }
