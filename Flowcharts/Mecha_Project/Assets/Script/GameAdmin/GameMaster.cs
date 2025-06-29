@@ -181,7 +181,7 @@ public class GameMaster : MonoBehaviour
 
     public void Timer()
     {
-        if (timer > 0.01f)
+        if (timer >= 0.01f)
         {
             timer -= Time.deltaTime;
             int minutes = Mathf.FloorToInt(timer / 60);

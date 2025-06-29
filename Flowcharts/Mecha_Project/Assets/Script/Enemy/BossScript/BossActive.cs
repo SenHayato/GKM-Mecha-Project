@@ -14,6 +14,7 @@ public class BossActive : EnemyActive
     int SecondStageHealth;
 
     [Header("AttackState")]
+    public bool readyToAttack = false;
     public bool playerInMelee;
     public bool playerInRange;
     public float preparingTime;
@@ -27,7 +28,7 @@ public class BossActive : EnemyActive
 
     public override void Attacking()
     {
-        if (navAgent.enabled)
+        if (navAgent.enabled && !readyToAttack)
         {
             navAgent.stoppingDistance = 6f;
             navAgent.SetDestination(player.position);
@@ -60,6 +61,15 @@ public class BossActive : EnemyActive
         }
         Debug.Log("Attack ke " + attackNumber);
         anim.SetInteger("AttackIndex", attackNumber);
+    }
+
+    //panggil pada animasi state
+    public void StoppingMove()
+    {
+        if (navAgent.enabled)
+        {
+            navAgent.SetDestination(transform.position);
+        }
     }
 
     public override void PlayAnimation()
@@ -150,15 +160,18 @@ public class BossActive : EnemyActive
                 navAgent.SetDestination(transform.position);
             }
 
-            Vector3 direction = (player.position - transform.position).normalized;
-            Vector3 directionPlayer = (player.position - transform.position).normalized;
+            Vector3 lookAt = (player.position - transform.position).normalized;
+
+            Vector3 direction = lookAt;
             float accuracyOffset = missChange;
             direction += new Vector3(Random.Range(-accuracyOffset, accuracyOffset), Random.Range(-accuracyOffset, accuracyOffset), 0f);
             direction.Normalize();
 
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            Quaternion targetLookAt = Quaternion.LookRotation(directionPlayer);
-            rayCastSpawn.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * (rangeRotationSpeed - 2f));
+            Quaternion targetLookAt = Quaternion.LookRotation(lookAt);
+
+            float rayCastSpeed = Mathf.Max(rangeRotationSpeed - 2f, 1f);
+            rayCastSpawn.rotation = Quaternion.Slerp(rayCastSpawn.rotation, targetRotation, Time.deltaTime * rayCastSpeed);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetLookAt, Time.deltaTime * rangeRotationSpeed);
 
             yield return null;

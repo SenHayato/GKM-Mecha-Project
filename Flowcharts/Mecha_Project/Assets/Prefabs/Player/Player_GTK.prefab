@@ -2324,6 +2324,15 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  resetCameraAction:
+    m_Name: Reset Camera
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dce63b06-edfa-4c81-b36a-a3aa545d7a2b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   Mecha: {fileID: 0}
   GameMaster: {fileID: 0}
   CameraAct: {fileID: 0}
@@ -2337,6 +2346,7 @@ MonoBehaviour:
   windEffect: {fileID: 4929333270168354816}
   walkRotValue: 15
   WeaponSlot: {fileID: 7811224967958461485}
+  mechaInAwakenState: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -9401,7 +9411,7 @@ MonoBehaviour:
   playerData: {fileID: 0}
   playerActive: {fileID: 0}
   timeStunt: 5
-  boxSize: {x: 7, y: 0.92, z: 7}
+  boxSize: {x: 7, y: 3.1, z: 7}
   slashHitEffect: {fileID: 9111725185115478459, guid: 00002b2d7c7647a49a9c1d51fe4937dc, type: 3}
 --- !u!33 &2432705554501203762
 MeshFilter:
@@ -20594,6 +20604,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6816671393536749337}
     m_Modifications:
+    - target: {fileID: 799242003174243631, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
+      propertyPath: boxSize.y
+      value: 3.19
+      objectReference: {fileID: 0}
     - target: {fileID: 799242003174243631, guid: 5955ea0a58bd36a4c8f0051fe73b2031, type: 3}
       propertyPath: playerData
       value: 
