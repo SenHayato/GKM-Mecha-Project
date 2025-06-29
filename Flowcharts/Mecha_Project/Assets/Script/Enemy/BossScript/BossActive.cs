@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using UnityEditor;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -119,7 +120,7 @@ public class BossActive : EnemyActive
     [Header("Range Weapon Atribut")]
     [SerializeField] Transform[] muzzleWeapon;
     [SerializeField] LineRenderer[] bulletLaser;
-    [SerializeField] Transform rayCastSpawn;
+    //[SerializeField] Transform rayCastSpawn;
     public bool rifleAttacking;
     public bool gatlingAttacking;
     [SerializeField] float rangeRotationSpeed;
@@ -132,6 +133,9 @@ public class BossActive : EnemyActive
     [SerializeField] float rifleInterval;
     [SerializeField] float gatlingInterval;
     [SerializeField] float missChange;
+    [SerializeField] float rayCastSpeedRot;
+    [SerializeField] float rayOffsetForward;
+    [SerializeField] float rayOffsetUp;
 
     //flag
     //bool isBulletSpawn;
@@ -159,48 +163,50 @@ public class BossActive : EnemyActive
             {
                 navAgent.SetDestination(transform.position);
             }
-
-            Vector3 lookAt = (player.position - transform.position).normalized;
-
-            Vector3 direction = lookAt;
-            float accuracyOffset = missChange;
-            direction += new Vector3(Random.Range(-accuracyOffset, accuracyOffset), Random.Range(-accuracyOffset, accuracyOffset), 0f);
-            direction.Normalize();
-
+            Vector3 direction = (player.position - transform.position).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            Quaternion targetLookAt = Quaternion.LookRotation(lookAt);
-
-            float rayCastSpeed = Mathf.Max(rangeRotationSpeed - 2f, 1f);
-            rayCastSpawn.rotation = Quaternion.Slerp(rayCastSpawn.rotation, targetRotation, Time.deltaTime * rayCastSpeed);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetLookAt, Time.deltaTime * rangeRotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rangeRotationSpeed);
 
             yield return null;
         }
     }
-
     IEnumerator RifleFire()
     {
-        if (!rifleAttacking || rayCastSpawn == null) yield break;
+        if (!rifleAttacking) yield break;
 
         while (rifleAttacking)
         {
-            Ray ray = new(rayCastSpawn.position, rayCastSpawn.forward);
-            Vector3 targetPoint = ray.origin + shootRange * ray.direction;
-
-            if (Physics.Raycast(ray, out RaycastHit hit, shootRange, hitLayer))
+            foreach (var rayCast in muzzleWeapon)
             {
-                targetPoint = hit.point;
+                Vector3 direction = (player.position - rayCast.position).normalized;
 
-                if (hit.collider.TryGetComponent<PlayerActive>(out var playerActive))
+                // tambahkan inaccuracy
+                float accuracyOffset = missChange;
+                direction += new Vector3(Random.Range(-accuracyOffset, accuracyOffset), Random.Range(-accuracyOffset, accuracyOffset) + rayOffsetUp, 0f);
+                direction.Normalize();
+
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                rayCast.rotation = Quaternion.RotateTowards(rayCast.rotation, targetRotation, rayCastSpeedRot * Time.deltaTime); // derajat per detik
+
+                Debug.DrawRay(rayCast.position, rayCast.forward * shootRange, Color.blue, 1f);
+                Ray ray = new(rayCast.position, rayCast.forward);
+                Vector3 targetPoint = ray.origin + (shootRange + rayOffsetForward) * ray.direction;
+
+                if (Physics.Raycast(ray, out RaycastHit hit, shootRange + rayOffsetForward, hitLayer))
                 {
-                    playerActive.TakeDamage(enemyModel.attackPower);
+                    targetPoint = hit.point;
+
+                    if (hit.collider.TryGetComponent<PlayerActive>(out var playerActive))
+                    {
+                        playerActive.TakeDamage(enemyModel.attackPower);
+                    }
+
+                    Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 }
 
-                Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                StartCoroutine(BulletTrailRifle(targetPoint));
+                yield return new WaitForSeconds(rifleInterval);
             }
-
-            StartCoroutine(BulletTrailRifle(targetPoint));
-            yield return new WaitForSeconds(rifleInterval);
         }
     }
 

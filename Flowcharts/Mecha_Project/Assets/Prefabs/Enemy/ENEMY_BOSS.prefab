@@ -1262,6 +1262,7 @@ MonoBehaviour:
   meleeRadius: 6
   rifleShoot: 0
   SecondState: 0
+  readyToAttack: 0
   playerInMelee: 0
   playerInRange: 0
   preparingTime: 2
@@ -1274,15 +1275,17 @@ MonoBehaviour:
   bulletLaser:
   - {fileID: 2543469425915766828}
   - {fileID: 4982254011094462114}
-  rayCastSpawn: {fileID: 1738940595558201481}
   rifleAttacking: 0
   gatlingAttacking: 0
-  rangeRotationSpeed: 10
+  rangeRotationSpeed: 5
   rifleAttackDuration: 5
   gatlingAttackDuration: 0
   rifleInterval: 0.2
   gatlingInterval: 0
-  missChange: 0.1
+  missChange: 0.01
+  rayCastSpeedRot: 90
+  rayOffsetForward: 5
+  rayOffsetUp: 0.1
   bossMissileObj: {fileID: 6120836210244272201, guid: 3bc2e24aaa179224ba6e7178aae53bef, type: 3}
   missileInterval: 0.7
   missileDuration: 5
