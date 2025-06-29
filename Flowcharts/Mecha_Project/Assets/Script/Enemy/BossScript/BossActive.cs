@@ -14,6 +14,7 @@ public class BossActive : EnemyActive
     int SecondStageHealth;
 
     [Header("AttackState")]
+    public bool readyToAttack = false;
     public bool playerInMelee;
     public bool playerInRange;
     public float preparingTime;
@@ -27,7 +28,7 @@ public class BossActive : EnemyActive
 
     public override void Attacking()
     {
-        if (navAgent.enabled)
+        if (navAgent.enabled && !readyToAttack)
         {
             navAgent.stoppingDistance = 6f;
             navAgent.SetDestination(player.position);
@@ -60,6 +61,15 @@ public class BossActive : EnemyActive
         }
         Debug.Log("Attack ke " + attackNumber);
         anim.SetInteger("AttackIndex", attackNumber);
+    }
+
+    //panggil pada animasi state
+    public void StoppingMove()
+    {
+        if (navAgent.enabled)
+        {
+            navAgent.SetDestination(transform.position);
+        }
     }
 
     public override void PlayAnimation()
