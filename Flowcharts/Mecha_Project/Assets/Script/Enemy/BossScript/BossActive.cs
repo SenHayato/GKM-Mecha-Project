@@ -496,15 +496,76 @@ public class BossActive : EnemyActive
     #region UltimateAttack-----------------------------------------------------------------------------
     [Header("UltimateAttack")]
     [SerializeField] GameObject LaserObj;
+    public bool ultimateAttack = false;
+    [SerializeField] float ultimateRotSpeed;
+    [SerializeField] float ultimateDuration;
+
+    //anim state
+    public void StartUltimateAnim()
+    {
+        //StartCoroutine(UltimateAttack());
+        StartCoroutine(UltimateFacePlayer());
+    }
+
+    IEnumerator UltimateFacePlayer()
+    {
+        if (!ultimateAttack) yield break;
+
+        float time = 0;
+        while (time < ultimateDuration)
+        {
+            time += Time.deltaTime;
+            Vector3 direction = (player.position - transform.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * ultimateRotSpeed);
+            yield return null;
+        }
+    }
+
+    //IEnumerator UltimateAttack()
+    //{
+    //    if (!ultimateAttack) yield break;
+
+    //    float time = 0;
+    //    while (time < ultimateDuration)
+    //    {
+    //        time += Time.deltaTime;
+    //        //Vector3 direction = (player.position - transform.position).normalized;
+    //        //direction.y = transform.position.y;
+    //        //direction.z = 0f;
+
+    //        //Quaternion targetRotation = Quaternion.LookRotation(direction);
+    //        //LaserObj.transform.rotation = Quaternion.RotateTowards(LaserObj.transform.rotation, transform.rotation, Time.deltaTime * ultimateRotSpeed);
+    //        yield return null;
+    //    }
+    //}
 
     public void UltimateEnable()
     {
+        ultimateAttack = true;
         LaserObj.SetActive(true);
+        stayPosition = true;
     }
 
     public void UltimateDisable()
     {
         LaserObj.SetActive(false);
+        //StopCoroutine(UltimateAttack());
+        StopCoroutine(UltimateFacePlayer());
+        StartCoroutine(UltimateReset());
+    }
+
+    //anim state
+    IEnumerator UltimateReset()
+    {
+        yield return new WaitForSeconds(0.5f);
+        ultimateAttack = false;
+        anim.SetBool("Attacking", false);
+        stayPosition = false;
+        ResetAttack();
+        SetAttackCooldown();
+
+        if (!ultimateAttack) yield return null;
     }
     #endregion
 
