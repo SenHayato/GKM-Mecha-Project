@@ -405,7 +405,7 @@ public class BossActive : EnemyActive
         }
     }
 
-    IEnumerator ResetGroundSlash()
+    public IEnumerator ResetGroundSlash()
     {
         yield return new WaitForSeconds(groundSlashDuration);
         ResetAttack();
@@ -424,9 +424,11 @@ public class BossActive : EnemyActive
 
     [Header("SweepingLaser")]
     [SerializeField] GameObject[] sweepingLaser;
+    public bool sweepingAttack = false;
 
     public void SweepingLaserEnable()
     {
+        sweepingAttack = true;
         foreach(var laser in sweepingLaser)
         {
             laser.SetActive(true);
@@ -435,6 +437,8 @@ public class BossActive : EnemyActive
 
     public void SweepingLaserDisable()
     {
+        anim.SetBool("Attacking", false);
+        sweepingAttack = false;
         foreach(var laser in sweepingLaser)
         {
             laser.SetActive(false);
