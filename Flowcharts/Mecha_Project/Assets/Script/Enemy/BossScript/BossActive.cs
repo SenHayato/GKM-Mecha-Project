@@ -121,9 +121,9 @@ public class BossActive : EnemyActive
     [SerializeField] Transform[] muzzleWeapon;
     [SerializeField] LineRenderer[] bulletLaser;
     //[SerializeField] Transform rayCastSpawn;
+    [SerializeField] float rangeRotationSpeed;
     public bool rifleAttacking;
     public bool gatlingAttacking;
-    [SerializeField] float rangeRotationSpeed;
 
     [Header("Attack Duration")]
     [SerializeField] float rifleAttackDuration;
@@ -141,6 +141,7 @@ public class BossActive : EnemyActive
     //bool isBulletSpawn;
     bool isFiring = false;
 
+    //Rifle Shoot
     public void RifleAttackStart()
     {
         StartCoroutine(RifleAttack());
@@ -170,6 +171,7 @@ public class BossActive : EnemyActive
             yield return null;
         }
     }
+
     IEnumerator RifleFire()
     {
         if (!rifleAttacking) yield break;
@@ -204,13 +206,13 @@ public class BossActive : EnemyActive
                     Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 }
 
-                StartCoroutine(BulletTrailRifle(targetPoint));
+                StartCoroutine(BulletTrail(targetPoint, rifleInterval));
                 yield return new WaitForSeconds(rifleInterval);
             }
         }
     }
 
-    IEnumerator BulletTrailRifle(Vector3 targetPoint)
+    IEnumerator BulletTrail(Vector3 targetPoint, float interval)
     {
         Debug.Log("BulletRifle");
 
@@ -223,7 +225,7 @@ public class BossActive : EnemyActive
             bulletLaser[i].enabled = true;
         }
 
-        yield return new WaitForSeconds(rifleInterval);
+        yield return new WaitForSeconds(interval);
 
         for (int i = 0; i < Mathf.Min(bulletLaser.Length, muzzleWeapon.Length); i++)
         {
@@ -232,17 +234,95 @@ public class BossActive : EnemyActive
         }
     }
 
-
     private void RangeReset()
     {
         anim.SetBool("Attacking", false);
-        rifleAttacking = false;
         isFiring = false;
-        StopCoroutine(nameof(RifleFire));
+        if (rifleAttacking)
+        {
+            rifleAttacking = false;
+            StopCoroutine(RifleFire());
+            StopCoroutine(RifleAttack());
+        }
+
+        if (gatlingAttacking)
+        {
+            gatlingAttacking = false;
+            StopCoroutine(GatlingAttack());
+            StopCoroutine(GatlingFire());
+        }
     }
 
+    //GatlingShoot
+    public void GatlingAttackStart()
+    {
+        StartCoroutine(GatlingAttack());
+    }
 
+    IEnumerator GatlingAttack()
+    {
+        if (!gatlingAttacking) yield break;
 
+        if (!isFiring)
+        {
+            isFiring = true;
+            StartCoroutine(GatlingFire());
+            Invoke(nameof(RangeReset), gatlingAttackDuration);
+        }
+
+        while (gatlingAttacking)
+        {
+            if (navAgent.enabled)
+            {
+                navAgent.SetDestination(transform.position);
+            }
+            Vector3 direction = (player.position - transform.position).normalized;
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rangeRotationSpeed);
+
+            yield return null;
+        }
+    }
+
+    IEnumerator GatlingFire()
+    {
+        if (!gatlingAttacking) yield break;
+
+        while (gatlingAttacking)
+        {
+            foreach (var rayCast in muzzleWeapon)
+            {
+                Vector3 direction = (player.position - rayCast.position).normalized;
+
+                // tambahkan inaccuracy
+                float accuracyOffset = missChange;
+                direction += new Vector3(Random.Range(-accuracyOffset, accuracyOffset), Random.Range(-accuracyOffset, accuracyOffset) + rayOffsetUp, 0f);
+                direction.Normalize();
+
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                rayCast.rotation = Quaternion.RotateTowards(rayCast.rotation, targetRotation, rayCastSpeedRot * Time.deltaTime); // derajat per detik
+
+                Debug.DrawRay(rayCast.position, rayCast.forward * shootRange, Color.blue, 1f);
+                Ray ray = new(rayCast.position, rayCast.forward);
+                Vector3 targetPoint = ray.origin + (shootRange + rayOffsetForward) * ray.direction;
+
+                if (Physics.Raycast(ray, out RaycastHit hit, shootRange + rayOffsetForward, hitLayer))
+                {
+                    targetPoint = hit.point;
+
+                    if (hit.collider.TryGetComponent<PlayerActive>(out var playerActive))
+                    {
+                        playerActive.TakeDamage(enemyModel.attackPower);
+                    }
+
+                    Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                }
+
+                StartCoroutine(BulletTrail(targetPoint, gatlingInterval));
+                yield return new WaitForSeconds(gatlingInterval);
+            }
+        }
+    }
 
     #endregion
     #region MissileLaunch-------------------------------------------------------
