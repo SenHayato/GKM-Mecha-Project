@@ -94,7 +94,7 @@ public class BossActive : EnemyActive
             SecondState = true;
             enemyModel.attackPower = 2500;
             //navDefaultSpeed = 8f;
-            navAgent.speed = 8f;
+            //navAgent.speed = 8f;
         }
     }
 
