@@ -344,7 +344,7 @@ public abstract class EnemyActive : MonoBehaviour
         if (navAgent.enabled)
         {
             anim.SetBool("Move", true);
-            if (distanceFromPlayer >= 2.2f || !playerActive.mechaInAwakenState)
+            if (distanceFromPlayer >= 2.2f || !playerActive.mechaInAwakenState && !wasAttackTriggered)
             {
                 navAgent.SetDestination(player.position);
             }

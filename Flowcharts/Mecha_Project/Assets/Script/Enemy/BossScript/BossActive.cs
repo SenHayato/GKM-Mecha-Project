@@ -34,7 +34,7 @@ public class BossActive : EnemyActive
     {
         if (navAgent.enabled && !readyToAttack && !stayPosition)
         {
-            navAgent.stoppingDistance = 6f;
+            //navAgent.stoppingDistance = 6f;
             navAgent.SetDestination(player.position);
         }
 
@@ -410,7 +410,6 @@ public class BossActive : EnemyActive
         yield return new WaitForSeconds(groundSlashDuration);
         ResetAttack();
         SetAttackCooldown();
-        Debug.Log("SlashReset");
         anim.SetBool("Attacking", false);
         stayPosition = false;
         groundSlash = false;
@@ -449,15 +448,47 @@ public class BossActive : EnemyActive
     #region RammingAttack-------------------------------------------------------------
     [Header("RammingAttack")]
     [SerializeField] GameObject rammingCollider;
+    [SerializeField] float rammingDuration;
+    public bool rammingAttack = false;
+    [SerializeField] float rammingDashSpeed;
 
     public void RammingEnable()
     {
+        rammingAttack = true;
         rammingCollider.SetActive(true);
+        StartCoroutine(RammingToPlayer());
     }
 
     public void RammingDisable()
     {
         rammingCollider.SetActive(false);
+    }
+
+    IEnumerator RammingToPlayer()
+    {
+        navAgent.speed = rammingDashSpeed;
+        float time = 0f;
+        stayPosition = true;
+
+        while (time < rammingDuration)
+        {
+            time += Time.deltaTime;
+            Vector3 forwardOffset = transform.forward * 20f;
+            navAgent.SetDestination(player.position + forwardOffset);
+            yield return null;
+        }
+        RammingReset();
+
+        if (!rammingAttack) yield break;
+    }
+
+    void RammingReset()
+    {
+        navAgent.speed = navDefaultSpeed;
+        anim.SetBool("Attacking", false);
+        RammingDisable();
+        stayPosition = false;
+        rammingAttack = false;
     }
 
     #endregion
