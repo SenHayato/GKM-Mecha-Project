@@ -50,6 +50,9 @@ public abstract class EnemyActive : MonoBehaviour
     public float beforeHitGround;
     public float defaultRotation;
 
+    //boss flag
+    [HideInInspector] public bool wasAttackTriggered = false;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -341,7 +344,7 @@ public abstract class EnemyActive : MonoBehaviour
         if (navAgent.enabled)
         {
             anim.SetBool("Move", true);
-            if (distanceFromPlayer >= 2.2f || !playerActive.mechaInAwakenState)
+            if (distanceFromPlayer >= 2.2f || !playerActive.mechaInAwakenState && !wasAttackTriggered)
             {
                 navAgent.SetDestination(player.position);
             }
@@ -365,6 +368,7 @@ public abstract class EnemyActive : MonoBehaviour
     public void ResetAttack()
     {
         enemyModel.isAttacking = false;
+        wasAttackTriggered = false;
         Debug.Log("Reset Attack");
     }
 

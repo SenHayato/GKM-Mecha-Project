@@ -27,11 +27,14 @@ public class BossActive : EnemyActive
     [Header("Visual Effect")]
     [SerializeField] GameObject bulletHitEffect;
 
+    //flag
+    bool stayPosition = false;
+
     public override void Attacking()
     {
-        if (navAgent.enabled && !readyToAttack)
+        if (navAgent.enabled && !readyToAttack && !stayPosition)
         {
-            navAgent.stoppingDistance = 6f;
+            //navAgent.stoppingDistance = 6f;
             navAgent.SetDestination(player.position);
         }
 
@@ -45,7 +48,12 @@ public class BossActive : EnemyActive
 
             if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
             {
-                anim.SetTrigger("StartAttack");
+                anim.SetBool("Attacking", true);
+                if (!wasAttackTriggered)
+                {
+                    wasAttackTriggered = true;
+                    anim.SetTrigger("StartAttack");
+                }
             }
         }
     }
@@ -86,26 +94,25 @@ public class BossActive : EnemyActive
             SecondState = true;
             enemyModel.attackPower = 2500;
             //navDefaultSpeed = 8f;
-            navAgent.speed = 8f;
+            //navAgent.speed = 8f;
         }
     }
 
     void AttackCooldown()
     {
-        if (!enemyModel.isAttacking)
+        enemyModel.attackCooldown = Mathf.Max(0f, enemyModel.attackCooldown - Time.deltaTime);
+    }
+
+    public void SetAttackCooldown()
+    {
+        Debug.Log("Cooldown Set");
+        if (enemyModel.health >= 500000)
         {
-            enemyModel.attackCooldown = Mathf.Max(0f, enemyModel.attackCooldown - Time.deltaTime);
+            enemyModel.attackCooldown = 8f;
         }
         else
         {
-            if (enemyModel.health >= 500000)
-            {
-                enemyModel.attackCooldown = 8f;
-            }
-            else
-            {
-                enemyModel.attackCooldown = 5f;
-            }
+            enemyModel.attackCooldown = 5f;
         }
     }
 
@@ -122,8 +129,8 @@ public class BossActive : EnemyActive
     [SerializeField] LineRenderer[] bulletLaser;
     //[SerializeField] Transform rayCastSpawn;
     [SerializeField] float rangeRotationSpeed;
-    public bool rifleAttacking;
-    public bool gatlingAttacking;
+    public bool rifleAttacking = false;
+    public bool gatlingAttacking = false;
 
     [Header("Attack Duration")]
     [SerializeField] float rifleAttackDuration;
@@ -238,6 +245,7 @@ public class BossActive : EnemyActive
     {
         anim.SetBool("Attacking", false);
         isFiring = false;
+
         if (rifleAttacking)
         {
             rifleAttacking = false;
@@ -248,8 +256,8 @@ public class BossActive : EnemyActive
         if (gatlingAttacking)
         {
             gatlingAttacking = false;
-            StopCoroutine(GatlingAttack());
             StopCoroutine(GatlingFire());
+            StopCoroutine(GatlingAttack());
         }
     }
 
@@ -325,29 +333,49 @@ public class BossActive : EnemyActive
     }
 
     #endregion
+
     #region MissileLaunch-------------------------------------------------------
 
     [Header("MissileAttack")]
     [SerializeField] GameObject bossMissileObj;
+    public bool missileAttack = false;
     [SerializeField] float missileInterval;
     [SerializeField] float missileDuration;
 
-    public IEnumerator MissileAttacking()
+    public void StartMissileAttack()
+    {
+        missileAttack = true;
+        StartCoroutine(MissileAttacking());
+    }
+
+    IEnumerator MissileAttacking()
     {
         float time = 0f;
-        while (time < missileDuration)
+        if (!missileAttack) yield break;
+
+        Invoke(nameof(ResetMissile), missileDuration);
+        while (time < missileDuration && missileAttack)
         {
+            stayPosition = true;
+            navAgent.SetDestination(transform.position);
+            time += Time.deltaTime;
             Instantiate(bossMissileObj, player.transform.position, Quaternion.identity);
             float interval = 0f;
             while (interval < missileInterval)
             {
                 interval += Time.deltaTime;
-                time += Time.deltaTime;
                 yield return null;
             }
         }
     }
 
+    void ResetMissile()
+    {
+        anim.SetBool("Attacking", false);
+        stayPosition = false;
+        missileAttack = false;
+        StopCoroutine(MissileAttacking());
+    }
     #endregion
 
     #region GroundSlash---------------------------------------------------------------
@@ -356,9 +384,14 @@ public class BossActive : EnemyActive
     [SerializeField] Transform[] objSpawnPost;
     [SerializeField] GameObject groundSlashObj;
     public bool groundSlash = false;
+    [SerializeField] float groundSlashDuration;
 
     public void SpawningGroundSlash()
     {
+        stayPosition = true;
+        groundSlash = true;
+        navAgent.SetDestination(transform.position);
+        Quaternion.LookRotation(player.position);
         if (!SecondState)
         {
             Instantiate(groundSlashObj, objSpawnPost[0].position, objSpawnPost[0].rotation);
@@ -372,15 +405,29 @@ public class BossActive : EnemyActive
         }
     }
 
+    public IEnumerator ResetGroundSlash()
+    {
+        yield return new WaitForSeconds(groundSlashDuration);
+        ResetAttack();
+        SetAttackCooldown();
+        anim.SetBool("Attacking", false);
+        stayPosition = false;
+        groundSlash = false;
+
+        if (!groundSlash) yield break;
+    }
+
     #endregion
 
     #region SweepingAttack--------------------------------------------------------------
 
     [Header("SweepingLaser")]
     [SerializeField] GameObject[] sweepingLaser;
+    public bool sweepingAttack = false;
 
     public void SweepingLaserEnable()
     {
+        sweepingAttack = true;
         foreach(var laser in sweepingLaser)
         {
             laser.SetActive(true);
@@ -389,6 +436,8 @@ public class BossActive : EnemyActive
 
     public void SweepingLaserDisable()
     {
+        anim.SetBool("Attacking", false);
+        sweepingAttack = false;
         foreach(var laser in sweepingLaser)
         {
             laser.SetActive(false);
@@ -399,15 +448,47 @@ public class BossActive : EnemyActive
     #region RammingAttack-------------------------------------------------------------
     [Header("RammingAttack")]
     [SerializeField] GameObject rammingCollider;
+    [SerializeField] float rammingDuration;
+    public bool rammingAttack = false;
+    [SerializeField] float rammingDashSpeed;
 
     public void RammingEnable()
     {
+        rammingAttack = true;
         rammingCollider.SetActive(true);
+        StartCoroutine(RammingToPlayer());
     }
 
     public void RammingDisable()
     {
         rammingCollider.SetActive(false);
+    }
+
+    IEnumerator RammingToPlayer()
+    {
+        navAgent.speed = rammingDashSpeed;
+        float time = 0f;
+        stayPosition = true;
+
+        while (time < rammingDuration)
+        {
+            time += Time.deltaTime;
+            Vector3 forwardOffset = transform.forward * 20f;
+            navAgent.SetDestination(player.position + forwardOffset);
+            yield return null;
+        }
+        RammingReset();
+
+        if (!rammingAttack) yield break;
+    }
+
+    void RammingReset()
+    {
+        navAgent.speed = navDefaultSpeed;
+        anim.SetBool("Attacking", false);
+        RammingDisable();
+        stayPosition = false;
+        rammingAttack = false;
     }
 
     #endregion

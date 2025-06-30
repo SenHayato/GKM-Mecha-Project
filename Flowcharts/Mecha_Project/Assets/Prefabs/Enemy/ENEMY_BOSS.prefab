@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 2561933115505164488}
   - component: {fileID: 5903764043817428634}
   - component: {fileID: 7039816729949412398}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arrm 2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +373,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2455925591591954389}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RightRayCast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -603,7 +603,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1208733178627306455}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Armature
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -641,7 +641,7 @@ GameObject:
   - component: {fileID: 5260547162431893262}
   - component: {fileID: 1558142796590279397}
   - component: {fileID: 651205089623205725}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg 3.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -759,7 +759,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7901055343491399776}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BETIS BAWAH.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -782,7 +782,7 @@ Transform:
   - {fileID: 5260547162431893262}
   - {fileID: 2676331667704945348}
   m_Father: {fileID: 456314099783507855}
-  m_LocalEulerAnglesHint: {x: 31.220512, y: -8.729629, z: -36.972546}
+  m_LocalEulerAnglesHint: {x: 31.069365, y: -8.622414, z: -36.84138}
 --- !u!1 &1204738697523680041
 GameObject:
   m_ObjectHideFlags: 0
@@ -1104,7 +1104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7265631189319822009}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LeftRayCast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1164,7 +1164,6 @@ Transform:
   - {fileID: 212669581949997219}
   - {fileID: 1208733178627306455}
   - {fileID: 857490361549099703}
-  - {fileID: 7815607071669543753}
   - {fileID: 6649788207753996411}
   - {fileID: 291170903364316306}
   - {fileID: 6904697934859072087}
@@ -1258,6 +1257,7 @@ MonoBehaviour:
   navDefaultSpeed: 0
   beforeHitGround: 7
   defaultRotation: 0
+  wasAttackTriggered: 0
   shootRange: 30
   meleeRadius: 6
   rifleShoot: 0
@@ -1282,11 +1282,12 @@ MonoBehaviour:
   gatlingAttackDuration: 7
   rifleInterval: 0.5
   gatlingInterval: 0.2
-  missChange: 0.01
+  missChange: 0.002
   rayCastSpeedRot: 90
   rayOffsetForward: 5
   rayOffsetUp: 0.1
   bossMissileObj: {fileID: 6120836210244272201, guid: 3bc2e24aaa179224ba6e7178aae53bef, type: 3}
+  missileAttack: 0
   missileInterval: 0.7
   missileDuration: 5
   objSpawnPost:
@@ -1295,10 +1296,15 @@ MonoBehaviour:
   - {fileID: 6622353330304155101}
   groundSlashObj: {fileID: 2583233815225757794}
   groundSlash: 0
+  groundSlashDuration: 3
   sweepingLaser:
   - {fileID: 5269756787626946197}
   - {fileID: 5414016634227822989}
+  sweepingAttack: 0
   rammingCollider: {fileID: 3870344852550509034}
+  rammingDuration: 5
+  rammingAttack: 0
+  rammingDashSpeed: 60
   LaserObj: {fileID: 5190282553069644139}
 --- !u!195 &5958875101343023709
 NavMeshAgent:
@@ -1311,7 +1317,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 1.36
   m_Speed: 5
-  m_Acceleration: 8
+  m_Acceleration: 30
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
@@ -1471,7 +1477,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1551175745876907016}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SENDI KAKI.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1493,7 +1499,7 @@ Transform:
   m_Children:
   - {fileID: 4603167103794125999}
   m_Father: {fileID: 5876157795174074272}
-  m_LocalEulerAnglesHint: {x: 24.830208, y: 6.357167, z: 21.836142}
+  m_LocalEulerAnglesHint: {x: 25.343037, y: 6.486111, z: 22.555887}
 --- !u!1 &1862173033527396213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,7 +1540,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8409627368436391303}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: KEPALA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1565,7 +1571,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5488356595873949478}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RangeLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1895,7 +1901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3895768090023296591}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PERUT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1917,7 +1923,7 @@ Transform:
   m_Children:
   - {fileID: 3557914065978477300}
   m_Father: {fileID: 6236083349449145085}
-  m_LocalEulerAnglesHint: {x: -26.894028, y: 0.000012283895, z: 0.0000094021625}
+  m_LocalEulerAnglesHint: {x: -27.040106, y: 0.96514076, z: -1.0382547}
 --- !u!1 &2583233815225757794
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,7 +2037,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -2092,7 +2098,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 520
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -2116,7 +2122,7 @@ GameObject:
   - component: {fileID: 8680344549947315741}
   - component: {fileID: 7793086675729752906}
   - component: {fileID: 8520968545957822184}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arm 3.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2199,7 +2205,7 @@ GameObject:
   - component: {fileID: 5780484962464450077}
   - component: {fileID: 8300873109154566081}
   - component: {fileID: 901195709739066785}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg 4.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2280,7 +2286,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5876157795174074272}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BETIS BAWAH.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2303,7 +2309,7 @@ Transform:
   - {fileID: 8543618683880831503}
   - {fileID: 1551175745876907016}
   m_Father: {fileID: 4467176647943770878}
-  m_LocalEulerAnglesHint: {x: 31.215647, y: 8.725347, z: 36.966835}
+  m_LocalEulerAnglesHint: {x: 31.049248, y: 8.611553, z: 36.82952}
 --- !u!1 &2834855384491638885
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,7 +2321,7 @@ GameObject:
   - component: {fileID: 4500873065936463401}
   - component: {fileID: 8404737433888605991}
   - component: {fileID: 7361893680667878295}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arm 1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2396,7 +2402,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4467176647943770878}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BETIS.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2419,7 +2425,7 @@ Transform:
   - {fileID: 5876157795174074272}
   - {fileID: 5667538367439192645}
   m_Father: {fileID: 3855161315175876775}
-  m_LocalEulerAnglesHint: {x: -38.828346, y: 26.120846, z: -52.959827}
+  m_LocalEulerAnglesHint: {x: -39.275677, y: 26.667648, z: -53.845272}
 --- !u!1 &3125061516826097572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2431,7 +2437,7 @@ GameObject:
   - component: {fileID: 3914780662021626277}
   - component: {fileID: 2466636320924590537}
   - component: {fileID: 8104336496123404619}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg 2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2690,7 +2696,7 @@ GameObject:
   - component: {fileID: 5667538367439192645}
   - component: {fileID: 4467279446338384336}
   - component: {fileID: 7807057423704332663}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg 2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2773,7 +2779,7 @@ GameObject:
   - component: {fileID: 9010831350661484313}
   - component: {fileID: 5834726936296705600}
   - component: {fileID: 1973324876384456557}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg 1.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2924,7 +2930,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9097057373207083019}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: IK LEG.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2955,7 +2961,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2518525711623129257}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: KAKI.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2987,7 +2993,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7995975180748243947}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: POLE TARGET LEG.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3093,7 +3099,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8600527961013204020}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PAHA.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3116,7 +3122,7 @@ Transform:
   - {fileID: 2049169194702370241}
   - {fileID: 3855161315175876775}
   m_Father: {fileID: 6236083349449145085}
-  m_LocalEulerAnglesHint: {x: -40.201256, y: -121.323975, z: -63.844765}
+  m_LocalEulerAnglesHint: {x: -39.783546, y: -122.59095, z: -61.79732}
 --- !u!1 &4453372683231194843
 GameObject:
   m_ObjectHideFlags: 0
@@ -3126,7 +3132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2676331667704945348}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SENDI KAKI.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3148,7 +3154,7 @@ Transform:
   m_Children:
   - {fileID: 2518525711623129257}
   m_Father: {fileID: 7901055343491399776}
-  m_LocalEulerAnglesHint: {x: 24.830215, y: -6.357155, z: -21.836138}
+  m_LocalEulerAnglesHint: {x: 25.512932, y: -6.795187, z: -23.180658}
 --- !u!1 &4490533148321089556
 GameObject:
   m_ObjectHideFlags: 0
@@ -3158,7 +3164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 857490361549099703}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: OriginPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3190,7 +3196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4603167103794125999}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: KAKI.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3224,7 +3230,7 @@ GameObject:
   - component: {fileID: 2539548901636376987}
   - component: {fileID: 2317396980135106144}
   - component: {fileID: 2245525667969003878}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arm 3.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3305,7 +3311,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4849734353353414442}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PAHA.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3328,7 +3334,7 @@ Transform:
   - {fileID: 9010831350661484313}
   - {fileID: 753529569934972345}
   m_Father: {fileID: 6236083349449145085}
-  m_LocalEulerAnglesHint: {x: -40.955647, y: 121.25808, z: 63.413425}
+  m_LocalEulerAnglesHint: {x: -40.045788, y: 122.8307, z: 60.96963}
 --- !u!1 &4677103201461221715
 GameObject:
   m_ObjectHideFlags: 0
@@ -3340,7 +3346,7 @@ GameObject:
   - component: {fileID: 5340489808750798970}
   - component: {fileID: 8437480727792592602}
   - component: {fileID: 1148811774688286703}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg 2.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3421,7 +3427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 753529569934972345}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LUTUT.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3444,7 +3450,7 @@ Transform:
   - {fileID: 456314099783507855}
   - {fileID: 5340489808750798970}
   m_Father: {fileID: 4849734353353414442}
-  m_LocalEulerAnglesHint: {x: -41.73584, y: -15.531602, z: 36.394615}
+  m_LocalEulerAnglesHint: {x: -42.477467, y: -16.353098, z: 37.612007}
 --- !u!1 &4901677158555161791
 GameObject:
   m_ObjectHideFlags: 0
@@ -3454,7 +3460,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 456314099783507855}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BETIS.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3477,7 +3483,7 @@ Transform:
   - {fileID: 7901055343491399776}
   - {fileID: 3914780662021626277}
   m_Father: {fileID: 753529569934972345}
-  m_LocalEulerAnglesHint: {x: -38.8076, y: -26.08848, z: 52.909904}
+  m_LocalEulerAnglesHint: {x: -39.377846, y: -27.026096, z: 54.341427}
 --- !u!1 &4921090459664793641
 GameObject:
   m_ObjectHideFlags: 0
@@ -3487,7 +3493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3454052492374340884}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: POLE TARGET LEG.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3520,7 +3526,7 @@ GameObject:
   - component: {fileID: 2990012358089444872}
   - component: {fileID: 9180961073991638903}
   - component: {fileID: 5814541267372525225}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg 2.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3668,7 +3674,7 @@ GameObject:
   - component: {fileID: 3838454628674218712}
   - component: {fileID: 2874952238177878878}
   - component: {fileID: 353939821516479051}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LeftSweepLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3787,7 +3793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8965876339560885737}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SweepingLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3819,7 +3825,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7768070907762845957}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SIKU.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3852,7 +3858,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2784860963559387629}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SweepingRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3884,7 +3890,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3855161315175876775}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LUTUT.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3907,7 +3913,7 @@ Transform:
   - {fileID: 4467176647943770878}
   - {fileID: 2990012358089444872}
   m_Father: {fileID: 8600527961013204020}
-  m_LocalEulerAnglesHint: {x: -41.762474, y: 15.559776, z: -36.436863}
+  m_LocalEulerAnglesHint: {x: -42.487293, y: 16.213959, z: -37.459297}
 --- !u!1 &5597527828565356397
 GameObject:
   m_ObjectHideFlags: 0
@@ -3996,7 +4002,7 @@ GameObject:
   - component: {fileID: 2049169194702370241}
   - component: {fileID: 8011488482623292651}
   - component: {fileID: 4986483312202840308}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg 1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4265,7 +4271,7 @@ GameObject:
   m_Component:
   - component: {fileID: 212669581949997219}
   - component: {fileID: 8881213174032229187}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Body.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4378,7 +4384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1506257761154338995}
   - component: {fileID: 4982254011094462114}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LeftLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4515,7 +4521,7 @@ GameObject:
   - component: {fileID: 5809453951221177465}
   - component: {fileID: 5637979972308874799}
   - component: {fileID: 4664050859014084286}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arm 1.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4597,7 +4603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3086626305303835461}
   - component: {fileID: 2543469425915766828}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RightLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4734,7 +4740,7 @@ GameObject:
   - component: {fileID: 8033594487578021392}
   - component: {fileID: 4881053879024010168}
   - component: {fileID: 1009871637381505623}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg 4.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4815,7 +4821,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2896488457123067030}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BAHU.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4847,7 +4853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3557914065978477300}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LEHER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4881,7 +4887,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6242570443762059757}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TANGAN.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4905,7 +4911,7 @@ Transform:
   - {fileID: 2539548901636376987}
   - {fileID: 4229239633855104768}
   m_Father: {fileID: 5258475832831194198}
-  m_LocalEulerAnglesHint: {x: 42.453213, y: 4.8261843, z: 35.741783}
+  m_LocalEulerAnglesHint: {x: 42.31446, y: 4.6209807, z: 35.20839}
 --- !u!1 &6890776390218865684
 GameObject:
   m_ObjectHideFlags: 0
@@ -4951,7 +4957,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3827702910363352457}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: IK LEG.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5117,7 +5123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4371525270557956688}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LENGAN.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5140,7 +5146,7 @@ Transform:
   - {fileID: 5809453951221177465}
   - {fileID: 7768070907762845957}
   m_Father: {fileID: 2896488457123067030}
-  m_LocalEulerAnglesHint: {x: 38.881634, y: 18.595535, z: 71.027405}
+  m_LocalEulerAnglesHint: {x: 38.722534, y: 21.441826, z: 70.73469}
 --- !u!1 &7317917138953083717
 GameObject:
   m_ObjectHideFlags: 0
@@ -5152,7 +5158,7 @@ GameObject:
   - component: {fileID: 4342056098383951639}
   - component: {fileID: 4511177479572618719}
   - component: {fileID: 2198027981544702041}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arrm 2.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5224,37 +5230,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7439187464252865011
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7815607071669543753}
-  m_Layer: 0
-  m_Name: LEAK ANIMATION SET
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7815607071669543753
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7439187464252865011}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 167395614650840978}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7453087136109264359
 GameObject:
   m_ObjectHideFlags: 0
@@ -5430,7 +5405,7 @@ GameObject:
   - component: {fileID: 8543618683880831503}
   - component: {fileID: 38876164436883904}
   - component: {fileID: 8936577310196384850}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Leg 3.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5511,7 +5486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5258475832831194198}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SIKU.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5534,7 +5509,7 @@ Transform:
   - {fileID: 2561933115505164488}
   - {fileID: 6242570443762059757}
   m_Father: {fileID: 7982979284283232278}
-  m_LocalEulerAnglesHint: {x: 29.041964, y: 14.561199, z: 31.81266}
+  m_LocalEulerAnglesHint: {x: 27.583225, y: 2.2060678, z: 25.768248}
 --- !u!1 &7975460674838577236
 GameObject:
   m_ObjectHideFlags: 0
@@ -5544,7 +5519,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4229239633855104768}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RangeRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5581,7 +5556,7 @@ GameObject:
   - component: {fileID: 6823125742572742412}
   - component: {fileID: 5921591349874422227}
   - component: {fileID: 2901732134362587971}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RightSweepLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6050,7 +6025,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7982979284283232278}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LENGAN.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6073,7 +6048,7 @@ Transform:
   - {fileID: 4500873065936463401}
   - {fileID: 5258475832831194198}
   m_Father: {fileID: 3464048662989737958}
-  m_LocalEulerAnglesHint: {x: 38.88164, y: -18.595535, z: -71.02741}
+  m_LocalEulerAnglesHint: {x: 38.189724, y: -18.907272, z: -70.05554}
 --- !u!1 &8671035520145996319
 GameObject:
   m_ObjectHideFlags: 0
@@ -6083,7 +6058,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6236083349449145085}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PINGGANG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6107,7 +6082,7 @@ Transform:
   - {fileID: 4849734353353414442}
   - {fileID: 3895768090023296591}
   m_Father: {fileID: 1208733178627306455}
-  m_LocalEulerAnglesHint: {x: 38.847572, y: -179.99995, z: -179.99997}
+  m_LocalEulerAnglesHint: {x: 37.785126, y: -179.99995, z: -179.99997}
 --- !u!1 &8855524230366423977
 GameObject:
   m_ObjectHideFlags: 0
@@ -6151,7 +6126,7 @@ GameObject:
   - component: {fileID: 8242796360976076540}
   - component: {fileID: 45688694130213675}
   - component: {fileID: 6848429059760611201}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6253,7 +6228,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3464048662989737958}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BAHU.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6275,7 +6250,7 @@ Transform:
   m_Children:
   - {fileID: 7982979284283232278}
   m_Father: {fileID: 3557914065978477300}
-  m_LocalEulerAnglesHint: {x: 0.39072004, y: -2.103148, z: -88.03184}
+  m_LocalEulerAnglesHint: {x: 0.4287887, y: -1.6075556, z: -89.11214}
 --- !u!1 &9178990742845799160
 GameObject:
   m_ObjectHideFlags: 0
@@ -6285,7 +6260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 656047239023643375}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TANGAN.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6309,7 +6284,7 @@ Transform:
   - {fileID: 8680344549947315741}
   - {fileID: 5488356595873949478}
   m_Father: {fileID: 7768070907762845957}
-  m_LocalEulerAnglesHint: {x: 42.437767, y: -4.8552694, z: -35.74}
+  m_LocalEulerAnglesHint: {x: 43.07919, y: -5.2193465, z: -36.679764}
 --- !u!1001 &2961438036883143822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6468,6 +6443,18 @@ PrefabInstance:
     - target: {fileID: 8249359661316574781, guid: 153fb1fb62b903b4bbf86467fa4d6206, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8249359661316574781, guid: 153fb1fb62b903b4bbf86467fa4d6206, type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key0.b
+      value: 157.5865
+      objectReference: {fileID: 0}
+    - target: {fileID: 8249359661316574781, guid: 153fb1fb62b903b4bbf86467fa4d6206, type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key0.g
+      value: 157.5865
+      objectReference: {fileID: 0}
+    - target: {fileID: 8249359661316574781, guid: 153fb1fb62b903b4bbf86467fa4d6206, type: 3}
+      propertyPath: m_PropertySheet.m_Gradient.m_Array.Array.data[0].m_Value.key0.r
+      value: 157.5865
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
