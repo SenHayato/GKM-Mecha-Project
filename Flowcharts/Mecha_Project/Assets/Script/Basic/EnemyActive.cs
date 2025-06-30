@@ -50,6 +50,9 @@ public abstract class EnemyActive : MonoBehaviour
     public float beforeHitGround;
     public float defaultRotation;
 
+    //boss flag
+    [HideInInspector] public bool wasAttackTriggered = false;
+
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -365,6 +368,7 @@ public abstract class EnemyActive : MonoBehaviour
     public void ResetAttack()
     {
         enemyModel.isAttacking = false;
+        wasAttackTriggered = false;
         Debug.Log("Reset Attack");
     }
 

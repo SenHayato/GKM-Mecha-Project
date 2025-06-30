@@ -45,7 +45,12 @@ public class BossActive : EnemyActive
 
             if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
             {
-                anim.SetTrigger("StartAttack");
+                anim.SetBool("Attacking", true);
+                if (!wasAttackTriggered)
+                {
+                    wasAttackTriggered = true;
+                    anim.SetTrigger("StartAttack");
+                }
             }
         }
     }
@@ -92,20 +97,18 @@ public class BossActive : EnemyActive
 
     void AttackCooldown()
     {
-        if (!enemyModel.isAttacking)
+        enemyModel.attackCooldown = Mathf.Max(0f, enemyModel.attackCooldown - Time.deltaTime);
+    }
+
+    public void SetAttackCooldown()
+    {
+        if (enemyModel.health >= 500000)
         {
-            enemyModel.attackCooldown = Mathf.Max(0f, enemyModel.attackCooldown - Time.deltaTime);
+            enemyModel.attackCooldown = 8f;
         }
         else
         {
-            if (enemyModel.health >= 500000)
-            {
-                enemyModel.attackCooldown = 8f;
-            }
-            else
-            {
-                enemyModel.attackCooldown = 5f;
-            }
+            enemyModel.attackCooldown = 5f;
         }
     }
 
@@ -204,6 +207,10 @@ public class BossActive : EnemyActive
                     }
 
                     Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                }
+                else
+                {
+                    targetPoint = ray.GetPoint(shootRange);
                 }
 
                 StartCoroutine(BulletTrail(targetPoint, rifleInterval));

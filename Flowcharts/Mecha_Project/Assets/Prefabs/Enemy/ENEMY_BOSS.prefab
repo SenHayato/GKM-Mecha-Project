@@ -1258,6 +1258,7 @@ MonoBehaviour:
   navDefaultSpeed: 0
   beforeHitGround: 7
   defaultRotation: 0
+  wasAttackTriggered: 0
   shootRange: 30
   meleeRadius: 6
   rifleShoot: 0
@@ -1282,7 +1283,7 @@ MonoBehaviour:
   gatlingAttackDuration: 7
   rifleInterval: 0.5
   gatlingInterval: 0.2
-  missChange: 0.01
+  missChange: 0.002
   rayCastSpeedRot: 90
   rayOffsetForward: 5
   rayOffsetUp: 0.1
