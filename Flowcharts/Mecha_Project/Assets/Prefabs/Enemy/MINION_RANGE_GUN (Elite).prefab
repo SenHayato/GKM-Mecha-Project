@@ -1114,6 +1114,7 @@ MonoBehaviour:
     m_Bits: 2099200
   originPoint: {fileID: 1413891303786478351}
   bossHUD: {fileID: 0}
+  playerActive: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
   walkPointRange: 5
@@ -1128,11 +1129,13 @@ MonoBehaviour:
   hitCollider: {fileID: 2451434884936038544}
   deathCollider: {fileID: 4949525124440987294}
   anim: {fileID: 0}
+  distanceFromPlayer: 0
   deathExplode: {fileID: 2112769824686486772, guid: 24b8fd77d1f43d94299a5ff3605d6252, type: 3}
   stuntVFX: {fileID: 6939117912370563763}
   navDefaultSpeed: 0
-  beforeHitGround: 2
+  beforeHitGround: 3.5
   defaultRotation: 0
+  wasAttackTriggered: 0
   rayCastSpawn: {fileID: 512308552840233479}
   bulletHitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
   missChange: 0.03
