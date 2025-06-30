@@ -27,9 +27,12 @@ public class BossActive : EnemyActive
     [Header("Visual Effect")]
     [SerializeField] GameObject bulletHitEffect;
 
+    //flag
+    bool stayPosition = false;
+
     public override void Attacking()
     {
-        if (navAgent.enabled && !readyToAttack)
+        if (navAgent.enabled && !readyToAttack && !stayPosition)
         {
             navAgent.stoppingDistance = 6f;
             navAgent.SetDestination(player.position);
@@ -125,8 +128,8 @@ public class BossActive : EnemyActive
     [SerializeField] LineRenderer[] bulletLaser;
     //[SerializeField] Transform rayCastSpawn;
     [SerializeField] float rangeRotationSpeed;
-    public bool rifleAttacking;
-    public bool gatlingAttacking;
+    public bool rifleAttacking = false;
+    public bool gatlingAttacking = false;
 
     [Header("Attack Duration")]
     [SerializeField] float rifleAttackDuration;
@@ -241,6 +244,7 @@ public class BossActive : EnemyActive
     {
         anim.SetBool("Attacking", false);
         isFiring = false;
+
         if (rifleAttacking)
         {
             rifleAttacking = false;
@@ -251,8 +255,8 @@ public class BossActive : EnemyActive
         if (gatlingAttacking)
         {
             gatlingAttacking = false;
-            StopCoroutine(GatlingAttack());
             StopCoroutine(GatlingFire());
+            StopCoroutine(GatlingAttack());
         }
     }
 
@@ -328,29 +332,49 @@ public class BossActive : EnemyActive
     }
 
     #endregion
+
     #region MissileLaunch-------------------------------------------------------
 
     [Header("MissileAttack")]
     [SerializeField] GameObject bossMissileObj;
+    public bool missileAttack = false;
     [SerializeField] float missileInterval;
     [SerializeField] float missileDuration;
 
-    public IEnumerator MissileAttacking()
+    public void StartMissileAttack()
+    {
+        missileAttack = true;
+        StartCoroutine(MissileAttacking());
+    }
+
+    IEnumerator MissileAttacking()
     {
         float time = 0f;
-        while (time < missileDuration)
+        if (!missileAttack) yield break;
+
+        Invoke(nameof(ResetMissile), missileDuration);
+        while (time < missileDuration && missileAttack)
         {
+            stayPosition = true;
+            navAgent.SetDestination(transform.position);
+            time += Time.deltaTime;
             Instantiate(bossMissileObj, player.transform.position, Quaternion.identity);
             float interval = 0f;
             while (interval < missileInterval)
             {
                 interval += Time.deltaTime;
-                time += Time.deltaTime;
                 yield return null;
             }
         }
     }
 
+    void ResetMissile()
+    {
+        stayPosition = false;
+        missileAttack = false;
+        anim.SetBool("Attacking", false);
+        StopCoroutine(MissileAttacking());
+    }
     #endregion
 
     #region GroundSlash---------------------------------------------------------------
