@@ -105,6 +105,7 @@ public class BossActive : EnemyActive
 
     public void SetAttackCooldown()
     {
+        Debug.Log("Cooldown Set");
         if (enemyModel.health >= 500000)
         {
             enemyModel.attackCooldown = 8f;
@@ -370,9 +371,9 @@ public class BossActive : EnemyActive
 
     void ResetMissile()
     {
+        anim.SetBool("Attacking", false);
         stayPosition = false;
         missileAttack = false;
-        anim.SetBool("Attacking", false);
         StopCoroutine(MissileAttacking());
     }
     #endregion
@@ -383,9 +384,14 @@ public class BossActive : EnemyActive
     [SerializeField] Transform[] objSpawnPost;
     [SerializeField] GameObject groundSlashObj;
     public bool groundSlash = false;
+    [SerializeField] float groundSlashDuration;
 
     public void SpawningGroundSlash()
     {
+        stayPosition = true;
+        groundSlash = true;
+        navAgent.SetDestination(transform.position);
+        Quaternion.LookRotation(player.position);
         if (!SecondState)
         {
             Instantiate(groundSlashObj, objSpawnPost[0].position, objSpawnPost[0].rotation);
@@ -397,6 +403,19 @@ public class BossActive : EnemyActive
                 Instantiate(groundSlashObj, spawner.position, spawner.rotation);
             }
         }
+    }
+
+    IEnumerator ResetGroundSlash()
+    {
+        yield return new WaitForSeconds(groundSlashDuration);
+        ResetAttack();
+        SetAttackCooldown();
+        Debug.Log("SlashReset");
+        anim.SetBool("Attacking", false);
+        stayPosition = false;
+        groundSlash = false;
+
+        if (!groundSlash) yield break;
     }
 
     #endregion
