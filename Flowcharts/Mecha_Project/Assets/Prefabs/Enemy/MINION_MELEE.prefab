@@ -2033,6 +2033,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2099200
   originPoint: {fileID: 8706983867867472624}
+  bossHUD: {fileID: 0}
+  playerActive: {fileID: 0}
   walkPoint: {x: 0, y: 0, z: 0}
   walkPointSet: 0
   walkPointRange: 5
@@ -2047,11 +2049,13 @@ MonoBehaviour:
   hitCollider: {fileID: 789635720851138630}
   deathCollider: {fileID: 4477216826986194389}
   anim: {fileID: 2252056478873914991}
+  distanceFromPlayer: 0
   deathExplode: {fileID: 2112769824686486772, guid: 24b8fd77d1f43d94299a5ff3605d6252, type: 3}
   stuntVFX: {fileID: 3507352868732727798}
   navDefaultSpeed: 0
-  beforeHitGround: 2
+  beforeHitGround: 3.5
   defaultRotation: 0
+  wasAttackTriggered: 0
   nextAttackTime: 3
   normalAttackCollider: {fileID: 6876192102033540812}
   heavyAttackCollider: {fileID: 4468470904697476314}
