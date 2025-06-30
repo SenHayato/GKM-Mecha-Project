@@ -208,10 +208,6 @@ public class BossActive : EnemyActive
 
                     Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
                 }
-                else
-                {
-                    targetPoint = ray.GetPoint(shootRange);
-                }
 
                 StartCoroutine(BulletTrail(targetPoint, rifleInterval));
                 yield return new WaitForSeconds(rifleInterval);

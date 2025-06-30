@@ -20,9 +20,9 @@ public class BossGatlingState : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        animator.SetBool("Attacking", false);   
         bossActive.ResetAttack();
         bossActive.SetAttackCooldown();
-        animator.SetBool("Attacking", false);   
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()
