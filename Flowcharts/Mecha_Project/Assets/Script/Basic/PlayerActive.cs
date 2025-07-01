@@ -43,6 +43,7 @@ public class PlayerActive : MonoBehaviour
     public GameObject weaponSkillObj;
     public GameObject skill2HitBox;
     [SerializeField] GameObject playerSkillObj;
+    [SerializeField] GameObject playerSkillObjDash;
     [SerializeField] Transform playerSkillSpawn;
     [SerializeField] GameObject ultimateObj;
 
@@ -118,6 +119,7 @@ public class PlayerActive : MonoBehaviour
         skillBusy = false;
         Mecha.Health = Mecha.MaxHealth;
         defaultDefence = Mecha.Defence;
+        playerSkillObjDash.SetActive(false);
 
         moveAction = gameInput.actions.FindAction("Movement");
         jumpAction = gameInput.actions.FindAction("Jump");
@@ -698,12 +700,22 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
+    public void EnableDashDamage()
+    {
+        playerSkillObjDash.SetActive(true);
+    }
+
+    public void DisableDashDamage()
+    {
+        playerSkillObjDash.SetActive(false);
+    }
+
     //panggil sekali di skill
     IEnumerator Skill1Dash()
     {
         float dashSkillTime = 0.7f;
-        float skill1Distance = 5f;
-        float speedDash = 30f;
+        float skill1Distance = 2f;
+        float speedDash = 20f;
         //Proses
         float time = 0f;
         Vector3 forward = playerPosition.transform.forward;

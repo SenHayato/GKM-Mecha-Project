@@ -5,7 +5,6 @@ public class MusicManager : MonoBehaviour
 {
     [SerializeField] GameMaster gameMaster;
     //[SerializeField] MechaPlayer mechaPlayer;
-    [SerializeField] AudioSource jingleSource;
     [SerializeField] AudioSource musicSource;
     [SerializeField] GameObject musicObj;
     [SerializeField] CutSceneManager cutSceneManager;
@@ -21,9 +20,7 @@ public class MusicManager : MonoBehaviour
 
     [Header("Game Jingle")]
     //[SerializeField] AudioClip gameStart;
-    [SerializeField] AudioClip gameEnd1;
-    [SerializeField] AudioClip gameEnd2;
-    [SerializeField] AudioClip gameEnd3;
+    [SerializeField] GameObject jiggleSound;
 
     [Header("Music SetUp")]
     [SerializeField] AudioMixer bgmMixer;
@@ -52,6 +49,7 @@ public class MusicManager : MonoBehaviour
 
     private void Start()
     {
+        jiggleSound.SetActive(false);
         switch (gameMaster.StageType) //hanya untuk boss stage
         {
             case StageType.StageBoss:
@@ -150,33 +148,35 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    //void GameFinishJiggleSet()
+    //{
+    //    switch (gameMaster.StageType)
+    //    {
+    //        case StageType.StageTutorial:
+    //            jingleSource.clip = gameEnd1;
+    //            break;
+    //        case StageType.Stage1:
+    //            jingleSource.clip = gameEnd1;
+    //            break;
+    //        case StageType.Stage2:
+    //            jingleSource.clip = gameEnd2;
+    //            break;
+    //        case StageType.StageBoss:
+    //            jingleSource.clip = gameEnd3;
+    //            break;
+    //    }
+    //}
+
     void GameFinish()
     {
-        switch (gameMaster.StageType)
-        {
-            case StageType.StageTutorial:
-                jingleSource.clip = gameEnd1;
-                break;
-            case StageType.Stage1:
-                jingleSource.clip = gameEnd1;
-                break;
-            case StageType.Stage2:
-                jingleSource.clip = gameEnd2;
-                break;
-            case StageType.StageBoss:
-                jingleSource.clip = gameEnd3;
-                break;
-        }
         if (gameMaster.gameFinish && gameMaster.gameWin)
         {
-           
-            jingleSource.enabled = true;
+            jiggleSound.SetActive(true);
             musicSource.enabled = false;
-            Debug.Log("Jinggle Musik");
         }
         else
         {
-            jingleSource.enabled = false;
+            jiggleSound.SetActive(false);
             musicSource.enabled = true;
         }
     }
