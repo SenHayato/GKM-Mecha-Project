@@ -6,8 +6,6 @@ public class GroundSmashScript : MonoBehaviour
 {
     [SerializeField] BossActive bossActive;
     [SerializeField] int smashDamage;
-    [SerializeField] GameObject groundSmashEffect;
-
 
     //object tinggal dispawn saat boss mendarat
 

@@ -10,7 +10,7 @@ public class BossPreparingAttack : StateMachineBehaviour
     {
         bossActive = animator.GetComponent<BossActive>();
         animator.ResetTrigger("StartAttack");
-        //bossActive.RandomRangeAttack();
+        bossActive.RandomRangeAttack();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

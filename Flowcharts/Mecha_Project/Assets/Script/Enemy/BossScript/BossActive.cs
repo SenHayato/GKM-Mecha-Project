@@ -1,7 +1,4 @@
 using System.Collections;
-using System.Linq;
-using UnityEditor;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class BossActive : EnemyActive
@@ -68,7 +65,6 @@ public class BossActive : EnemyActive
         {
             attackNumber = Random.Range(0, 8) + 1;
         }
-        Debug.Log("Attack ke " + attackNumber);
         anim.SetInteger("AttackIndex", attackNumber);
     }
 
@@ -105,8 +101,7 @@ public class BossActive : EnemyActive
 
     public void SetAttackCooldown()
     {
-        Debug.Log("Cooldown Set");
-        if (enemyModel.health >= 500000)
+        if (!SecondState)
         {
             enemyModel.attackCooldown = 8f;
         }
@@ -132,7 +127,7 @@ public class BossActive : EnemyActive
     public bool rifleAttacking = false;
     public bool gatlingAttacking = false;
 
-    [Header("Attack Duration")]
+    [Header("Range Attack Duration")]
     [SerializeField] float rifleAttackDuration;
     [SerializeField] float gatlingAttackDuration;
 
@@ -243,6 +238,7 @@ public class BossActive : EnemyActive
 
     private void RangeReset()
     {
+        SetAttackCooldown();
         anim.SetBool("Attacking", false);
         isFiring = false;
 
@@ -331,7 +327,74 @@ public class BossActive : EnemyActive
             }
         }
     }
+    #endregion
 
+    #region GroundHit
+
+    [Header("Ground Hit Attack")]
+    public bool groundHit = false;
+    [SerializeField] GameObject groundSmashObj;
+    [SerializeField] GameObject groundHitCollider;
+    [SerializeField] float distanceFromTargetHit;
+    [SerializeField] float groundHitDashSpeed;
+    [SerializeField] float groundHitRotSpeed;
+    [SerializeField] float groundHitDashDuration;
+
+    public void GroundHitStart()
+    {
+        Vector3 targetHit = player.position;
+        groundHit = true;
+        stayPosition = true;
+        distanceFromTargetHit = Vector3.Distance(transform.position, targetHit);
+        StartCoroutine(GroundAttack(targetHit));
+    }
+
+    IEnumerator GroundAttack(Vector3 targetHitPost)
+    {
+        if (!groundHit) yield break;
+
+        anim.SetBool("GroundHit", false);
+        while (distanceFromTargetHit >= 1f)
+        {
+            distanceFromTargetHit = Vector3.Distance(transform.position, targetHitPost);
+            navAgent.SetDestination(targetHitPost);
+            navAgent.speed = groundHitDashSpeed;
+            yield return null;
+        }
+        navAgent.SetDestination(transform.position);
+        anim.SetBool("GroundHit", true);
+    }
+
+    public void GroundHitSpawn()
+    {
+        StartCoroutine(GroundHitStop());
+        Instantiate(groundSmashObj, transform.position, Quaternion.identity);
+        StopCoroutine(nameof(GroundAttack));
+    }
+
+    IEnumerator GroundHitStop()
+    {
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("GroundHit", false);
+        anim.SetBool("Attacking", false);
+        stayPosition = false;
+        navAgent.speed = navDefaultSpeed;
+        ResetAttack();
+        SetAttackCooldown();
+        groundHit = false;
+
+        if (!groundHit) yield break;
+    }
+
+    public void GroundHitColliderEnable()
+    {
+        groundHitCollider.SetActive(true);
+    }
+
+    public void GroundHitColliderDisable()
+    {
+        groundHitCollider.SetActive(false);
+    }
     #endregion
 
     #region MissileLaunch-------------------------------------------------------
@@ -408,8 +471,8 @@ public class BossActive : EnemyActive
     public IEnumerator ResetGroundSlash()
     {
         yield return new WaitForSeconds(groundSlashDuration);
-        ResetAttack();
         SetAttackCooldown();
+        ResetAttack();
         anim.SetBool("Attacking", false);
         stayPosition = false;
         groundSlash = false;
@@ -484,6 +547,7 @@ public class BossActive : EnemyActive
 
     void RammingReset()
     {
+        SetAttackCooldown();
         navAgent.speed = navDefaultSpeed;
         anim.SetBool("Attacking", false);
         RammingDisable();
