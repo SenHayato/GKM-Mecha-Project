@@ -65,7 +65,6 @@ public class BossActive : EnemyActive
         {
             attackNumber = Random.Range(0, 8) + 1;
         }
-        Debug.Log("Attack ke " + attackNumber);
         anim.SetInteger("AttackIndex", attackNumber);
     }
 
@@ -102,8 +101,7 @@ public class BossActive : EnemyActive
 
     public void SetAttackCooldown()
     {
-        Debug.Log("Cooldown Set");
-        if (enemyModel.health >= 500000)
+        if (!SecondState)
         {
             enemyModel.attackCooldown = 8f;
         }
@@ -129,7 +127,7 @@ public class BossActive : EnemyActive
     public bool rifleAttacking = false;
     public bool gatlingAttacking = false;
 
-    [Header("Attack Duration")]
+    [Header("Range Attack Duration")]
     [SerializeField] float rifleAttackDuration;
     [SerializeField] float gatlingAttackDuration;
 
@@ -240,6 +238,7 @@ public class BossActive : EnemyActive
 
     private void RangeReset()
     {
+        SetAttackCooldown();
         anim.SetBool("Attacking", false);
         isFiring = false;
 
@@ -332,6 +331,7 @@ public class BossActive : EnemyActive
 
     #region GroundHit
 
+    [Header("Ground Hit Attack")]
     public bool groundHit = false;
     [SerializeField] GameObject groundSmashObj;
     [SerializeField] GameObject groundHitCollider;
@@ -345,6 +345,7 @@ public class BossActive : EnemyActive
         Vector3 targetHit = player.position;
         groundHit = true;
         stayPosition = true;
+        distanceFromTargetHit = Vector3.Distance(transform.position, targetHit);
         StartCoroutine(GroundAttack(targetHit));
     }
 
@@ -353,14 +354,9 @@ public class BossActive : EnemyActive
         if (!groundHit) yield break;
 
         anim.SetBool("GroundHit", false);
-        distanceFromTargetHit = Vector3.Distance(transform.position, targetHitPost);
-        while (distanceFromTargetHit >= 2f)
+        while (distanceFromTargetHit >= 1f)
         {
             distanceFromTargetHit = Vector3.Distance(transform.position, targetHitPost);
-            Debug.Log("Jarak ke hit " + distanceFromTargetHit);
-            //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, groundHitRotSpeed * Time.deltaTime);
-            //Vector3 direction = (player.position - transform.position).normalized;
-            //Quaternion targetRotation = Quaternion.LookRotation(direction);
             navAgent.SetDestination(targetHitPost);
             navAgent.speed = groundHitDashSpeed;
             yield return null;
@@ -475,8 +471,8 @@ public class BossActive : EnemyActive
     public IEnumerator ResetGroundSlash()
     {
         yield return new WaitForSeconds(groundSlashDuration);
-        ResetAttack();
         SetAttackCooldown();
+        ResetAttack();
         anim.SetBool("Attacking", false);
         stayPosition = false;
         groundSlash = false;
@@ -551,6 +547,7 @@ public class BossActive : EnemyActive
 
     void RammingReset()
     {
+        SetAttackCooldown();
         navAgent.speed = navDefaultSpeed;
         anim.SetBool("Attacking", false);
         RammingDisable();

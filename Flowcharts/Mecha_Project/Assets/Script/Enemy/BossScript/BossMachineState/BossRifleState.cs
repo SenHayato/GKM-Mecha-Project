@@ -19,7 +19,6 @@ public class BossRifleState : StateMachineBehaviour
     {
         animator.SetBool("Attacking", false);
         bossActive.ResetAttack();
-        bossActive.SetAttackCooldown();
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

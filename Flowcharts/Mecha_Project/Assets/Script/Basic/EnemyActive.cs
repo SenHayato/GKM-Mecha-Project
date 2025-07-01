@@ -52,6 +52,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     //boss flag
     [HideInInspector] public bool wasAttackTriggered = false;
+    [HideInInspector] public bool canStunned = true;
 
     private void Awake()
     {
@@ -176,7 +177,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     void GettingStunt()
     {
-        if (enemyModel.isStunt)
+        if (enemyModel.isStunt && canStunned)
         {
             if (navAgent.enabled)
             {

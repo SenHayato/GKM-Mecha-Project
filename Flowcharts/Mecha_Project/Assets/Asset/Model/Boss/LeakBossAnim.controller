@@ -332,6 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b3b4358d90d7d14ab19e633acb8f680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossActive: {fileID: 0}
 --- !u!1102 &-3156847184095897156
 AnimatorState:
   serializedVersion: 6
@@ -768,7 +769,7 @@ AnimatorController:
   - m_Name: AttackIndex
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 6
+    m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: Attacking
