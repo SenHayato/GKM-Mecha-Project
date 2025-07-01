@@ -175,10 +175,10 @@ public class PlayerActive : MonoBehaviour
                     RelativeMovement();
                 }
                 //StartCoroutine(Skill1());
-                Skill1();
-                Skill2();
-                if (!Mecha.isAiming)
+                if (!Mecha.isAiming && !Mecha.isShooting)
                 {
+                    Skill1();
+                    Skill2();
                     StartCoroutine(UseUltimate());
                 }
                 StartCoroutine(AwakeningActive());
@@ -887,8 +887,10 @@ public class PlayerActive : MonoBehaviour
     //Ultimate Animation Trigger
     public IEnumerator MoveBackUltimate()
     {
+        if (!Mecha.UsingUltimate) yield break;
+
         float dashSkillTime = 5f;
-        float distance = 2f;
+        float distance = 4f;
         float speedDash = 0.2f;
         //Proses
         float time = 0f;
@@ -898,8 +900,6 @@ public class PlayerActive : MonoBehaviour
         Vector3 moveDirection = (-forward * distance).normalized;
         while (time < dashSkillTime)
         {
-            if (!Mecha.UsingUltimate) yield break;
-
             time += Time.deltaTime;
             controller.Move(speedDash * Time.deltaTime * moveDirection);
             yield return null;
