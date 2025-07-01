@@ -43,6 +43,7 @@ public class PlayerActive : MonoBehaviour
     public GameObject weaponSkillObj;
     public GameObject skill2HitBox;
     [SerializeField] GameObject playerSkillObj;
+    [SerializeField] GameObject playerSkillObjDash;
     [SerializeField] Transform playerSkillSpawn;
     [SerializeField] GameObject ultimateObj;
 
@@ -118,6 +119,7 @@ public class PlayerActive : MonoBehaviour
         skillBusy = false;
         Mecha.Health = Mecha.MaxHealth;
         defaultDefence = Mecha.Defence;
+        playerSkillObjDash.SetActive(false);
 
         moveAction = gameInput.actions.FindAction("Movement");
         jumpAction = gameInput.actions.FindAction("Jump");
@@ -175,10 +177,10 @@ public class PlayerActive : MonoBehaviour
                     RelativeMovement();
                 }
                 //StartCoroutine(Skill1());
-                Skill1();
-                Skill2();
-                if (!Mecha.isAiming)
+                if (!Mecha.isAiming && !Mecha.isShooting)
                 {
+                    Skill1();
+                    Skill2();
                     StartCoroutine(UseUltimate());
                 }
                 StartCoroutine(AwakeningActive());
@@ -698,12 +700,22 @@ public class PlayerActive : MonoBehaviour
         }
     }
 
+    public void EnableDashDamage()
+    {
+        playerSkillObjDash.SetActive(true);
+    }
+
+    public void DisableDashDamage()
+    {
+        playerSkillObjDash.SetActive(false);
+    }
+
     //panggil sekali di skill
     IEnumerator Skill1Dash()
     {
         float dashSkillTime = 0.7f;
-        float skill1Distance = 5f;
-        float speedDash = 30f;
+        float skill1Distance = 2f;
+        float speedDash = 20f;
         //Proses
         float time = 0f;
         Vector3 forward = playerPosition.transform.forward;
@@ -887,8 +899,10 @@ public class PlayerActive : MonoBehaviour
     //Ultimate Animation Trigger
     public IEnumerator MoveBackUltimate()
     {
+        if (!Mecha.UsingUltimate) yield break;
+
         float dashSkillTime = 5f;
-        float distance = 2f;
+        float distance = 4f;
         float speedDash = 0.2f;
         //Proses
         float time = 0f;
@@ -898,8 +912,6 @@ public class PlayerActive : MonoBehaviour
         Vector3 moveDirection = (-forward * distance).normalized;
         while (time < dashSkillTime)
         {
-            if (!Mecha.UsingUltimate) yield break;
-
             time += Time.deltaTime;
             controller.Move(speedDash * Time.deltaTime * moveDirection);
             yield return null;
