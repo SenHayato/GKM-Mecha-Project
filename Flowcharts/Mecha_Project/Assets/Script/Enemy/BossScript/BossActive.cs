@@ -1,7 +1,4 @@
 using System.Collections;
-using System.Linq;
-using UnityEditor;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class BossActive : EnemyActive
@@ -331,7 +328,77 @@ public class BossActive : EnemyActive
             }
         }
     }
+    #endregion
 
+    #region GroundHit
+
+    public bool groundHit = false;
+    [SerializeField] GameObject groundSmashObj;
+    [SerializeField] GameObject groundHitCollider;
+    [SerializeField] float distanceFromTargetHit;
+    [SerializeField] float groundHitDashSpeed;
+    [SerializeField] float groundHitRotSpeed;
+    [SerializeField] float groundHitDashDuration;
+
+    public void GroundHitStart()
+    {
+        Vector3 targetHit = player.position;
+        groundHit = true;
+        stayPosition = true;
+        StartCoroutine(GroundAttack(targetHit));
+    }
+
+    IEnumerator GroundAttack(Vector3 targetHitPost)
+    {
+        if (!groundHit) yield break;
+
+        anim.SetBool("GroundHit", false);
+        distanceFromTargetHit = Vector3.Distance(transform.position, targetHitPost);
+        while (distanceFromTargetHit >= 2f)
+        {
+            distanceFromTargetHit = Vector3.Distance(transform.position, targetHitPost);
+            Debug.Log("Jarak ke hit " + distanceFromTargetHit);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, groundHitRotSpeed * Time.deltaTime);
+            //Vector3 direction = (player.position - transform.position).normalized;
+            //Quaternion targetRotation = Quaternion.LookRotation(direction);
+            navAgent.SetDestination(targetHitPost);
+            navAgent.speed = groundHitDashSpeed;
+            yield return null;
+        }
+        navAgent.SetDestination(transform.position);
+        anim.SetBool("GroundHit", true);
+    }
+
+    public void GroundHitSpawn()
+    {
+        StartCoroutine(GroundHitStop());
+        Instantiate(groundSmashObj, transform.position, Quaternion.identity);
+        StopCoroutine(nameof(GroundAttack));
+    }
+
+    IEnumerator GroundHitStop()
+    {
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("GroundHit", false);
+        anim.SetBool("Attacking", false);
+        stayPosition = false;
+        navAgent.speed = navDefaultSpeed;
+        ResetAttack();
+        SetAttackCooldown();
+        groundHit = false;
+
+        if (!groundHit) yield break;
+    }
+
+    public void GroundHitColliderEnable()
+    {
+        groundHitCollider.SetActive(true);
+    }
+
+    public void GroundHitColliderDisable()
+    {
+        groundHitCollider.SetActive(false);
+    }
     #endregion
 
     #region MissileLaunch-------------------------------------------------------

@@ -36,7 +36,7 @@ public abstract class EnemyActive : MonoBehaviour
     [SerializeField] CapsuleCollider hitCollider;
     [SerializeField] BoxCollider deathCollider;
     public Animator anim;
-    [SerializeField] float distanceFromPlayer;
+    public float distanceFromPlayer;
 
     [Header("Komponen Player")]
     private PlayerInput gameInput;
@@ -153,6 +153,7 @@ public abstract class EnemyActive : MonoBehaviour
             }
             else
             {
+                beforeHitGround = 20f; //agar tidak jatuh
                 anim.SetBool("IsFalling", false);
                 if (!enemyModel.isStunt && !enemyModel.isDeath && !navAgent.enabled)
                 {
@@ -244,7 +245,7 @@ public abstract class EnemyActive : MonoBehaviour
         InputAction inputAction = gameInput.actions.FindAction("TestKillEnemy");
         if (inputAction != null && inputAction.triggered) // Cek inputAction tidak null juga
         {
-            TakeDamage(1000);
+            TakeDamage(5000);
         }
     }
 
