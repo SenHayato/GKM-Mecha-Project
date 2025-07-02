@@ -399,10 +399,6 @@ public class PlayerActive : MonoBehaviour
     private void ParticleSet()
     {
         var particleMain = thusterParticle.main;
-        //if (Mecha.isBoosting)
-        //{
-        //    particleMain.simulationSpeed = fastBoostSpeed;
-        //}
         if (Mecha.isDashing)
         {
             particleMain.simulationSpeed = dashBoostSpeed;
