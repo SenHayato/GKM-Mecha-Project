@@ -8,11 +8,11 @@ public class CutSceneManager : MonoBehaviour
     public KeyCode skipButton;
 
     [Header("CutScene Video")]
-    [SerializeField] VideoClip introCutScene;
-    [SerializeField] VideoClip stage1CutScene;
-    [SerializeField] VideoClip stage2CutScene;
-    [SerializeField] VideoClip stageBossCutScene;
-    [SerializeField] VideoClip outroCutScene;
+    //[SerializeField] VideoClip introCutScene;
+    //[SerializeField] VideoClip stage1CutScene;
+    //[SerializeField] VideoClip stage2CutScene;
+    //[SerializeField] VideoClip stageBossCutScene;
+    //[SerializeField] VideoClip outroCutScene;
     [SerializeField] AudioSource videoAudio;
 
     [Header("Audio Monitor")]
@@ -44,21 +44,21 @@ public class CutSceneManager : MonoBehaviour
             }
         }
         videoPlayerOBJ.SetActive(true);
-        //switch (gameMaster.StageType)
-        //{
-        //    case StageType.StageTutorial:
-        //        videoPlayer.clip = introCutScene;
-        //        break;
-        //    case StageType.Stage1:
-        //        videoPlayer.clip = stage1CutScene;
-        //        break;
-        //    case StageType.Stage2:
-        //        videoPlayer.clip = stage2CutScene;
-        //        break;
-        //    case StageType.StageBoss:
-        //        videoPlayer.clip = stageBossCutScene;
-        //        break;
-        //}
+        //    switch (gameMaster.StageType)
+        //    {
+        //        case StageType.StageTutorial:
+        //            videoPlayer.clip = introCutScene;
+        //            break;
+        //        case StageType.Stage1:
+        //            videoPlayer.clip = stage1CutScene;
+        //            break;
+        //        case StageType.Stage2:
+        //            videoPlayer.clip = stage2CutScene;
+        //            break;
+        //        case StageType.StageBoss:
+        //            videoPlayer.clip = stageBossCutScene;
+        //            break;
+        //    }
     }
 
     IEnumerator VideoMonitoring()
@@ -90,7 +90,6 @@ public class CutSceneManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Jalan");
             Time.timeScale = 1f;
         }
     }
@@ -99,7 +98,6 @@ public class CutSceneManager : MonoBehaviour
     {
         if (Input.GetKeyDown(skipButton))
         {
-            Debug.Log("SkipCg");
             isPlaying = false;
             trigger = false;
             videoPlayerOBJ.SetActive(false);

@@ -106,7 +106,6 @@ public class MusicManager : MonoBehaviour
             case StageType.Stage2: // Dessert Stage
                 if (gameMaster.timer <= 63f && gameMaster.timer >= 60f)
                 {
-                    Debug.Log("Asu");
                     musicTransition = true;
                     if (musicSource.volume > 0f)
                     {

@@ -6,6 +6,7 @@ public class SpawnerActive : MonoBehaviour
     [SerializeField] private float spawnerDuration;
     [SerializeField] private int maxEnemyInArea; // Spawn musuh jika kurang dari ....
     [SerializeField] private GameObject[] spawnPrefabs;
+    [SerializeField] private Transform[] spawnerPosition;
     [SerializeField] private bool spawnerReady = true;
     [SerializeField] GameMaster gameMaster;
 
@@ -34,15 +35,14 @@ public class SpawnerActive : MonoBehaviour
             if (currentEnemyCount < maxEnemyInArea) //awal 20
             {
                 int spawnerNumber = Random.Range(0, spawnPrefabs.Length);
-                Instantiate(spawnPrefabs[spawnerNumber], transform.position, Quaternion.identity);
-                Debug.Log("Banyak Musuh " + (currentEnemyCount + 1));
+                int spanwerPost = Random.Range(0, spawnerPosition.Length);
+                Instantiate(spawnPrefabs[spawnerNumber], spawnerPosition[spanwerPost].position, Quaternion.identity);
             }
         }
     }
 
     void SpawnerMaxEnemy()
     {
-        Debug.Log("MaxEnemySpawn menjadi " + maxEnemyInArea);
         if (gameMaster.StageType == StageType.Stage2)
         {
             if (gameMaster.timer <= 30) maxEnemyInArea = 30;

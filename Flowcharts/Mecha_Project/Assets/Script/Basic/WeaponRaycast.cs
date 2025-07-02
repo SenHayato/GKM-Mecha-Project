@@ -162,7 +162,6 @@ public class WeaponRaycast : MonoBehaviour
             if (hitEffect != null)
             {
                 Instantiate(hitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                Debug.Log("Tembakan kena");
             }
         }
         else
@@ -194,7 +193,6 @@ public class WeaponRaycast : MonoBehaviour
         mechaPlayer.isReloading = isReloading;
         readytoShoot = false;
 
-        Debug.Log("Reloading");
         yield return new WaitForSecondsRealtime(reloadSpeed);
 
         ammo = maxAmmo;

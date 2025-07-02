@@ -4217,7 +4217,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672859044}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 8fb282d584370b544a89174aba042377, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: a87a5bc67295b25429093e685cfe914a, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -5778,12 +5778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skipButton: 13
-  introCutScene: {fileID: 0}
-  stage1CutScene: {fileID: 0}
-  stage2CutScene: {fileID: 0}
-  stageBossCutScene: {fileID: 0}
-  outroCutScene: {fileID: 0}
-  videoAudio: {fileID: 0}
+  videoAudio: {fileID: 2102318679}
   audioSources: []
   videoPlayerOBJ: {fileID: 672859044}
   videoPlayer: {fileID: 0}
@@ -8431,7 +8426,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMaster: {fileID: 0}
-  jingleSource: {fileID: 788275261}
   musicSource: {fileID: 1794778471}
   musicObj: {fileID: 1794778470}
   cutSceneManager: {fileID: 0}
@@ -8442,9 +8436,7 @@ MonoBehaviour:
   dessertStageBGMAlter: {fileID: 8300000, guid: e74dce34d1d21344b902e11e16c548e1, type: 3}
   finalStageBGM: {fileID: 8300000, guid: a782012fa5880c8449a99f621dc1a116, type: 3}
   finalStageBGMAlter: {fileID: 8300000, guid: bf713d6ee39c43646a2cfa9729cf7091, type: 3}
-  gameEnd1: {fileID: 0}
-  gameEnd2: {fileID: 0}
-  gameEnd3: {fileID: 8300000, guid: c9a615f470cbf0b4e99b0faba296dd5a, type: 3}
+  jiggleSound: {fileID: 0}
   bgmMixer: {fileID: 24100000, guid: b3a9316288b735a4bb270f3eaa94b492, type: 2}
   isPlaying: 1
   awakeningSource: {fileID: 1813270775}
