@@ -9998,6 +9998,7 @@ MonoBehaviour:
   - {fileID: 7446081693627446681, guid: 70e52acb6f06bd04aa5212b5569ec999, type: 3}
   - {fileID: 8099662513607266669, guid: db3e1cc0ec2ebc04ba779a57e6d47a25, type: 3}
   - {fileID: 3819589272642304982, guid: f2fdfdd86922b134b8165af4c3145a50, type: 3}
+  spawnerPosition: []
   spawnerReady: 1
   gameMaster: {fileID: 0}
 --- !u!1 &746008431
@@ -11001,11 +11002,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skipButton: 13
-  introCutScene: {fileID: 0}
-  stage1CutScene: {fileID: 0}
-  stage2CutScene: {fileID: 0}
-  stageBossCutScene: {fileID: 0}
-  outroCutScene: {fileID: 0}
   videoAudio: {fileID: 0}
   audioSources: []
   videoPlayerOBJ: {fileID: 672859044}
@@ -13512,7 +13508,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameMaster: {fileID: 0}
-  jingleSource: {fileID: 788275261}
   musicSource: {fileID: 1794778471}
   musicObj: {fileID: 1794778470}
   cutSceneManager: {fileID: 0}
@@ -13523,9 +13518,7 @@ MonoBehaviour:
   dessertStageBGMAlter: {fileID: 8300000, guid: e74dce34d1d21344b902e11e16c548e1, type: 3}
   finalStageBGM: {fileID: 8300000, guid: a782012fa5880c8449a99f621dc1a116, type: 3}
   finalStageBGMAlter: {fileID: 8300000, guid: bf713d6ee39c43646a2cfa9729cf7091, type: 3}
-  gameEnd1: {fileID: 0}
-  gameEnd2: {fileID: 0}
-  gameEnd3: {fileID: 8300000, guid: c9a615f470cbf0b4e99b0faba296dd5a, type: 3}
+  jiggleSound: {fileID: 0}
   bgmMixer: {fileID: 24100000, guid: b3a9316288b735a4bb270f3eaa94b492, type: 2}
   isPlaying: 1
   awakeningSource: {fileID: 1813270775}
@@ -25392,19 +25385,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 254444940306251965, guid: 76b33808b2691314f97a2c12ff3bb54a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 254444940306251965, guid: 76b33808b2691314f97a2c12ff3bb54a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4087411566815496654, guid: 76b33808b2691314f97a2c12ff3bb54a, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4087411566815496654, guid: 76b33808b2691314f97a2c12ff3bb54a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4866535837393877277, guid: 76b33808b2691314f97a2c12ff3bb54a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -25452,7 +25445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6506582567250664209, guid: 76b33808b2691314f97a2c12ff3bb54a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
