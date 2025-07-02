@@ -8596,7 +8596,7 @@ GameObject:
   - component: {fileID: 555171904}
   m_Layer: 11
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: MusicManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14574,7 +14574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1369552058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25443,10 +25443,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: MINION_RANGE_GUN
       objectReference: {fileID: 0}
-    - target: {fileID: 6506582567250664209, guid: 76b33808b2691314f97a2c12ff3bb54a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28771,25 +28767,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 327090738082668460, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 327090738082668460, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079760707364098696, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079760707364098696, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1427519023000147118, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.41
       objectReference: {fileID: 0}
     - target: {fileID: 1427519023000147118, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1698263410575181777, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
       propertyPath: m_Name
       value: LEAK_ENEMY_BOSS
       objectReference: {fileID: 0}
-    - target: {fileID: 3888377393652683297, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
-      propertyPath: m_AnchorMax.x
+    - target: {fileID: 1698263410575181777, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3888377393652683297, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888377393652683297, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
