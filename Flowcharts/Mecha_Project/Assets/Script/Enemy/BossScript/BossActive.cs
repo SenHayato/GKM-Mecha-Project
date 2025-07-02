@@ -50,6 +50,7 @@ public class BossActive : EnemyActive
                 {
                     wasAttackTriggered = true;
                     anim.SetTrigger("StartAttack");
+                    RandomRangeAttack();
                 }
             }
         }
@@ -57,13 +58,23 @@ public class BossActive : EnemyActive
 
     public void RandomRangeAttack()
     {
+        int random = Random.Range(0, 100);
+
         if (!SecondState)
         {
-            attackNumber = Random.Range(0, 7) + 1;
+            if (random < 20) attackNumber = 1;            //1-19
+            else if (random < 50) attackNumber = 2;
+            else if (random < 80) attackNumber = 3;
+            else attackNumber = 4;                        //81-99
         }
         else
         {
-            attackNumber = Random.Range(0, 8) + 1;
+            //attack 4-8
+            if (random < 20) attackNumber = 4;            //1-19
+            else if (random < 40) attackNumber = 5;
+            else if (random < 60) attackNumber = 6;
+            else if (random < 80) attackNumber = 7;
+            else attackNumber = 8;
         }
         anim.SetInteger("AttackIndex", attackNumber);
     }
@@ -577,30 +588,18 @@ public class BossActive : EnemyActive
         while (time < ultimateDuration)
         {
             time += Time.deltaTime;
-            Vector3 direction = (player.position - transform.position).normalized;
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, Time.deltaTime * ultimateRotSpeed);
+
+            Vector3 direction = player.position - transform.position;
+            //direction.y = 0;
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, ultimateRotSpeed * Time.deltaTime);
+            }
+
             yield return null;
         }
     }
-
-    //IEnumerator UltimateAttack()
-    //{
-    //    if (!ultimateAttack) yield break;
-
-    //    float time = 0;
-    //    while (time < ultimateDuration)
-    //    {
-    //        time += Time.deltaTime;
-    //        //Vector3 direction = (player.position - transform.position).normalized;
-    //        //direction.y = transform.position.y;
-    //        //direction.z = 0f;
-
-    //        //Quaternion targetRotation = Quaternion.LookRotation(direction);
-    //        //LaserObj.transform.rotation = Quaternion.RotateTowards(LaserObj.transform.rotation, transform.rotation, Time.deltaTime * ultimateRotSpeed);
-    //        yield return null;
-    //    }
-    //}
 
     public void UltimateEnable()
     {
