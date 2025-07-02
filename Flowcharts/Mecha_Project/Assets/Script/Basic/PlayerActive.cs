@@ -178,8 +178,6 @@ public class PlayerActive : MonoBehaviour
                     BlockPlayer();
                     RelativeMovement();
                 }
-                //StartCoroutine(Skill1());
-                if (!Mecha.isAiming && !Mecha.isShooting)
 
                 if (!Mecha.isAiming && !Mecha.isShooting && !mechaInAwakenState)
                 {
