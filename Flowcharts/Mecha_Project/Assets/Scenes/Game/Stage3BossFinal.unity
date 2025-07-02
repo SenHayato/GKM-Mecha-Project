@@ -8437,7 +8437,7 @@ MonoBehaviour:
   dessertStageBGMAlter: {fileID: 8300000, guid: e74dce34d1d21344b902e11e16c548e1, type: 3}
   finalStageBGM: {fileID: 8300000, guid: a782012fa5880c8449a99f621dc1a116, type: 3}
   finalStageBGMAlter: {fileID: 8300000, guid: bf713d6ee39c43646a2cfa9729cf7091, type: 3}
-  jiggleSound: {fileID: 0}
+  jiggleSound: {fileID: 788275259}
   bgmMixer: {fileID: 24100000, guid: b3a9316288b735a4bb270f3eaa94b492, type: 2}
   isPlaying: 1
   awakeningSource: {fileID: 1813270775}
@@ -15877,6 +15877,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ENEMY_BOSS
       objectReference: {fileID: 0}
+    - target: {fileID: 2874952238177878878, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce4ed3c9eff678a40885188591f1da69, type: 2}
     - target: {fileID: 3888377393652683297, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -15885,6 +15889,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5269756787626946197, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5921591349874422227, guid: 8913d19e78697564b82b348804b04cf9, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ce4ed3c9eff678a40885188591f1da69, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
