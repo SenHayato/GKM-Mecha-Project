@@ -17,6 +17,8 @@ public class RangeEnemy : EnemyActive
     [SerializeField] LineRenderer bulletTrail;
     [SerializeField] bool isBulletSpawn = false;
 
+    [Header("Bullet Fisik")]
+    [SerializeField] GameObject bulletObj;
     public override void Attacking()
     {
         StartCoroutine(AttackFire());
@@ -49,27 +51,9 @@ public class RangeEnemy : EnemyActive
             if (!enemyModel.isAttacking)
             {
                 enemyModel.isAttacking = true; //buat saklar doang
-                Debug.Log("Enemy Menembak");
-                Ray ray = new(rayCastSpawn.position, direction);
-                Vector3 targetPoint = ray.origin + 100f * enemyModel.attackRange * ray.direction;
-
-                if (Physics.Raycast(ray, out RaycastHit hit, enemyModel.attackRange * 100f, hitLayer))
-                {
-                    targetPoint = hit.point;
-                    if (hit.collider.TryGetComponent<PlayerActive>(out var playerActive))
-                    {
-                        playerActive.TakeDamage(enemyModel.attackPower);
-                    }
-                    Instantiate(bulletHitEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                }
-                else
-                {
-                    Debug.Log("Tembakan Musuh Meleset");
-                }
-
                 isBulletSpawn = true;
-                StartCoroutine(BulletTrailEffect(targetPoint));
-                Debug.DrawRay(rayCastSpawn.position, direction * enemyModel.attackRange, Color.red, 1f);
+                Instantiate(bulletObj, rayCastSpawn.position, rayCastSpawn.rotation);
+                //Debug.DrawRay(rayCastSpawn.position, direction * enemyModel.attackRange, Color.red, 1f);
                 Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
             }
         }
@@ -117,18 +101,18 @@ public class RangeEnemy : EnemyActive
         //}
     }
 
-    IEnumerator BulletTrailEffect(Vector3 targetHit)
-    {
-        bulletTrail.SetPosition(0, bulletSpawn.position);
-        bulletTrail.SetPosition(1, targetHit);
+    //IEnumerator BulletTrailEffect(Vector3 targetHit)
+    //{
+    //    bulletTrail.SetPosition(0, bulletSpawn.position);
+    //    bulletTrail.SetPosition(1, targetHit);
 
-        if (enemyModel.isAttacking && isBulletSpawn)
-        {
-            Debug.Log("BulletSpawn");
-            bulletTrail.enabled = true;
-            yield return new WaitForSeconds(0.05f);
-            bulletTrail.enabled = false;
-            isBulletSpawn = false;
-        }
-    }
+    //    if (enemyModel.isAttacking && isBulletSpawn)
+    //    {
+    //        Debug.Log("BulletSpawn");
+    //        bulletTrail.enabled = true;
+    //        yield return new WaitForSeconds(0.05f);
+    //        bulletTrail.enabled = false;
+    //        isBulletSpawn = false;
+    //    }
+    //}
 }
