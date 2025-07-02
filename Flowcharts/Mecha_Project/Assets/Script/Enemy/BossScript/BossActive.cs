@@ -216,8 +216,6 @@ public class BossActive : EnemyActive
 
     IEnumerator BulletTrail(Vector3 targetPoint, float interval)
     {
-        Debug.Log("BulletRifle");
-
         for (int i = 0; i < Mathf.Min(bulletLaser.Length, muzzleWeapon.Length); i++)
         {
             if (bulletLaser[i] == null || muzzleWeapon[i] == null) continue;
