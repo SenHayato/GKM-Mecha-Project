@@ -162,8 +162,10 @@ public class PlayerActive : MonoBehaviour
             SKillCooldown();
             AwakeningReady();
 
-            if (!Mecha.UsingUltimate)
+            if (!Mecha.UsingUltimate && !mechaInAwakenState)
             {
+                StartCoroutine(AwakeningActive());
+
                 //Class untuk player
                 if (!Mecha.usingSkill1 && !Mecha.usingSkill2 && !Mecha.undefeat)
                 {
@@ -176,18 +178,14 @@ public class PlayerActive : MonoBehaviour
                     BlockPlayer();
                     RelativeMovement();
                 }
-                //StartCoroutine(Skill1());
-                if (!Mecha.isAiming && !Mecha.isShooting)
+
+                if (!Mecha.isAiming && !Mecha.isShooting && !mechaInAwakenState)
                 {
                     Skill1();
                     Skill2();
                     StartCoroutine(UseUltimate());
                 }
-                StartCoroutine(AwakeningActive());
-                //Ultimate Regen  
-                //if (!Mecha.UltimateRegen && Mecha.Ultimate < Mecha.MaxUltimate && !Mecha.UltimateReady) _ = StartCoroutine(UltimateRegen());
             }
-            //StartCoroutine(BoostOn());
 
             //EnergyRegen         
             if (!Mecha.EnergyRegen && Mecha.Energy < Mecha.MaxEnergy) _ = StartCoroutine(EnergyRegen());
@@ -269,13 +267,14 @@ public class PlayerActive : MonoBehaviour
 
     IEnumerator AwakeningActive()
     {
-        if (awakeningAction.triggered && Mecha.awakeningReady)
+        if (awakeningAction.triggered && Mecha.awakeningReady && !skillBusy)
         {
             Mecha.awakeningReady = false;
             anim.SetTrigger("IsAwakening");
             Mecha.Awakening = Mecha.MinAwakening;
             Mecha.UsingAwakening = true;
             yield return new WaitForSeconds(Mecha.AwakeningDuration);
+
             Mecha.UsingAwakening = false;
         }
 
@@ -678,7 +677,7 @@ public class PlayerActive : MonoBehaviour
     #region PlayerSkill
     void Skill1()
     {
-        if (skill1Action.triggered && Mecha.readySkill1 && !Mecha.isDeath && !Mecha.isReloading && !Mecha.isBlocking)
+        if (skill1Action.triggered && Mecha.readySkill1 && !Mecha.isDeath && !Mecha.isReloading && !Mecha.isBlocking && !Mecha.usingSkill2)
         {
             anim.SetTrigger("IsSkill1");
             StartCoroutine(Skill1Dash());
@@ -687,11 +686,13 @@ public class PlayerActive : MonoBehaviour
         if (Mecha.usingSkill1)
         {
             Mecha.readySkill1 = false;
+            skillBusy = true;
             Mecha.skill1Time = Mecha.cooldownSkill1;
             skill2Action.Disable();
         }
         else
         {
+            skillBusy = false;
             skill2Action.Enable();
         }
     }
@@ -736,7 +737,7 @@ public class PlayerActive : MonoBehaviour
     #region WeaponSkill
     void Skill2()
     {
-        if (skill2Action.triggered && Mecha.readySkill2 && !Mecha.isDeath && !Mecha.isReloading && !Mecha.isBlocking)
+        if (skill2Action.triggered && Mecha.readySkill2 && !Mecha.isDeath && !Mecha.isReloading && !Mecha.isBlocking && !Mecha.usingSkill1)
         {
             anim.SetTrigger("IsSkill2");
             StartCoroutine(Skill2Dash());
@@ -745,11 +746,13 @@ public class PlayerActive : MonoBehaviour
         if (Mecha.usingSkill2)
         {
             Mecha.readySkill2 = false;
+            skillBusy = true;
             Mecha.skill2Bar = 0;
             skill1Action.Disable();
         }
         else
         {
+            skillBusy = false;
             skill1Action.Enable();
         }
     }
@@ -847,12 +850,6 @@ public class PlayerActive : MonoBehaviour
             Mecha.readySkill2 = true;
         }
 
-        //if (Mecha.skill2Time <= 0)
-        //{
-        //    Mecha.skill2Time = 0;
-        //    Mecha.readySkill2 = true;
-        //}
-
         //skill Overlap
         if (Mecha.usingSkill1)
         {
@@ -877,7 +874,7 @@ public class PlayerActive : MonoBehaviour
     //Ultimate
     public IEnumerator UseUltimate()
     {
-        if (ultimateAction.triggered && Mecha.Ultimate >= Mecha.MaxUltimate && !Mecha.isDeath)
+        if (ultimateAction.triggered && Mecha.Ultimate >= Mecha.MaxUltimate && !Mecha.isDeath && !mechaInAwakenState)
         {
             Quaternion targetRotation = CameraAct.MainCameraOBJ.transform.rotation;
             targetRotation.x = 0;
@@ -895,7 +892,7 @@ public class PlayerActive : MonoBehaviour
     //Ultimate Animation Trigger
     public IEnumerator MoveBackUltimate()
     {
-        if (!Mecha.UsingUltimate) yield break;
+        if (!Mecha.UsingUltimate || mechaInAwakenState) yield break;
 
         float dashSkillTime = 5f;
         float distance = 4f;
@@ -953,24 +950,6 @@ public class PlayerActive : MonoBehaviour
     }
     #endregion
 
-    //public IEnumerator UltimateRegen()
-    //{
-    //    Mecha.UltimateRegen = true;
-    //    while (Mecha.Ultimate <= Mecha.MaxUltimate)
-    //    {
-    //        if (Mecha.UsingUltimate)
-    //        {
-    //            Mecha.UltimateRegen = false;
-    //            yield break;
-    //        }
-    //        yield return new WaitForSeconds(1f);
-    //        Mecha.Ultimate += Mecha.UltRegenValue;
-    //        Mecha.Ultimate = Mathf.Clamp(Mecha.Ultimate, Mecha.MinUltimate, Mecha.MaxUltimate);
-    //    }
-    //    Mecha.UltimateRegen = false;
-    //}
-
-    //Energy
     public IEnumerator EnergyRegen()
     {
         Mecha.EnergyRegen = true;
