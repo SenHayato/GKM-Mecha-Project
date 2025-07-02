@@ -225,7 +225,7 @@ public class BossActive : EnemyActive
             bulletLaser[i].enabled = true;
         }
 
-        yield return new WaitForSeconds(interval);
+        yield return new WaitForSeconds(interval * 0.2f);
 
         for (int i = 0; i < Mathf.Min(bulletLaser.Length, muzzleWeapon.Length); i++)
         {
