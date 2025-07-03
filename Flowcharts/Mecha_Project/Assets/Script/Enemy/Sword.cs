@@ -41,10 +41,10 @@ public class Sword : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
+    //private void Update()
+    //{
 
-    }
+    //}
     public void PerformAttackShort()
     {
         if (enemyModel.isAttacking || enemyModel.isDeath) return;
@@ -97,8 +97,6 @@ public class Sword : MonoBehaviour
 
                 // Aplikasikan damage
                 enemyActive.player.GetComponent<PlayerActive>()?.TakeDamage(damage);
-
-                Debug.Log($"Sword attack hit player for {damage} damage (combo: {currentComboIndex})");
             }
         }
         StartCoroutine(ResetAttackState(0.5f));
@@ -123,19 +121,17 @@ public class Sword : MonoBehaviour
 
                 // Aplikasikan damage
                 enemyActive.player.GetComponent<PlayerActive>()?.TakeDamage(damage);
-
-                Debug.Log($"Sword attack hit player for {damage} damage (combo: {currentComboIndex})");
             }
         }
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        if(atackPoint != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(atackPoint.position, attackRadius);
-        }
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    if(atackPoint != null)
+    //    {
+    //        Gizmos.color = Color.red;
+    //        Gizmos.DrawWireSphere(atackPoint.position, attackRadius);
+    //    }
+    //}
 
 }

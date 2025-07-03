@@ -153,7 +153,7 @@ public class PlayerActive : MonoBehaviour
 
         //Hukum Fisika COY
         ApplyGravity();
-        SelectButtonPress();
+        //SelectButtonPress();
         //Death();
         UpdatePosition();
 
@@ -351,7 +351,6 @@ public class PlayerActive : MonoBehaviour
             boostAction.Disable();
             Mecha.isDashing = true;
             speed = dashSpeed;
-            Debug.Log("Dash");
         }
 
         if (!dashAction.IsPressed() && Mecha.isDashing && !Mecha.isBoosting)
@@ -470,7 +469,6 @@ public class PlayerActive : MonoBehaviour
             dashAction.Disable();
             anim.SetBool("IsAiming", true);
             //CameraAct.ScopeCamera();
-            Debug.Log("Scope On");
         }
         else
         {
@@ -516,7 +514,6 @@ public class PlayerActive : MonoBehaviour
 
         if (Mecha.isShooting)
         {
-            Debug.Log("Shoot ON");
             anim.SetBool("IsShooting", true);
             StartCoroutine(Weapon.FireShoot());
             if (!Mecha.isAiming)
@@ -601,7 +598,6 @@ public class PlayerActive : MonoBehaviour
             anim.SetBool("IsJump", true);
             wasGrounded = true;
             Instantiate(jumpDust, transform.position, Quaternion.identity);
-            Debug.Log("Jump");
             verticalVelocity = jumpForce;
             Vector3 jumpMovement = new Vector3(0, verticalVelocity, 0) * Time.deltaTime;
             controller.Move(jumpMovement);
@@ -646,7 +642,6 @@ public class PlayerActive : MonoBehaviour
             Mecha.isBlocking = true;
             anim.SetBool("IsBlocking", true);
             speed /= 2;
-            Debug.Log("Block");
         }
 
         if (!blockAction.IsPressed() && Mecha.isBlocking)
@@ -666,13 +661,12 @@ public class PlayerActive : MonoBehaviour
             shieldObj.SetActive(false);
         }
     }
-    public void SelectButtonPress()
-    {
-        if (selectButton.triggered)
-        {
-            Debug.Log("SelectButton");
-        }
-    }
+    //public void SelectButtonPress()
+    //{
+    //    if (selectButton.triggered)
+    //    {
+    //    }
+    //}
 
     #region PlayerSkill
     void Skill1()
@@ -1024,7 +1018,6 @@ public class PlayerActive : MonoBehaviour
             Mecha.Health -= damageCal;
             hitSound.Play();
             StartCoroutine(cameraEffect.HitEffect());
-            Debug.Log("Player Damage " + damageCal);
         }
     }
     public void UpdatePosition()

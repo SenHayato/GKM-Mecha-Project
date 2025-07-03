@@ -89,11 +89,11 @@ public class UltimateScript : MonoBehaviour
     }
 
 
-    private void OnDrawGizmosSelected()
-    {
-        // Visualisasi area
-        Gizmos.color = Color.blue;
-        Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
-        Gizmos.DrawWireCube(Vector3.zero, boxSize);
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    // Visualisasi area
+    //    Gizmos.color = Color.blue;
+    //    Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
+    //    Gizmos.DrawWireCube(Vector3.zero, boxSize);
+    //}
 }

@@ -22,7 +22,6 @@ public class CloseEnemy : EnemyActive
             //float distance = Vector3.Distance(transform.position, player.position);
 
             //attackTime = 0f;
-            Debug.Log("SwordAttack");
             //enemyModel.nextAttackTime = Time.time + enemyModel.attackCooldown;
             enemyModel.isAttacking = true;
 
@@ -90,7 +89,6 @@ public class CloseEnemy : EnemyActive
         if (enemyModel.isAttacking)
         {
             anim.SetTrigger("Attack");
-            Debug.Log("Attack ke " + AttackNum);
             anim.SetInteger("AttackIndex", AttackNum);
 
             yield return new WaitForSeconds(enemyModel.attackSpeed);

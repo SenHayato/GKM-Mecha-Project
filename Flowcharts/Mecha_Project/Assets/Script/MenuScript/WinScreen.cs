@@ -35,7 +35,6 @@ public class WinScreen : MonoBehaviour
         {
             float progressValue = Mathf.Clamp01(loading.progress / 0.9f);
             progressBar.value = progressValue;
-            Debug.Log(progressValue);
             yield return null;
         }
     }

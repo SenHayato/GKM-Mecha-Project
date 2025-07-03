@@ -44,7 +44,6 @@ public class PowerUpSpawn : MonoBehaviour
                 isReady = false;
                 int powerNumber = Random.Range(0, powerUpPrefabs.Length);
                 Instantiate(powerUpPrefabs[powerNumber], transform.position, Quaternion.identity);
-                Debug.Log("Spawn Power Up Nomor " + (powerNumber + 1));
                 timerToSpawn = spawnerDuration;
             }
         }

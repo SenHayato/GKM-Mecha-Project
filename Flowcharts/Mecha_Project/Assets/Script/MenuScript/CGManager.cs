@@ -28,7 +28,6 @@ public class CGManager : MonoBehaviour
     public void CGButton(int playCGNumber)
     {
         videoPlayer.clip = CGClips[playCGNumber - 1];
-        Debug.Log("Video ke "+playCGNumber);
         videoPlayerCanvas.SetActive(true);
         isPlaying = true;
     }

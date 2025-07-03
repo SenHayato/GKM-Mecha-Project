@@ -912,7 +912,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyModel: {fileID: 0}
+  bossActive: {fileID: 0}
   healthBar: {fileID: 729238402114961047}
+  healthBarImage: {fileID: 3543478045295667245}
   easeBar: {fileID: 8674463418176983718}
   enemyName: {fileID: 2596377270142127195}
 --- !u!223 &242733118714159370
@@ -3783,7 +3785,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: ce4ed3c9eff678a40885188591f1da69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5666,7 +5668,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: ce4ed3c9eff678a40885188591f1da69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5969,7 +5971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8162269, g: 0.8792453, b: 0.13769306, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
