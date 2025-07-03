@@ -11,22 +11,26 @@ public class PlayerDialogueSystem : MonoBehaviour
     [SerializeField] Animation animationClip;
 
     [Header("Kill Dialogue")]
+    [SerializeField] string[] killNameChar;
     [SerializeField] Sprite[] killSprite;
     [SerializeField] string[] killDialogue;
     [SerializeField] AudioClip[] killVoiceClip;
 
     [Header("Ultimate Dialogue")]
+    [SerializeField] string[] ultimateNameChar;
     [SerializeField] Sprite[] ultimateSprite;
     [SerializeField] string[] ultimateDialogue;
     [SerializeField] AudioClip[] ultimateVoiceClip;
 
     [Header("Critical Dialogue")]
+    [SerializeField] string[] criticalNameChar;
     [SerializeField] Sprite[] crticalSprite;
     [SerializeField] string[] criticalDialogue;
     [SerializeField] AudioClip[] criticalVoiceClip;
 
     //Setiap Stage Berbeda
     [Header("Special Event")]                       //sprite, text dan voice harus terurut
+    [SerializeField] string specialEventNameChar;
     [SerializeField] Sprite specialSprite;
     [SerializeField] string specialDialouge;
     [SerializeField] AudioClip specialVoiceClip;
@@ -36,6 +40,7 @@ public class PlayerDialogueSystem : MonoBehaviour
     [SerializeField] bool ultimateTrigger;
     [SerializeField] bool criticalTrigger;
     [SerializeField] UnityEngine.UI.Image imageProfile;
+    [SerializeField] TextMeshProUGUI charNameText;
     [SerializeField] TextMeshProUGUI dialogueText;
     [SerializeField] AudioSource voiceSource;
 
@@ -46,12 +51,12 @@ public class PlayerDialogueSystem : MonoBehaviour
 
     private void Awake()
     {
+        mechaPlayer = FindObjectOfType<MechaPlayer>();
         animationClip = GetComponent<Animation>();
     }
 
     private void Start()
     {
-        mechaPlayer = FindFirstObjectByType<MechaPlayer>();
         StartCoroutine(HealthMonitor());
         StartCoroutine(SpecialDialougue());
     }
@@ -109,6 +114,7 @@ public class PlayerDialogueSystem : MonoBehaviour
             voiceSource.enabled = true;
             voiceSource.clip = criticalVoiceClip[dialougeNumber];
             voiceSource.Play();
+            charNameText.text = criticalNameChar[dialougeNumber];
             imageProfile.sprite = crticalSprite[dialougeNumber];
             dialogueText.text = criticalDialogue[dialougeNumber];
             yield return new WaitForSeconds(criticalVoiceClip[dialougeNumber].length);
@@ -129,6 +135,7 @@ public class PlayerDialogueSystem : MonoBehaviour
             voiceSource.enabled = true;
             voiceSource.clip = ultimateVoiceClip[dialougeNumber];
             voiceSource.Play();
+            charNameText.text = ultimateNameChar[dialougeNumber];
             imageProfile.sprite = ultimateSprite[dialougeNumber];
             dialogueText.text = ultimateDialogue[dialougeNumber];
             yield return new WaitForSeconds(mechaPlayer.UltDuration);
@@ -149,6 +156,7 @@ public class PlayerDialogueSystem : MonoBehaviour
             voiceSource.enabled = true;
             voiceSource.clip = killVoiceClip[dialougeNumber];
             voiceSource.Play();
+            charNameText.text = killNameChar[dialougeNumber];
             imageProfile.sprite = killSprite[dialougeNumber];
             dialogueText.text = killDialogue[dialougeNumber];
             yield return new WaitForSeconds(killVoiceClip[dialougeNumber].length);
@@ -168,6 +176,7 @@ public class PlayerDialogueSystem : MonoBehaviour
             voiceSource.enabled = true;
             voiceSource.clip = specialVoiceClip;
             voiceSource.Play();
+            charNameText.text = specialEventNameChar;
             imageProfile.sprite = specialSprite;
             dialogueText.text = specialDialouge;
             yield return new WaitForSeconds(specialVoiceClip.length);

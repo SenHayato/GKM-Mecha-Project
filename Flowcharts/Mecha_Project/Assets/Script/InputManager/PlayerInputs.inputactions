@@ -141,15 +141,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Interaction",
-                    "type": "Button",
-                    "id": "2782fa43-2511-42fb-a63e-3a4121316135",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Awakening",
                     "type": "Button",
                     "id": "94df8fb0-6af4-4efb-a9c7-6421cf2cd462",
@@ -614,28 +605,6 @@
                 },
                 {
                     "name": "",
-                    "id": "5860393b-7470-4c80-abcc-2b10d2029262",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "PC",
-                    "action": "Interaction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "88806954-85ee-4009-9830-b91c0f7a81c9",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Interaction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "891364c8-f66a-45c1-88f1-16ecc8b9e14c",
                     "path": "<Keyboard>/r",
                     "interactions": "",
@@ -736,10 +705,21 @@
                 {
                     "name": "",
                     "id": "189a8cc5-d323-4de7-9cf2-6c546be994f4",
-                    "path": "<Gamepad>/dpad/left",
+                    "path": "<DualShockGamepad>/touchpadButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "Awakening",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f779c1b3-590f-49b8-b35e-57414707b0f5",
+                    "path": "<Gamepad>/dpad/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Awakening",
                     "isComposite": false,
                     "isPartOfComposite": false

@@ -53,7 +53,7 @@ public class UltimateScript : MonoBehaviour
             foreach (var hitCollider in enemyColliders)
             {
                 Vector3 hitPosition = hitCollider.transform.position;
-                hitPosition.y = 1.2f;
+                hitPosition.y = 2f;
                 Instantiate(hitEffect, hitPosition, Quaternion.identity);
 
                 if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))

@@ -16,5 +16,8 @@ public class PowerUpModel : MonoBehaviour
 
     [Header("Animation")]
     public float spinSpeed;
+
+    [Header("Beacon")]
+    public bool needBeacon;
     //public Vector3 rotationAxis;
 }

@@ -14,7 +14,7 @@ public class PowerUpItem : MonoBehaviour
     [SerializeField] GameObject triggerParticle;
     [SerializeField] Collider powerCollider;
     [SerializeField] GameObject UIMap;
-    [SerializeField] GameObject beaconPower;
+    public GameObject beaconPower;
 
     [Header("PowerUP Value")]
     private int AtkPowerUp; 
@@ -42,7 +42,14 @@ public class PowerUpItem : MonoBehaviour
     }
     private void Start()
     {
-        beaconPower.SetActive(true);
+        if (powerUpModel.needBeacon)
+        {
+            beaconPower.SetActive(true);
+        }
+        else
+        {
+            beaconPower.SetActive(false);
+        }
         UIMap.SetActive(true);
         powerCollider.enabled = true;
         meshRenderer.enabled = true;
@@ -98,7 +105,10 @@ public class PowerUpItem : MonoBehaviour
         triggerParticle.SetActive(true);
         if (other.CompareTag("Player"))
         {
-            beaconPower.SetActive(false);
+            if (powerUpModel.needBeacon)
+            {
+                beaconPower.SetActive(false);
+            }
             voiceActive.PowerUpGet();
             switch (Type)
             {
