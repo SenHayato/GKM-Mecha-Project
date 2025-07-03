@@ -253,7 +253,6 @@ public class HUDGameManager : MonoBehaviour
         if (testButton.triggered)
         {
             mechaScript.Health -= 10000;
-            Debug.Log("IzulAJG");
         }
     }
 

@@ -220,7 +220,6 @@ public abstract class EnemyActive : MonoBehaviour
             enemyModel.isHit = true;
             
             enemyModel.health -= damage;
-            Debug.Log(gameObject.name + " Kena Damage : " + damage.ToString());
         }
 
         if (enemyModel.health <= enemyModel.minHealth)
@@ -371,7 +370,6 @@ public abstract class EnemyActive : MonoBehaviour
     {
         enemyModel.isAttacking = false;
         wasAttackTriggered = false;
-        Debug.Log("Reset Attack");
     }
 
 #if UNITY_EDITOR

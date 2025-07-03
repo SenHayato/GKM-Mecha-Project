@@ -209,7 +209,6 @@ public class GameMaster : MonoBehaviour
         if (isPaused)
         {
             Time.timeScale = 0f;
-            Debug.Log("Sudah di pause");
             PauseMenu.SetActive(true);
         }
         else
@@ -251,7 +250,6 @@ public class GameMaster : MonoBehaviour
         {
             if (pauseAction.triggered)
             {
-                Debug.Log("PauseButton");
                 if (!isPaused)
                 {
                     isPaused = true;

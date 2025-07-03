@@ -47,7 +47,7 @@ public class SpawnerActive : MonoBehaviour
         {
             if (gameMaster.timer <= 30) maxEnemyInArea = 30;
             else if (gameMaster.timer <= 60) maxEnemyInArea = 20;
-            else if (gameMaster.timer <= 120) maxEnemyInArea = 15;
+            else if (gameMaster.timer <= 120) maxEnemyInArea = 10;
         }
     }
 

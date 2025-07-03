@@ -5,15 +5,37 @@ using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
+    [Header("Pause")]
     [SerializeField] GameMaster gameMaster;
     [SerializeField] string thisSceneName;
     [SerializeField] SceneAsset menuScene;
     [SerializeField] LoadingScript loadingScript;
+
+    [Header("Image Layout")]
+    [SerializeField] UnityEngine.UI.Image layoutContainer;
+    [SerializeField] Sprite controllerImage;
+    [SerializeField] Sprite keyboardImage;
+
+    private bool keyboardLayout = true;
     private void Awake()
     {
         gameMaster = FindObjectOfType<GameMaster>();
         thisSceneName = SceneManager.GetActiveScene().name;
         loadingScript = FindObjectOfType<LoadingScript>();
+    }
+
+    public void ChangeLayoutImage()
+    {
+        if (!keyboardLayout)
+        {
+            keyboardLayout = true;
+            layoutContainer.sprite = keyboardImage;
+        }
+        else
+        {
+            keyboardLayout = false;
+            layoutContainer.sprite = controllerImage;
+        }
     }
 
     public void ContinueButton()
@@ -27,6 +49,7 @@ public class PauseManager : MonoBehaviour
             gameMaster.isPaused = true;
         }
     }
+
 
     public void RestartButton()
     {
@@ -42,7 +65,6 @@ public class PauseManager : MonoBehaviour
         {
             float progressValue = Mathf.Clamp01(loading.progress / 0.9f);
             loadingScript.progressBar.value = progressValue;
-            Debug.Log(progressValue);
             yield return null;
         }
     }

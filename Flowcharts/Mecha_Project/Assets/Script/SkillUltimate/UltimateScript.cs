@@ -53,7 +53,7 @@ public class UltimateScript : MonoBehaviour
             foreach (var hitCollider in enemyColliders)
             {
                 Vector3 hitPosition = hitCollider.transform.position;
-                hitPosition.y = 1.2f;
+                hitPosition.y = 2f;
                 Instantiate(hitEffect, hitPosition, Quaternion.identity);
 
                 if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
@@ -89,11 +89,11 @@ public class UltimateScript : MonoBehaviour
     }
 
 
-    private void OnDrawGizmosSelected()
-    {
-        // Visualisasi area
-        Gizmos.color = Color.blue;
-        Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
-        Gizmos.DrawWireCube(Vector3.zero, boxSize);
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    // Visualisasi area
+    //    Gizmos.color = Color.blue;
+    //    Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
+    //    Gizmos.DrawWireCube(Vector3.zero, boxSize);
+    //}
 }

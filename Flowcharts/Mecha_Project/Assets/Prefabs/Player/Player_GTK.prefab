@@ -169,8 +169,8 @@ MonoBehaviour:
   readytoShoot: 0
   ammo: 0
   maxAmmo: 40
-  fireSound: {fileID: 8300000, guid: bbebd293bc637aa40927ad9ab8bca996, type: 3}
-  rechargeSound: {fileID: 8300000, guid: 1c17d76dc47b0714ab2d17a839cb2644, type: 3}
+  fireSound: {fileID: 8300000, guid: 7e8b80f1affba414c9768e13dcc7a3b2, type: 3}
+  rechargeSound: {fileID: 8300000, guid: 16b523b23077d5140a992c595d328a21, type: 3}
   fireActive: 0
   rechargeActive: 0
   fireBulletVFX: {fileID: 4700551859103148003}
@@ -1004,7 +1004,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: b3797d3725de15d4eb855b3b0066cd2e, type: 2}
-  m_audioClip: {fileID: 8300000, guid: f168e57f478add34abb1b22e6268dc83, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f1008411be61fa7469dc03fc03909ca6, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
@@ -7977,6 +7977,7 @@ GameObject:
   - component: {fileID: 628758876037850575}
   - component: {fileID: 3333448337776773515}
   - component: {fileID: 6076745937630790947}
+  - component: {fileID: 2912514750406657308}
   m_Layer: 3
   m_Name: Effect
   m_TagString: Untagged
@@ -8092,6 +8093,102 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!82 &2912514750406657308
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2371192399197544127}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: b3797d3725de15d4eb855b3b0066cd2e, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 1d8a53eb62a833240b9e6a560eafcea0, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2401138816890932133
 GameObject:
   m_ObjectHideFlags: 0
@@ -11298,7 +11395,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: b3797d3725de15d4eb855b3b0066cd2e, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 7bf7fed91a6062e4b926074da55fd959, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b1a398c12dedeb742bfa9f8880e91c45, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -17239,10 +17336,10 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5922803452217210217}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: b3797d3725de15d4eb855b3b0066cd2e, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d11f3f1bdf95df94880d9e4b23944da9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -17711,7 +17808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6816671393536749337
 Transform:
   m_ObjectHideFlags: 0
@@ -19574,7 +19671,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: b3797d3725de15d4eb855b3b0066cd2e, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 71883e19bf011dd4da33c61ec28f9382, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -20813,6 +20910,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8374242445890558254}
     m_Modifications:
+    - target: {fileID: 1659506147056776033, guid: cff024c5c0fc06a48a8823cd9b7ef5de, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: cdd8c85fa2c3250409b1d3b7e23f100b, type: 3}
     - target: {fileID: 5982954779388275370, guid: cff024c5c0fc06a48a8823cd9b7ef5de, type: 3}
       propertyPath: m_Name
       value: ExplodeSmoke
@@ -20900,6 +21001,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8374242445890558254}
     m_Modifications:
+    - target: {fileID: -6300160904869936749, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6300160904869936749, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2e16989d01b153b44950fc5825eada22, type: 3}
     - target: {fileID: 282167833674585694, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
       propertyPath: m_Name
       value: Shield

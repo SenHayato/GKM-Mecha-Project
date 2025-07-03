@@ -80,7 +80,6 @@ public class MainMenuScript : MonoBehaviour
     public void SettingButton()
     {
         menuMaster.settingScreenActive = true;
-        Debug.Log("Setting Test");
     }
 
     public void GalleryButton()

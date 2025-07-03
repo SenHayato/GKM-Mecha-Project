@@ -33,11 +33,11 @@ public class Skill1Script : MonoBehaviour
         enemyCollider = null;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        // Visualisasi area box
-        Gizmos.color = Color.red;
-        Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
-        Gizmos.DrawWireCube(Vector3.zero, boxSize);
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    // Visualisasi area box
+    //    Gizmos.color = Color.red;
+    //    Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one);
+    //    Gizmos.DrawWireCube(Vector3.zero, boxSize);
+    //}
 }

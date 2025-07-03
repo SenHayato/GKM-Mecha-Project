@@ -32,7 +32,6 @@ public class ShortWeapon : MonoBehaviour
                 {
                     Instantiate(hitSlashEffect, hitPosition, Quaternion.identity);
                     player.TakeDamage(enemyModel.attackPower + additionalAttackDMG);
-                    Debug.Log("SSS");
                 }
             }
         }
