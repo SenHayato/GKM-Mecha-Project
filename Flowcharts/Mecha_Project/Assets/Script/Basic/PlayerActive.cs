@@ -870,6 +870,7 @@ public class PlayerActive : MonoBehaviour
     {
         if (ultimateAction.triggered && Mecha.Ultimate >= Mecha.MaxUltimate && !Mecha.isDeath && !mechaInAwakenState)
         {
+            Mecha.undefeat = true;
             Quaternion targetRotation = CameraAct.MainCameraOBJ.transform.rotation;
             targetRotation.x = 0;
             targetRotation.z = 0;
@@ -880,6 +881,7 @@ public class PlayerActive : MonoBehaviour
             yield return new WaitForSeconds(Mecha.UltDuration); //lama ultimate
 
             Mecha.UsingUltimate = false;
+            Mecha.undefeat = false;
         }
     }
 
@@ -1012,7 +1014,7 @@ public class PlayerActive : MonoBehaviour
     public void TakeDamage(int damage)
     {
         int damageCal = damage - Mecha.Defence;
-        if (!Mecha.UsingUltimate || Mecha.undefeat)
+        if (!Mecha.UsingUltimate || !Mecha.undefeat)
         {
             combatVoiceAct.DamageVoice();
             Mecha.Health -= damageCal;

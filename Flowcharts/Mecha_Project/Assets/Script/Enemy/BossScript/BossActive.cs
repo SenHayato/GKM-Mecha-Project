@@ -133,6 +133,7 @@ public class BossActive : EnemyActive
     [Header("Range Weapon Atribut")]
     [SerializeField] Transform[] muzzleWeapon;
     [SerializeField] LineRenderer[] bulletLaser;
+    [SerializeField] AudioSource[] bulletSounds;
     //[SerializeField] Transform rayCastSpawn;
     [SerializeField] float rangeRotationSpeed;
     public bool rifleAttacking = false;
@@ -234,6 +235,7 @@ public class BossActive : EnemyActive
             bulletLaser[i].SetPosition(0, muzzleWeapon[i].position);
             bulletLaser[i].SetPosition(1, targetPoint);
             bulletLaser[i].enabled = true;
+            bulletSounds[i].enabled = true;
         }
 
         yield return new WaitForSeconds(interval * 0.2f);
@@ -241,7 +243,10 @@ public class BossActive : EnemyActive
         for (int i = 0; i < Mathf.Min(bulletLaser.Length, muzzleWeapon.Length); i++)
         {
             if (bulletLaser[i] != null)
+            {
                 bulletLaser[i].enabled = false;
+                bulletSounds[i].enabled = false;
+            }
         }
     }
 
