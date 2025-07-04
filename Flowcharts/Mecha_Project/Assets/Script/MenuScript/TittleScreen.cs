@@ -12,6 +12,7 @@ public class TittleScreen : MonoBehaviour
     [SerializeField] Animation tittleScreenAnim;
     [SerializeField] GameObject tittleButton;
     [SerializeField] AudioSource tittleClickSFX;
+    [SerializeField] Animation animGtk;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class TittleScreen : MonoBehaviour
             tittleClickSFX.Play();
             tittleButton.SetActive(false);
             tittleScreenAnim.Play("TittleScreenClose");
+            animGtk.Play("MenuGTK");
             yield return new WaitForSeconds(tittleScreenAnim.clip.length);
             menuMaster.tittleScreenActive = false;
             menuMaster.mainmenuScreenActive = true;
