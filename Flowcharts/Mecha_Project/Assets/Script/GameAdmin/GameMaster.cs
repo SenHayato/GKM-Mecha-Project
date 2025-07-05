@@ -14,7 +14,7 @@ public class GameMaster : MonoBehaviour
     public string QuestText;
     public int checkPointReach;
     [SerializeField] int enemyInArea = 0;
-    [SerializeField] SceneAsset nextScene;
+    [SerializeField] string nextScene;
 
     [Header("GameAdmin")]
     public GameObject PauseMenu;
@@ -28,7 +28,7 @@ public class GameMaster : MonoBehaviour
     [Header("GameFinish Condition")]
     public bool gameWin = false;
     public bool gameLose = false;
-    public SceneAsset loseScreen;
+    public string loseScreen;
 
     [Header("Transition")]
     public GameObject fadeIn;
@@ -143,12 +143,12 @@ public class GameMaster : MonoBehaviour
 
             if (nextScene != null && gameWin)
             {
-                loadingScript.LoadScene(nextScene.name);
+                loadingScript.LoadScene(nextScene);
             }
 
             if (gameLose)
             {
-                LoadNextStage(loseScreen.name);
+                LoadNextStage(loseScreen);
             }
         }
     }

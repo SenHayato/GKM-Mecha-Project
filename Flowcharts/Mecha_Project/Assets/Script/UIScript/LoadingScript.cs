@@ -7,7 +7,7 @@ public class LoadingScript : MonoBehaviour
 {
     public UnityEngine.UI.Slider progressBar;
     public GameObject loadingScreen;
-    [SerializeField] SceneAsset sceneToLoad;
+    [SerializeField] string sceneToLoad;
     [SerializeField] GameObject pressEnterText; //opsional jika ada button konfirmasi
     public KeyCode pressToSkip;
 
@@ -38,7 +38,7 @@ public class LoadingScript : MonoBehaviour
     {
         if (sceneToLoad != null)
         {
-            StartCoroutine(LoadingToScene(sceneToLoad.name));
+            StartCoroutine(LoadingToScene(sceneToLoad));
         }
     }
 

@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerDialogueSystem : MonoBehaviour
@@ -30,10 +28,7 @@ public class PlayerDialogueSystem : MonoBehaviour
 
     //Setiap Stage Berbeda
     [Header("Special Event")]                       //sprite, text dan voice harus terurut
-    [SerializeField] string specialEventNameChar;
-    [SerializeField] Sprite specialSprite;
-    [SerializeField] string specialDialouge;
-    [SerializeField] AudioClip specialVoiceClip;
+    [SerializeField] SpecialDialougue specialDialougue;
 
     [Header("Dialogue ON")]
     [SerializeField] bool killTrigger;
@@ -53,6 +48,7 @@ public class PlayerDialogueSystem : MonoBehaviour
     {
         mechaPlayer = FindObjectOfType<MechaPlayer>();
         animationClip = GetComponent<Animation>();
+        specialDialougue = GetComponent<SpecialDialougue>();
     }
 
     private void Start()
@@ -174,12 +170,12 @@ public class PlayerDialogueSystem : MonoBehaviour
             wasActive = true;
             animationClip.Play("DialogueIn");
             voiceSource.enabled = true;
-            voiceSource.clip = specialVoiceClip;
+            voiceSource.clip = specialDialougue.specialAudio;
             voiceSource.Play();
-            charNameText.text = specialEventNameChar;
-            imageProfile.sprite = specialSprite;
-            dialogueText.text = specialDialouge;
-            yield return new WaitForSeconds(specialVoiceClip.length);
+            charNameText.text = specialDialougue.charName;
+            imageProfile.sprite = specialDialougue.charImage;
+            dialogueText.text = specialDialougue.specialText;
+            yield return new WaitForSeconds(specialDialougue.specialAudio.length);
             animationClip.Play("DialogueOut");
             yield return new WaitForSeconds(0.8f);
             wasActive = false;
