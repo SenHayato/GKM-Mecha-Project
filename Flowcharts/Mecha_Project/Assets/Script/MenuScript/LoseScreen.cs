@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoseScreen : MonoBehaviour
 {
-    [SerializeField] SceneAsset mainmenuScene;
+    [SerializeField] string mainmenuScene;
     [SerializeField] UnityEngine.UI.Slider progressBar;
     [SerializeField] GameObject loadingScreen;
 
@@ -16,7 +16,7 @@ public class LoseScreen : MonoBehaviour
 
     IEnumerator LoadingToScene()
     {
-        AsyncOperation loading = SceneManager.LoadSceneAsync(mainmenuScene.name);
+        AsyncOperation loading = SceneManager.LoadSceneAsync(mainmenuScene);
         loadingScreen.SetActive(true);
 
         while(!loading.isDone) //kondisi loading belum selesai

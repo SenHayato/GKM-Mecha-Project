@@ -11,7 +11,7 @@ public class MenuMaster : MonoBehaviour
 
     [Header("Menu Script")]
     [SerializeField] MainMenuScript mainMenuScript;
-    public SceneAsset firstStage;
+    public string firstStage;
 
     [Header("Canvas Condition")]
     public bool tittleScreenActive;

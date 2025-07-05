@@ -2458,19 +2458,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mechaPlayer: {fileID: 0}
   attackVoice:
-  - {fileID: 8300000, guid: cae5718cd3c266342a623c9180eb9fc9, type: 3}
-  - {fileID: 8300000, guid: 05f73e59e5ba2bb4ca6d60338199a0cf, type: 3}
+  - {fileID: 8300000, guid: e33ab82f110dbd54b8461af82a1b5a90, type: 3}
+  - {fileID: 8300000, guid: e33ab82f110dbd54b8461af82a1b5a90, type: 3}
   defenceVoice:
-  - {fileID: 8300000, guid: 77abad41eb1513248b582d1f559154bb, type: 3}
-  - {fileID: 8300000, guid: 573c94e2aaab15645a0e218cd73dffa8, type: 3}
-  skill1Voice: {fileID: 8300000, guid: bf73df2017b1fd74cb9022747ddddb34, type: 3}
-  skill2Voice: {fileID: 8300000, guid: 977357611953e0f42ab8fd8d7d043793, type: 3}
+  - {fileID: 8300000, guid: e33ab82f110dbd54b8461af82a1b5a90, type: 3}
+  - {fileID: 8300000, guid: e33ab82f110dbd54b8461af82a1b5a90, type: 3}
+  skill1Voice: {fileID: 8300000, guid: e33ab82f110dbd54b8461af82a1b5a90, type: 3}
+  skill2Voice: {fileID: 8300000, guid: e33ab82f110dbd54b8461af82a1b5a90, type: 3}
   damageVoice:
-  - {fileID: 8300000, guid: bee9bd940b7df7440a3c1ef9c5d48183, type: 3}
-  - {fileID: 8300000, guid: a0237556eec59e34caa143f063589327, type: 3}
+  - {fileID: 8300000, guid: e33ab82f110dbd54b8461af82a1b5a90, type: 3}
+  - {fileID: 8300000, guid: e33ab82f110dbd54b8461af82a1b5a90, type: 3}
   powerUpVoice:
-  - {fileID: 8300000, guid: 54c9351bda76d82499535cb7ded3d0cf, type: 3}
-  - {fileID: 8300000, guid: 62ceba670ef5ffd498411051fe0ee778, type: 3}
+  - {fileID: 8300000, guid: e33ab82f110dbd54b8461af82a1b5a90, type: 3}
+  - {fileID: 8300000, guid: e33ab82f110dbd54b8461af82a1b5a90, type: 3}
   voiceSource: {fileID: 2253930020088046924}
   isActive: 0
 --- !u!82 &2253930020088046924
@@ -2484,7 +2484,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: b3797d3725de15d4eb855b3b0066cd2e, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

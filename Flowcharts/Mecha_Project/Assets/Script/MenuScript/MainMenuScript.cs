@@ -103,7 +103,7 @@ public class MainMenuScript : MonoBehaviour
     {
         if (Input.GetKeyDown(loadingScript.pressToSkip) && tipsScreenActive)
         {
-            loadingScript.LoadScene(menuMaster.firstStage.name);
+            loadingScript.LoadScene(menuMaster.firstStage);
         }
     }
     private void Update()
