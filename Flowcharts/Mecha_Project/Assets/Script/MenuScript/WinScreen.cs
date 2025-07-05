@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class WinScreen : MonoBehaviour
 {
-    [SerializeField] SceneAsset MainMenuScene;
+    [SerializeField] string MainMenuScene;
     [SerializeField] UnityEngine.UI.Slider progressBar;
     [SerializeField] GameObject loadingScreen;
     [SerializeField] KeyCode[] skipButtons;
@@ -28,7 +28,7 @@ public class WinScreen : MonoBehaviour
 
     IEnumerator LoadingToScene()
     {
-        AsyncOperation loading = SceneManager.LoadSceneAsync(MainMenuScene.name);
+        AsyncOperation loading = SceneManager.LoadSceneAsync(MainMenuScene);
         loadingScreen.SetActive(true);
 
         while(!loading.isDone) //kondisi loading belum selesai

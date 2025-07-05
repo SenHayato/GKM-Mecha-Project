@@ -189,7 +189,7 @@ public class GameMaster : MonoBehaviour
             timeFormat = string.Format("{00:00}:{1:00}", minutes, seconds);
             HUDManager.timerText.text = timeFormat;
 
-            if (timer <= 20f)
+            if (timer <= 60f)
             {
                 HUDManager.timerText.color = Color.red;
             }
