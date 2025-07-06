@@ -1879,6 +1879,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mechaPlayer: {fileID: 0}
   animationClip: {fileID: 263845989}
+  killNameChar: []
   killSprite:
   - {fileID: 21300000, guid: a328befb1e542e944ac3bd8090a26d39, type: 3}
   - {fileID: 21300000, guid: 8ba2f2fcf949ced4f92e148fdde3a130, type: 3}
@@ -1894,6 +1895,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 621e4d0eb451abd47bc3a956e383d92f, type: 3}
   - {fileID: 8300000, guid: a727e83d9834ad64ca56e352295ec4d2, type: 3}
   - {fileID: 8300000, guid: 73b6858bff95fd241a5b2e9a92f6d1b4, type: 3}
+  ultimateNameChar: []
   ultimateSprite:
   - {fileID: 21300000, guid: 58679a032860cd840af3177e5d360046, type: 3}
   - {fileID: 21300000, guid: ae5b4bb560d925645adc76dbbdc7600a, type: 3}
@@ -1906,6 +1908,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1395b494ec8f418488794d594e6d474d, type: 3}
   - {fileID: 8300000, guid: 027bd24689513d742bdf220d9a8021ee, type: 3}
   - {fileID: 8300000, guid: 4a20d04b764dbcd4faa71826af773255, type: 3}
+  criticalNameChar: []
   crticalSprite:
   - {fileID: 21300000, guid: d5c345c4bb5820149b8ab0ed64e1b1eb, type: 3}
   - {fileID: 21300000, guid: 1818c4648a94ae04c841e32f4106b3d7, type: 3}
@@ -1915,13 +1918,12 @@ MonoBehaviour:
   criticalVoiceClip:
   - {fileID: 8300000, guid: 0692f667c577fc34381c49ba656aa2e9, type: 3}
   - {fileID: 8300000, guid: a6849a07586478442b2c98c88b4ca05c, type: 3}
-  specialSprite: {fileID: 21300000, guid: bfae805a3cff0cc4894dca57c49fdbdf, type: 3}
-  specialDialouge: skdajhdas
-  specialVoiceClip: {fileID: 8300000, guid: bf73df2017b1fd74cb9022747ddddb34, type: 3}
+  specialDialougue: {fileID: 0}
   killTrigger: 0
   ultimateTrigger: 0
   criticalTrigger: 0
   imageProfile: {fileID: 1390088988}
+  charNameText: {fileID: 0}
   dialogueText: {fileID: 2077506831}
   voiceSource: {fileID: 1444530830}
 --- !u!111 &263845989
@@ -13026,6 +13028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1d0a18a6eb8e64aaba6e0e814e6ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  l: {fileID: 1239421183}
   intensity: 1.79
 --- !u!1001 &1241967427
 PrefabInstance:
@@ -13421,7 +13424,7 @@ MonoBehaviour:
   QuestText: 
   checkPointReach: 0
   enemyInArea: 0
-  nextScene: {fileID: 0}
+  nextScene: 
   PauseMenu: {fileID: 1605250513}
   playerInput: {fileID: 0}
   Player: {fileID: 0}
@@ -13431,7 +13434,7 @@ MonoBehaviour:
   input: {fileID: 0}
   gameWin: 0
   gameLose: 0
-  loseScreen: {fileID: 0}
+  loseScreen: 
   fadeIn: {fileID: 64398751}
   fadeOut: {fileID: 470513228}
   KillCount: 0
@@ -13495,6 +13498,7 @@ MonoBehaviour:
   HPRegenUp: 20000
   UltRegenUp: 30
   spinSpeed: 100
+  needBeacon: 0
 --- !u!114 &1271183345
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13557,7 +13561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   progressBar: {fileID: 72776213}
   loadingScreen: {fileID: 660779201}
-  sceneToLoad: {fileID: 0}
+  sceneToLoad: 
   pressEnterText: {fileID: 0}
   pressToSkip: 0
   isActive: 0
@@ -16066,6 +16070,9 @@ MonoBehaviour:
   thisSceneName: 
   menuScene: {fileID: 0}
   loadingScript: {fileID: 0}
+  layoutContainer: {fileID: 0}
+  controllerImage: {fileID: 0}
+  keyboardImage: {fileID: 0}
 --- !u!1 &1606946686
 GameObject:
   m_ObjectHideFlags: 0
