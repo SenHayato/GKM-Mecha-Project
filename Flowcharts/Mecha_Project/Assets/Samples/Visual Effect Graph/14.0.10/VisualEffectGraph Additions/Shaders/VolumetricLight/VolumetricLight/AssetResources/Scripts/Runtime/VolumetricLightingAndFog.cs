@@ -5,7 +5,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace OccaSoftware.Buto
 {
-    public class ButoVolumetricLightingAndFog : ScriptableRendererFeature
+    public class VolumetricLightingAndFog : ScriptableRendererFeature
     {
         
         class RenderFogPass : ScriptableRenderPass
