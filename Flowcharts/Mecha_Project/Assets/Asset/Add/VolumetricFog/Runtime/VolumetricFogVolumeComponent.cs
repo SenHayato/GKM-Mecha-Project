@@ -6,13 +6,13 @@ using UnityEngine.Rendering.Universal;
 /// Volume component for the volumetric fog.
 /// </summary>
 #if UNITY_2023_1_OR_NEWER
-[VolumeComponentMenu("Custom/Volumetric Fog")]
+[VolumeComponentMenu("Custom/Volumetric Fog and Lighting")]
 #if UNITY_6000_0_OR_NEWER
 [VolumeRequiresRendererFeatures(typeof(VolumetricFogRendererFeature))]
 #endif
 [SupportedOnRenderPipeline(typeof(UniversalRenderPipelineAsset))]
 #else
-[VolumeComponentMenuForRenderPipeline("Custom/Volumetric Fog", typeof(UniversalRenderPipeline))]
+[VolumeComponentMenuForRenderPipeline("Custom/Volumetric Fog and Lighting", typeof(UniversalRenderPipeline))]
 #endif
 public sealed class VolumetricFogVolumeComponent : VolumeComponent, IPostProcessComponent
 {
