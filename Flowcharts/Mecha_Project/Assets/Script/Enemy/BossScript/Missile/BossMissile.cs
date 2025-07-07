@@ -35,8 +35,8 @@ public class BossMissile : MonoBehaviour
         Instantiate(explodeVisual, transform.position, Quaternion.identity);
     }
 
-    private void OnDestroy()
-    {
-        Debug.Log("Meledak");
-    }
+    //private void OnDestroy()
+    //{
+    //    Debug.Log("Meledak");
+    //}
 }

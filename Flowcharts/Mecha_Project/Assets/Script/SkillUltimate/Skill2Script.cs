@@ -8,6 +8,7 @@ public class Skill2Script : MonoBehaviour
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
     [SerializeField] float timeStunt;
+    [SerializeField] int damageAdd;
 
     private Collider[] enemyCollider;
 
@@ -18,6 +19,11 @@ public class Skill2Script : MonoBehaviour
     {
         playerData = GetComponentInParent<MechaPlayer>();
         playerActive = GetComponentInParent<PlayerActive>();
+    }
+
+    private void Start()
+    {
+        damageAdd += playerData.skill2Damage;
     }
 
     private void OnEnable()
@@ -35,7 +41,7 @@ public class Skill2Script : MonoBehaviour
             {
                 enemy.enemyModel.isStunt = true;
                 enemy.DisableStuntFromPlayer(timeStunt);
-                enemy.TakeDamage(playerData.skill2Damage);
+                enemy.TakeDamage(damageAdd);
             }
         }
     }

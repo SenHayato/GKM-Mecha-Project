@@ -43,7 +43,7 @@ public class CameraEffect : MonoBehaviour
 
     public void CriticalEffect()
     {
-        if (mechaPlayer.Health <= 25000)
+        if (mechaPlayer.Health <= mechaPlayer.crtiticalHealth)
         {
             criticalEffect.SetActive(true);
             StartCoroutine(CriticalBlink());

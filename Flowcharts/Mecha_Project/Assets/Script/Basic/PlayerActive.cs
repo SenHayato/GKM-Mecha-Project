@@ -481,12 +481,12 @@ public class PlayerActive : MonoBehaviour
         {
             if (Mecha.isAiming)
             {
-                CameraAct.rotationSpeed /= 4f;
+                CameraAct.rotationSpeed /= 3f;
                 CameraAct.SameRotation();
             }
             else
             {
-                CameraAct.rotationSpeed *= 4f;
+                CameraAct.rotationSpeed *= 3f;
             }
         }
         wasAiming = Mecha.isAiming;
@@ -1014,7 +1014,7 @@ public class PlayerActive : MonoBehaviour
     public void TakeDamage(int damage)
     {
         int damageCal = damage - Mecha.Defence;
-        if (!Mecha.UsingUltimate || !Mecha.undefeat)
+        if (!Mecha.UsingUltimate || !Mecha.undefeat && Mecha.Health <= 0)
         {
             combatVoiceAct.DamageVoice();
             Mecha.Health -= damageCal;
@@ -1022,6 +1022,7 @@ public class PlayerActive : MonoBehaviour
             StartCoroutine(cameraEffect.HitEffect());
         }
     }
+
     public void UpdatePosition()
     {
         Mecha.PlayerPosition = playerPosition;

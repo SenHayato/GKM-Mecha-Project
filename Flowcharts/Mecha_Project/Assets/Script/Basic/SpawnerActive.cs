@@ -31,12 +31,20 @@ public class SpawnerActive : MonoBehaviour
         {
             yield return new WaitForSeconds(spawnerDuration);
 
+            int rate = Random.Range(0, 100);
             int currentEnemyCount = FindObjectsOfType<EnemyModel>().Length;
             if (currentEnemyCount < maxEnemyInArea) //awal 20
             {
-                int spawnerNumber = Random.Range(0, spawnPrefabs.Length);
-                int spanwerPost = Random.Range(0, spawnerPosition.Length);
-                Instantiate(spawnPrefabs[spawnerNumber], spawnerPosition[spanwerPost].position, Quaternion.identity);
+                if (rate < 60) //1-64
+                {
+                    int prefabNum = Random.Range(0, 2); //0,1
+                    Instantiate(spawnPrefabs[prefabNum], spawnerPosition[prefabNum].position, Quaternion.identity);
+                }
+                else
+                {
+                    int prefabNum = Random.Range(2, 4); //2,3
+                    Instantiate(spawnPrefabs[prefabNum], spawnerPosition[prefabNum].position, Quaternion.identity);
+                }
             }
         }
     }
