@@ -7,6 +7,7 @@ public class MechaPlayer : MonoBehaviour
     public int Health;
     public int MaxHealth;
     public int MinHealth;
+    public int crtiticalHealth;
 
     [Header("Attack")]
     public int AttackPow;

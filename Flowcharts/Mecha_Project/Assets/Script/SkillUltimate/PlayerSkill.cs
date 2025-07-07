@@ -19,7 +19,7 @@ public class PlayerSkill : MonoBehaviour
 
     private void Start()
     {
-        DamageValue += playerData.AttackPow + playerData.skill1Damage;
+        DamageValue += playerData.skill1Damage;
     }
 
     void GiveDamage()
