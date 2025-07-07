@@ -2144,40 +2144,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172027ad863263347a28d3ce74553e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 100000
-  MaxHealth: 100000
+  Health: 35000
+  MaxHealth: 35000
   MinHealth: 0
-  AttackPow: 100
+  AttackPow: 550
   isAttackUp: 0
   Awakening: 0
   MaxAwakening: 500
   MinAwakening: 0
-  AwakeningRegen: 100
-  AwakeningDuration: 25
+  AwakeningRegen: 5
+  AwakeningDuration: 20
   UsingAwakening: 0
   awakeningReady: 0
-  awakeningAttack: 400
+  awakeningAttack: 750
   Ultimate: 0
   MaxUltimate: 100
   MinUltimate: 0
-  UltRegenValue: 30
-  UltDamage: 500
-  UltInterval: 0.25
-  UltDuration: 7
+  UltRegenValue: 5
+  UltDamage: 850
+  UltInterval: 0.3
+  UltDuration: 8
   UltimateRegen: 1
   UltimateReady: 0
   UsingUltimate: 0
   Energy: 0
-  MaxEnergy: 100
+  MaxEnergy: 150
   MinEnergy: 0
-  EngRegenValue: 20
-  EnergyCost: 50
+  EngRegenValue: 50
+  EnergyCost: 75
   EnergyRegen: 1
   readySkill1: 0
   usingSkill1: 0
   skill1Time: 0
   cooldownSkill1: 5
-  skill1Damage: 200
+  skill1Damage: 50
   skill1Duration: 2.2
   readySkill2: 0
   usingSkill2: 0
