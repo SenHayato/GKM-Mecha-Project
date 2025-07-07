@@ -14,7 +14,7 @@ public class PlayerSkillDashDamage : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        damageValue += mechaPlayer.AttackPow + mechaPlayer.skill1Damage;
+        damageValue += mechaPlayer.AttackPow;
     }
 
     void GiveDamage()

@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ded69e114bcf604fbd9d74da9cc59d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ultimateDamage: 2000
+  ultimateDamage: 2500
   ultimateInterval: 0.3
   hitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
 --- !u!33 &7698321135415460221
@@ -1361,11 +1361,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 3
   enemyName: LEAC
-  maxHealth: 300000
-  health: 300000
+  maxHealth: 250000
+  health: 250000
   minHealth: 0
   sightRange: 50
-  attackPower: 1250
+  attackPower: 1050
   attackSpeed: 2
   attackRange: 150
   attackCooldown: 5
@@ -2195,7 +2195,7 @@ MonoBehaviour:
   speed: 40
   enemyModel: {fileID: 2898450529310546367}
   destroyTime: 5
-  damageValue: 3000
+  damageValue: 2500
   slashHitEffect: {fileID: 9111725185115478459, guid: 00002b2d7c7647a49a9c1d51fe4937dc, type: 3}
   gravity: -9.81
   groundCheckDistance: 2
@@ -3267,7 +3267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyModel: {fileID: 2898450529310546367}
-  rammingDamage: 20000
+  rammingDamage: 2500
   hitEffect: {fileID: 9180512688077897234, guid: 0dad4ceeff9578949ad259ced0b08edf, type: 3}
 --- !u!65 &2426163020602272890
 BoxCollider:
@@ -4078,7 +4078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyModel: {fileID: 2898450529310546367}
-  sweepingDamage: 2000
+  sweepingDamage: 1250
   hitEffect: {fileID: 9111725185115478459, guid: 00002b2d7c7647a49a9c1d51fe4937dc, type: 3}
 --- !u!33 &3838454628674218712
 MeshFilter:
@@ -5850,7 +5850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossActive: {fileID: 4753338118726386782}
-  smashDamage: 30000
+  smashDamage: 6500
 --- !u!135 &5820192554517442022
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6349,7 +6349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyModel: {fileID: 2898450529310546367}
-  sweepingDamage: 2000
+  sweepingDamage: 1250
   hitEffect: {fileID: 9111725185115478459, guid: 00002b2d7c7647a49a9c1d51fe4937dc, type: 3}
 --- !u!33 &6823125742572742412
 MeshFilter:

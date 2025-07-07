@@ -1552,11 +1552,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   enemyName: SH0R7
-  maxHealth: 10000
-  health: 1000
+  maxHealth: 35000
+  health: 35000
   minHealth: 0
   sightRange: 15
-  attackPower: 2100
+  attackPower: 1750
   attackSpeed: 2
   attackRange: 3.8
   attackCooldown: 3
@@ -7795,7 +7795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyModel: {fileID: 0}
-  additionalAttackDMG: 0
+  additionalAttackDMG: 500
   enemyPost: {fileID: 3005724068270209631}
   hitSlashEffect: {fileID: 9111725185115478459, guid: 00002b2d7c7647a49a9c1d51fe4937dc, type: 3}
   clawSlashEffect: {fileID: 6615056724436185579, guid: b9844bb0f29be6644bfd1f7282fd4c9c, type: 3}
