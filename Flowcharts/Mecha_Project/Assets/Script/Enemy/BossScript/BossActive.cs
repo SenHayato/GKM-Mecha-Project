@@ -29,31 +29,39 @@ public class BossActive : EnemyActive
 
     public override void Attacking()
     {
-        if (navAgent.enabled && !readyToAttack && !stayPosition)
+        if (!enemyModel.isStunt)
         {
-            //navAgent.stoppingDistance = 6f;
-            navAgent.SetDestination(player.position);
-        }
-
-        //LockRotation();
-        SecondStage();
-        CheckPlayer();
-
-        if (enemyModel.isGrounded)
-        {
-            AttackCooldown();
-
-            if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
+            if (navAgent.enabled && !readyToAttack && !stayPosition)
             {
-                anim.SetBool("Attacking", true);
-                if (!wasAttackTriggered)
+                //navAgent.stoppingDistance = 6f;
+                navAgent.SetDestination(player.position);
+            }
+
+            //LockRotation();
+            SecondStage();
+            CheckPlayer();
+
+            if (enemyModel.isGrounded)
+            {
+                AttackCooldown();
+
+                if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
                 {
-                    wasAttackTriggered = true;
-                    anim.SetTrigger("StartAttack");
-                    RandomRangeAttack();
+                    anim.SetBool("Attacking", true);
+                    if (!wasAttackTriggered)
+                    {
+                        wasAttackTriggered = true;
+                        anim.SetTrigger("StartAttack");
+                        RandomRangeAttack();
+                    }
                 }
             }
         }
+        else
+        {
+            return;
+        }
+        
     }
 
     public void RandomRangeAttack()

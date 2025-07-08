@@ -127,7 +127,7 @@ public class HUDGameManager : MonoBehaviour
         //HealthBar
         healthBar.value = mechaScript.Health;
         healthPoint.text = healthBar.value.ToString();
-        if (healthBar.value <= 25000)
+        if (healthBar.value <= mechaScript.crtiticalHealth)
         {
             healthImage.color = Color.red;
         }
