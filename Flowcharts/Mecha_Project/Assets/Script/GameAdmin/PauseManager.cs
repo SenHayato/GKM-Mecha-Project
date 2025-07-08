@@ -8,7 +8,7 @@ public class PauseManager : MonoBehaviour
     [Header("Pause")]
     [SerializeField] GameMaster gameMaster;
     [SerializeField] string thisSceneName;
-    [SerializeField] SceneAsset menuScene;
+    [SerializeField] string menuScene;
     [SerializeField] LoadingScript loadingScript;
 
     [Header("Image Layout")]
@@ -71,7 +71,7 @@ public class PauseManager : MonoBehaviour
 
     void ExecuteMenu()
     {
-        StartCoroutine(LoadingToMenu(menuScene.name));
+        StartCoroutine(LoadingToMenu(menuScene));
     }
 
     public void ExitToMenu()

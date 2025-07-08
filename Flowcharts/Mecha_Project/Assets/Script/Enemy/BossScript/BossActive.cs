@@ -635,17 +635,17 @@ public class BossActive : EnemyActive
     }
     #endregion
 
-    private void OnDrawGizmos()
-    {
-        if (enemyModel == null) return;
+    //private void OnDrawGizmos()
+    //{
+    //    if (enemyModel == null) return;
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, shootRange);
-        UnityEditor.Handles.Label(transform.position + Vector3.forward * shootRange, "Shoot Range");
+    //    Gizmos.color = Color.yellow;
+    //    Gizmos.DrawWireSphere(transform.position, shootRange);
+    //    UnityEditor.Handles.Label(transform.position + Vector3.forward * shootRange, "Shoot Range");
 
-        Gizmos.color = Color.black;
-        Gizmos.DrawWireSphere(transform.position, meleeRadius);
-        UnityEditor.Handles.Label(transform.position + Vector3.forward * meleeRadius, "Melee Range");
-    }
+    //    Gizmos.color = Color.black;
+    //    Gizmos.DrawWireSphere(transform.position, meleeRadius);
+    //    UnityEditor.Handles.Label(transform.position + Vector3.forward * meleeRadius, "Melee Range");
+    //}
 
 }
