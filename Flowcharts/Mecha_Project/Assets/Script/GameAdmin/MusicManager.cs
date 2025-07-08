@@ -34,8 +34,7 @@ public class MusicManager : MonoBehaviour
     //check
     bool wasPlaying = false;
     bool musicTransition = false;
-    GameObject bossObj;
-    EnemyModel bossModel;
+    BossActive bossModel;
     [SerializeField] float timelerp = 0f;
     float musicLerp = 0f;
     void Awake()
@@ -53,8 +52,7 @@ public class MusicManager : MonoBehaviour
         switch (gameMaster.StageType) //hanya untuk boss stage
         {
             case StageType.StageBoss:
-                bossObj = GameObject.FindGameObjectWithTag("Boss");
-                bossModel = bossObj.GetComponent<EnemyModel>();
+                bossModel = FindObjectOfType<BossActive>();
                 break;
         }
     }
@@ -131,7 +129,7 @@ public class MusicManager : MonoBehaviour
                 }
                 break;
             case StageType.StageBoss: //Dessert Stage Final
-                AudioClip bossClip = bossModel.health <= 50000 ? finalStageBGMAlter : finalStageBGM;
+                AudioClip bossClip = bossModel.SecondState ? finalStageBGMAlter : finalStageBGM;
                 if (musicSource.clip != bossClip)
                 {
                     musicSource.clip = bossClip;
