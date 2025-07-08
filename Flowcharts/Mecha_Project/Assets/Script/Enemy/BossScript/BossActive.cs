@@ -29,31 +29,51 @@ public class BossActive : EnemyActive
 
     public override void Attacking()
     {
-        if (navAgent.enabled && !readyToAttack && !stayPosition)
+        if (!enemyModel.isStunt)
         {
-            //navAgent.stoppingDistance = 6f;
-            navAgent.SetDestination(player.position);
-        }
-
-        //LockRotation();
-        SecondStage();
-        CheckPlayer();
-
-        if (enemyModel.isGrounded)
-        {
-            AttackCooldown();
-
-            if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
+            if (navAgent.enabled && !readyToAttack && !stayPosition)
             {
-                anim.SetBool("Attacking", true);
-                if (!wasAttackTriggered)
+                //navAgent.stoppingDistance = 6f;
+                navAgent.SetDestination(player.position);
+            }
+
+            //LockRotation();
+            SecondStage();
+            CheckPlayer();
+
+            if (enemyModel.isGrounded)
+            {
+                AttackCooldown();
+
+                if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
                 {
-                    wasAttackTriggered = true;
-                    anim.SetTrigger("StartAttack");
-                    RandomRangeAttack();
+                    anim.SetBool("Attacking", true);
+                    if (!wasAttackTriggered)
+                    {
+                        wasAttackTriggered = true;
+                        anim.SetTrigger("StartAttack");
+                        RandomRangeAttack();
+                    }
                 }
             }
         }
+        else
+        {
+            return;
+        }
+        
+    }
+
+    //cuma jalan saat stunt
+    void GetStunt()
+    {
+        foreach (var sweeping in sweepingLaser)
+        {
+            sweeping.SetActive(false);
+        }
+        rammingCollider.SetActive(false);
+        groundHitCollider.SetActive(false);
+        LaserObj.SetActive(false);
     }
 
     public void RandomRangeAttack()
@@ -163,7 +183,7 @@ public class BossActive : EnemyActive
 
     IEnumerator RifleAttack()
     {
-        if (!rifleAttacking) yield break;
+        if (!rifleAttacking || enemyModel.isStunt) yield break;
 
         if (!isFiring)
         {
@@ -188,7 +208,7 @@ public class BossActive : EnemyActive
 
     IEnumerator RifleFire()
     {
-        if (!rifleAttacking) yield break;
+        if (!rifleAttacking || enemyModel.isStunt) yield break;
 
         while (rifleAttacking)
         {
@@ -228,6 +248,8 @@ public class BossActive : EnemyActive
 
     IEnumerator BulletTrail(Vector3 targetPoint, float interval)
     {
+        if (enemyModel.isStunt) yield break;
+
         for (int i = 0; i < Mathf.Min(bulletLaser.Length, muzzleWeapon.Length); i++)
         {
             if (bulletLaser[i] == null || muzzleWeapon[i] == null) continue;
@@ -279,7 +301,7 @@ public class BossActive : EnemyActive
 
     IEnumerator GatlingAttack()
     {
-        if (!gatlingAttacking) yield break;
+        if (!gatlingAttacking || enemyModel.isStunt) yield break;
 
         if (!isFiring)
         {
@@ -304,7 +326,7 @@ public class BossActive : EnemyActive
 
     IEnumerator GatlingFire()
     {
-        if (!gatlingAttacking) yield break;
+        if (!gatlingAttacking || enemyModel.isStunt) yield break;
 
         while (gatlingAttacking)
         {
@@ -365,7 +387,7 @@ public class BossActive : EnemyActive
 
     IEnumerator GroundAttack(Vector3 targetHitPost)
     {
-        if (!groundHit) yield break;
+        if (!groundHit || enemyModel.isStunt) yield break;
 
         anim.SetBool("GroundHit", false);
         while (distanceFromTargetHit >= 1f)
@@ -397,7 +419,7 @@ public class BossActive : EnemyActive
         SetAttackCooldown();
         groundHit = false;
 
-        if (!groundHit) yield break;
+        if (!groundHit || enemyModel.isStunt) yield break;
     }
 
     public void GroundHitColliderEnable()
@@ -428,7 +450,7 @@ public class BossActive : EnemyActive
     IEnumerator MissileAttacking()
     {
         float time = 0f;
-        if (!missileAttack) yield break;
+        if (!missileAttack || enemyModel.isStunt) yield break;
 
         Invoke(nameof(ResetMissile), missileDuration);
         while (time < missileDuration && missileAttack)
@@ -543,6 +565,8 @@ public class BossActive : EnemyActive
 
     IEnumerator RammingToPlayer()
     {
+        if (!rammingAttack || enemyModel.isStunt) yield break;
+
         navAgent.speed = rammingDashSpeed;
         float time = 0f;
         stayPosition = true;
@@ -555,8 +579,6 @@ public class BossActive : EnemyActive
             yield return null;
         }
         RammingReset();
-
-        if (!rammingAttack) yield break;
     }
 
     void RammingReset()
@@ -587,7 +609,7 @@ public class BossActive : EnemyActive
 
     IEnumerator UltimateFacePlayer()
     {
-        if (!ultimateAttack) yield break;
+        if (!ultimateAttack || enemyModel.isStunt) yield break;
 
         float time = 0;
         while (time < ultimateDuration)
@@ -631,7 +653,7 @@ public class BossActive : EnemyActive
         ResetAttack();
         SetAttackCooldown();
 
-        if (!ultimateAttack) yield return null;
+        if (!ultimateAttack|| enemyModel.isStunt) yield break;
     }
     #endregion
 

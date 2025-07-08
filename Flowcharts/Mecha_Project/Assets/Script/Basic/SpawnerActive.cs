@@ -11,9 +11,6 @@ public class SpawnerActive : MonoBehaviour
     [SerializeField] GameMaster gameMaster;
 
     //flag
-    //private int MaxState1;
-    //private int MaxState2;
-    //private int MaxState3;
 
     private void Awake()
     {
@@ -59,8 +56,38 @@ public class SpawnerActive : MonoBehaviour
         }
     }
 
+    bool gameFinish = false;
+    private EnemyModel[] enemyModels;
+
+    void EnemyAllDeath()
+    {
+        if (gameMaster.timer <= 0.1f)
+        {
+            spawnerReady = false;
+        }
+        else
+        {
+            spawnerReady = true;
+        }
+
+        if (gameMaster.timer <= 0f)
+        {
+            enemyModels = FindObjectsOfType<EnemyModel>();
+            if (!gameFinish)
+            {
+                gameFinish = true;
+
+                foreach(var enemy in enemyModels)
+                {
+                    enemy.isDeath = true;
+                }
+            }
+        }
+    }
+
     private void Update()
     {
         SpawnerMaxEnemy();
+        EnemyAllDeath();
     }
 }
