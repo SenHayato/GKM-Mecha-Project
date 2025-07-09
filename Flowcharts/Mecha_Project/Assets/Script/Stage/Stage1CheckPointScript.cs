@@ -64,6 +64,12 @@ public class Stage1CheckPointScript : MonoBehaviour
             {
                 HUDManager.questUIAnim.Play("QuestInfoOut");
             }
+
+            if (checkPointNumber == CheckPointNumber.CheckPoint3)
+            {
+                other.TryGetComponent<MechaPlayer>(out var mechaPlayer);
+                mechaPlayer.Awakening = mechaPlayer.MaxAwakening;
+            }
         }
     }
 
