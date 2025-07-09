@@ -70,7 +70,7 @@ public class PlayerDialogueSystem : MonoBehaviour
     {
         while (true)
         {
-            if (mechaPlayer.Health <= 25000)
+            if (mechaPlayer.Health <= mechaPlayer.crtiticalHealth)
             {
                 if (!criticalTrigger) // Hindari mengulang
                 {
