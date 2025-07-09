@@ -23,6 +23,7 @@ public class BossActive : EnemyActive
 
     [Header("Visual Effect")]
     [SerializeField] GameObject bulletHitEffect;
+    [SerializeField] GameObject dustTrail;
 
     //flag
     bool stayPosition = false;
@@ -74,6 +75,16 @@ public class BossActive : EnemyActive
         rammingCollider.SetActive(false);
         groundHitCollider.SetActive(false);
         LaserObj.SetActive(false);
+    }
+
+    public void EnableDustTrail()
+    {
+        dustTrail.SetActive(true);
+    }
+
+    public void DisableDustTrail()
+    {
+        dustTrail.SetActive(false);
     }
 
     public void RandomRangeAttack()
@@ -437,6 +448,7 @@ public class BossActive : EnemyActive
 
     [Header("MissileAttack")]
     [SerializeField] GameObject bossMissileObj;
+    [SerializeField] GameObject[] missileLaunchEffect;
     public bool missileAttack = false;
     [SerializeField] float missileInterval;
     [SerializeField] float missileDuration;
@@ -445,6 +457,14 @@ public class BossActive : EnemyActive
     {
         missileAttack = true;
         StartCoroutine(MissileAttacking());
+    }
+
+    public void EnableMissileEffect()
+    {
+        foreach (var missile in missileLaunchEffect)
+        {
+            missile.SetActive(true);
+        }
     }
 
     IEnumerator MissileAttacking()
