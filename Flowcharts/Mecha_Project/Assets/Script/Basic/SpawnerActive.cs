@@ -81,8 +81,14 @@ public class SpawnerActive : MonoBehaviour
                 {
                     enemy.isDeath = true;
                 }
+                Invoke(nameof(EnemyModelNull), 2f);
             }
         }
+    }
+
+    void EnemyModelNull()
+    {
+        enemyModels = null;
     }
 
     private void Update()
