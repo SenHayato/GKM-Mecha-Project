@@ -42,7 +42,8 @@ public class RangeEnemy : EnemyActive
         Quaternion targetRotation = Quaternion.LookRotation(direction); //untuk muzzle
         Quaternion lookAtPlayer = Quaternion.LookRotation(lookPlayer); //untuk lihat player
         transform.rotation = Quaternion.Slerp(transform.rotation, lookAtPlayer, Time.deltaTime * rotationSpeed);
-        rayCastSpawn.forward = transform.forward;
+        rayCastSpawn.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        //rayCastSpawn.forward = transform.forward;
 
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
         yield return new WaitForSeconds(timeBeforeAttack);
