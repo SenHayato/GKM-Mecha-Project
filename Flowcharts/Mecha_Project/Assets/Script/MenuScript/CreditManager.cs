@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Video;
 
 public class CreditManager : MonoBehaviour
 {
@@ -11,49 +13,31 @@ public class CreditManager : MonoBehaviour
     //[SerializeField] bool isPressed;
 
     [Header("Credit Properties")]
-    [SerializeField] GameObject creditText;
+    [SerializeField] VideoPlayer videoPlayer;
     [SerializeField] float creditDuration;
-    [SerializeField] float scrollSpeed;
-    [SerializeField] Transform defaultTextPosition;
     //[SerializeField] AudioSource creditSource;
 
     //flag
-    float timeLerp = 0f;
+    //float timeLerp = 0f;
 
     void Awake()
     {
         //creditSource = GetComponent<AudioSource>();
         menuMaster = FindFirstObjectByType<MenuMaster>();
         mainMenuScript = FindFirstObjectByType<MainMenuScript>();
+        creditDuration = (float) videoPlayer.length;
     }
-
-    //private void Start()
-    //{
-    //    //creditDuration = creditSource.clip.length;
-    //}
 
     private void OnEnable()
     {
         //isPressed = false;
-        timeLerp = 0f;
-        creditText.transform.position = defaultTextPosition.position;
+        //timeLerp = 0f;
         StartCoroutine(CreditPlaying());
     }
 
     IEnumerator CreditPlaying()
     {
-        while (timeLerp < 1f) // Selama belum mencapai durasi
-        {
-            timeLerp += Time.deltaTime / creditDuration;
-            float y = Mathf.Lerp(
-                defaultTextPosition.position.y,
-                defaultTextPosition.position.y + scrollSpeed,
-                timeLerp
-            );
-
-            creditText.transform.position = new Vector2(defaultTextPosition.position.x, y);
-            yield return null;
-        }
+        yield return new WaitForSeconds(creditDuration);
 
         // Setelah durasi berakhir
         menuMaster.mainmenuScreenActive = true;
