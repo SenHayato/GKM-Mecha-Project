@@ -110,7 +110,9 @@ public class PlayerActive : MonoBehaviour
         ultimateObj.SetActive(false);
         cameraPivot = CameraAct.cameraPivot;
         wasAiming = false;
-        defaultSpeed = speed;
+        defaultSpeed = Mecha.defaultSpeed;
+        speed = defaultSpeed;
+
         Mecha.skill1Time = Mecha.cooldownSkill1;
         Mecha.skill2Bar = 0;
         Mecha.Ultimate = Mecha.MinUltimate;
