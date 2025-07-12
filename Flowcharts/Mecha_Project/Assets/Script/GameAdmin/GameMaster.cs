@@ -264,8 +264,17 @@ public class GameMaster : MonoBehaviour
         enemyInArea = GameObject.FindGameObjectsWithTag("Enemy").Length;
     }
 
+    void ChangeTime()
+    {
+        if (Input.GetKeyDown(KeyCode.Keypad6))
+        {
+            timer = 10f;
+        }
+    }
+
     public void Update()
     {
+        ChangeTime();
         EnemyCounter();
         BlockInput();
         PauseButton();

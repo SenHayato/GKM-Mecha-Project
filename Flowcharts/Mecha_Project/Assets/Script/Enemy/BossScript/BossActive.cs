@@ -72,6 +72,7 @@ public class BossActive : EnemyActive
         {
             sweeping.SetActive(false);
         }
+        anim.SetBool("Attacking", false);
         rammingCollider.SetActive(false);
         groundHitCollider.SetActive(false);
         LaserObj.SetActive(false);
@@ -430,7 +431,7 @@ public class BossActive : EnemyActive
         SetAttackCooldown();
         groundHit = false;
 
-        if (!groundHit || enemyModel.isStunt) yield break;
+        if (!groundHit) yield break;
     }
 
     public void GroundHitColliderEnable()
@@ -673,7 +674,7 @@ public class BossActive : EnemyActive
         ResetAttack();
         SetAttackCooldown();
 
-        if (!ultimateAttack|| enemyModel.isStunt) yield break;
+        if (!ultimateAttack) yield break;
     }
     #endregion
 
