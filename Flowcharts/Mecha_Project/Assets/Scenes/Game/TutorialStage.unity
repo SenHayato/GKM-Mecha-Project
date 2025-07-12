@@ -5802,7 +5802,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 672859044}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 8fb282d584370b544a89174aba042377, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 86aea30ca9d5e9f4d8c105a6a8c18a1a, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -5815,9 +5815,9 @@ VideoPlayer:
   m_DataSource: 0
   m_TimeUpdateMode: 2
   m_PlaybackSpeed: 1
-  m_AudioOutputMode: 2
+  m_AudioOutputMode: 1
   m_TargetAudioSources:
-  - {fileID: 0}
+  - {fileID: 2102318679}
   m_DirectAudioVolumes:
   - 1
   m_Url: 
@@ -12432,8 +12432,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -100, y: 25}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -140.6674, y: 25}
+  m_SizeDelta: {x: 281.335, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1439597079
 MonoBehaviour:
@@ -12457,8 +12457,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enter to Skip
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b33fac65c077d2a41b8d0adaa3cb1b1d, type: 2}
-  m_sharedMaterial: {fileID: 7362252444279409658, guid: b33fac65c077d2a41b8d0adaa3cb1b1d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 616944ffa579d5d48aa33166eb9134bc, type: 2}
+  m_sharedMaterial: {fileID: -437676386992600248, guid: 616944ffa579d5d48aa33166eb9134bc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -18714,8 +18714,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 143.07419, y: 3.32, z: 94.62071}
-  m_Center: {x: -32.57921, y: -0.79, z: 35.350243}
+  m_Size: {x: 143.07419, y: 15.609452, z: 94.62071}
+  m_Center: {x: -32.57921, y: -6.9347253, z: 35.350243}
 --- !u!1 &2094273116
 GameObject:
   m_ObjectHideFlags: 0

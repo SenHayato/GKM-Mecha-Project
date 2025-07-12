@@ -631,7 +631,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &243522142
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1522,7 +1522,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: bcb94675ae0b21a42bcb2fb12502811f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2289,7 +2289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &568685284
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2706,7 +2706,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &739154534
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3713,8 +3713,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CGClips:
-  - {fileID: 32900000, guid: 8fb282d584370b544a89174aba042377, type: 3}
-  - {fileID: 32900000, guid: cb7968d0f661a3540a876cbb766a30f0, type: 3}
+  - {fileID: 32900000, guid: 86aea30ca9d5e9f4d8c105a6a8c18a1a, type: 3}
+  - {fileID: 32900000, guid: 55839e8c69533244cac40cf72c7eb969, type: 3}
   isPlaying: 0
   skipButton: 13
   videoPlayerCanvas: {fileID: 1634224055}
@@ -4434,7 +4434,7 @@ VideoPlayer:
   m_PlaybackSpeed: 1
   m_AudioOutputMode: 1
   m_TargetAudioSources:
-  - {fileID: 0}
+  - {fileID: 1037228154}
   m_DirectAudioVolumes:
   - 1
   m_Url: 
@@ -5799,7 +5799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1374541910
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6241,7 +6241,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: PRESS ENTER WHEN READY
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b33fac65c077d2a41b8d0adaa3cb1b1d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 616944ffa579d5d48aa33166eb9134bc, type: 2}
   m_sharedMaterial: {fileID: 7362252444279409658, guid: b33fac65c077d2a41b8d0adaa3cb1b1d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -6305,7 +6305,7 @@ MonoBehaviour:
   m_margin: {x: -390.09375, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1508074619
@@ -8445,7 +8445,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 48d1190be7fe0194b84c981892cb3e54, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
