@@ -80,6 +80,7 @@ public class WinScreen : MonoBehaviour
                 wasPlaying = true;
                 if (!isPlaying && wasPlaying)
                 {
+                    videoPlayer.Stop();
                     wasPlaying = false;
                     isPlaying = true;
                     anim.Play("WinScreen");
