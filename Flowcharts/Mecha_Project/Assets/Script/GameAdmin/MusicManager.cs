@@ -141,6 +141,7 @@ public class MusicManager : MonoBehaviour
         if (isPlaying && !wasPlaying)
         {
             wasPlaying = true;
+            musicSource.enabled = true;
             musicSource.Play();
         }
     }
@@ -189,7 +190,14 @@ public class MusicManager : MonoBehaviour
     void Update()
     {
         GameFinish();
-        Invoke(nameof(AudioMonitor), (float)cutSceneManager.videoPlayer.clip.length - 4f);
+        if (!cutSceneManager.isPlaying)
+        {
+            AudioMonitor();
+        }
+        else
+        {
+            musicSource.enabled = false;
+        }
         AwakeningMusicFlap();
         //MusicWhenPause();
         //AudioMonitor();
