@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class WinScreen : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class WinScreen : MonoBehaviour
     [SerializeField] GameObject loadingScreen;
     [SerializeField] KeyCode[] skipButtons;
     [SerializeField] Animation anim;
+    [SerializeField] VideoPlayer videoPlayer;
     [SerializeField] float timeBeforeAnim; //sesuaikan dengan cg win screen
 
     //flag
@@ -18,6 +20,7 @@ public class WinScreen : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animation>();
+        timeBeforeAnim = (float)videoPlayer.clip.length;
     }
 
     private void Start()

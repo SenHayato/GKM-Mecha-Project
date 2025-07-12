@@ -66,13 +66,13 @@ public class BossActive : EnemyActive
     }
 
     //cuma jalan saat stunt
-    void GetStunt()
+    public void GetStunt()
     {
+        anim.SetBool("Attacking", false);
         foreach (var sweeping in sweepingLaser)
         {
             sweeping.SetActive(false);
         }
-        anim.SetBool("Attacking", false);
         rammingCollider.SetActive(false);
         groundHitCollider.SetActive(false);
         LaserObj.SetActive(false);
