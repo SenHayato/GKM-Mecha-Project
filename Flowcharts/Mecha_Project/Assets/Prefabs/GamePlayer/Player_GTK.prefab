@@ -2171,7 +2171,7 @@ MonoBehaviour:
   Energy: 0
   MaxEnergy: 150
   MinEnergy: 0
-  EngRegenValue: 30
+  EngRegenValue: 20
   EnergyCost: 75
   EnergyRegen: 1
   readySkill1: 0
@@ -2198,7 +2198,7 @@ MonoBehaviour:
   isReloading: 0
   isBoosting: 0
   isIdle: 0
-  defaultSpeed: 4
+  defaultSpeed: 5.5
   PlayerPosition: {fileID: 8374242445890558254}
 --- !u!114 &943296785460931720
 MonoBehaviour:
@@ -2394,7 +2394,7 @@ MonoBehaviour:
   dashBoostSpeed: 0
   hitSound: {fileID: 3113853912795343075}
   thrusterSound: {fileID: 6940822125482294001}
-  speed: 4
+  speed: 0
   jumpForce: 15
   gravity: 9.8
   isGrounded: 1
@@ -2404,7 +2404,7 @@ MonoBehaviour:
   skillBusy: 0
   controller: {fileID: 0}
   anim: {fileID: 0}
-  boostDuration: 0.25
+  boostDuration: 0.5
   boostSpeedMultiplier: 10
   boostDistance: 2
   boostDirectionLerp: 1

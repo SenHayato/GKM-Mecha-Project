@@ -110,7 +110,9 @@ public class PlayerActive : MonoBehaviour
         ultimateObj.SetActive(false);
         cameraPivot = CameraAct.cameraPivot;
         wasAiming = false;
-        defaultSpeed = speed;
+        defaultSpeed = Mecha.defaultSpeed;
+        speed = defaultSpeed;
+
         Mecha.skill1Time = Mecha.cooldownSkill1;
         Mecha.skill2Bar = 0;
         Mecha.Ultimate = Mecha.MinUltimate;
@@ -373,22 +375,24 @@ public class PlayerActive : MonoBehaviour
 
         if (Mecha.isBoosting && Mecha.Energy >= Mecha.EnergyCost)
         {
-            playerPosition.rotation = CameraAct.MainCamera.transform.rotation;
+            //playerPosition.rotation = CameraAct.MainCamera.transform.rotation;
+
             skillBusy = true;
             anim.SetFloat("Move", 3f);
-            speed = 14f;
+            speed = 20f;
             Mecha.Energy -= Mecha.EnergyCost;
             while (time < boostDuration)
             {
                 time += Time.deltaTime / boostDirectionLerp;
                 controller.Move(speed * Time.deltaTime * moveDirection); // Gerakan bertahap 
-                windEffect.SetActive(true);
+
+                //windEffect.SetActive(true);
                 yield return null;
             }
         }
         // boost selesai
         yield return new WaitForSeconds(0.05f);
-        windEffect.SetActive(false);
+        //windEffect.SetActive(false);
         skillBusy = false;
         speed = defaultSpeed;
         Mecha.isBoosting = false;
