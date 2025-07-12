@@ -17,6 +17,7 @@ public class CGManager : MonoBehaviour
     [SerializeField] VideoPlayer videoPlayer;
     [SerializeField] AudioSource audioSource;
 
+    [SerializeField] float CGDuration;
     //flag
     bool wasPlaying = false;
 
@@ -29,6 +30,7 @@ public class CGManager : MonoBehaviour
     {
         videoPlayer.clip = CGClips[playCGNumber - 1];
         videoPlayerCanvas.SetActive(true);
+        CGDuration = (float)CGClips[playCGNumber - 1].length;
         isPlaying = true;
     }
 
@@ -47,11 +49,15 @@ public class CGManager : MonoBehaviour
 
         if (isPlaying)
         {
+            //Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             videoPlayer.Play();
-            yield return new WaitForSeconds((float)videoPlayer.clip.length);
+            yield return new WaitForSeconds(CGDuration);
             videoPlayer.clip = null;
             isPlaying = false;
             wasPlaying = false;
+            //Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             videoPlayerCanvas.SetActive(false);
         }
     }
@@ -60,6 +66,8 @@ public class CGManager : MonoBehaviour
     {
         if (isPlaying && Input.GetKeyDown(skipButton))
         {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             videoPlayer.Stop();
             isPlaying = false;
             wasPlaying = false;
