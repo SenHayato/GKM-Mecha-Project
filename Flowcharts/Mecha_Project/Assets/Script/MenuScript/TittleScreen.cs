@@ -32,7 +32,7 @@ public class TittleScreen : MonoBehaviour
 
     IEnumerator PressButtonEnter()
     {
-        if (!isPressed && (Keyboard.current.anyKey.wasPressedThisFrame || Gamepad.current != null && Gamepad.current.buttonEast.wasPressedThisFrame))
+        if (!isPressed && (Keyboard.current.anyKey.isPressed || Gamepad.current != null && Gamepad.current.buttonEast.isPressed))
         {
             isPressed = true;
             tittleClickSFX.Play();
