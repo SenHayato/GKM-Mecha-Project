@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,13 +21,13 @@ public class WinScreen : MonoBehaviour
     private void Awake()
     {
         anim = GetComponent<Animation>();
-        timeBeforeAnim = (float)videoPlayer.clip.length;
     }
 
     private void Start()
     {
+        timeBeforeAnim = (float)videoPlayer.clip.length;
         loadingScreen.SetActive(false);
-        Invoke(nameof(PlayAnimation), timeBeforeAnim);
+        StartCoroutine(PlayAnimation());
     }
 
     IEnumerator LoadingToScene()
@@ -42,21 +43,21 @@ public class WinScreen : MonoBehaviour
         }
     }
 
-    void PlayAnimation()
+    IEnumerator PlayAnimation()
     {
         foreach (var button in skipButtons)
         {
             if (Input.GetKeyDown(button))
             {
-               return;
+                yield break;
             }
         }
 
-        if (!isPlaying)
-        {
-            isPlaying = true;
-            anim.Play("WinScreen");
-        }
+        yield return new WaitForSeconds(timeBeforeAnim);
+
+        isPlaying = true;
+        anim.Play("WinScreen");
+
     }
 
     void LoadingMonitorButton()
