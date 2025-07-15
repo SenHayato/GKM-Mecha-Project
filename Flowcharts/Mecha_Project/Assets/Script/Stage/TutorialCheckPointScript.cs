@@ -103,6 +103,15 @@ public class TurotialCheckPointScript : MonoBehaviour
 
     private void Update()
     {
+        if (visualEffect.enabled)
+        {
+            uiMap.SetActive(true);
+        }
+        else
+        {
+            uiMap.SetActive(false);
+        }
+
         EnemyChecker();
     }
 

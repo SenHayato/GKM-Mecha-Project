@@ -89,6 +89,15 @@ public class Stage1CheckPointScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (visualEffect.enabled)
+        {
+            uiMap.SetActive(true);
+        }
+        else
+        {
+            uiMap.SetActive(false);
+        }
+
         EnemyChecker();
     }
 
