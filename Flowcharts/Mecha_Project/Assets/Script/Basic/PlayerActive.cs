@@ -186,6 +186,7 @@ public class PlayerActive : MonoBehaviour
                 {
                     Skill1();
                     Skill2();
+                    SkillMonitor();
                     StartCoroutine(UseUltimate());
                 }
             }
@@ -681,19 +682,6 @@ public class PlayerActive : MonoBehaviour
             anim.SetTrigger("IsSkill1");
             StartCoroutine(Skill1Dash());
         }
-
-        if (Mecha.usingSkill1)
-        {
-            Mecha.readySkill1 = false;
-            skillBusy = true;
-            Mecha.skill1Time = Mecha.cooldownSkill1;
-            skill2Action.Disable();
-        }
-        else
-        {
-            skillBusy = false;
-            skill2Action.Enable();
-        }
     }
 
     public void EnableDashDamage()
@@ -747,19 +735,6 @@ public class PlayerActive : MonoBehaviour
             anim.SetTrigger("IsSkill2");
             StartCoroutine(Skill2Dash());
         }
-
-        if (Mecha.usingSkill2)
-        {
-            Mecha.readySkill2 = false;
-            skillBusy = true;
-            Mecha.skill2Bar = 0;
-            skill1Action.Disable();
-        }
-        else
-        {
-            skillBusy = false;
-            skill1Action.Enable();
-        }
     }
 
     //panggil sekali di skill
@@ -807,6 +782,35 @@ public class PlayerActive : MonoBehaviour
     public void DisableSkill2HitBox()
     {
         skill2HitBox.SetActive(false);
+    }
+
+    void SkillMonitor()
+    {
+        if (Mecha.usingSkill1)
+        {
+            Mecha.readySkill1 = false;
+            skillBusy = true;
+            Mecha.skill1Time = Mecha.cooldownSkill1;
+            skill2Action.Disable();
+        }
+        else
+        {
+            skillBusy = false;
+            skill2Action.Enable();
+        }
+
+        if (Mecha.usingSkill2)
+        {
+            Mecha.readySkill2 = false;
+            skillBusy = true;
+            Mecha.skill2Bar = 0;
+            skill1Action.Disable();
+        }
+        else
+        {
+            skillBusy = false;
+            skill1Action.Enable();
+        }
     }
 
     #endregion
