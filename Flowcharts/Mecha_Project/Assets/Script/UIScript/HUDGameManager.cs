@@ -26,6 +26,7 @@ public class HUDGameManager : MonoBehaviour
     [SerializeField] private UnityEngine.UI.Slider skill2Bar;
     [SerializeField] private UnityEngine.UI.Slider awakeningBar;
     [SerializeField] private UnityEngine.UI.Image barImage;
+    [SerializeField] private UnityEngine.UI.Image skill2barImage;
     [SerializeField] private GameObject awakeningSlideImage;
     //[SerializeField] private Animator slideAwakenAnim;
 
@@ -93,7 +94,8 @@ public class HUDGameManager : MonoBehaviour
 
     void AwakeningMonitor()
     {
-        Color color = barImage.color;
+        Color awakenBar = barImage.color;
+        Color weaponbar = skill2barImage.color;
         if (mechaScript.UsingAwakening)
         {
             awakeningSlideImage.SetActive(true);
@@ -105,13 +107,24 @@ public class HUDGameManager : MonoBehaviour
 
         if (mechaScript.awakeningReady)
         {
-            color.a = Mathf.PingPong(Time.time * 10f, 1f);
+            awakenBar.a = Mathf.PingPong(Time.time * 10f, 1f);
         }
         else
         {
-            color.a = 1f;
+            awakenBar.a = 1f;
         }
-        barImage.color = color;
+
+        if (mechaScript.readySkill2)
+        {
+            weaponbar.a = Mathf.PingPong(Time.time * 10f, 1f);
+        }
+        else
+        {
+            weaponbar.a = 1f;
+        }
+
+        barImage.color = awakenBar;
+        skill2barImage.color = weaponbar;
     }
 
     public void AmmoMonitor()
