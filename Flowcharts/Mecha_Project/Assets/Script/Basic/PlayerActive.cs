@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -713,9 +714,15 @@ public class PlayerActive : MonoBehaviour
         float speedDash = 20f;
         //Proses
         float time = 0f;
-        Vector3 forward = playerPosition.transform.forward;
+        Vector3 forward = cameraPivot.transform.forward;
         forward.y = 0f;
         forward.Normalize();
+
+        Quaternion targetRotation = cameraPivot.transform.rotation;
+        targetRotation.x = 0f;
+        targetRotation.z = 0f;
+        playerPosition.rotation = targetRotation;
+
         Vector3 moveDirection = (forward * skill1Distance).normalized;
         while (time < dashSkillTime)
         {
@@ -763,9 +770,15 @@ public class PlayerActive : MonoBehaviour
         float speedDash = 10f;
         //Proses
         float time = 0f;
-        Vector3 forward = playerPosition.transform.forward;
+        Vector3 forward = cameraPivot.transform.forward;
         forward.y = 0f;
         forward.Normalize();
+
+        Quaternion targetRotation = cameraPivot.transform.rotation;
+        targetRotation.x = 0f;
+        targetRotation.z = 0f;
+        playerPosition.rotation = targetRotation;
+
         Vector3 moveDirection = (forward * skill2Distance).normalized;
         while (time < dashSkillTime)
         {
