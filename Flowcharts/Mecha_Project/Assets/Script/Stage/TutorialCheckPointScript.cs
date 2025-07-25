@@ -78,6 +78,7 @@ public class TurotialCheckPointScript : MonoBehaviour
         if (nextChekpoint != null)
         {
             nextChekpoint.SetActive(true);
+            gameMaster.checkPointReach++;
         }
         else
         {

@@ -11,6 +11,7 @@ public class GameMaster : MonoBehaviour
     public int checkPointReach;
     [SerializeField] int enemyInArea = 0;
     [SerializeField] string nextScene;
+    public GameObject[] checkPoints;
 
     [Header("GameAdmin")]
     public GameObject PauseMenu;
