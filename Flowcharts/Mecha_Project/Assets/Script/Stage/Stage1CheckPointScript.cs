@@ -28,7 +28,7 @@ public class Stage1CheckPointScript : MonoBehaviour
 
     private void Start()
     {
-        visualEffect = GetComponent<VisualEffect>();
+        visualEffect = GetComponentInChildren<VisualEffect>();
         audioSource = GetComponent<AudioSource>();
         pointCollider = GetComponent<Collider>();
     }
