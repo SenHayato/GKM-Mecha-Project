@@ -159,6 +159,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "LookAtTarget",
+                    "type": "Button",
+                    "id": "2657b80a-1f76-4749-8584-bdf5c9901e4b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "TestAja",
                     "type": "Button",
                     "id": "ccf8dfc4-2479-4fb5-b007-304fec634828",
@@ -743,6 +752,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Awakening",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cb672d1b-cce5-4e3e-8acc-3cac519fdaf4",
+                    "path": "<Gamepad>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "LookAtTarget",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7755a0a0-087d-4584-b1d9-928570c71cd4",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "PC;Mouse",
+                    "action": "LookAtTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

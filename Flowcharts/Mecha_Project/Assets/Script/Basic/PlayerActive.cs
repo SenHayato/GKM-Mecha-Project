@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using UnityEngine.InputSystem;
 
 public class PlayerActive : MonoBehaviour
@@ -10,7 +11,7 @@ public class PlayerActive : MonoBehaviour
 
     // Input
     public InputAction moveAction, jumpAction, flyUp, shootAction, scopeAction, skill1Action, skill2Action,
-        flyDown, blockAction, dashAction, selectButton, ultimateAction, interaction, reloadAction, boostAction, awakeningAction, resetCameraAction;
+        flyDown, blockAction, dashAction, selectButton, ultimateAction, interaction, reloadAction, boostAction, awakeningAction, resetCameraAction, lookTargetAction;
     [Header("Reference")]
     public MechaPlayer Mecha;
     public GameMaster GameMaster;
@@ -141,6 +142,7 @@ public class PlayerActive : MonoBehaviour
         boostAction = gameInput.actions.FindAction("Boost");
         awakeningAction = gameInput.actions.FindAction("Awakening");
         resetCameraAction = gameInput.actions.FindAction("CameraReset");
+        lookTargetAction = gameInput.actions.FindAction("LookAtTarget");
 
         defaultUltDamage = Mecha.UltDamage;
         defaultAttack = Mecha.AttackPow;
@@ -164,6 +166,7 @@ public class PlayerActive : MonoBehaviour
         {
             SKillCooldown();
             AwakeningReady();
+            LookAtCheckPoint();
 
             if (!Mecha.UsingUltimate && !mechaInAwakenState)
             {
@@ -255,6 +258,33 @@ public class PlayerActive : MonoBehaviour
 
         thusterJetVFX.SetFloat("_Thrust", currentThrustValue);
         miniThrusterVFX.SetFloat("_Thrust", currentMiniThrust);
+    }
+
+    void LookAtCheckPoint()
+    {
+        if (GameMaster.checkPoints != null)
+        {
+            if (lookTargetAction.triggered)
+            {
+                StartCoroutine(CheckPointLook());
+            }
+        }
+    }
+
+    float timeCheckLerp = 0.25f;
+    IEnumerator CheckPointLook()
+    {
+        if (GameMaster.checkPoints[GameMaster.checkPointReach] == null) yield break;
+
+        float time = 0f;
+        while (time < timeCheckLerp)
+        {
+            time += Time.deltaTime;
+            Quaternion targetRotation = Quaternion.LookRotation(GameMaster.checkPoints[GameMaster.checkPointReach].transform.position - cameraPivot.position);
+            targetRotation.Normalize();
+            cameraPivot.rotation = Quaternion.Slerp(cameraPivot.rotation, targetRotation, 40f * Time.deltaTime);
+            yield return null;
+        }
     }
 
     void AwakeningReady()

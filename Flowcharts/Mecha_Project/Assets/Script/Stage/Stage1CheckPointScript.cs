@@ -78,6 +78,7 @@ public class Stage1CheckPointScript : MonoBehaviour
         if (nextChekpoint != null)
         {
             nextChekpoint.SetActive(true);
+            gameMaster.checkPointReach++;
         }
         else
         {
