@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Video;
 
@@ -45,7 +46,7 @@ public class CGManager : MonoBehaviour
 
     IEnumerator VideoPlaying()
     {
-        if (Input.GetKeyDown(skipButton)) yield break;
+        if (Input.GetKeyDown(skipButton) || Gamepad.current != null && Gamepad.current.buttonEast.isPressed) yield break;
 
         if (isPlaying)
         {
@@ -64,7 +65,7 @@ public class CGManager : MonoBehaviour
 
     void SkipCG()
     {
-        if (isPlaying && Input.GetKeyDown(skipButton))
+        if (isPlaying && Input.GetKeyDown(skipButton) || Gamepad.current != null && Gamepad.current.buttonEast.isPressed)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -80,7 +81,7 @@ public class CGManager : MonoBehaviour
     {
         SkipCG();
         VideoSetUp();
-        if  (videoPlayer.clip != null)
+        if (videoPlayer.clip != null)
         {
             videoPlayer.SetTargetAudioSource(0, audioSource);
         }
