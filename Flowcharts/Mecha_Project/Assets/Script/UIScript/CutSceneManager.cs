@@ -96,7 +96,7 @@ public class CutSceneManager : MonoBehaviour
 
     public void SkipButton()
     {
-        if (Input.GetKeyDown(skipButton))
+        if (Input.GetKeyDown(skipButton) || Gamepad.current != null && Gamepad.current.buttonEast.isPressed)
         {
             isPlaying = false;
             trigger = false;
