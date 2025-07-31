@@ -19,10 +19,18 @@ public class BulletFisik : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.TryGetComponent<PlayerActive>(out var playerActive))
+        if (collision.collider.CompareTag("Player"))
         {
-            playerActive.TakeDamage(bulletDamage);
+            if (collision.collider.TryGetComponent<PlayerActive>(out var playerActive))
+            {
+                playerActive.TakeDamage(bulletDamage);
+            }
         }
+        else
+        {
+            bulletDamage = 0;
+        }
+
         Instantiate(hitEffect, transform.position, transform.rotation);
         Destroy(gameObject);
     }

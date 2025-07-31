@@ -2283,7 +2283,6 @@ MonoBehaviour:
   combatVoiceAct: {fileID: 0}
   musicManager: {fileID: 0}
   cutSceneManager: {fileID: 0}
-  checkPoint: []
   cameraPivot: {fileID: 0}
   playerPosition: {fileID: 0}
   cameraEffect: {fileID: 0}
@@ -20759,7 +20758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 621961338671287524, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.533
       objectReference: {fileID: 0}
     - target: {fileID: 621961338671287524, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20788,6 +20787,22 @@ PrefabInstance:
     - target: {fileID: 621961338671287524, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 857912679667828356, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
+      propertyPath: m_Size.z
+      value: 0.0035887214
+      objectReference: {fileID: 0}
+    - target: {fileID: 857912679667828356, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
+      propertyPath: m_Center.x
+      value: 1.7237438e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 857912679667828356, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
+      propertyPath: m_Center.y
+      value: -0.00033579016
+      objectReference: {fileID: 0}
+    - target: {fileID: 857912679667828356, guid: 78c0b522a054c4149babbaba47144b96, type: 3}
+      propertyPath: m_Center.z
+      value: 0.0025514676
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
