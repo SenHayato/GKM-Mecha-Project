@@ -17,6 +17,8 @@ public class BossActive : EnemyActive
     public bool playerInRange;
     public float preparingTime;
     public bool hasAttacked;
+    [SerializeField] float NearDistance;
+    public bool playerInNear = false;
 
     [Header("Attack Generator")]
     [SerializeField] int attackNumber;
@@ -32,29 +34,33 @@ public class BossActive : EnemyActive
     {
         if (!enemyModel.isStunt)
         {
+            PlayerInNear();
+            //LockRotation();
+            SecondStage();
+            CheckPlayer();
+
             if (navAgent.enabled && !readyToAttack && !stayPosition)
             {
                 //navAgent.stoppingDistance = 6f;
                 navAgent.SetDestination(player.position);
             }
 
-            //LockRotation();
-            SecondStage();
-            CheckPlayer();
-
             if (enemyModel.isGrounded)
             {
-                //tambah mekanis yang menyerang player dalam jarak sangat dekat dengan boss
-                AttackCooldown();
-
-                if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
+                if (!playerInNear)
                 {
-                    anim.SetBool("Attacking", true);
-                    if (!wasAttackTriggered)
+                    //tambah mekanis yang menyerang player dalam jarak sangat dekat dengan boss
+                    AttackCooldown();
+
+                    if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
                     {
-                        wasAttackTriggered = true;
-                        anim.SetTrigger("StartAttack");
-                        RandomRangeAttack();
+                        anim.SetBool("Attacking", true);
+                        if (!wasAttackTriggered)
+                        {
+                            wasAttackTriggered = true;
+                            anim.SetTrigger("StartAttack");
+                            RandomRangeAttack();
+                        }
                     }
                 }
             }
@@ -164,14 +170,29 @@ public class BossActive : EnemyActive
     #region 360Attack---------------------------------------------------------------------------
     [Header("360 Attack Attribut")]
     [SerializeField] GameObject SwirlAttack;
+
+    void PlayerInNear()
+    {
+        if (distanceFromPlayer < NearDistance)
+        {
+            playerInNear = true;
+        }
+        else
+        {
+            playerInNear = false;
+        }
+    }
+
     public void SwirlAttackEnble()
     {
         SwirlAttack.SetActive(true);
+        stayPosition = true;
     }
 
     public void SwirlAttackDisable()
     {
         SwirlAttack.SetActive(false);
+        stayPosition = false;
     }
     #endregion
 
