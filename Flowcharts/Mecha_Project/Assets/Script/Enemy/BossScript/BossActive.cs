@@ -44,6 +44,7 @@ public class BossActive : EnemyActive
 
             if (enemyModel.isGrounded)
             {
+                //tambah mekanis yang menyerang player dalam jarak sangat dekat dengan boss
                 AttackCooldown();
 
                 if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
@@ -159,6 +160,20 @@ public class BossActive : EnemyActive
         playerInMelee = Physics.CheckSphere(transform.position, meleeRadius, playerLayer);
         playerInRange = Physics.CheckSphere(transform.position, shootRange, playerLayer);
     }
+
+    #region 360Attack---------------------------------------------------------------------------
+    [Header("360 Attack Attribut")]
+    [SerializeField] GameObject SwirlAttack;
+    public void SwirlAttackEnble()
+    {
+        SwirlAttack.SetActive(true);
+    }
+
+    public void SwirlAttackDisable()
+    {
+        SwirlAttack.SetActive(false);
+    }
+    #endregion
 
     #region GatlingAttack dan RifleAttack------------------------------------------------------------------------------------
 
