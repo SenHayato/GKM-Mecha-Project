@@ -7851,7 +7851,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.94716984, b: 0.88113207, a: 1}
-  m_Intensity: 2.0859983
+  m_Intensity: 3.7746582
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -7951,7 +7951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1d0a18a6eb8e64aaba6e0e814e6ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intensity: 2.1
+  intensity: 3.8
 --- !u!1 &1254582440
 GameObject:
   m_ObjectHideFlags: 0
@@ -8227,6 +8227,7 @@ MonoBehaviour:
   checkPointReach: 0
   enemyInArea: 0
   nextScene: Stage3BossFinal
+  checkPoints: []
   PauseMenu: {fileID: 196506268}
   playerInput: {fileID: 0}
   Player: {fileID: 0}
@@ -8241,7 +8242,7 @@ MonoBehaviour:
   fadeOut: {fileID: 470513228}
   KillCount: 0
   timer: 0
-  defaultTimer: 210
+  defaultTimer: 130.1
   timeFormat: 
   countdown: 0
   MechaData: {fileID: 0}
