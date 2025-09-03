@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class BossActive : EnemyActive
 {
@@ -17,7 +19,7 @@ public class BossActive : EnemyActive
     public bool playerInRange;
     public float preparingTime;
     public bool hasAttacked;
-    [SerializeField] float NearDistance;
+    [SerializeField] float NearDistance; //untuk menonaktifkan mode ganti nilai ke 0
     public bool playerInNear = false;
 
     [Header("Attack Generator")]
@@ -62,6 +64,12 @@ public class BossActive : EnemyActive
                             RandomRangeAttack();
                         }
                     }
+                }
+                else
+                {
+                    anim.SetBool("Attacking", false);
+                    anim.ResetTrigger("StartAttack");
+                    anim.SetBool("PlayerInNear", true);
                 }
             }
         }
@@ -191,8 +199,14 @@ public class BossActive : EnemyActive
 
     public void SwirlAttackDisable()
     {
+        Invoke(nameof(ResetSwirlAttack), 1.2f);
         SwirlAttack.SetActive(false);
         stayPosition = false;
+    }
+
+    void ResetSwirlAttack()
+    {
+        anim.SetBool("PlayerInNear", false);
     }
     #endregion
 

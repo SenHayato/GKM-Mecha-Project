@@ -100,7 +100,6 @@ public abstract class EnemyActive : MonoBehaviour
         CheckingSight();
         GettingStunt();
         PlayAnimation();
-
         
         if (enemyModel.isDeath)
         {
