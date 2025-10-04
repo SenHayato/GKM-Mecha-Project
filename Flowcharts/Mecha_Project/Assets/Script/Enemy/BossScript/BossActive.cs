@@ -56,6 +56,7 @@ public class BossActive : EnemyActive
 
                     if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
                     {
+                        enemyModel.isAttacking = true;
                         anim.SetBool("Attacking", true);
                         if (!wasAttackTriggered)
                         {
@@ -181,13 +182,20 @@ public class BossActive : EnemyActive
 
     void PlayerInNear()
     {
-        if (distanceFromPlayer < NearDistance)
+        if (!enemyModel.isAttacking || !enemyModel.isStunt || !enemyModel.isDeath)
         {
-            playerInNear = true;
+            if (distanceFromPlayer < NearDistance)
+            {
+                playerInNear = true;
+            }
+            else
+            {
+                playerInNear = false;
+            }
         }
         else
         {
-            playerInNear = false;
+            return;
         }
     }
 

@@ -217,7 +217,7 @@ public class WeaponRaycast : MonoBehaviour
 
     void VisualEffectSet()
     {
-        fireBulletVFX.SetFloat("SpawnRate", fireRate);
+        fireBulletVFX.SetFloat("SpawnRate_", fireRate);
         if (mechaPlayer.isShooting)
         {
             fireBulletVFX.enabled = true;
