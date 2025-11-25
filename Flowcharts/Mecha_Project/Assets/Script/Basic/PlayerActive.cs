@@ -89,6 +89,9 @@ public class PlayerActive : MonoBehaviour
     [SerializeField] Material miniThrusterVFX; //ambil dari asset file agar terpasang global
     [SerializeField] Material mechaMaterial; //ambil dari asset file agar terpasang global
 
+    [Header("Development")]
+    public bool cheatUndamage = false;
+
     public void Awake()
     {
         musicManager = FindAnyObjectByType<MusicManager>();
@@ -1064,13 +1067,16 @@ public class PlayerActive : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        int damageCal = damage - Mecha.Defence;
-        if (!Mecha.UsingUltimate || !Mecha.undefeat && Mecha.Health <= 0)
+        if (!cheatUndamage)
         {
-            combatVoiceAct.DamageVoice();
-            Mecha.Health -= damageCal;
-            hitSound.Play();
-            StartCoroutine(cameraEffect.HitEffect());
+            int damageCal = damage - Mecha.Defence;
+            if (!Mecha.UsingUltimate || !Mecha.undefeat && Mecha.Health <= 0)
+            {
+                combatVoiceAct.DamageVoice();
+                Mecha.Health -= damageCal;
+                hitSound.Play();
+                StartCoroutine(cameraEffect.HitEffect());
+            }
         }
     }
 

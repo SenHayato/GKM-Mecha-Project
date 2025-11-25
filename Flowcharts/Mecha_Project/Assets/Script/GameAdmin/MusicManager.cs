@@ -136,6 +136,8 @@ public class MusicManager : MonoBehaviour
                     musicSource.Play();
                 }
                 break;
+            case StageType.TestStage:
+                break;
         }
 
         if (isPlaying && !wasPlaying)

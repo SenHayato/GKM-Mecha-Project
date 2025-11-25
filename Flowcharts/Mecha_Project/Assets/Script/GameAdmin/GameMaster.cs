@@ -94,6 +94,10 @@ public class GameMaster : MonoBehaviour
                 QuestText = "ELITE-TYPE ENEMY INCOMING, DESTROY IT";
                 countdown = false;
                 break;
+            case StageType.TestStage:
+                QuestText = "Testing Stage for Development";
+                countdown = false;
+                break;
         }
 
         /*acceptAction = input.actions.FindAction("Accept");
@@ -301,5 +305,5 @@ public class GameMaster : MonoBehaviour
 
 public enum StageType
 {
-    StageTutorial, Stage1, Stage2, StageBoss
+    StageTutorial, Stage1, Stage2, StageBoss, TestStage
 }
