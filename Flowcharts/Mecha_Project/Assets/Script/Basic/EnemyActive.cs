@@ -64,6 +64,8 @@ public abstract class EnemyActive : MonoBehaviour
         gameInput = FindObjectOfType<PlayerInput>(); // Lebih aman FindObjectOfType<PlayerInput>(); jika hanya ada satu
         gameManager = FindObjectOfType<GameMaster>(); // Lebih aman FindObjectOfType<GameMaster>(); jika hanya ada satu
         playerActive = player.GetComponent<PlayerActive>();
+
+        enemyModel.defaultSpeed = navAgent.speed; //setting speed default sekali
     }
 
     private void Start()

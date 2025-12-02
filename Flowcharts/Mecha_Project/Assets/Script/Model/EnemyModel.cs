@@ -19,6 +19,9 @@ public class EnemyModel : MonoBehaviour
     public float attackRange; //boss tidak pakai ini
     public float attackCooldown; //untuk short atau melee enemy
 
+    [Header("Speed")]
+    public float defaultSpeed;
+
     [Header("Status")]
     public bool isUnbeatable;
     //public bool isStaggered;
