@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class ModMenuScript : MonoBehaviour
 {
     [SerializeField] PlayerActive playerActive;
+    [SerializeField] MechaPlayer mechaPlayer;
     [SerializeField] EnemyModel[] enemyModels;
 
     [Header("Enemy PreFabs")]
@@ -15,12 +16,20 @@ public class ModMenuScript : MonoBehaviour
     [SerializeField] GameObject eliteMelee;
     [SerializeField] GameObject eliteRange;
 
+    [Header("PowerUp Prefabs")]
+    [SerializeField] GameObject attackPowerUp;
+    [SerializeField] GameObject defendPowerUp;
+    [SerializeField] GameObject energyPowerUp;
+    [SerializeField] GameObject ultimatePowerUp;
+    [SerializeField] GameObject healthPowerUp;
+
     [Header("Spawner Position")]
     [SerializeField] Transform[] spawnPositions;
     [SerializeField] Transform[] powerSpawnPost;
     void Awake()
     {
         playerActive = FindFirstObjectByType<PlayerActive>();
+        mechaPlayer = FindFirstObjectByType<MechaPlayer>();
     }
 
     void Start()
@@ -29,37 +38,22 @@ public class ModMenuScript : MonoBehaviour
     }
 
 
-    private void LateUpdate()
+    private void Update()
     {
         GetEnemy();
         EnemyNav();
-    }
-
-    void Update()
-    {
-
+        Debug.Log("GetEnemy");
     }
 
     void GetEnemy()
     {
         enemyModels = FindObjectsOfType<EnemyModel>();
-        Debug.Log("GetEnemy");
     }
 
     NavMeshAgent[] enemyNavAgent;
-    bool enemyStopped = false;
     void EnemyNav()
     {
-        if (enemyModels != null)
-        {
-            foreach (var model in enemyModels)
-            {
-                for (int i = 0; i < enemyNavAgent.Length; i++)
-                {
-                    enemyNavAgent[i] = model.GetComponent<NavMeshAgent>();
-                }
-            }
-        }
+        enemyNavAgent = FindObjectsOfType<NavMeshAgent>();
     }
 
     #region PlayerMod --------------------------------------------------------------------
@@ -73,6 +67,16 @@ public class ModMenuScript : MonoBehaviour
         {
             playerActive.cheatUndamage = true;
         }
+    }
+
+    public void PlayerFullMax()
+    {
+        mechaPlayer.Health = mechaPlayer.MaxHealth;
+    }
+
+    public void PlayerFullUlt()
+    {
+        mechaPlayer.Ultimate = mechaPlayer.MaxUltimate;
     }
     #endregion
 
@@ -106,13 +110,27 @@ public class ModMenuScript : MonoBehaviour
 
     public void StartEnemyMove()
     {
-        //if (enemyNavAgent != null)
-        //{
-        //    foreach(var agent in enemyNavAgent)
-        //    {
-        //        agent.speed = enemyModels;
-        //    }
-        //}
+        if (enemyNavAgent != null)
+        {
+            foreach (var agent in enemyNavAgent)
+            {
+                foreach (var model in enemyModels)
+                {
+                    agent.speed = model.defaultSpeed;
+                }
+            }
+        }
+    }
+
+    public void KillAllEnemy()
+    {
+        if (enemyModels != null)
+        {
+            foreach (var model in enemyModels)
+            {
+                model.health = 0;
+            }
+        }
     }
 
     public void StopMovingEnemy()
@@ -134,19 +152,19 @@ public class ModMenuScript : MonoBehaviour
         switch (powerNumber)
         {
             case 1:
-                powerUpToSpawn = bossPrefab;
+                powerUpToSpawn = attackPowerUp;
                 break;
             case 2:
-                powerUpToSpawn = meleeEnemy;
+                powerUpToSpawn = defendPowerUp;
                 break;
             case 3:
-                powerUpToSpawn = rangeEnemy;
+                powerUpToSpawn = energyPowerUp;
                 break;
             case 4:
-                powerUpToSpawn = eliteMelee;
+                powerUpToSpawn = ultimatePowerUp;
                 break;
             case 5:
-                powerUpToSpawn = eliteRange;
+                powerUpToSpawn = healthPowerUp;
                 break;
         }
 
