@@ -168,7 +168,7 @@ public class ModMenuScript : MonoBehaviour
                 break;
         }
 
-        Instantiate(powerUpToSpawn, spawnPositions[powerNumber - 1].position, spawnPositions[powerNumber - 1].rotation);
+        Instantiate(powerUpToSpawn, powerSpawnPost[powerNumber - 1].position, powerSpawnPost[powerNumber - 1].rotation);
         Debug.Log(powerUpToSpawn.name + " spawn");
     }
     #endregion
