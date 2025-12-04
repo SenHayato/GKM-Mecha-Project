@@ -8,6 +8,7 @@ public class MainMenuScript : MonoBehaviour
     [SerializeField] MenuMaster menuMaster;
     [SerializeField] Button[] menuButton;
     [SerializeField] LoadingScript loadingScript;
+    [SerializeField] GameObject textTips;
     public AudioSource menuAudio;
     public bool tipsScreenActive = false;
 
@@ -27,6 +28,7 @@ public class MainMenuScript : MonoBehaviour
         menuButton = GetComponentsInChildren<Button>();
         animPlay = false;
         menuAudio.enabled = true;
+        textTips.SetActive(true);
     }
 
     void ButtonMonitoring()
@@ -68,6 +70,18 @@ public class MainMenuScript : MonoBehaviour
             mainMenuAnim.Play("MainMenuIn");
             animPlay = true;
         }
+    }
+
+    public void DevStageButton()
+    {
+        tipsScreenActive = true;
+        textTips.SetActive(false);
+        Invoke(nameof(LoadingToDevStage), 0.3f);
+    }
+
+    void LoadingToDevStage()
+    {
+        loadingScript.LoadScene("StagePrototype");
     }
 
     public void NewGameButton()

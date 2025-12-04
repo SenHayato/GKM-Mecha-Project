@@ -128,7 +128,7 @@ public class ModMenuScript : MonoBehaviour
         {
             foreach (var model in enemyModels)
             {
-                model.health = 0;
+                model.isDeath = true;
             }
         }
     }
