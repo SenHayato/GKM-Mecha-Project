@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeaponSkill : StateMachineBehaviour
+public class PlayerWeaponSkillState : StateMachineBehaviour
 {
     [SerializeField] MechaPlayer mechaPlayer;
     [SerializeField] PlayerActive playerActive;
