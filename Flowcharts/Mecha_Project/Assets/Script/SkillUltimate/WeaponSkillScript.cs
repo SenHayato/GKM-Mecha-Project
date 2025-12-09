@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Skill2Script : MonoBehaviour
+public class WeaponScript : MonoBehaviour
 {
     [SerializeField] MechaPlayer playerData;
     [SerializeField] PlayerActive playerActive;
