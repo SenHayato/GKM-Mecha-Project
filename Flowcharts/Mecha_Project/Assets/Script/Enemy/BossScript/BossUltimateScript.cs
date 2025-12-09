@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BossUltimateObj : MonoBehaviour
+public class BossUltimateScript : MonoBehaviour
 {
     [SerializeField] int ultimateDamage;
     [SerializeField] float ultimateInterval;
