@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LaserSweepingObj : MonoBehaviour
+public class LaserSweepingScript : MonoBehaviour
 {
     [SerializeField] EnemyModel enemyModel;
     [SerializeField] int sweepingDamage;
