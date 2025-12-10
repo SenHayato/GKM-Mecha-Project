@@ -62,7 +62,7 @@ public class BossActive : EnemyActive
                         {
                             wasAttackTriggered = true;
                             anim.SetTrigger("StartAttack");
-                            RandomRangeAttack();
+                            //RandomRangeAttack();
                         }
                     }
                 }
@@ -581,6 +581,11 @@ public class BossActive : EnemyActive
                 Instantiate(groundSlashObj, spawner.position, spawner.rotation);
             }
         }
+    }
+
+    public void GroundSlashState()
+    {
+        StartCoroutine(ResetGroundSlash());
     }
 
     public IEnumerator ResetGroundSlash()

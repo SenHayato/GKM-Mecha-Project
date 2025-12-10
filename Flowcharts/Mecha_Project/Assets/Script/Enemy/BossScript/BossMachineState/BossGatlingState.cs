@@ -9,6 +9,7 @@ public class BossGatlingState : StateMachineBehaviour
     {
         bossActive = animator.GetComponent<BossActive>();
         bossActive.gatlingAttacking = true;
+        bossActive.GatlingAttackStart();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

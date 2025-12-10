@@ -7,6 +7,7 @@ public class BossRifleState : StateMachineBehaviour
     {
         bossActive = animator.GetComponent<BossActive>();
         bossActive.rifleAttacking = true;
+        bossActive.RifleAttackStart();
     }
 
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

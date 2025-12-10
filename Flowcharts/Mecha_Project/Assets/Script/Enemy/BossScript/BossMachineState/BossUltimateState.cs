@@ -9,7 +9,7 @@ public class BossUltimateState : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         bossActive = animator.GetComponent<BossActive>();
-        bossActive.canStunned = false;
+        bossActive.canStunned = false; //perilaku stunt dinonaktif
     }
 
     //// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
