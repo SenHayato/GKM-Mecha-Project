@@ -82,7 +82,7 @@ public class BossActive : EnemyActive
     }
 
     //cuma jalan saat stunt
-    public void GetStunt()
+    public void GetStun()
     {
         anim.SetBool("Attacking", false);
         foreach (var sweeping in sweepingLaser)
