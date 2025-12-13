@@ -252,7 +252,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 5008845521346622719}
-    m_Position: {x: 240, y: 120, z: 0}
+    m_Position: {x: 280, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 34617259266842010}
     m_Position: {x: 540, y: 120, z: 0}
@@ -261,16 +261,16 @@ AnimatorStateMachine:
     m_Position: {x: 800, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7196663342758423783}
-    m_Position: {x: 790, y: -160, z: 0}
+    m_Position: {x: 800, y: -160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6094341735283608461}
-    m_Position: {x: 1060, y: -10, z: 0}
+    m_Position: {x: 1060, y: -30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1099995978533272072}
     m_Position: {x: 1130, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7818961523471928738}
-    m_Position: {x: 530, y: -20, z: 0}
+    m_Position: {x: 550, y: -20, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 5548953582473807125}
@@ -286,7 +286,7 @@ AnimatorStateMachine:
     second:
     - {fileID: -1052944648042304620}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 810, y: -20, z: 0}
+  m_AnyStatePosition: {x: 820, y: -20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 1400, y: 50, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
@@ -882,7 +882,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Boss Intro
+  m_Name: Intro
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1425,7 +1425,7 @@ AnimatorStateMachine:
     - {fileID: 3054380132101181256}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -20, y: -30, z: 0}
-  m_EntryPosition: {x: 210, y: -60, z: 0}
+  m_EntryPosition: {x: 220, y: -50, z: 0}
   m_ExitPosition: {x: 430, y: 500, z: 0}
   m_ParentStateMachinePosition: {x: 430, y: -60, z: 0}
   m_DefaultState: {fileID: 1940245232480728499}
@@ -1499,7 +1499,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 360AttackMove
+  m_Name: 360Attack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

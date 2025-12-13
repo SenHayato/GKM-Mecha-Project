@@ -156,6 +156,7 @@ public class BossActive : EnemyActive
     void AttackCooldown()
     {
         enemyModel.attackCooldown = Mathf.Max(0f, enemyModel.attackCooldown - Time.deltaTime);
+        Debug.Log("Test Cooldown");
     }
 
     public void SetAttackCooldown()
