@@ -11,6 +11,7 @@ public class ResetMelee : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         enemyActive = animator.GetComponent<EnemyActive>();
+        animator.ResetTrigger("Attack");
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -22,7 +23,7 @@ public class ResetMelee : StateMachineBehaviour
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.ResetTrigger("Attack");
+        //animator.ResetTrigger("Attack");
         enemyActive.navAgent.speed = enemyActive.navDefaultSpeed;
     }
 

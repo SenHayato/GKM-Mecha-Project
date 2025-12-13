@@ -26,6 +26,7 @@ public class EnemyModel : MonoBehaviour
     public bool isUnbeatable;
     //public bool isStaggered;
     public bool isGrounded;
+    public bool isIdle;
     public bool isStunt;
     public bool isAttacking;
     public bool isDeath;

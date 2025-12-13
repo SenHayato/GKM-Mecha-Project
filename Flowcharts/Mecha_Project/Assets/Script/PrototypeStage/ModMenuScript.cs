@@ -117,6 +117,7 @@ public class ModMenuScript : MonoBehaviour
                 foreach (var model in enemyModels)
                 {
                     agent.speed = model.defaultSpeed;
+                    model.isIdle = false;
                 }
             }
         }
@@ -137,9 +138,18 @@ public class ModMenuScript : MonoBehaviour
     {
         if (enemyNavAgent != null)
         {
-            foreach(var agent in enemyNavAgent)
+            foreach (var model in enemyModels)
             {
-                agent.speed = 0;
+                foreach (var agent in enemyNavAgent)
+                {
+                    agent.speed = 0;
+                    agent.enabled = false;
+                }
+
+                model.isIdle = true;
+                model.isPatrolling = false;
+                model.isProvoke = false;
+
             }
         }
     }

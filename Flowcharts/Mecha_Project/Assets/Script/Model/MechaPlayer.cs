@@ -66,6 +66,7 @@ public class MechaPlayer : MonoBehaviour
 
     [Header("Status")]
     public bool undefeat;
+    public bool isMoving;
     public bool isJumping;
     public bool isDeath;
     public bool isBlocking;

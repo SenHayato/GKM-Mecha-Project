@@ -108,34 +108,44 @@ public abstract class EnemyActive : MonoBehaviour
             Death();
             return;
         }
-        
-        if (!enemyModel.isGrounded || enemyModel.isStunt)
-        {
-            if (navAgent.enabled) navAgent.SetDestination(transform.position); // Berhenti bergerak
-            navAgent.enabled = false;
-            //PlayAnimation();
-            return;
-        }
 
-        if (playerInSight && playerInAttackRange)
+        if (!enemyModel.isIdle || navAgent.speed == 0)
         {
-            anim.SetBool("Move", false);
-            Attacking();
-        }
-        else if (playerInSight && !playerInAttackRange)
-        {
-            ChasingPlayer();
-        }
-        else // Musuh Patrol jika kondisi diatas tidak terpenuhi
-        {
-            if (enemyModel.isProvoke)
+            anim.SetBool("IsIdle", false);
+
+            if (!enemyModel.isGrounded || enemyModel.isStunt)
+            {
+                if (navAgent.enabled) navAgent.SetDestination(transform.position); // Berhenti bergerak
+                navAgent.enabled = false;
+                //PlayAnimation();
+                return;
+            }
+
+            if (playerInSight && playerInAttackRange)
+            {
+                anim.SetBool("Move", false);
+                Attacking();
+            }
+
+            else if (playerInSight && !playerInAttackRange)
             {
                 ChasingPlayer();
             }
-            else
+            else // Musuh Patrol jika kondisi diatas tidak terpenuhi
             {
-                Patrolling();
+                if (enemyModel.isProvoke)
+                {
+                    ChasingPlayer();
+                }
+                else
+                {
+                    Patrolling();
+                }
             }
+        }
+        else
+        {
+            anim.SetBool("IsIdle", true);
         }
     }
 

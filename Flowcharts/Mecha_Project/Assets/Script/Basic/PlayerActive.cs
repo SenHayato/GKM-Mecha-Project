@@ -577,6 +577,7 @@ public class PlayerActive : MonoBehaviour
             {
                 trailDust.SetActive(true);
                 Mecha.isIdle = false;
+                Mecha.isMoving = true;
                 Vector3 forward = cameraPivot.transform.forward;
                 Vector3 right = cameraPivot.transform.right;
                 forward.y = 0f;
@@ -611,6 +612,7 @@ public class PlayerActive : MonoBehaviour
             else
             {
                 Mecha.isIdle = true;
+                Mecha.isMoving = false;
                 trailDust.SetActive(false);
                 if (!Mecha.isBoosting)
                 {
@@ -619,7 +621,7 @@ public class PlayerActive : MonoBehaviour
                 }
             }
 
-            if (boostAction.triggered && Mecha.Energy >= Mecha.EnergyCost && !Mecha.isBoosting && !Mecha.isReloading)
+            if (boostAction.triggered && Mecha.Energy >= Mecha.EnergyCost && !Mecha.isBoosting && !Mecha.isReloading && Mecha.isMoving)
             {
                 Mecha.isBoosting = true;
                 anim.SetFloat("Move", 3f);
