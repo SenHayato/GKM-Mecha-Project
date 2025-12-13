@@ -195,12 +195,12 @@ public abstract class EnemyActive : MonoBehaviour
                 navAgent.SetDestination(transform.position);
                 navAgent.enabled = false;
             }
-            anim.SetBool("IsStunt", true);
+            anim.SetBool("IsStun", true);
             stuntVFX.SetActive(true);
         }
         else
         {
-            anim.SetBool("IsStunt", false);
+            anim.SetBool("IsStun", false);
             if (stuntVFX != null && stuntVFX.activeSelf) stuntVFX.SetActive(false);
             if (enemyModel.isGrounded && !navAgent.enabled && !enemyModel.isDeath)
             {
