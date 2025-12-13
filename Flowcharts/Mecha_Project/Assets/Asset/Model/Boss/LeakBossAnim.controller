@@ -1010,7 +1010,7 @@ AnimatorStateMachine:
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
   m_ExitPosition: {x: 830, y: 120, z: 0}
-  m_ParentStateMachinePosition: {x: 760, y: 10, z: 0}
+  m_ParentStateMachinePosition: {x: 800, y: 10, z: 0}
   m_DefaultState: {fileID: -1902529791661172089}
 --- !u!114 &818452490290376977
 MonoBehaviour:
@@ -1088,7 +1088,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AttackReady
+  m_Name: ChoosingAttack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1136,7 +1136,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RammingAttack
+  m_Name: Ramming
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
