@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public abstract class EnemyActive : MonoBehaviour
 {
+    #region Atribut
+
     [Header("EnemyProperties")]
     public EnemyModel enemyModel;
     public NavMeshAgent navAgent;
@@ -54,6 +56,9 @@ public abstract class EnemyActive : MonoBehaviour
     [HideInInspector] public bool wasAttackTriggered = false;
     [HideInInspector] public bool canStunned = true;
 
+    #endregion
+
+    #region SetUp
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -67,6 +72,7 @@ public abstract class EnemyActive : MonoBehaviour
 
         enemyModel.defaultSpeed = navAgent.speed; //setting speed default sekali
     }
+    #endregion
 
     private void Start()
     {
