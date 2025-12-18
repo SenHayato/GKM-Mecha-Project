@@ -102,6 +102,7 @@ public abstract class EnemyActive : MonoBehaviour
         CheckingSight();
         GettingStunt();
         PlayAnimation();
+        PlayerGettingNear();
         
         if (enemyModel.isDeath)
         {
@@ -146,6 +147,14 @@ public abstract class EnemyActive : MonoBehaviour
         else
         {
             anim.SetBool("IsIdle", true);
+        }
+    }
+
+    void PlayerGettingNear()
+    {
+        if (playerInSight = Physics.CheckSphere(transform.position, enemyModel.sightRange, playerLayer))
+        {
+            enemyModel.isIdle = false;
         }
     }
 
