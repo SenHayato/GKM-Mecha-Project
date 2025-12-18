@@ -156,6 +156,10 @@ public abstract class EnemyActive : MonoBehaviour
         {
             enemyModel.isIdle = false;
         }
+        else
+        {
+            return;
+        }
     }
 
     private bool wasGrounded = false;
