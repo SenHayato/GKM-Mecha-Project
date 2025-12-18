@@ -76,6 +76,7 @@ public abstract class EnemyActive : MonoBehaviour
 
     private void Start()
     {
+        enemyModel.isUnbeatable = true;
         stuntVFX.SetActive(false);
         defaultRotation = rotationSpeed;
         navDefaultSpeed = navAgent.speed;
