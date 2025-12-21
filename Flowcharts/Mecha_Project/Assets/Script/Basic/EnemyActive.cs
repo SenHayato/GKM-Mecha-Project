@@ -107,7 +107,6 @@ public abstract class EnemyActive : MonoBehaviour
         Damage(); 
         ApplyGravity();
         CheckingSight();
-        GettingStun();
         PlayAnimationState();
         PlayerGettingNear();
         
@@ -116,6 +115,8 @@ public abstract class EnemyActive : MonoBehaviour
             Death();
             return;
         }
+
+        GettingStun();
 
         if (!enemyModel.isIdle || navAgent.speed == 0)
         {
