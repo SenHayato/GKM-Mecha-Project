@@ -271,7 +271,7 @@ public abstract class EnemyActive : MonoBehaviour
         enemyModel.isHit = false;
     }
 
-    public void Damage()
+    public void Damage() //CheatDamage
     {
         InputAction inputAction = gameInput.actions.FindAction("TestKillEnemy");
         if (inputAction != null && inputAction.triggered) // Cek inputAction tidak null juga
