@@ -57,6 +57,7 @@ public class CloseEnemy : EnemyActive
     public void RandomAttackGen()
     {
         AttackNum = Random.Range(0, 6);
+        anim.SetInteger("AttackIndex", AttackNum);
     }
 
     #endregion
@@ -89,8 +90,6 @@ public class CloseEnemy : EnemyActive
         if (enemyModel.isAttacking)
         {
             anim.SetTrigger("Attack");
-            anim.SetInteger("AttackIndex", AttackNum);
-
             yield return new WaitForSeconds(enemyModel.attackSpeed);
         }
     }
