@@ -299,7 +299,7 @@ public abstract class EnemyActive : MonoBehaviour
 
         hitCollider.enabled = false;
 
-        anim.SetBool("IsStunt", false);
+        //anim.SetBool("IsStun", false);
         anim.SetBool("IsDeath", true);
         deathCollider.enabled = true; // Aktifkan death collider jika diperlukan
         Invoke(nameof(ExplodeVisual), 3.5f);
