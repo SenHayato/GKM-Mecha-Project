@@ -60,7 +60,7 @@ public class RangeEnemy : EnemyActive
         }
     }
 
-    public override void PlayAnimation()
+    public override void PlayAnimationState()
     {
         if (enemyModel.isDeath)
         {

@@ -136,7 +136,7 @@ public class BossActive : EnemyActive
         }
     }
 
-    public override void PlayAnimation()
+    public override void PlayAnimationState()
     {
         return;
     }

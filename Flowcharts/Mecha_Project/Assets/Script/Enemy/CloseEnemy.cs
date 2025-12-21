@@ -61,7 +61,7 @@ public class CloseEnemy : EnemyActive
 
     #endregion
 
-    public override void PlayAnimation()
+    public override void PlayAnimationState()
     {
         //Attack
         if (enemyModel.isAttacking)

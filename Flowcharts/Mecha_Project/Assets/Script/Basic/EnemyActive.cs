@@ -108,7 +108,7 @@ public abstract class EnemyActive : MonoBehaviour
         ApplyGravity();
         CheckingSight();
         GettingStun();
-        PlayAnimation();
+        PlayAnimationState();
         PlayerGettingNear();
         
         if (enemyModel.isDeath)
@@ -283,7 +283,7 @@ public abstract class EnemyActive : MonoBehaviour
     public void Death()
     {
         enemyModel.health = enemyModel.minHealth;
-        enemyModel.isDeath = true;
+        //enemyModel.isDeath = true;
 
         if (bossHUD != null)
         {
@@ -428,5 +428,5 @@ public abstract class EnemyActive : MonoBehaviour
     }
 
     public abstract void Attacking();
-    public abstract void PlayAnimation();
+    public abstract void PlayAnimationState();
 }
