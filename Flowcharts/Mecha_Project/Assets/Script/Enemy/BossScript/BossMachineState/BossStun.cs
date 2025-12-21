@@ -9,6 +9,7 @@ public class BossStun : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         bossActive = animator.GetComponent<BossActive>();
+        animator.SetBool("PlayerInNear", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

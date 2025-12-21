@@ -215,7 +215,6 @@ public abstract class EnemyActive : MonoBehaviour
                 navAgent.SetDestination(transform.position);
                 navAgent.enabled = false;
             }
-            anim.SetBool("PlayerInNear", false);
             anim.SetBool("IsStun", true);
             stuntVFX.SetActive(true);
         }
