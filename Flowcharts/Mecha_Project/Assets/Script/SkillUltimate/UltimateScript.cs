@@ -80,7 +80,7 @@ public class UltimateScript : MonoBehaviour
             {
                 if (hitCollider != null && hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
                 {
-                    enemyActive.DisableStuntFromPlayer(stuntTime);
+                    enemyActive.DisableStunFromPlayer(stuntTime);
                 }
             }
 

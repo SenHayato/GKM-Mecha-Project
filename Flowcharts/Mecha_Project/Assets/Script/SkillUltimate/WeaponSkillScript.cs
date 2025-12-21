@@ -40,7 +40,7 @@ public class WeaponScript : MonoBehaviour
             if (hitCollider.TryGetComponent<EnemyActive>(out var enemy))
             {
                 enemy.enemyModel.isStunt = true;
-                enemy.DisableStuntFromPlayer(timeStunt);
+                enemy.DisableStunFromPlayer(timeStunt);
                 enemy.TakeDamage(damageAdd);
             }
         }

@@ -107,7 +107,7 @@ public abstract class EnemyActive : MonoBehaviour
         Damage(); 
         ApplyGravity();
         CheckingSight();
-        GettingStunt();
+        GettingStun();
         PlayAnimation();
         PlayerGettingNear();
         
@@ -196,17 +196,17 @@ public abstract class EnemyActive : MonoBehaviour
         }
     }
 
-    public void DisableStuntFromPlayer(float timeStunt)
+    public void DisableStunFromPlayer(float timeStunt)
     {
-        Invoke(nameof(DisableStunt), timeStunt);
+        Invoke(nameof(DisableStun), timeStunt);
     }
 
-    void DisableStunt()
+    void DisableStun()
     {
         enemyModel.isStunt = false;
     }
 
-    void GettingStunt()
+    void GettingStun()
     {
         if (enemyModel.isStunt && canStunned)
         {

@@ -595,7 +595,7 @@ AnimatorStateTransition:
   serializedVersion: 3
   m_TransitionDuration: 0.09983315
   m_TransitionOffset: 0
-  m_ExitTime: 0.24471632
+  m_ExitTime: 0
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -923,9 +923,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.12153594
+  m_TransitionDuration: 0.045914054
   m_TransitionOffset: 0
-  m_ExitTime: 0.1185822
+  m_ExitTime: 0
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1129,6 +1129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331930106a2a8934492837fc4e7df247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyModel: {fileID: 0}
+  navAgent: {fileID: 0}
 --- !u!114 &2510978196493459147
 MonoBehaviour:
   m_ObjectHideFlags: 1
