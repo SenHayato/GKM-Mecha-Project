@@ -11,7 +11,6 @@ public class CloseEnemy : EnemyActive
 
     public override void Attacking()
     {
-        //attackTime += Time.deltaTime;
         navAgent.SetDestination(transform.position);
         Vector3 direction = player.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
@@ -19,13 +18,7 @@ public class CloseEnemy : EnemyActive
 
         if (!enemyModel.isAttacking)
         {
-            //float distance = Vector3.Distance(transform.position, player.position);
-
-            //attackTime = 0f;
-            //enemyModel.nextAttackTime = Time.time + enemyModel.attackCooldown;
             enemyModel.isAttacking = true;
-
-            //StartCoroutine(ActiveWeaponCollider());
             Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
         }
     }
