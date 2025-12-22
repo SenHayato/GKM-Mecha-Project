@@ -34,10 +34,10 @@ public class RangeEnemy : EnemyActive
         Vector3 direction = (player.position - transform.position).normalized; //untuk muzzle
         Vector3 lookPlayer = (player.position - transform.position).normalized; //untuk lihat player
 
-        // Random spread untuk miss tembakan
+        // random spread untuk miss tembakan
         float accuracyOffset = missChange; // makin besar makin meleset, untuk default 0.03f
         direction += new Vector3(Random.Range(-accuracyOffset, accuracyOffset), Random.Range(-accuracyOffset, accuracyOffset), 0f);
-        direction.Normalize();
+        direction.Normalize(); //memastikan arah akurat
 
         Quaternion targetRotation = Quaternion.LookRotation(direction); //untuk muzzle
         Quaternion lookAtPlayer = Quaternion.LookRotation(lookPlayer); //untuk lihat player
