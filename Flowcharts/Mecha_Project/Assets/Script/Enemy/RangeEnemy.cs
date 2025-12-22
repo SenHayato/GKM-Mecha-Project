@@ -13,8 +13,8 @@ public class RangeEnemy : EnemyActive
     //private Ray ray;
    
     [Header("RangeWeapon")]
-    [SerializeField] Transform bulletSpawn;
-    [SerializeField] LineRenderer bulletTrail;
+    //[SerializeField] Transform bulletSpawn;
+    //[SerializeField] LineRenderer bulletTrail;
     [SerializeField] bool isBulletSpawn = false;
 
     [Header("Bullet Fisik")]
