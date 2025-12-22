@@ -66,16 +66,6 @@ public class CloseEnemy : EnemyActive
         {
             anim.ResetTrigger("Attack");
         }
-
-        //Death
-        if (enemyModel.isDeath)
-        {
-            anim.SetBool("IsDeath", true);
-        }
-        else
-        {
-            anim.SetBool("IsDeath", false);
-        }
     }
 
     //void AttackAnim()

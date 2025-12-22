@@ -62,15 +62,6 @@ public class RangeEnemy : EnemyActive
 
     public override void PlayAnimationState()
     {
-        if (enemyModel.isDeath)
-        {
-            anim.SetBool("IsDeath", true);
-        }
-        else
-        {
-            anim.SetBool("IsDeath", false);
-        }
-
         //shooting state
         if (playerInAttackRange && enemyModel.isGrounded)
         {
