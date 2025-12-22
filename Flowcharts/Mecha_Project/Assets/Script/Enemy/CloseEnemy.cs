@@ -67,11 +67,11 @@ public class CloseEnemy : EnemyActive
         //Attack
         if (enemyModel.isAttacking)
         {
-            StartCoroutine(AttackAnim());
+            anim.SetTrigger("Attack");
         }
         else
         {
-            StopCoroutine(AttackAnim());
+            anim.ResetTrigger("Attack");
         }
 
         //Death
@@ -85,12 +85,8 @@ public class CloseEnemy : EnemyActive
         }
     }
 
-    IEnumerator AttackAnim()
-    {
-        if (enemyModel.isAttacking)
-        {
-            anim.SetTrigger("Attack");
-            yield return new WaitForSeconds(enemyModel.attackSpeed);
-        }
-    }
+    //void AttackAnim()
+    //{
+    //    anim.SetTrigger("Attack");
+    //}
 }
