@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class RangeEnemy : EnemyActive
 {
     [Header("Komponen Enemy Range")]
-    [SerializeField] Transform rayCastSpawn;
+    [SerializeField] Transform bulletSpawn;
     [SerializeField] GameObject bulletHitEffect;
     [SerializeField] float missChange;
     [SerializeField] float attackSlerpTollerance;
@@ -42,7 +42,7 @@ public class RangeEnemy : EnemyActive
         Quaternion targetRotation = Quaternion.LookRotation(direction); //untuk muzzle
         Quaternion lookAtPlayer = Quaternion.LookRotation(lookPlayer); //untuk lihat player
         transform.rotation = Quaternion.Slerp(transform.rotation, lookAtPlayer, Time.deltaTime * rotationSpeed);
-        rayCastSpawn.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+        bulletSpawn.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         //rayCastSpawn.forward = transform.forward;
 
         float angle = Quaternion.Angle(transform.rotation, targetRotation);
@@ -53,7 +53,7 @@ public class RangeEnemy : EnemyActive
             {
                 enemyModel.isAttacking = true; //buat saklar doang
                 isBulletSpawn = true;
-                Instantiate(bulletObj, rayCastSpawn.position, rayCastSpawn.rotation);
+                Instantiate(bulletObj, bulletSpawn.position, bulletSpawn.rotation);
                 //Debug.DrawRay(rayCastSpawn.position, direction * enemyModel.attackRange, Color.red, 1f);
                 Invoke(nameof(ResetAttack), enemyModel.attackSpeed);
             }
