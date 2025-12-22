@@ -17,7 +17,10 @@ public class EnemyIntroState : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        navAgent.SetDestination(enemyModel.transform.position);
+        if (navAgent.enabled)
+        {
+            navAgent.SetDestination(enemyModel.transform.position);
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
