@@ -71,7 +71,7 @@ public class RangeEnemy : EnemyActive
             anim.SetBool("IsDeath", false);
         }
 
-        //aiming
+        //shooting state
         if (playerInAttackRange && enemyModel.isGrounded)
         {
             anim.SetBool("IsShooting", true);
