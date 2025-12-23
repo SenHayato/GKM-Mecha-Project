@@ -63,7 +63,7 @@ public class BossActive : EnemyActive
                         {
                             wasAttackTriggered = true;
                             anim.SetTrigger("StartAttack");
-                            //RandomRangeAttack();
+                            RandomRangeAttack();
                         }
                     }
                 }
