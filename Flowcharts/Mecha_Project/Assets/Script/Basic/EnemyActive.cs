@@ -431,6 +431,5 @@ public abstract class EnemyActive : MonoBehaviour
 
     public abstract void Attacking();
     public abstract void PlayAnimationState();
-
     public abstract void AttackCooldown();
 }
