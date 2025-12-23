@@ -79,7 +79,6 @@ public class BossActive : EnemyActive
         {
             return;
         }
-        
     }
 
     //cuma jalan saat stunt
