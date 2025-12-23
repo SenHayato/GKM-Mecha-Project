@@ -31,7 +31,7 @@ public class BossActive : EnemyActive
     [SerializeField] GameObject dustTrail;
 
     //flag
-    bool stayPosition = false;
+    bool stayPosition = false; //untuk serangan yang memerlukan Boss untuk diam di tempat
 
     public override void Attacking()
     {
