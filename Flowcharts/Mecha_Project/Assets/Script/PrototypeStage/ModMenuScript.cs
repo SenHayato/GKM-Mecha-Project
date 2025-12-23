@@ -32,10 +32,10 @@ public class ModMenuScript : MonoBehaviour
         mechaPlayer = FindFirstObjectByType<MechaPlayer>();
     }
 
-    void Start()
-    {
+    //void Start()
+    //{
         
-    }
+    //}
 
     private void Update()
     {
