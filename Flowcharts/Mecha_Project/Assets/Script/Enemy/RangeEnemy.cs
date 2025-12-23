@@ -93,6 +93,11 @@ public class RangeEnemy : EnemyActive
         //}
     }
 
+    public override void AttackCooldown()
+    {
+        return;
+    }
+
     //IEnumerator BulletTrailEffect(Vector3 targetHit)
     //{
     //    bulletTrail.SetPosition(0, bulletSpawn.position);

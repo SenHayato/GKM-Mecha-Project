@@ -418,6 +418,12 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: IsStun
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: Attacking
+    m_EventTreshold: 0
+  - m_ConditionMode: 7
+    m_ConditionEvent: AttackIndex
+    m_EventTreshold: 7
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7818961523471928738}
   m_Solo: 0
@@ -835,7 +841,7 @@ AnimatorController:
   - m_Name: AttackIndex
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 2
+    m_DefaultInt: 7
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: Attacking

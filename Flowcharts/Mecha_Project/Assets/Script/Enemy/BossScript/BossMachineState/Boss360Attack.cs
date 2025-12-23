@@ -6,10 +6,11 @@ public class BossSwirlAttack : StateMachineBehaviour
 {
     //[SerializeField] BossActive bossActive;
     //// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
-    //override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    bossActive = animator.GetComponent<BossActive>();
-    //}
+    override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        //bossActive = animator.GetComponent<BossActive>();
+        Debug.Log("360Attack");
+    }
 
     //// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     //override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

@@ -37,12 +37,11 @@ public class ModMenuScript : MonoBehaviour
         
     }
 
-
     private void Update()
     {
         GetEnemy();
         EnemyNav();
-        Debug.Log("GetEnemy");
+        //Debug.Log("GetEnemy");
     }
 
     void GetEnemy()

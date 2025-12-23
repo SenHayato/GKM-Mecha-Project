@@ -9,6 +9,7 @@ public class BossPreparingAttack : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         bossActive = animator.GetComponent<BossActive>();
+        //bossActive.RandomRangeAttack();
         animator.ResetTrigger("StartAttack");
         bossActive.EnableDustTrail();
     }

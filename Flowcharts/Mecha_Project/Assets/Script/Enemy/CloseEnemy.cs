@@ -68,6 +68,11 @@ public class CloseEnemy : EnemyActive
         }
     }
 
+    public override void AttackCooldown()
+    {
+        return;
+    }
+
     //void AttackAnim()
     //{
     //    anim.SetTrigger("Attack");

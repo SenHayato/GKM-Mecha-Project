@@ -120,6 +120,7 @@ public abstract class EnemyActive : MonoBehaviour
 
         if (!enemyModel.isIdle || navAgent.speed == 0)
         {
+            AttackCooldown();
             anim.SetBool("IsIdle", false);
 
             if (!enemyModel.isGrounded || enemyModel.isStunt)
@@ -430,4 +431,6 @@ public abstract class EnemyActive : MonoBehaviour
 
     public abstract void Attacking();
     public abstract void PlayAnimationState();
+
+    public abstract void AttackCooldown();
 }

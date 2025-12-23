@@ -21,6 +21,7 @@ public class BossActive : EnemyActive
     public bool hasAttacked;
     [SerializeField] float NearDistance; //untuk menonaktifkan mode ganti nilai ke 0
     public bool playerInNear = false;
+    [SerializeField] int bossSecondAttackPower;
 
     [Header("Attack Generator")]
     [SerializeField] int attackNumber;
@@ -39,7 +40,7 @@ public class BossActive : EnemyActive
             PlayerInNear();
             //LockRotation();
             SecondStage();
-            CheckPlayer();
+            //CheckPlayer();
 
             if (navAgent.enabled && !readyToAttack && !stayPosition)
             {
@@ -52,7 +53,7 @@ public class BossActive : EnemyActive
                 if (!playerInNear)
                 {
                     //tambah mekanis yang menyerang player dalam jarak sangat dekat dengan boss
-                    AttackCooldown();
+                    //AttackCooldown();
 
                     if (enemyModel.attackCooldown <= 0 && !enemyModel.isAttacking)
                     {
@@ -147,16 +148,16 @@ public class BossActive : EnemyActive
         if (enemyModel.health <= SecondStageHealth)
         {
             SecondState = true;
-            enemyModel.attackPower = 2500;
+            enemyModel.attackPower = bossSecondAttackPower;
             //navDefaultSpeed = 8f;
             //navAgent.speed = 8f;
         }
     }
 
-    void AttackCooldown()
+    public override void AttackCooldown()
     {
         enemyModel.attackCooldown = Mathf.Max(0f, enemyModel.attackCooldown - Time.deltaTime);
-        Debug.Log("Test Cooldown");
+        //Debug.Log("Test Cooldown");
     }
 
     public void SetAttackCooldown()
@@ -183,22 +184,14 @@ public class BossActive : EnemyActive
 
     void PlayerInNear()
     {
-        if (!enemyModel.isAttacking || !enemyModel.isStunt || !enemyModel.isDeath)
-        {
-            if (distanceFromPlayer < NearDistance)
-            {
-                playerInNear = true;
-            }
-            else
-            {
-                playerInNear = false;
-            }
-        }
-        else
+        if (enemyModel.isAttacking || rammingAttack || enemyModel.isStunt || enemyModel.isDeath)
         {
             return;
         }
+
+        playerInNear = distanceFromPlayer < NearDistance;
     }
+
 
     public void SwirlAttackEnble()
     {
@@ -652,9 +645,11 @@ public class BossActive : EnemyActive
     {
         if (!rammingAttack || enemyModel.isStunt) yield break;
 
+        anim.SetBool("Attacking", true);
         navAgent.speed = rammingDashSpeed;
         float time = 0f;
         stayPosition = true;
+        enemyModel.isAttacking = true;
 
         while (time < rammingDuration)
         {
@@ -668,12 +663,16 @@ public class BossActive : EnemyActive
 
     void RammingReset()
     {
+        //Debug.Log("Ramming Reset");
+        attackNumber = 0;
+        anim.SetInteger("AttackIndex", 0);
         SetAttackCooldown();
         navAgent.speed = navDefaultSpeed;
         anim.SetBool("Attacking", false);
         RammingDisable();
         stayPosition = false;
         rammingAttack = false;
+        enemyModel.isAttacking = false;
     }
 
     #endregion
