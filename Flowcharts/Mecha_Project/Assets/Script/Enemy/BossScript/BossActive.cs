@@ -191,7 +191,6 @@ public class BossActive : EnemyActive
         playerInNear = distanceFromPlayer < NearDistance;
     }
 
-
     public void SwirlAttackEnble()
     {
         SwirlAttack.SetActive(true);
