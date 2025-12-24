@@ -123,7 +123,7 @@ public abstract class EnemyActive : MonoBehaviour
             AttackCooldown();
             anim.SetBool("IsIdle", false);
 
-            if (!enemyModel.isGrounded || enemyModel.isStunt)
+            if (!enemyModel.isGrounded || enemyModel.isStun)
             {
                 if (navAgent.enabled) navAgent.SetDestination(transform.position); // Berhenti bergerak
                 navAgent.enabled = false;
@@ -189,7 +189,7 @@ public abstract class EnemyActive : MonoBehaviour
             {
                 beforeHitGround = 20f; //agar tidak jatuh
                 anim.SetBool("IsFalling", false);
-                if (!enemyModel.isStunt && !enemyModel.isDeath && !navAgent.enabled)
+                if (!enemyModel.isStun && !enemyModel.isDeath && !navAgent.enabled)
                 {
                     navAgent.enabled = true;
                     wasGrounded = true;
@@ -205,12 +205,12 @@ public abstract class EnemyActive : MonoBehaviour
 
     void DisableStun()
     {
-        enemyModel.isStunt = false;
+        enemyModel.isStun = false;
     }
 
     void GettingStun()
     {
-        if (enemyModel.isStunt && canStunned)
+        if (enemyModel.isStun && canStunned)
         {
             if (navAgent.enabled)
             {
