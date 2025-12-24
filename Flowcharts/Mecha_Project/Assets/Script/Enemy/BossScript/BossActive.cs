@@ -35,7 +35,7 @@ public class BossActive : EnemyActive
 
     public override void Attacking()
     {
-        if (!enemyModel.isStunt)
+        if (!enemyModel.isStun)
         {
             PlayerInNear();
             //LockRotation();
@@ -183,7 +183,7 @@ public class BossActive : EnemyActive
 
     void PlayerInNear()
     {
-        if (enemyModel.isAttacking || rammingAttack || enemyModel.isStunt || enemyModel.isDeath)
+        if (enemyModel.isAttacking || rammingAttack || enemyModel.isStun || enemyModel.isDeath)
         {
             return;
         }
@@ -246,7 +246,7 @@ public class BossActive : EnemyActive
 
     IEnumerator RifleAttack()
     {
-        if (!rifleAttacking || enemyModel.isStunt) yield break;
+        if (!rifleAttacking || enemyModel.isStun) yield break;
 
         if (!isFiring)
         {
@@ -271,7 +271,7 @@ public class BossActive : EnemyActive
 
     IEnumerator RifleFire()
     {
-        if (!rifleAttacking || enemyModel.isStunt) yield break;
+        if (!rifleAttacking || enemyModel.isStun) yield break;
 
         while (rifleAttacking)
         {
@@ -311,7 +311,7 @@ public class BossActive : EnemyActive
 
     IEnumerator BulletTrail(Vector3 targetPoint, float interval)
     {
-        if (enemyModel.isStunt) yield break;
+        if (enemyModel.isStun) yield break;
 
         for (int i = 0; i < Mathf.Min(bulletLaser.Length, muzzleWeapon.Length); i++)
         {
@@ -364,7 +364,7 @@ public class BossActive : EnemyActive
 
     IEnumerator GatlingAttack()
     {
-        if (!gatlingAttacking || enemyModel.isStunt) yield break;
+        if (!gatlingAttacking || enemyModel.isStun) yield break;
 
         if (!isFiring)
         {
@@ -389,7 +389,7 @@ public class BossActive : EnemyActive
 
     IEnumerator GatlingFire()
     {
-        if (!gatlingAttacking || enemyModel.isStunt) yield break;
+        if (!gatlingAttacking || enemyModel.isStun) yield break;
 
         while (gatlingAttacking)
         {
@@ -450,7 +450,7 @@ public class BossActive : EnemyActive
 
     IEnumerator GroundAttack(Vector3 targetHitPost)
     {
-        if (!groundHit || enemyModel.isStunt) yield break;
+        if (!groundHit || enemyModel.isStun) yield break;
 
         anim.SetBool("GroundHit", false);
         while (distanceFromTargetHit >= 1f)
@@ -522,7 +522,7 @@ public class BossActive : EnemyActive
     IEnumerator MissileAttacking()
     {
         float time = 0f;
-        if (!missileAttack || enemyModel.isStunt) yield break;
+        if (!missileAttack || enemyModel.isStun) yield break;
 
         Invoke(nameof(ResetMissile), missileDuration);
         while (time < missileDuration && missileAttack)
@@ -642,7 +642,7 @@ public class BossActive : EnemyActive
 
     IEnumerator RammingToPlayer()
     {
-        if (!rammingAttack || enemyModel.isStunt) yield break;
+        if (!rammingAttack || enemyModel.isStun) yield break;
 
         anim.SetBool("Attacking", true);
         navAgent.speed = rammingDashSpeed;
@@ -692,7 +692,7 @@ public class BossActive : EnemyActive
 
     IEnumerator UltimateFacePlayer()
     {
-        if (!ultimateAttack || enemyModel.isStunt) yield break;
+        if (!ultimateAttack || enemyModel.isStun) yield break;
 
         float time = 0;
         while (time < ultimateDuration)
