@@ -58,7 +58,7 @@ public class UltimateScript : MonoBehaviour
 
                 if (hitCollider.TryGetComponent<EnemyActive>(out var enemyActive))
                 {
-                    enemyActive.enemyModel.isStunt = true;
+                    enemyActive.enemyModel.isStun = true;
                     enemyActive.TakeDamage(playerData.UltDamage);
                 }
             }
