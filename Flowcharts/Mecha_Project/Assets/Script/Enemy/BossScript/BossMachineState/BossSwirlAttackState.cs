@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossSwirlAttack : StateMachineBehaviour
+public class BossSwirlAttackState : StateMachineBehaviour
 {
     //[SerializeField] BossActive bossActive;
     //// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state

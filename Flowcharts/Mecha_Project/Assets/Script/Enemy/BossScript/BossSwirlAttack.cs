@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Boss360Attack : MonoBehaviour
+public class BossSwirlAttack : MonoBehaviour
 {
     [SerializeField] EnemyModel enemyModel;
     [SerializeField] int attackValue;
