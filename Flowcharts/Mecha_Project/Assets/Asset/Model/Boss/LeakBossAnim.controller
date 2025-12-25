@@ -451,6 +451,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossActive: {fileID: 0}
+  navAgent: {fileID: 0}
+  enemyModel: {fileID: 0}
 --- !u!1102 &-3156847184095897156
 AnimatorState:
   serializedVersion: 6
@@ -841,7 +843,7 @@ AnimatorController:
   - m_Name: AttackIndex
     m_Type: 3
     m_DefaultFloat: 0
-    m_DefaultInt: 7
+    m_DefaultInt: 8
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: Attacking

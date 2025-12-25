@@ -699,7 +699,7 @@ public class BossActive : EnemyActive
             time += Time.deltaTime;
 
             Vector3 direction = player.position - transform.position;
-            //direction.y = 0;
+            direction.Normalize();
             if (direction != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
