@@ -2090,6 +2090,7 @@ MonoBehaviour:
   skill2Duration: 1.15
   Defence: 1000
   undefeat: 0
+  isMoving: 0
   isJumping: 0
   isDeath: 0
   isBlocking: 0
@@ -2329,6 +2330,7 @@ MonoBehaviour:
   thusterJetVFX: {fileID: 2100000, guid: 7531428bda3549847a9488d16e88f131, type: 2}
   miniThrusterVFX: {fileID: 2100000, guid: d0db2f882f2111b45919a215f332c50e, type: 2}
   mechaMaterial: {fileID: 2100000, guid: 70fd8727b1938bd4cacd8f501631f12b, type: 2}
+  cheatUndamage: 0
   baseEmissionColor: {r: 0.7490196, g: 0.24705882, b: 0, a: 1}
 --- !u!143 &7441713671937094606
 CharacterController:
