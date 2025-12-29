@@ -104,7 +104,7 @@ public abstract class EnemyActive : MonoBehaviour
     void Update()
     {
         UIHealthBar(); 
-        Damage(); 
+        Damage(); //cheat damage untuk developing
         ApplyGravity();
         CheckingSight();
         PlayAnimationState();
