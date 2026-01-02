@@ -89,6 +89,10 @@ public class BossActive : EnemyActive
         {
             sweeping.SetActive(false);
         }
+        foreach(var effect in gatlingEffect)
+        {
+            effect.SetActive(false);
+        }
         rammingCollider.SetActive(false);
         groundHitCollider.SetActive(false);
         LaserObj.SetActive(false);
@@ -216,6 +220,7 @@ public class BossActive : EnemyActive
     [SerializeField] Transform[] muzzleWeapon;
     [SerializeField] LineRenderer[] bulletLaser;
     [SerializeField] AudioSource[] bulletSounds;
+    [SerializeField] GameObject[] gatlingEffect; //khusus gatling
     //[SerializeField] Transform rayCastSpawn;
     [SerializeField] float rangeRotationSpeed;
     public bool rifleAttacking = false;
@@ -349,9 +354,14 @@ public class BossActive : EnemyActive
 
         if (gatlingAttacking)
         {
+            foreach (var effect in gatlingEffect)
+            {
+                effect.SetActive(false);
+            }
             gatlingAttacking = false;
             StopCoroutine(GatlingFire());
             StopCoroutine(GatlingAttack());
+
         }
     }
 
@@ -359,6 +369,10 @@ public class BossActive : EnemyActive
     public void GatlingAttackStart()
     {
         StartCoroutine(GatlingAttack());
+        foreach(var effect in gatlingEffect)
+        {
+            effect.SetActive(true);
+        }
     }
 
     IEnumerator GatlingAttack()
