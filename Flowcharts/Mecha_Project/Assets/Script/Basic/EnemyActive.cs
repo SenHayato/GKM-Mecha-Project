@@ -118,7 +118,7 @@ public abstract class EnemyActive : MonoBehaviour
 
         GettingStun();
 
-        if (!enemyModel.isIdle || navAgent.speed == 0)
+        if (!enemyModel.isIdle)
         {
             AttackCooldown();
             anim.SetBool("IsIdle", false);
@@ -156,6 +156,7 @@ public abstract class EnemyActive : MonoBehaviour
         else
         {
             anim.SetBool("IsIdle", true);
+            anim.SetBool("Move", false);
         }
     }
 
