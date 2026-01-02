@@ -132,6 +132,17 @@ public class ModMenuScript : MonoBehaviour
         }
     }
 
+    public void EnemyCriticalHP()
+    {
+        if (enemyModels != null)
+        {
+            foreach(var model in enemyModels)
+            {
+                model.health = 1;
+            }
+        }
+    }
+
     public void KillAllEnemy()
     {
         if (enemyModels != null)
