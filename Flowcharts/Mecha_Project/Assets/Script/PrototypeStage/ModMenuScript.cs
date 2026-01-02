@@ -77,6 +77,16 @@ public class ModMenuScript : MonoBehaviour
     {
         mechaPlayer.Ultimate = mechaPlayer.MaxUltimate;
     }
+
+    public void PlayerSkillWeaponFill()
+    {
+        mechaPlayer.skill2Bar = mechaPlayer.skill2MaxBar;
+    }
+
+    public void PlayerAwakenFill()
+    {
+        mechaPlayer.Awakening = mechaPlayer.MaxAwakening;
+    }
     #endregion
 
     #region EnemyMod ---------------------------------------------------------------------
