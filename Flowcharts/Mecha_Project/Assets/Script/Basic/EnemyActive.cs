@@ -121,7 +121,15 @@ public abstract class EnemyActive : MonoBehaviour
         if (!enemyModel.isIdle)
         {
             AttackCooldown();
-            anim.SetBool("IsIdle", false);
+
+            if (patrolPoints == null)
+            {
+                anim.SetBool("IsIdle", true);
+            }
+            else
+            {
+                anim.SetBool("IsIdle", false);
+            }
 
             if (!enemyModel.isGrounded || enemyModel.isStun)
             {
@@ -336,9 +344,9 @@ public abstract class EnemyActive : MonoBehaviour
 
     void Patrolling()
     {
-        enemyModel.isPatrolling = true; 
+        enemyModel.isPatrolling = true;
         navAgent.speed = navDefaultSpeed;
-
+        anim.SetBool("Move", true);
         if (walkPointSet)
         {
             if (navAgent.enabled)
