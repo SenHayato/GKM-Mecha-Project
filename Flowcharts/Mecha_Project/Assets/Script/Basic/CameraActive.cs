@@ -39,6 +39,9 @@ public class CameraActive : MonoBehaviour
     public Quaternion defaultCamRot;
     [SerializeField, Range(0f, 5f)] float collisionOffset;
     [SerializeField, Range(0f, 20f)] float offsetSmooth;
+
+    float keyboardSpeed = 40f;
+    float gamepadSpeed = 150f;
     
     //Flag
     private Vector3 currentRecoil;
@@ -56,6 +59,7 @@ public class CameraActive : MonoBehaviour
     }
     private void Start()
     {
+        rotationSpeed = keyboardSpeed;
         cameraAimPost = GameObject.FindGameObjectWithTag("AimCameraPosition").transform;
         MainCamera = MainCameraOBJ.GetComponentInChildren<Camera>();
         lookAction = cameraControl.actions.FindAction("Look");
@@ -194,6 +198,25 @@ public class CameraActive : MonoBehaviour
         }
     }
 
+    void RotationByInputDevice()
+    {
+        if (!Mecha.isAiming)
+        {
+            switch (cameraControl.currentControlScheme)
+            {
+                case "PC":
+                    rotationSpeed = keyboardSpeed;
+                    //usingGamepad = false;
+                    break;
+
+                case "Gamepad":
+                    rotationSpeed = gamepadSpeed;
+                    //usingGamepad = true;
+                    break;
+            }
+        }
+    }
+
     bool wasAwaken = false;
     public void AwakeningCameraPost()
     {
@@ -206,6 +229,7 @@ public class CameraActive : MonoBehaviour
 
     private void Update()
     {
+        RotationByInputDevice();
         if (!PlayerAct.mechaInAwakenState)
         {
             wasAwaken = false;
