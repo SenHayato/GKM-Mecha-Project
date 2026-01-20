@@ -63,6 +63,9 @@ public class GameMaster : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         cutSceneManager = FindFirstObjectByType<CutSceneManager>();
         loadingScript = FindObjectOfType<LoadingScript>();
+
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
     }
 
     private void Start()
